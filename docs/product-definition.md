@@ -27,7 +27,7 @@
 1. **买单者/战略语义**：站免费，但"买单"的是**信任**——用户/组织为"可信的 agent 技能供给、降低供应链风险"而依赖它。战略目标：成为 agent 生态的 skill 发现事实入口。
 2. **领域模型语义**：`SourceRepo`（被收录的公开技能仓）、`Skill`、`Assessment`（health / security / language 三类信号）、`TrustSignal`、`Index`（机器可读产物）、`SubmissionRequest`（收录请求）。
 3. **产品语义**：三层——**门面**（Human 查阅器 / 收录请求 / `llm.txt`）、**护城河**（AI-ready 处理）、**分发**（agent 侧 skill 薄客户端）。
-4. **技术语义**：离线流水（爬取 + 评估 + grounding）→ 生成 `index.json` + `llm.txt`（静态托管）→ agent 侧 `awsomeskills-finder` skill 读取 → 静态站消费同一 index。**无常驻服务端。**
+4. **技术语义**：离线流水（爬取 + 评估 + grounding）→ 生成 `index.json` + `llm.txt`（静态托管）→ agent 侧 `awsomeskills` skill 读取 → 静态站消费同一 index。**无常驻服务端。**
 5. **使用者语义**：**Human**（浏览、评估、提交收录）；**Agent**（装一个 finder skill，按需查静态 index、只拿到经评估的 skill）；**Maintainer**（跑离线流水、审收录请求）。
 
 ## 3. 核心原则：trust over coverage
@@ -54,7 +54,7 @@
 - **plugin：CC 侧分发糖。** 后期可把 finder skill（未来加 MCP + `/awsomeskills` command）打包成 plugin 走 marketplace，但那是"怎么装"，不是"用什么接口"。
 
 **闭环（纯 skill + 静态 index，可跑通）**：
-1. agent 需要一个没有的能力 → 触发 `awsomeskills-finder`
+1. agent 需要一个没有的能力 → 触发 `awsomeskills`
 2. skill `curl` 静态 `index.json` → 按 trust 筛 → 返回候选（带 health/security/zh）
 3. agent 选定 → skill 指导/执行安装（目标 skill 多为 Agent Skills 标准：`git clone` / 复制到 `.claude/skills/`）
 4. index 带 `source_url` + 每文件 `sha256` → 拉完**校验 digest 再落地**（对齐 SEP-2640 精神），在 skill 脚本内完成
@@ -93,7 +93,7 @@
 MVP 做：
 1. `registry/sources.toml`：**首批几十个高信号种子源**（已抓取的 trending skill 仓 + 调研确认的头部仓）。
 2. `processing/build_index.py`：读 sources → 调 GitHub API 取真实活跃度 → 算 health / 检测 zh → 生成 `index.json` + `llm.txt`。
-3. `skills/awsomeskills-finder/`：薄客户端 skill（读静态 index，筛选，指导安装，digest 校验）。
+3. `skills/awsomeskills/`：薄客户端 skill（读静态 index，筛选，指导安装，digest 校验）。
 4. `site/`：极简 Human 查阅器（静态，fetch 同一 index.json）。
 
 MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建、包管理 lockfile、账号体系、执行隔离（见责任边界）。
