@@ -52,13 +52,16 @@
   <div class="install-head"><strong>Use with your agent</strong> <span>— let it find &amp; pull vetted skills on demand; pick one:</span></div>
   <div class="install-grid">
     <div class="ins-card">
-      <div class="ins-t">Claude Code · plugin (one-click)</div>
+      <div class="ins-t">Claude Code · plugin (recommended)</div>
       <pre>/plugin marketplace add maxzyma/awesomeskills
 /plugin install awesomeskills@awesomeskills</pre>
     </div>
     <div class="ins-card">
-      <div class="ins-t">Claude Code · install the skill</div>
+      <div class="ins-t">Claude Code · install manually</div>
       <pre>git clone https://github.com/maxzyma/awesomeskills
+# all projects (recommended for a finder):
+cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/
+# or this project only:
 cp -r awesomeskills/skills/awesomeskills .claude/skills/</pre>
     </div>
     <div class="ins-card">

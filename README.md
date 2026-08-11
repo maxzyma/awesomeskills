@@ -13,19 +13,23 @@ discover, evaluate, and pull a skill on its own — not just a human browsing a 
 
 Let your agent discover & pull vetted skills on demand. Pick one:
 
-**Claude Code · plugin (one-click)**
+**Claude Code · plugin (recommended)** — one-click, updatable
 ```
 /plugin marketplace add maxzyma/awesomeskills
 /plugin install awesomeskills@awesomeskills
 ```
 
-**Claude Code · install the skill manually**
+**Claude Code · install manually**
 ```
 git clone https://github.com/maxzyma/awesomeskills
+# all projects (recommended for a finder):
+cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/
+# or this project only:
 cp -r awesomeskills/skills/awesomeskills .claude/skills/
 ```
-Then ask your agent for a capability it doesn't have; the `awesomeskills` skill queries the
-index, ranks by trust, and returns vetted candidates with install guidance.
+`~/.claude/skills/` is personal (available in every project); `.claude/skills/` is scoped to
+one project. Then ask your agent for a capability it doesn't have; the `awesomeskills` skill
+queries the index, ranks by trust, and returns vetted candidates with install guidance.
 
 **Any LLM · just read the index**
 Point it at `https://awesomeskills.io/llm.txt` (navigation) or `/index.json` (full data).
