@@ -1,0 +1,21 @@
+{
+  "name": "awesomeskills",
+  "owner": {
+    "name": "maxzyma"
+  },
+  "metadata": {
+    "description": "Trust-first discovery of public agent skills — let your agent find and pull vetted skills on demand.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "awesomeskills",
+      "description": "Find a trustworthy public skill when you need a capability you don't have installed. Queries the awesomeskills index (real-activity health / security / Chinese-coverage signals) and returns vetted candidates with install guidance.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/awesomeskills"
+      ]
+    }
+  ]
+}
