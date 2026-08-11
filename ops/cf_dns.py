@@ -28,6 +28,7 @@ from pathlib import Path
 
 CF_API = "https://api.cloudflare.com/client/v4"
 GH_PAGES_IPS = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
+GH_PAGES_IPS_V6 = ["2606:50c0:8000::153", "2606:50c0:8001::153", "2606:50c0:8002::153", "2606:50c0:8003::153"]
 CREDS_FILE = Path.home() / ".config" / "awesomeskills" / "cf.env"
 
 
@@ -106,16 +107,20 @@ def main(argv: list[str]) -> int:
         rtype, name, content = argv[1], argv[2], argv[3]
         upsert(token, zid, rtype, zone if name == "@" else name, content)
     elif cmd == "set-github-pages":
-        print(f"setting GitHub Pages apex A records on {zone} (DNS-only):")
+        print(f"setting GitHub Pages apex A/AAAA records on {zone} (DNS-only):")
         for ip in GH_PAGES_IPS:
             upsert(token, zid, "A", zone, ip, proxied=False)
+        for ip in GH_PAGES_IPS_V6:
+            upsert(token, zid, "AAAA", zone, ip, proxied=False)
     elif cmd == "delete":
         rtype, name, content = argv[1], argv[2], argv[3]
         delete(token, zid, rtype, zone if name == "@" else name, content)
     elif cmd == "unset-github-pages":
-        print(f"removing GitHub Pages apex A records on {zone}:")
+        print(f"removing GitHub Pages apex A/AAAA records on {zone}:")
         for ip in GH_PAGES_IPS:
             delete(token, zid, "A", zone, ip)
+        for ip in GH_PAGES_IPS_V6:
+            delete(token, zid, "AAAA", zone, ip)
     else:
         sys.exit(f"unknown command: {cmd}")
     return 0
