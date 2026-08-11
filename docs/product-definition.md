@@ -109,7 +109,7 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 ## 9. 引用方向与复用边界（硬约束）
 
 - 这是**公开仓**：按 coworkspace 规则，**公开（外部）不能引用内部**。
-- 可复用（公开）：`article-pivot`（canonical + 处理适配器内核）、`catalog.toml` schema 范式、`ohmyskills` 里 grounding 的**公开 SKILL 部分**。
+- 可复用（公开）：`article-pivot` —— **借鉴范式 + 裁剪双语/归档组件，不直接 pip 依赖**（评估见 `docs/article-pivot-fit.md`：它无 Markdown/frontmatter 入口、校验绑死文章语义，需自建 skill 语义层）；`catalog.toml` schema 范式；`ohmyskills` 里 grounding 的**公开 SKILL 部分**。
 - **不可进本仓**：`automations/` 下的内部编排、凭证、调度、内部 profile 配置。
 
 ## 10. 开放问题（待人工收敛）
@@ -120,4 +120,4 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 - [ ] 静态托管选型：GitHub raw vs Pages vs CF Pages；awsomeskills.io 接入与 `llm.txt` 路由。
 - [ ] health 公式校准：当前为启发式 v0，需用真实样本回归（首跑 12 源多在 99-100，区分度不足）。
 - [ ] zh 检测增强：当前仅看 GitHub description/language，首跑 zh 命中 0（含中文社区仓，因其 description 为英文）；应扩展到 README/topics/owner 语言。
-- [ ] `article-pivot` 适配成本：其 canonical 面向文章，skill 是代码+SKILL.md，模型是否直接可用。
+- [x] `article-pivot` 适配成本：已评估（`docs/article-pivot-fit.md`）——借鉴范式 + 裁剪双语/归档组件，不直接复用，成本中等偏大；需自建 Markdown+frontmatter 入口与 skill 语义层。
