@@ -51,7 +51,16 @@
 
 - **选定：单 skill 薄客户端 + 静态 `index.json`/`llm.txt`。** 零常驻服务：`index.json` 静态托管（GitHub raw / Pages / 对象存储），finder skill 每次 `curl` 拉最新——数据集中更新无需 server。
 - **MCP：可选未来项。** remote MCP 需自托管常驻 server（正是当前不做的）；local MCP 更重且丢集中价值。等愿意托管 server（做大规模搜索/埋点/鉴权）再上，届时 `index.json` 直接作数据源，不浪费。
-- **plugin：CC 侧分发糖。** 后期可把 finder skill（未来加 MCP + `/awesomeskills` command）打包成 plugin 走 marketplace，但那是"怎么装"，不是"用什么接口"。
+- **plugin：Claude Code 首推安装入口（已实现）。** `.claude-plugin/marketplace.json` 已就绪，`/plugin marketplace add maxzyma/awesomeskills` + `/plugin install awesomeskills@awesomeskills` 一键安装、可更新，与官方 `anthropics/skills` 一致（官方只给 plugin 通道）。plugin 是"怎么装"，不改变"单 skill + 静态 index"这个接口本质。
+
+### 安装 / 分发边界（原则，勿违反）
+
+跨 agent 分发时，**只负责我们权威的部分，别人的落盘位置指向其官方文档、不复制、不维护对照表**：
+
+- **First-party（我们权威）**：Claude Code plugin marketplace 是我们的，讲清楚、我们负责（一键 install + 手动 `~/.claude/skills/` 全局 / `.claude/skills/` 项目）。
+- **Third-party（各 agent 落盘目录）**：**不维护各 agent 目录对照表**。理由：① 易腐（各 agent 目录常变，如 `~/.codex/skills` 是社区误传、官方实为 `~/.agents/skills`）；② 越界（`agentskills.io` 标准把落盘位置留给各 agent 实现，我们是发现/评估层不是安装器）；③ 制造第二事实源必然漂移，且写错反噬"可信"招牌。正确做法：**指向各 agent 官方文档**。
+- **跨 agent 中立默认**：`.agents/skills/`（项目）/ `~/.agents/skills/`（全局）是收敛中的中立路径（Codex/Gemini/Amp/Goose/Cursor 都读；Claude Code 用 `.claude/skills`，其它多接受它作 fallback）。文档给这个"够用默认"即可。
+- **我们只担保**：skill 是标准的（agentskills.io）、可信的（trust 信号）、任何 agent 都能消费；**落盘是各 agent 的事**。
 
 **闭环（纯 skill + 静态 index，可跑通）**：
 1. agent 需要一个没有的能力 → 触发 `awesomeskills`
