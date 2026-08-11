@@ -31,9 +31,13 @@
   footer { max-width: 960px; margin: 0 auto 48px; padding: 0 24px; color: var(--muted); font-size: 12px; }
   .empty { color: var(--muted); padding: 24px 0; }
   .install { max-width: 960px; margin: 6px auto 0; padding: 8px 24px 10px; background: #f6f7fb; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .install-head { font-size: 12px; margin: 0 0 6px; }
-  .install-head strong { color: var(--fg); }
-  .install-head span { color: var(--muted); }
+  .install-fold > summary { cursor: pointer; font-size: 12px; list-style: none; user-select: none; }
+  .install-fold > summary::-webkit-details-marker { display: none; }
+  .install-fold > summary::before { content: "\25B8  "; color: var(--muted); }
+  .install-fold[open] > summary::before { content: "\25BE  "; }
+  .install-fold > summary strong { color: var(--fg); }
+  .install-fold > summary span { color: var(--muted); }
+  .install-fold[open] > summary { margin-bottom: 8px; }
   .install-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
   .ins-card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; }
   .ins-t { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
@@ -49,7 +53,8 @@
   <p class="lede">We don't index the most skills. We index the most <em>trustworthy</em> ones — real activity (not stars), security rating, Chinese coverage.</p>
 </header>
 <section class="install">
-  <div class="install-head"><strong>Use with your agent</strong> <span>— let it find &amp; pull vetted skills on demand; pick one:</span></div>
+  <details class="install-fold">
+    <summary><strong>Use with your agent</strong> <span>— install the finder for your agent</span></summary>
   <div class="install-grid">
     <div class="ins-card">
       <div class="ins-t">Claude Code · plugin (recommended)</div>
@@ -72,6 +77,7 @@ your agent expects (most read
 Read-only: awesomeskills.io/llm.txt</pre>
     </div>
   </div>
+  </details>
   <p class="submit-line">Know a good skill we're missing? <a href="https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml">Submit it for inclusion →</a></p>
 </section>
 <div class="bar">
