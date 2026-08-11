@@ -1,0 +1,50 @@
+name: Submit a skill for inclusion
+description: Request that a public skill / skill repo be indexed by awesomeskills
+title: "[submit] <owner/repo>"
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for a submission! We index **public** skills only, and rank by real activity
+        (not stars), security, and language coverage. Browse existing entries at
+        [awesomeskills.io](https://awesomeskills.io) before submitting to avoid duplicates.
+  - type: input
+    id: repo
+    attributes:
+      label: GitHub repo (owner/repo or URL)
+      description: Must be a public github.com repository. Internal / private repos are out of scope.
+      placeholder: owner/repo
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - skill (single SKILL.md)
+        - skill-collection (many SKILL.md)
+        - awesome-list
+        - plugin-marketplace
+        - registry
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it trustworthy / worth indexing?
+      description: Real usage, active maintenance, what it does well. Not just "it has stars".
+    validations:
+      required: true
+  - type: checkboxes
+    id: coverage
+    attributes:
+      label: Coverage
+      options:
+        - label: Covers Chinese-language scenarios (中文)
+        - label: I am the author / maintainer of this repo
+  - type: input
+    id: notes
+    attributes:
+      label: Anything else (optional)
+      placeholder: security notes, specific skills to highlight, etc.

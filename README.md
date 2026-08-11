@@ -33,6 +33,12 @@ Point it at `https://awesomeskills.io/llm.txt` (navigation) or `/index.json` (fu
 > awesomeskills is an **evaluator, not an executor** — it surfaces trust signals; sandboxing a
 > pulled skill is the host agent's responsibility.
 
+## Submit a skill
+
+Know a good public skill we're missing?
+**[Open a submission request](https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml)** —
+we review for real activity, security, and language coverage before indexing.
+
 ## Layout
 
 | Dir | Role |
