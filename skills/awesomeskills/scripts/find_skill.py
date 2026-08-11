@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thin client: query the awsomeskills static index for trustworthy skills.
+"""Thin client: query the awesomeskills static index for trustworthy skills.
 
 No server. Reads a static index.json (hosted URL or local repo copy), filters by
 the requested capability, ranks by real-activity health, prints ranked candidates.
@@ -18,8 +18,8 @@ import sys
 import urllib.request
 from pathlib import Path
 
-# Published index (M1): GitHub raw off the public repo. awsomeskills.io can front this later.
-HOSTED_DEFAULT = "https://raw.githubusercontent.com/maxzyma/awsomeskills/main/registry/index.json"
+# Published index (M1): GitHub raw off the public repo. awesomeskills.io can front this later.
+HOSTED_DEFAULT = "https://raw.githubusercontent.com/maxzyma/awesomeskills/main/registry/index.json"
 LOCAL_FALLBACK = Path(__file__).resolve().parents[3] / "registry" / "index.json"
 
 
@@ -30,7 +30,7 @@ def resolve_index_url(cli_url: str | None) -> str:
 
 def load_index(url: str) -> dict:
     if url.startswith(("http://", "https://")):
-        req = urllib.request.Request(url, headers={"User-Agent": "awsomeskills"})
+        req = urllib.request.Request(url, headers={"User-Agent": "awesomeskills"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode("utf-8"))
     return json.loads(Path(url).read_text(encoding="utf-8"))

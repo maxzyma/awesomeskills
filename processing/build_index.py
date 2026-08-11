@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the awsomeskills static index from registry/sources.toml.
+"""Build the awesomeskills static index from registry/sources.toml.
 
 Offline batch job — NO server. For each curated source repo it:
   - queries the GitHub API for real activity signals -> heuristic health (repo-level)
@@ -83,7 +83,7 @@ def _parse_sources_fallback(text: str) -> list[dict]:
 def _get(url: str, token: str | None, accept: str = "application/vnd.github+json", raw: bool = False):
     req = urllib.request.Request(url)
     req.add_header("Accept", accept)
-    req.add_header("User-Agent", "awsomeskills-build-index")
+    req.add_header("User-Agent", "awesomeskills-build-index")
     if token and not raw:
         req.add_header("Authorization", f"Bearer {token}")
     for attempt in range(3):
@@ -234,7 +234,7 @@ def write_index(entries: list[dict], generated_at: str) -> None:
 
 def write_llm_txt(entries: list[dict], generated_at: str) -> None:
     lines = [
-        "# awsomeskills — a trust-first index of public agent/Claude skills",
+        "# awesomeskills — a trust-first index of public agent/Claude skills",
         f"# Generated {generated_at}. Human + agent readable. Full data: /index.json",
         "# health = real activity 0-100 (NOT stars) | security rating | zh = Chinese coverage",
         "# Entries are skill-level (one per SKILL.md); repo-level rows are awesome-lists/hubs.",

@@ -1,4 +1,4 @@
-# awsomeskills 产品定义（Draft v0.1）
+# awesomeskills 产品定义（Draft v0.1）
 
 > 状态：草稿 v0.1，承接两轮战略讨论 + 形态收敛（单 skill vs plugin vs MCP）后落地。
 > 本文件是规划 SSoT；结论有变先改这里。对外 README 以英文为门面，本文件用中文详写规划。
@@ -7,7 +7,7 @@
 ## 0. 一句话定位
 
 **agent-native、AI-ready 的公开技能发现层。护城河是"可信"，不是"收录全"。**
-类比：**context7 之于文档 → awsomeskills 之于 skill**——一个 agent 能按需撞上来、查询、拉取的发现层；
+类比：**context7 之于文档 → awesomeskills 之于 skill**——一个 agent 能按需撞上来、查询、拉取的发现层；
 但因为 skill 是可执行代码+prompt（非只读文档），核心增值从"最新"变成"可信"。
 
 ## 1. 痛点与市场空位（信源：两轮本地/业界调研）
@@ -27,7 +27,7 @@
 1. **买单者/战略语义**：站免费，但"买单"的是**信任**——用户/组织为"可信的 agent 技能供给、降低供应链风险"而依赖它。战略目标：成为 agent 生态的 skill 发现事实入口。
 2. **领域模型语义**：`SourceRepo`（被收录的公开技能仓）、`Skill`、`Assessment`（health / security / language 三类信号）、`TrustSignal`、`Index`（机器可读产物）、`SubmissionRequest`（收录请求）。
 3. **产品语义**：三层——**门面**（Human 查阅器 / 收录请求 / `llm.txt`）、**护城河**（AI-ready 处理）、**分发**（agent 侧 skill 薄客户端）。
-4. **技术语义**：离线流水（爬取 + 评估 + grounding）→ 生成 `index.json` + `llm.txt`（静态托管）→ agent 侧 `awsomeskills` skill 读取 → 静态站消费同一 index。**无常驻服务端。**
+4. **技术语义**：离线流水（爬取 + 评估 + grounding）→ 生成 `index.json` + `llm.txt`（静态托管）→ agent 侧 `awesomeskills` skill 读取 → 静态站消费同一 index。**无常驻服务端。**
 5. **使用者语义**：**Human**（浏览、评估、提交收录）；**Agent**（装一个 finder skill，按需查静态 index、只拿到经评估的 skill）；**Maintainer**（跑离线流水、审收录请求）。
 
 ## 3. 核心原则：trust over coverage
@@ -38,7 +38,7 @@
 
 ## 4. 责任边界：评估者，非执行者（v0.1 新增）
 
-**awsomeskills 交付的是"信任信号"，不是"执行环境"。**
+**awesomeskills 交付的是"信任信号"，不是"执行环境"。**
 
 - 下载来的第三方 skill，在**用户自己的 agent 环境**（用户的 Claude Code / Cursor 等）里执行，不在我们的机器上。
 - 因此沙箱 / 隔离是**消费端 agent runtime** 的责任，**不在本产品范围**。我们不写、不承诺任何执行隔离逻辑。
@@ -51,10 +51,10 @@
 
 - **选定：单 skill 薄客户端 + 静态 `index.json`/`llm.txt`。** 零常驻服务：`index.json` 静态托管（GitHub raw / Pages / 对象存储），finder skill 每次 `curl` 拉最新——数据集中更新无需 server。
 - **MCP：可选未来项。** remote MCP 需自托管常驻 server（正是当前不做的）；local MCP 更重且丢集中价值。等愿意托管 server（做大规模搜索/埋点/鉴权）再上，届时 `index.json` 直接作数据源，不浪费。
-- **plugin：CC 侧分发糖。** 后期可把 finder skill（未来加 MCP + `/awsomeskills` command）打包成 plugin 走 marketplace，但那是"怎么装"，不是"用什么接口"。
+- **plugin：CC 侧分发糖。** 后期可把 finder skill（未来加 MCP + `/awesomeskills` command）打包成 plugin 走 marketplace，但那是"怎么装"，不是"用什么接口"。
 
 **闭环（纯 skill + 静态 index，可跑通）**：
-1. agent 需要一个没有的能力 → 触发 `awsomeskills`
+1. agent 需要一个没有的能力 → 触发 `awesomeskills`
 2. skill `curl` 静态 `index.json` → 按 trust 筛 → 返回候选（带 health/security/zh）
 3. agent 选定 → skill 指导/执行安装（目标 skill 多为 Agent Skills 标准：`git clone` / 复制到 `.claude/skills/`）
 4. index 带 `source_url` + 每文件 `sha256` → 拉完**校验 digest 再落地**（对齐 SEP-2640 精神），在 skill 脚本内完成
@@ -99,7 +99,7 @@
 MVP 做：
 1. `registry/sources.toml`：**首批几十个高信号种子源**（已抓取的 trending skill 仓 + 调研确认的头部仓）。
 2. `processing/build_index.py`：读 sources → 调 GitHub API 取真实活跃度 → 算 health / 检测 zh → 生成 `index.json` + `llm.txt`。
-3. `skills/awsomeskills/`：薄客户端 skill（读静态 index，筛选，指导安装，digest 校验）。
+3. `skills/awesomeskills/`：薄客户端 skill（读静态 index，筛选，指导安装，digest 校验）。
 4. `site/`：极简 Human 查阅器（静态，fetch 同一 index.json）。
 
 MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建、包管理 lockfile、账号体系、执行隔离（见责任边界）。
@@ -123,7 +123,7 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 - [ ] 需求验证方式：如何低成本证明"agent 会来用"（finder skill 埋点/回访）。
 - [ ] 安全评级路线：从 `unrated` 升级到真实扫描，用现成扫描器 vs 自建，深度多少算 MVP 够。
 - [ ] 冷启动收录清单：种子源筛选标准与扩充节奏。
-- [ ] 静态托管选型：GitHub raw vs Pages vs CF Pages；awsomeskills.io 接入与 `llm.txt` 路由。
+- [ ] 静态托管选型：GitHub raw vs Pages vs CF Pages；awesomeskills.io 接入与 `llm.txt` 路由。
 - [ ] health 公式校准：当前为启发式 v0，需用真实样本回归（首跑 12 源多在 99-100，区分度不足）。
 - [ ] zh 检测增强：当前仅看 GitHub description/language，首跑 zh 命中 0（含中文社区仓，因其 description 为英文）；应扩展到 README/topics/owner 语言。
 - [x] `article-pivot` 适配成本：已评估（`docs/article-pivot-fit.md`）——借鉴范式 + 裁剪双语/归档组件，不直接复用，成本中等偏大；需自建 Markdown+frontmatter 入口与 skill 语义层。

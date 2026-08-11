@@ -2,7 +2,7 @@ name: Deploy site to Pages
 
 # Publishes site/public/ (human browser + generated index.json + llm.txt) to GitHub Pages.
 # The finder skill reads index.json from the raw URL, so it does not depend on this;
-# Pages is the human-facing front + eventual awsomeskills.io home.
+# Pages is the human-facing front + eventual awesomeskills.io home.
 
 on:
   push:

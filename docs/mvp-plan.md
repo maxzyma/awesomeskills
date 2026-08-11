@@ -1,4 +1,4 @@
-# awsomeskills MVP 执行计划（v0.1）
+# awesomeskills MVP 执行计划（v0.1）
 
 > 目标：一个**零常驻服务端**、能真实跑通的最小闭环，用来验证核心假设——
 > "agent 会在会话里经 finder skill 主动发现并拉取可信 skill"。
@@ -11,7 +11,7 @@
 - [x] `registry/schema.md` + `registry/sources.toml`（首批种子源）
 - [x] `processing/build_index.py`：sources → GitHub API → health/zh → `index.json` + `llm.txt`
 - [x] 首版真实 `registry/index.json` + `site/public/llm.txt`（种子源实跑）
-- [x] `skills/awsomeskills/`：薄客户端 skill
+- [x] `skills/awesomeskills/`：薄客户端 skill
 - [x] `site/index.html`：极简查阅器（fetch index.json）
 
 ### M1 — 需求验证（需人工决策后启动）
@@ -33,7 +33,7 @@
 - 父仓：登记 CHECKPOINT/CLAUDE/AGENTS，但**不 commit 父仓**（共享工作树有别的会话在途改动，提交边界留给 Human）。
 
 ## 待 Human 决策（我不擅自定）
-- 静态托管选型与 awsomeskills.io 接入（M1）。
+- 静态托管选型与 awesomeskills.io 接入（M1）。
 - security 评级路线（M2）。
 - 是否/何时上 MCP（M3）。
 - health 公式是否按当前启发式 v0 定稿。

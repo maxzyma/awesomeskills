@@ -1,11 +1,11 @@
 ---
-name: awsomeskills
-description: Find a trustworthy public skill when you need a capability you don't currently have installed. Queries the awsomeskills static index (health/security/Chinese-coverage signals) and returns vetted candidates with install guidance. Use when the user asks for a capability, tool, or workflow that no currently-loaded skill covers, explicitly asks to find/discover/search for a skill, or says "use awsomeskills".
+name: awesomeskills
+description: Find a trustworthy public skill when you need a capability you don't currently have installed. Queries the awesomeskills static index (health/security/Chinese-coverage signals) and returns vetted candidates with install guidance. Use when the user asks for a capability, tool, or workflow that no currently-loaded skill covers, explicitly asks to find/discover/search for a skill, or says "use awesomeskills".
 ---
 
-# awsomeskills
+# awesomeskills
 
-A thin client over the **awsomeskills** static index. It does not host or execute anything —
+A thin client over the **awesomeskills** static index. It does not host or execute anything —
 it fetches a static `index.json` of *vetted* public skills, filters by trust signals, and hands
 back candidates plus install guidance. Execution/sandboxing is the host agent's responsibility
 (this skill only surfaces trust signals).
@@ -39,7 +39,7 @@ visible, and only proceed to install with the user's confirmation.
 
 ## Security (responsibility boundary)
 
-- awsomeskills provides **trust signals**, not a sandbox. A `security` rating of `unrated`
+- awesomeskills provides **trust signals**, not a sandbox. A `security` rating of `unrated`
   means *not yet assessed* — say so; do not imply it is safe.
 - Third-party skills are code + prompts. After pulling, check the fetched files' SHA-256
   against the index entry when digests are present, and let the user review before enabling.

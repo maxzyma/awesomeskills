@@ -1,4 +1,4 @@
-# awsomeskills — a trust-first index of public agent/Claude skills
+# awesomeskills — a trust-first index of public agent/Claude skills
 # Generated 2026-08-11T12:19:59+00:00. Human + agent readable. Full data: /index.json
 # health = real activity 0-100 (NOT stars) | security rating | zh = Chinese coverage
 # Entries are skill-level (one per SKILL.md); repo-level rows are awesome-lists/hubs.
