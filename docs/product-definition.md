@@ -61,23 +61,29 @@
 
 ## 6. 数据契约（静态 index，最小 schema）
 
-`registry/index.json`（生成物，复用 `catalog.toml` 的 `schema_version` 范式）：
+`registry/index.json`（生成物，v0.2 起为 **skill 级**：每个 SKILL.md 一条；无 SKILL.md 的 awesome-list/hub 回退为 repo 级一条）：
 
 ```jsonc
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "generated_at": "<ISO8601>",       // 由构建时注入
   "skills": [
     {
-      "id": "owner/repo",
-      "name": "...", "summary": "...",
-      "source_url": "https://github.com/owner/repo",
-      "kind": "skill" | "skill-collection" | "awesome-list" | "plugin-marketplace",
+      "id": "owner/repo/<skill-dir>",  // skill 级；repo 级 fallback 时为 owner/repo
+      "name": "...", "summary": "...",  // summary = SKILL.md frontmatter description
+      "source_repo": "owner/repo",
+      "source_url": "https://github.com/owner/repo/tree/<branch>/<skill-dir>",
+      "kind": "skill",                  // repo 级 fallback 保留原 kind（awesome-list/registry…）
+      "level": "skill" | "repo",
+      "path": "<skill-dir>/SKILL.md",   // skill 级才有
       "trust": {
-        "health": 0-100,             // 真实活跃度综合分（非 star）
+        "health": 0-100,                // 真实活跃度（非 star）；skill 继承所属 repo 的 health
         "health_factors": { "recency_days": N, "stars": N, "open_issues": N, "archived": bool },
         "security": "pass"|"warn"|"fail"|"unrated",
-        "zh": true|false             // 是否覆盖中文场景
+        "zh": true|false                // 是否覆盖中文场景（由 description/name 检测）
+      },
+      "frontmatter": {                  // skill 级才有；repo 级为 null
+        "valid": bool, "issues": ["…"], "headings": N, "code_blocks": N
       }
     }
   ]
@@ -121,3 +127,6 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 - [ ] health 公式校准：当前为启发式 v0，需用真实样本回归（首跑 12 源多在 99-100，区分度不足）。
 - [ ] zh 检测增强：当前仅看 GitHub description/language，首跑 zh 命中 0（含中文社区仓，因其 description 为英文）；应扩展到 README/topics/owner 语言。
 - [x] `article-pivot` 适配成本：已评估（`docs/article-pivot-fit.md`）——借鉴范式 + 裁剪双语/归档组件，不直接复用，成本中等偏大；需自建 Markdown+frontmatter 入口与 skill 语义层。
+- [x] skill 级粒度（A）：已落地（v0.2，200 条 = 194 skill + 6 repo fallback）。`processing/skill_parser.py` 自建 frontmatter 解析 + 校验。
+- [ ] frontmatter 解析器局限：当前为极简单行解析，首跑 70/194 判 invalid（缺 name/description、过短/过长）；其中含对多行/非标 YAML 的**假阳性**，需换真实 YAML 解析器再回归 invalid 率。
+- [ ] 每仓 SKILL.md 上限 15：大集合（如 alirezarezvani 345）被截断，已 log 非静默；需分片或提高上限。
