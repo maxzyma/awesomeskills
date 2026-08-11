@@ -1,7 +1,7 @@
 # article-pivot 复用评估（面向 SKILL.md 处理层）
 
 > 评估方式：只读调研 article-pivot 源码（canonical AST / validation / translation / adapter 契约）。
-> 结论用于 awsomeskills 的 AI-ready 处理层选型。
+> 结论用于 awesomeskills 的 AI-ready 处理层选型。
 
 ## 结论：借鉴范式，不直接复用。适配成本：中等偏大。
 
@@ -12,7 +12,7 @@ article-pivot 是**面向"文章"的确定性内容处理库**，数据流固定
 
 ## 能借的（真金，可裁剪复用）
 
-1. **双语渲染**：`TranslationOverlay`（block_id 分段翻译）+ `render_bilingual_markdown`（中文优先双语，连公式/表格/引用都处理）。若 awsomeskills 双语目标含"正文逐段中英对照"，这块最有复用价值、质量高。
+1. **双语渲染**：`TranslationOverlay`（block_id 分段翻译）+ `render_bilingual_markdown`（中文优先双语，连公式/表格/引用都处理）。若 awesomeskills 双语目标含"正文逐段中英对照"，这块最有复用价值、质量高。
 2. **canonical AST 范式**：`Block`/`InlineNode`（稳定 id、to_dict/from_dict、walk）——作 skill 正文中间表示合理。
 3. **工程范式**：adapter `Protocol` 契约 + dry-run-first 归档（plan/write/verify、拒绝覆盖、生成 `.metadata.json` 机器可读元数据）。这套"确定性、可 dry-run、产机器可读 metadata"值得照搬。
 

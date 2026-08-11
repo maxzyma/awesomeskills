@@ -1,4 +1,4 @@
-# awsomeskills
+# awesomeskills
 
 An AI-ready, agent-native discovery layer for public agent/Claude skills.
 
@@ -6,7 +6,7 @@ An AI-ready, agent-native discovery layer for public agent/Claude skills.
 Every listed skill carries health, security, and language-coverage signals so an **agent** can
 discover, evaluate, and pull a skill on its own — not just a human browsing a list.
 
-- Public site: [awsomeskills.io](https://awsomeskills.io) (planned)
+- Public site: [awesomeskills.io](https://awesomeskills.io) (planned)
 - Human skill browser + submission requests
 - `/llm.txt` and an MCP server for agent-native discovery
 
@@ -20,5 +20,5 @@ discover, evaluate, and pull a skill on its own — not just a human browsing a 
 | `registry/`   | SSoT: curated source list + schema + generated `index.json` |
 | `processing/` | AI-ready assessment kernel (health / security / language grounding) |
 | `mcp/`        | Agent-readable MCP server (query + pull) — the core distribution |
-| `site/`       | awsomeskills.io site, human browser, submission; `site/public/llm.txt` is **generated** |
+| `site/`       | awesomeskills.io site, human browser, submission; `site/public/llm.txt` is **generated** |
 | `docs/`       | Product definition, semantics, MCP schema, MVP boundary |
