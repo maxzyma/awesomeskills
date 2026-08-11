@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated_at": "2026-08-11T04:37:45+00:00",
+  "generated_at": "2026-08-11T11:45:10+00:00",
   "skills": [
     {
       "id": "anthropics/claude-plugins-official",
@@ -12,8 +12,8 @@
         "health": 100,
         "health_factors": {
           "recency_days": 0,
-          "stars": 33380,
-          "open_issues": 898,
+          "stars": 33393,
+          "open_issues": 916,
           "archived": false
         },
         "security": "unrated",
@@ -30,8 +30,8 @@
         "health": 100,
         "health_factors": {
           "recency_days": 0,
-          "stars": 72239,
-          "open_issues": 1213,
+          "stars": 72263,
+          "open_issues": 1217,
           "archived": false
         },
         "security": "unrated",
@@ -48,8 +48,8 @@
         "health": 100,
         "health_factors": {
           "recency_days": 0,
-          "stars": 29967,
-          "open_issues": 77,
+          "stars": 30009,
+          "open_issues": 79,
           "archived": false
         },
         "security": "unrated",
@@ -66,7 +66,7 @@
         "health": 100,
         "health_factors": {
           "recency_days": 0,
-          "stars": 2613,
+          "stars": 2616,
           "open_issues": 27,
           "archived": false
         },
@@ -84,7 +84,7 @@
         "health": 100,
         "health_factors": {
           "recency_days": 0,
-          "stars": 552,
+          "stars": 553,
           "open_issues": 0,
           "archived": false
         },
@@ -102,8 +102,62 @@
         "health": 100,
         "health_factors": {
           "recency_days": 1,
-          "stars": 57852,
+          "stars": 57889,
           "open_issues": 123,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "davepoon/buildwithclaude",
+      "name": "buildwithclaude",
+      "summary": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and OpenClaw",
+      "source_url": "https://github.com/davepoon/buildwithclaude",
+      "kind": "registry",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 3280,
+          "open_issues": 11,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "elementalsouls/Claude-OSINT",
+      "name": "Claude-OSINT",
+      "summary": "8 Claude skills · 100+ recon capabilities · 80 secret-regex patterns · 80+ dorks · 9 read-only credential validators · 27 attack-path templates · ~10,000 lines of structured tradecraft. Drop-in SKILL.md files that turn Claude into a god-mode external recon operator for authorized red-team and bug-bounty engagements.",
+      "source_url": "https://github.com/elementalsouls/Claude-OSINT",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 2269,
+          "open_issues": 0,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "jherrodthomas/automotive-skills-suite",
+      "name": "automotive-skills-suite",
+      "summary": "100+ installable Claude skills covering Engineering areas such as, ISO 26262 functional safety, ISO/SAE 21434 cybersecurity, ISO 21448 SOTIF, AIAG-VDA quality (APQP/PPAP/FMEA), Automotive SPICE, and continuous improvement tools — every builder paired with a confirmation reviewer.",
+      "source_url": "https://github.com/jherrodthomas/automotive-skills-suite",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 2501,
+          "open_issues": 8,
           "archived": false
         },
         "security": "unrated",
@@ -120,8 +174,8 @@
         "health": 99,
         "health_factors": {
           "recency_days": 3,
-          "stars": 167624,
-          "open_issues": 1072,
+          "stars": 167797,
+          "open_issues": 1073,
           "archived": false
         },
         "security": "unrated",
@@ -138,8 +192,62 @@
         "health": 99,
         "health_factors": {
           "recency_days": 2,
-          "stars": 1328,
+          "stars": 1329,
           "open_issues": 14,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "alirezarezvani/claude-skills",
+      "name": "claude-skills",
+      "summary": "345 Claude Code skills & agent skills & plugins (30+ Agents, 70+ custom commands, 330+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations, commercial & finance, and your daily productivity skills.",
+      "source_url": "https://github.com/alirezarezvani/claude-skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 99,
+        "health_factors": {
+          "recency_days": 2,
+          "stars": 24270,
+          "open_issues": 24,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "Jeffallan/claude-skills",
+      "name": "claude-skills",
+      "summary": "66 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
+      "source_url": "https://github.com/Jeffallan/claude-skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 99,
+        "health_factors": {
+          "recency_days": 3,
+          "stars": 10961,
+          "open_issues": 25,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "BehiSecc/awesome-claude-skills",
+      "name": "awesome-claude-skills",
+      "summary": "A curated list of Claude Skills.",
+      "source_url": "https://github.com/BehiSecc/awesome-claude-skills",
+      "kind": "awesome-list",
+      "trust": {
+        "health": 97,
+        "health_factors": {
+          "recency_days": 9,
+          "stars": 9943,
+          "open_issues": 35,
           "archived": false
         },
         "security": "unrated",
@@ -156,8 +264,44 @@
         "health": 96,
         "health_factors": {
           "recency_days": 13,
-          "stars": 73793,
-          "open_issues": 70,
+          "stars": 73846,
+          "open_issues": 71,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "SawyerHood/dev-browser",
+      "name": "dev-browser",
+      "summary": "A Claude Skill to give your agent the ability to use a web browser",
+      "source_url": "https://github.com/SawyerHood/dev-browser",
+      "kind": "skill",
+      "trust": {
+        "health": 92,
+        "health_factors": {
+          "recency_days": 27,
+          "stars": 6532,
+          "open_issues": 15,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "abubakarsiddik31/claude-skills-collection",
+      "name": "claude-skills-collection",
+      "summary": "A curated collection of official and community-built Claude Skills – extend Anthropic's Claude with powerful, modular capabilities for productivity, creativity, coding, and more.",
+      "source_url": "https://github.com/abubakarsiddik31/claude-skills-collection",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 91,
+        "health_factors": {
+          "recency_days": 30,
+          "stars": 903,
+          "open_issues": 16,
           "archived": false
         },
         "security": "unrated",
@@ -174,8 +318,62 @@
         "health": 81,
         "health_factors": {
           "recency_days": 63,
-          "stars": 44781,
+          "stars": 44834,
           "open_issues": 62,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "SnailSploit/Claude-Red",
+      "name": "Claude-Red",
+      "summary": "claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.",
+      "source_url": "https://github.com/SnailSploit/Claude-Red",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 72,
+        "health_factors": {
+          "recency_days": 94,
+          "stars": 2894,
+          "open_issues": 4,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "huangserva/skill-prompt-generator",
+      "name": "skill-prompt-generator",
+      "summary": "这是一个基于Claude Skill的**AI人像Prompt生成系统**，能够从特征库中智能组合生成高质量的人像描述Prompt，并具备自动学习和库扩展能力。 核心能力: Prompt生成、特征提取、自动学习、智能审核、版本控制",
+      "source_url": "https://github.com/huangserva/skill-prompt-generator",
+      "kind": "skill",
+      "trust": {
+        "health": 72,
+        "health_factors": {
+          "recency_days": 93,
+          "stars": 1451,
+          "open_issues": 4,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": true
+      }
+    },
+    {
+      "id": "travisvn/awesome-claude-skills",
+      "name": "awesome-claude-skills",
+      "summary": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code",
+      "source_url": "https://github.com/travisvn/awesome-claude-skills",
+      "kind": "awesome-list",
+      "trust": {
+        "health": 69,
+        "health_factors": {
+          "recency_days": 104,
+          "stars": 14598,
+          "open_issues": 711,
           "archived": false
         },
         "security": "unrated",
@@ -191,9 +389,27 @@
       "trust": {
         "health": 66,
         "health_factors": {
-          "recency_days": 112,
-          "stars": 201279,
+          "recency_days": 113,
+          "stars": 201425,
           "open_issues": 126,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "dgreenheck/webgpu-claude-skill",
+      "name": "webgpu-claude-skill",
+      "summary": "A Claude skill for developing WebGPU applications with Three.js",
+      "source_url": "https://github.com/dgreenheck/webgpu-claude-skill",
+      "kind": "skill",
+      "trust": {
+        "health": 63,
+        "health_factors": {
+          "recency_days": 122,
+          "stars": 1137,
+          "open_issues": 4,
           "archived": false
         },
         "security": "unrated",
@@ -212,6 +428,24 @@
           "recency_days": 134,
           "stars": 3901,
           "open_issues": 11,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "simonw/claude-skills",
+      "name": "claude-skills",
+      "summary": "The contents of /mnt/skills in Claude's code interpreter environment",
+      "source_url": "https://github.com/simonw/claude-skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 28,
+        "health_factors": {
+          "recency_days": 241,
+          "stars": 930,
+          "open_issues": 1,
           "archived": false
         },
         "security": "unrated",

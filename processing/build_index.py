@@ -30,6 +30,21 @@ LLM_OUT = REPO_ROOT / "site" / "public" / "llm.txt"
 API = "https://api.github.com/repos/"
 SCHEMA_VERSION = "0.1"
 
+import re
+
+_GITHUB_ID = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+
+
+def is_public_github_id(repo_id: str) -> bool:
+    """Guard: only public github.com owner/repo ids are allowed as sources.
+
+    A public repo must not reference internal sources (e.g. internal-host.* GitLab).
+    Reject anything with a scheme/host or a known-internal marker.
+    """
+    if "://" in repo_id or "internal-host" in repo_id or repo_id.count("/") != 1:
+        return False
+    return bool(_GITHUB_ID.match(repo_id))
+
 
 # ---------- sources.toml parsing (tomllib, with a tiny fallback) ----------
 
@@ -191,6 +206,9 @@ def main() -> int:
 
     entries: list[dict] = []
     for src in sources:
+        if not is_public_github_id(src["id"]):
+            print(f"  SKIP {src['id']}: not a public github.com owner/repo (internal refs forbidden)", file=sys.stderr)
+            continue
         repo = fetch_repo(src["id"], token)
         if repo is None:
             continue
