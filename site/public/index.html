@@ -30,14 +30,15 @@
   .zh { color: var(--accent); }
   footer { max-width: 960px; margin: 0 auto 48px; padding: 0 24px; color: var(--muted); font-size: 12px; }
   .empty { color: var(--muted); padding: 24px 0; }
-  .install { max-width: 960px; margin: 16px auto 0; padding: 16px 24px; background: #f6f7fb; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .install h2 { font-size: 15px; margin: 0 0 2px; }
-  .install > p { color: var(--muted); margin: 0 0 12px; font-size: 14px; }
-  .install-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-  .ins-card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
-  .ins-t { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
-  .ins-card pre { margin: 0; font-size: 12px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #1a1a1a; }
-  .submit-line { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+  .install { max-width: 960px; margin: 6px auto 0; padding: 8px 24px 10px; background: #f6f7fb; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .install-head { font-size: 12px; margin: 0 0 6px; }
+  .install-head strong { color: var(--fg); }
+  .install-head span { color: var(--muted); }
+  .install-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+  .ins-card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; }
+  .ins-t { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+  .ins-card pre { margin: 0; font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #1a1a1a; }
+  .submit-line { margin: 7px 0 0; font-size: 12px; color: var(--muted); }
   .submit-line a { color: var(--accent); font-weight: 600; text-decoration: none; }
   .submit-line a:hover { text-decoration: underline; }
 </style>
@@ -48,8 +49,7 @@
   <p class="lede">We don't index the most skills. We index the most <em>trustworthy</em> ones — real activity (not stars), security rating, Chinese coverage.</p>
 </header>
 <section class="install">
-  <h2>Use with your agent</h2>
-  <p>Let your agent discover &amp; pull vetted skills on demand — pick one:</p>
+  <div class="install-head"><strong>Use with your agent</strong> <span>— let it find &amp; pull vetted skills on demand; pick one:</span></div>
   <div class="install-grid">
     <div class="ins-card">
       <div class="ins-t">Claude Code · plugin (one-click)</div>
@@ -57,9 +57,9 @@
 /plugin install awesomeskills@awesomeskills</pre>
     </div>
     <div class="ins-card">
-      <div class="ins-t">Any agent · install the skill</div>
+      <div class="ins-t">Claude Code · install the skill</div>
       <pre>git clone https://github.com/maxzyma/awesomeskills
-cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/</pre>
+cp -r awesomeskills/skills/awesomeskills .claude/skills/</pre>
     </div>
     <div class="ins-card">
       <div class="ins-t">Any LLM · just read the index</div>

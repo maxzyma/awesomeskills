@@ -19,10 +19,10 @@ Let your agent discover & pull vetted skills on demand. Pick one:
 /plugin install awesomeskills@awesomeskills
 ```
 
-**Any agent · install the skill manually**
+**Claude Code · install the skill manually**
 ```
 git clone https://github.com/maxzyma/awesomeskills
-cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/
+cp -r awesomeskills/skills/awesomeskills .claude/skills/
 ```
 Then ask your agent for a capability it doesn't have; the `awesomeskills` skill queries the
 index, ranks by trust, and returns vetted candidates with install guidance.
