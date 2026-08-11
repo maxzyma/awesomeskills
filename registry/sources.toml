@@ -64,3 +64,72 @@ note = "Single-purpose skill sample (from local trending crawl)"
 id   = "shareAI-lab/learn-claude-code"
 kind = "skill-collection"
 note = "Chinese-community Claude Code learning/skills repo — seed for zh coverage (the industry gap)"
+
+# --- Batch 2 (2026-08): public GitHub only, picked for diversity of kind + vertical + language.
+# HARD RULE: only public github.com owner/repo. Internal GitLab (git-inner.*) repos are FORBIDDEN
+# here — a public repo must not reference internal sources. build_index.py enforces this too.
+
+[[source]]
+id   = "alirezarezvani/claude-skills"
+kind = "skill-collection"
+note = "Large community collection (345 skills / 30+ agents)"
+
+[[source]]
+id   = "travisvn/awesome-claude-skills"
+kind = "awesome-list"
+note = "Alternative awesome-list (compare curation vs Composio/VoltAgent)"
+
+[[source]]
+id   = "Jeffallan/claude-skills"
+kind = "skill-collection"
+note = "66 full-stack developer skills"
+
+[[source]]
+id   = "BehiSecc/awesome-claude-skills"
+kind = "awesome-list"
+note = "Another curated awesome-list"
+
+[[source]]
+id   = "simonw/claude-skills"
+kind = "skill-collection"
+note = "Simon Willison — contents of /mnt/skills in Claude's code interpreter; high-trust author"
+
+[[source]]
+id   = "davepoon/buildwithclaude"
+kind = "registry"
+note = "Directory/hub aggregating skills, agents, commands, hooks, plugins"
+
+[[source]]
+id   = "SawyerHood/dev-browser"
+kind = "skill"
+note = "Single-purpose skill: give the agent a web browser"
+
+[[source]]
+id   = "dgreenheck/webgpu-claude-skill"
+kind = "skill"
+note = "Single-purpose skill: WebGPU + Three.js development"
+
+[[source]]
+id   = "SnailSploit/Claude-Red"
+kind = "skill-collection"
+note = "Offensive-security skills — vertical/regulated coverage (industry gap)"
+
+[[source]]
+id   = "elementalsouls/Claude-OSINT"
+kind = "skill-collection"
+note = "OSINT/recon skills — security vertical"
+
+[[source]]
+id   = "jherrodthomas/automotive-skills-suite"
+kind = "skill-collection"
+note = "100+ automotive/ISO engineering skills — non-dev vertical (industry gap)"
+
+[[source]]
+id   = "huangserva/skill-prompt-generator"
+kind = "skill"
+note = "Chinese-authored skill (Chinese description) — validates zh detection"
+
+[[source]]
+id   = "abubakarsiddik31/claude-skills-collection"
+kind = "skill-collection"
+note = "Mixed official + community skills collection"

@@ -1,5 +1,5 @@
 # awsomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-08-11T04:37:45+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-08-11T11:45:10+00:00. Human + agent readable. Full data: /index.json
 # health = real activity 0-100 (NOT stars) | security rating | zh = Chinese coverage
 
 - claude-plugins-official (anthropics/claude-plugins-official) — health 100, security unrated, en
@@ -20,21 +20,60 @@
 - last30days-skill (mvanhorn/last30days-skill) — health 100, security unrated, en
   AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary
   https://github.com/mvanhorn/last30days-skill
+- buildwithclaude (davepoon/buildwithclaude) — health 100, security unrated, en
+  A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and OpenClaw
+  https://github.com/davepoon/buildwithclaude
+- Claude-OSINT (elementalsouls/Claude-OSINT) — health 100, security unrated, en
+  8 Claude skills · 100+ recon capabilities · 80 secret-regex patterns · 80+ dorks · 9 read-only credential validators · 27 attack-path templates · ~10,000 lines of structured tradecraft. Drop-in SKILL.md files that turn Claude into a god-mode external recon operator for authorized red-team and bug-bounty engagements.
+  https://github.com/elementalsouls/Claude-OSINT
+- automotive-skills-suite (jherrodthomas/automotive-skills-suite) — health 100, security unrated, en
+  100+ installable Claude skills covering Engineering areas such as, ISO 26262 functional safety, ISO/SAE 21434 cybersecurity, ISO 21448 SOTIF, AIAG-VDA quality (APQP/PPAP/FMEA), Automotive SPICE, and continuous improvement tools — every builder paired with a confirmation reviewer.
+  https://github.com/jherrodthomas/automotive-skills-suite
 - skills (anthropics/skills) — health 99, security unrated, en
   Public repository for Agent Skills
   https://github.com/anthropics/skills
 - claude-code-skills (daymade/claude-code-skills) — health 99, security unrated, en
   Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows.
   https://github.com/daymade/claude-code-skills
+- claude-skills (alirezarezvani/claude-skills) — health 99, security unrated, en
+  345 Claude Code skills & agent skills & plugins (30+ Agents, 70+ custom commands, 330+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations, commercial & finance, and your daily productivity skills.
+  https://github.com/alirezarezvani/claude-skills
+- claude-skills (Jeffallan/claude-skills) — health 99, security unrated, en
+  66 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.
+  https://github.com/Jeffallan/claude-skills
+- awesome-claude-skills (BehiSecc/awesome-claude-skills) — health 97, security unrated, en
+  A curated list of Claude Skills.
+  https://github.com/BehiSecc/awesome-claude-skills
 - learn-claude-code (shareAI-lab/learn-claude-code) — health 96, security unrated, en
   Bash is all you need -  A nano claude code–like 「agent harness」, built from 0 to 1
   https://github.com/shareAI-lab/learn-claude-code
+- dev-browser (SawyerHood/dev-browser) — health 92, security unrated, en
+  A Claude Skill to give your agent the ability to use a web browser
+  https://github.com/SawyerHood/dev-browser
+- claude-skills-collection (abubakarsiddik31/claude-skills-collection) — health 91, security unrated, en
+  A curated collection of official and community-built Claude Skills – extend Anthropic's Claude with powerful, modular capabilities for productivity, creativity, coding, and more.
+  https://github.com/abubakarsiddik31/claude-skills-collection
 - obsidian-skills (kepano/obsidian-skills) — health 81, security unrated, en
   Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.
   https://github.com/kepano/obsidian-skills
+- Claude-Red (SnailSploit/Claude-Red) — health 72, security unrated, en
+  claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.
+  https://github.com/SnailSploit/Claude-Red
+- skill-prompt-generator (huangserva/skill-prompt-generator) — health 72, security unrated, zh
+  这是一个基于Claude Skill的**AI人像Prompt生成系统**，能够从特征库中智能组合生成高质量的人像描述Prompt，并具备自动学习和库扩展能力。 核心能力: Prompt生成、特征提取、自动学习、智能审核、版本控制
+  https://github.com/huangserva/skill-prompt-generator
+- awesome-claude-skills (travisvn/awesome-claude-skills) — health 69, security unrated, en
+  A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code
+  https://github.com/travisvn/awesome-claude-skills
 - andrej-karpathy-skills (forrestchang/andrej-karpathy-skills) — health 66, security unrated, en
   A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.
   https://github.com/multica-ai/andrej-karpathy-skills
+- webgpu-claude-skill (dgreenheck/webgpu-claude-skill) — health 63, security unrated, en
+  A Claude skill for developing WebGPU applications with Three.js
+  https://github.com/dgreenheck/webgpu-claude-skill
 - Skills (Dimillian/Skills) — health 60, security unrated, en
   My Codex Skills
   https://github.com/Dimillian/Skills
+- claude-skills (simonw/claude-skills) — health 28, security unrated, en
+  The contents of /mnt/skills in Claude's code interpreter environment
+  https://github.com/simonw/claude-skills
