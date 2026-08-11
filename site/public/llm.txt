@@ -1,0 +1,40 @@
+# awsomeskills — a trust-first index of public agent/Claude skills
+# Generated 2026-08-11T04:37:45+00:00. Human + agent readable. Full data: /index.json
+# health = real activity 0-100 (NOT stars) | security rating | zh = Chinese coverage
+
+- claude-plugins-official (anthropics/claude-plugins-official) — health 100, security unrated, en
+  Official, Anthropic-managed directory of high quality Claude Code Plugins.
+  https://github.com/anthropics/claude-plugins-official
+- awesome-claude-skills (ComposioHQ/awesome-claude-skills) — health 100, security unrated, en
+  A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows
+  https://github.com/ComposioHQ/awesome-claude-skills
+- awesome-agent-skills (VoltAgent/awesome-agent-skills) — health 100, security unrated, en
+  A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.
+  https://github.com/VoltAgent/awesome-agent-skills
+- claude-code-plugins-plus-skills (jeremylongshore/claude-code-plugins-plus-skills) — health 100, security unrated, en
+  471 plugins, 3,069 skills, 347 agents for Claude Code. Open-source marketplace at tonsofskills.com with the ccpi CLI package manager.
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills
+- claude-skill-registry (majiayu000/claude-skill-registry) — health 100, security unrated, en
+  The most comprehensive Claude Code skills registry | Web Search: https://majiayu000.github.io/claude-skill-registry-core/
+  https://github.com/majiayu000/claude-skill-registry
+- last30days-skill (mvanhorn/last30days-skill) — health 100, security unrated, en
+  AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary
+  https://github.com/mvanhorn/last30days-skill
+- skills (anthropics/skills) — health 99, security unrated, en
+  Public repository for Agent Skills
+  https://github.com/anthropics/skills
+- claude-code-skills (daymade/claude-code-skills) — health 99, security unrated, en
+  Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows.
+  https://github.com/daymade/claude-code-skills
+- learn-claude-code (shareAI-lab/learn-claude-code) — health 96, security unrated, en
+  Bash is all you need -  A nano claude code–like 「agent harness」, built from 0 to 1
+  https://github.com/shareAI-lab/learn-claude-code
+- obsidian-skills (kepano/obsidian-skills) — health 81, security unrated, en
+  Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.
+  https://github.com/kepano/obsidian-skills
+- andrej-karpathy-skills (forrestchang/andrej-karpathy-skills) — health 66, security unrated, en
+  A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.
+  https://github.com/multica-ai/andrej-karpathy-skills
+- Skills (Dimillian/Skills) — health 60, security unrated, en
+  My Codex Skills
+  https://github.com/Dimillian/Skills

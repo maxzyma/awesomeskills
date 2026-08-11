@@ -1,0 +1,66 @@
+schema_version = "0.1"
+
+# First seed batch: high-signal public skill repos.
+# Mix of vendor awesome-lists, community skill collections, and registry attempts.
+# Curated 2026-08 from two research passes (industry landscape + local trending crawl).
+# health/zh/security are NOT decided here — they are computed by processing/build_index.py.
+
+[[source]]
+id   = "anthropics/skills"
+kind = "skill-collection"
+note = "Anthropic official example skills + Agent Skills spec — the reference implementation"
+
+[[source]]
+id   = "anthropics/claude-plugins-official"
+kind = "plugin-marketplace"
+note = "Official Claude Code plugin marketplace — only CLI-native install entry"
+
+[[source]]
+id   = "ComposioHQ/awesome-claude-skills"
+kind = "awesome-list"
+note = "Largest awesome-list; vendor-backed (Composio); watch vanity-star vs 1200+ open issues"
+
+[[source]]
+id   = "VoltAgent/awesome-agent-skills"
+kind = "awesome-list"
+note = "Cross-agent awesome-list (Claude/Codex/Gemini/Cursor)"
+
+[[source]]
+id   = "jeremylongshore/claude-code-plugins-plus-skills"
+kind = "plugin-marketplace"
+note = "tonsofskills.com; highest-traction non-official marketplace + ccpi CLI"
+
+[[source]]
+id   = "daymade/claude-code-skills"
+kind = "skill-collection"
+note = "Production-oriented skills marketplace"
+
+[[source]]
+id   = "majiayu000/claude-skill-registry"
+kind = "registry"
+note = "Rare explicit machine-readable SearchIndex JSON schema attempt"
+
+[[source]]
+id   = "Dimillian/Skills"
+kind = "skill-collection"
+note = "Community skill collection (from local trending crawl)"
+
+[[source]]
+id   = "kepano/obsidian-skills"
+kind = "skill-collection"
+note = "Obsidian-focused skills (from local trending crawl)"
+
+[[source]]
+id   = "forrestchang/andrej-karpathy-skills"
+kind = "skill-collection"
+note = "Karpathy-style skills (from local trending crawl)"
+
+[[source]]
+id   = "mvanhorn/last30days-skill"
+kind = "skill"
+note = "Single-purpose skill sample (from local trending crawl)"
+
+[[source]]
+id   = "shareAI-lab/learn-claude-code"
+kind = "skill-collection"
+note = "Chinese-community Claude Code learning/skills repo — seed for zh coverage (the industry gap)"
