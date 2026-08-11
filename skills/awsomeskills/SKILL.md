@@ -1,9 +1,9 @@
 ---
-name: awsomeskills-finder
-description: Find a trustworthy public skill when you need a capability you don't currently have installed. Queries the awsomeskills static index (health/security/Chinese-coverage signals) and returns vetted candidates with install guidance. Use when the user asks for a capability, tool, or workflow that no currently-loaded skill covers, or explicitly asks to find/discover/search for a skill.
+name: awsomeskills
+description: Find a trustworthy public skill when you need a capability you don't currently have installed. Queries the awsomeskills static index (health/security/Chinese-coverage signals) and returns vetted candidates with install guidance. Use when the user asks for a capability, tool, or workflow that no currently-loaded skill covers, explicitly asks to find/discover/search for a skill, or says "use awsomeskills".
 ---
 
-# awsomeskills-finder
+# awsomeskills
 
 A thin client over the **awsomeskills** static index. It does not host or execute anything —
 it fetches a static `index.json` of *vetted* public skills, filters by trust signals, and hands

@@ -11,7 +11,7 @@
 - [x] `registry/schema.md` + `registry/sources.toml`（首批种子源）
 - [x] `processing/build_index.py`：sources → GitHub API → health/zh → `index.json` + `llm.txt`
 - [x] 首版真实 `registry/index.json` + `site/public/llm.txt`（种子源实跑）
-- [x] `skills/awsomeskills-finder/`：薄客户端 skill
+- [x] `skills/awsomeskills/`：薄客户端 skill
 - [x] `site/index.html`：极简查阅器（fetch index.json）
 
 ### M1 — 需求验证（需人工决策后启动）
