@@ -37,6 +37,9 @@
   .ins-card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
   .ins-t { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
   .ins-card pre { margin: 0; font-size: 12px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #1a1a1a; }
+  .submit-line { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+  .submit-line a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .submit-line a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -64,6 +67,7 @@ cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/</pre>
 https://awesomeskills.io/index.json</pre>
     </div>
   </div>
+  <p class="submit-line">Know a good skill we're missing? <a href="https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml">Submit it for inclusion →</a></p>
 </section>
 <div class="bar">
   <input id="q" type="search" placeholder="Search a capability, e.g. pdf, browser, registry…" autofocus />
