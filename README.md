@@ -31,8 +31,12 @@ cp -r awesomeskills/skills/awesomeskills .claude/skills/
 one project. Then ask your agent for a capability it doesn't have; the `awesomeskills` skill
 queries the index, ranks by trust, and returns vetted candidates with install guidance.
 
-**Any LLM · just read the index**
-Point it at `https://awesomeskills.io/llm.txt` (navigation) or `/index.json` (full data).
+**Any other agent** — it's a standard Agent Skill ([agentskills.io](https://agentskills.io)).
+Install it the way your agent expects; most read `.agents/skills/` (project) or
+`~/.agents/skills/` (global). See your agent's own skills docs for the exact location — we
+don't maintain a per-agent directory table (it goes stale; the authoritative source is each agent).
+
+**Any LLM** — point it at `https://awesomeskills.io/llm.txt` (navigation) or `/index.json` (full data).
 
 > awesomeskills is an **evaluator, not an executor** — it surfaces trust signals; sandboxing a
 > pulled skill is the host agent's responsibility.
