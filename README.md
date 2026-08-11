@@ -6,19 +6,44 @@ An AI-ready, agent-native discovery layer for public agent/Claude skills.
 Every listed skill carries health, security, and language-coverage signals so an **agent** can
 discover, evaluate, and pull a skill on its own — not just a human browsing a list.
 
-- Public site: [awesomeskills.io](https://awesomeskills.io) (planned)
-- Human skill browser + submission requests
-- `/llm.txt` and an MCP server for agent-native discovery
+- Live site: **[awesomeskills.io](https://awesomeskills.io)** — human browser
+- Machine-readable: [`/index.json`](https://awesomeskills.io/index.json) · [`/llm.txt`](https://awesomeskills.io/llm.txt)
 
-> Status: **early / private**. See [`docs/product-definition.md`](docs/product-definition.md)
-> for the product definition and MVP scope. This is a monorepo.
+## Use with your agent
+
+Let your agent discover & pull vetted skills on demand. Pick one:
+
+**Claude Code · plugin (one-click)**
+```
+/plugin marketplace add maxzyma/awesomeskills
+/plugin install awesomeskills@awesomeskills
+```
+
+**Any agent · install the skill manually**
+```
+git clone https://github.com/maxzyma/awesomeskills
+cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/
+```
+Then ask your agent for a capability it doesn't have; the `awesomeskills` skill queries the
+index, ranks by trust, and returns vetted candidates with install guidance.
+
+**Any LLM · just read the index**
+Point it at `https://awesomeskills.io/llm.txt` (navigation) or `/index.json` (full data).
+
+> awesomeskills is an **evaluator, not an executor** — it surfaces trust signals; sandboxing a
+> pulled skill is the host agent's responsibility.
 
 ## Layout
 
 | Dir | Role |
 |-----|------|
-| `registry/`   | SSoT: curated source list + schema + generated `index.json` |
-| `processing/` | AI-ready assessment kernel (health / security / language grounding) |
-| `mcp/`        | Agent-readable MCP server (query + pull) — the core distribution |
-| `site/`       | awesomeskills.io site, human browser, submission; `site/public/llm.txt` is **generated** |
-| `docs/`       | Product definition, semantics, MCP schema, MVP boundary |
+| `registry/`   | SSoT: curated source list (`sources.toml`) + schema + generated `index.json` |
+| `processing/` | AI-ready assessment kernel — builds the skill-level index (health / zh / frontmatter) |
+| `skills/awesomeskills/` | the finder skill (thin client over the static index) |
+| `ops/`        | Cloudflare DNS automation (`cf_dns.py`) — token-based, creds never in repo |
+| `site/`       | awesomeskills.io site + generated `index.json`/`llm.txt` |
+| `.claude-plugin/` | marketplace manifest for one-click Claude Code install |
+| `docs/`       | product definition, MVP plan, assessments |
+
+> Status: **early**. Distribution is a finder skill + static index (no server); MCP is a
+> possible future. See [`docs/product-definition.md`](docs/product-definition.md).
