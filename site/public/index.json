@@ -1,0 +1,222 @@
+{
+  "schema_version": "0.1",
+  "generated_at": "2026-08-11T04:37:45+00:00",
+  "skills": [
+    {
+      "id": "anthropics/claude-plugins-official",
+      "name": "claude-plugins-official",
+      "summary": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
+      "source_url": "https://github.com/anthropics/claude-plugins-official",
+      "kind": "plugin-marketplace",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 33380,
+          "open_issues": 898,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "ComposioHQ/awesome-claude-skills",
+      "name": "awesome-claude-skills",
+      "summary": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
+      "source_url": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "kind": "awesome-list",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 72239,
+          "open_issues": 1213,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "VoltAgent/awesome-agent-skills",
+      "name": "awesome-agent-skills",
+      "summary": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.",
+      "source_url": "https://github.com/VoltAgent/awesome-agent-skills",
+      "kind": "awesome-list",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 29967,
+          "open_issues": 77,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "jeremylongshore/claude-code-plugins-plus-skills",
+      "name": "claude-code-plugins-plus-skills",
+      "summary": "471 plugins, 3,069 skills, 347 agents for Claude Code. Open-source marketplace at tonsofskills.com with the ccpi CLI package manager.",
+      "source_url": "https://github.com/jeremylongshore/claude-code-plugins-plus-skills",
+      "kind": "plugin-marketplace",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 2613,
+          "open_issues": 27,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "majiayu000/claude-skill-registry",
+      "name": "claude-skill-registry",
+      "summary": "The most comprehensive Claude Code skills registry | Web Search: https://majiayu000.github.io/claude-skill-registry-core/",
+      "source_url": "https://github.com/majiayu000/claude-skill-registry",
+      "kind": "registry",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 552,
+          "open_issues": 0,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "mvanhorn/last30days-skill",
+      "name": "last30days-skill",
+      "summary": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+      "source_url": "https://github.com/mvanhorn/last30days-skill",
+      "kind": "skill",
+      "trust": {
+        "health": 100,
+        "health_factors": {
+          "recency_days": 1,
+          "stars": 57852,
+          "open_issues": 123,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "anthropics/skills",
+      "name": "skills",
+      "summary": "Public repository for Agent Skills",
+      "source_url": "https://github.com/anthropics/skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 99,
+        "health_factors": {
+          "recency_days": 3,
+          "stars": 167624,
+          "open_issues": 1072,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "daymade/claude-code-skills",
+      "name": "claude-code-skills",
+      "summary": "Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows.",
+      "source_url": "https://github.com/daymade/claude-code-skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 99,
+        "health_factors": {
+          "recency_days": 2,
+          "stars": 1328,
+          "open_issues": 14,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "shareAI-lab/learn-claude-code",
+      "name": "learn-claude-code",
+      "summary": "Bash is all you need -  A nano claude code–like 「agent harness」, built from 0 to 1",
+      "source_url": "https://github.com/shareAI-lab/learn-claude-code",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 96,
+        "health_factors": {
+          "recency_days": 13,
+          "stars": 73793,
+          "open_issues": 70,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "kepano/obsidian-skills",
+      "name": "obsidian-skills",
+      "summary": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
+      "source_url": "https://github.com/kepano/obsidian-skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 81,
+        "health_factors": {
+          "recency_days": 63,
+          "stars": 44781,
+          "open_issues": 62,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "forrestchang/andrej-karpathy-skills",
+      "name": "andrej-karpathy-skills",
+      "summary": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+      "source_url": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 66,
+        "health_factors": {
+          "recency_days": 112,
+          "stars": 201279,
+          "open_issues": 126,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    },
+    {
+      "id": "Dimillian/Skills",
+      "name": "Skills",
+      "summary": "My Codex Skills",
+      "source_url": "https://github.com/Dimillian/Skills",
+      "kind": "skill-collection",
+      "trust": {
+        "health": 60,
+        "health_factors": {
+          "recency_days": 134,
+          "stars": 3901,
+          "open_issues": 11,
+          "archived": false
+        },
+        "security": "unrated",
+        "zh": false
+      }
+    }
+  ]
+}

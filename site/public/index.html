@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>awsomeskills — a trust-first index of public agent skills</title>
+<style>
+  :root { --fg:#1a1a1a; --muted:#6b7280; --line:#e5e7eb; --ok:#15803d; --warn:#b45309; --unrated:#6b7280; --bg:#fff; --accent:#3730a3; }
+  * { box-sizing: border-box; }
+  body { font: 15px/1.5 -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--fg); background: var(--bg); margin: 0; }
+  header { padding: 28px 24px 12px; max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .tag { color: var(--accent); font-weight: 600; }
+  p.lede { color: var(--muted); margin: 4px 0 0; }
+  .bar { max-width: 960px; margin: 12px auto 0; padding: 0 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  input[type=search] { flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+  label.chk { color: var(--muted); font-size: 14px; display: inline-flex; gap: 5px; align-items: center; }
+  .meta { max-width: 960px; margin: 6px auto 0; padding: 0 24px; color: var(--muted); font-size: 13px; }
+  main { max-width: 960px; margin: 8px auto 40px; padding: 0 24px; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .name { font-weight: 600; }
+  .name a { color: var(--fg); text-decoration: none; }
+  .name a:hover { text-decoration: underline; }
+  .kind { color: var(--muted); font-size: 12px; font-weight: 400; margin-left: 8px; }
+  .summary { color: var(--muted); font-size: 14px; grid-column: 1 / -1; }
+  .signals { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
+  .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
+  .health { font-variant-numeric: tabular-nums; }
+  .sec-pass { color: var(--ok); } .sec-warn { color: var(--warn); } .sec-unrated { color: var(--unrated); }
+  .zh { color: var(--accent); }
+  footer { max-width: 960px; margin: 0 auto 48px; padding: 0 24px; color: var(--muted); font-size: 12px; }
+  .empty { color: var(--muted); padding: 24px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="tag">awsomeskills</span> — a trust-first index of public agent skills</h1>
+  <p class="lede">We don't index the most skills. We index the most <em>trustworthy</em> ones — real activity (not stars), security rating, Chinese coverage.</p>
+</header>
+<div class="bar">
+  <input id="q" type="search" placeholder="Search a capability, e.g. pdf, browser, registry…" autofocus />
+  <label class="chk"><input type="checkbox" id="zh" /> 中文 only</label>
+  <label class="chk"><input type="checkbox" id="active" /> health ≥ 70</label>
+</div>
+<div class="meta" id="meta"></div>
+<main id="list"><div class="empty">Loading index…</div></main>
+<footer>
+  Health is a heuristic v0 (activity-driven, not star-driven). <code>unrated</code> security = not yet assessed, not "safe".
+  Machine-readable: <a href="./index.json">index.json</a> · <a href="./llm.txt">llm.txt</a>.
+  awsomeskills is an evaluator, not an executor — sandboxing is the host agent's job.
+</footer>
+<script>
+  const listEl = document.getElementById('list');
+  const metaEl = document.getElementById('meta');
+  const qEl = document.getElementById('q');
+  const zhEl = document.getElementById('zh');
+  const activeEl = document.getElementById('active');
+  let skills = [];
+
+  function secClass(s) { return s === 'pass' ? 'sec-pass' : s === 'warn' || s === 'fail' ? 'sec-warn' : 'sec-unrated'; }
+  function esc(s) { return (s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+  function render() {
+    const terms = qEl.value.toLowerCase().split(/\s+/).filter(Boolean);
+    const rows = skills.filter(e => {
+      const hay = `${e.id} ${e.name} ${e.summary} ${e.kind}`.toLowerCase();
+      if (!terms.every(t => hay.includes(t))) return false;
+      if (zhEl.checked && !e.trust.zh) return false;
+      if (activeEl.checked && (e.trust.health || 0) < 70) return false;
+      return true;
+    });
+    if (!rows.length) { listEl.innerHTML = '<div class="empty">No matching skills.</div>'; return; }
+    listEl.innerHTML = rows.map(e => {
+      const t = e.trust;
+      return `<div class="row">
+        <div class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="kind">${esc(e.kind)} · ${esc(e.id)}</span></div>
+        <div class="signals">
+          <span class="pill health">health ${t.health}</span>
+          <span class="pill ${secClass(t.security)}">${esc(t.security)}</span>
+          ${t.zh ? '<span class="pill zh">中文</span>' : ''}
+        </div>
+        ${e.summary ? `<div class="summary">${esc(e.summary)}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  fetch('./index.json').then(r => r.json()).then(data => {
+    skills = (data.skills || []).slice().sort((a, b) => (b.trust.health || 0) - (a.trust.health || 0));
+    metaEl.textContent = `${skills.length} skills · index generated ${data.generated_at || '—'}`;
+    render();
+  }).catch(e => { listEl.innerHTML = `<div class="empty">Failed to load index.json: ${esc(String(e))}</div>`; });
+
+  [qEl, zhEl, activeEl].forEach(el => el.addEventListener('input', render));
+</script>
+</body>
+</html>
