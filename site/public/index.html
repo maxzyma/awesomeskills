@@ -179,7 +179,7 @@ Read-only: awesomeskills.io/llm.txt</pre>
     }).join('');
   }
 
-  fetch('./index.json').then(r => r.json()).then(data => {
+  fetch('./index.json?t=' + Date.now()).then(r => r.json()).then(data => {
     skills = (data.skills || []).slice().sort((a, b) => (b.trust.health || 0) - (a.trust.health || 0));
     metaEl.textContent = `${skills.length} skills · index generated ${data.generated_at || '—'}`;
     render();
