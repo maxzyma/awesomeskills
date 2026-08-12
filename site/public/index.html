@@ -149,6 +149,9 @@
       grounding: 'grounding', grounding_show: 'Show grounding', grounding_hide: 'Hide grounding', copied: 'Copied', copy: 'Copy',
       l_health: 'Health', l_security: 'Security', l_coverage: 'Coverage', l_func: 'Function / scenarios', l_community: 'Community',
       security: 'security', chinese: 'Chinese', yes: 'yes', no: 'no', level: 'level', frontmatter: 'frontmatter', valid: 'valid', invalid: 'invalid',
+      f_recency: 'recency', f_maintenance: 'maintenance', f_engagement: 'engagement', f_maturity: 'maturity',
+      sec_pass: 'pass', sec_warn: 'warn', sec_fail: 'fail', sec_unrated: 'unrated',
+      v_healthy: 'healthy', v_mixed: 'mixed', v_concern: 'concern', risk_low: 'low', risk_medium: 'medium', risk_high: 'high',
       lastpush: 'last push', ago: 'ago', openissues: 'open issues', forks: 'forks', watchers: 'watchers', archived: 'archived',
       scanscope: 'scan scope', headings: 'headings', codeblocks: 'code blocks', scenarios: 'scenarios', deps: 'deps',
       repograde: 'repo', vanity: 'vanity risk', hn_stories: 'HN stories', hn_none: 'no HN discussion', bili_videos: 'Bilibili videos', bili_none: 'no Bilibili videos', plays: 'plays', notrun: 'function / community not yet run for this skill',
@@ -171,6 +174,9 @@
       grounding: 'grounding 依据', grounding_show: '展开 grounding 依据', grounding_hide: '收起 grounding 依据', copied: '已复制', copy: '复制',
       l_health: '健康度', l_security: '安全', l_coverage: '覆盖', l_func: '功能 / 场景', l_community: '社区',
       security: '安全', chinese: '中文', yes: '是', no: '否', level: '层级', frontmatter: 'frontmatter', valid: '合规', invalid: '不合规',
+      f_recency: '最近度', f_maintenance: '维护', f_engagement: '参与', f_maturity: '成熟度',
+      sec_pass: '通过', sec_warn: '警告', sec_fail: '未通过', sec_unrated: '未评级',
+      v_healthy: '健康', v_mixed: '中等', v_concern: '存疑', risk_low: '低', risk_medium: '中', risk_high: '高',
       lastpush: '最近提交', ago: '前', openissues: '个开放 issue', forks: '个 fork', watchers: '个关注', archived: '已归档',
       scanscope: '扫描范围', headings: '个标题', codeblocks: '个代码块', scenarios: '场景', deps: '依赖',
       repograde: '仓库', vanity: 'vanity 风险', hn_stories: '条 HN 讨论', hn_none: '无 HN 讨论', bili_videos: '个 B站视频', bili_none: '无 B站视频', plays: '播放', notrun: '此 skill 尚未运行功能 / 社区分析',
@@ -194,6 +200,10 @@
 
   function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function secClass(s) { return s === 'pass' ? 'sec-pass' : (s === 'warn' || s === 'fail') ? 'sec-warn' : 'sec-unrated'; }
+  const secLabel = r => t('sec_' + r);
+  const verdictLabel = v => t('v_' + v);
+  const riskLabel = x => t('risk_' + x);
+  const skillSummary = e => { const fn = e.grounding && e.grounding.function && e.grounding.function[lang]; return (fn && fn.purpose) || e.summary; };
   function fmtDate(iso) { return iso ? iso.slice(0, 16).replace('T', ' ') : '—'; }
 
   function applyStatic() {
@@ -213,11 +223,11 @@
     const sf = tr.security_findings || [];
     const out = [];
     out.push(layer(t('l_health'), [
-      `<div><b>${tr.health}</b> = recency ${p.recency ?? '?'}/40 · maintenance ${p.maintenance ?? '?'}/25 · engagement ${p.engagement ?? '?'}/20 · maturity ${p.maturity ?? '?'}/15</div>`,
+      `<div><b>${tr.health}</b> = ${t('f_recency')} ${p.recency ?? '?'}/40 · ${t('f_maintenance')} ${p.maintenance ?? '?'}/25 · ${t('f_engagement')} ${p.engagement ?? '?'}/20 · ${t('f_maturity')} ${p.maturity ?? '?'}/15</div>`,
       `<div class="g-sub">${t('lastpush')} ${f.recency_days ?? '?'}d ${t('ago')} · ${f.stars ?? '?'}★ · ${f.open_issues ?? '?'} ${t('openissues')} · ${f.forks ?? '?'} ${t('forks')} · ${f.watchers ?? '?'} ${t('watchers')}${f.archived ? ' · ' + t('archived') : ''}</div>`,
     ]));
     out.push(layer(t('l_security'), [
-      `<div><b${tr.security === 'fail' ? ' class="bad"' : ''}>${esc(tr.security)}</b>${sf.length ? ' — ' + sf.map(x => esc(x.label)).join('; ') : ''}</div>`,
+      `<div><b${tr.security === 'fail' ? ' class="bad"' : ''}>${esc(secLabel(tr.security))}</b>${sf.length ? ' — ' + sf.map(x => esc(x.label)).join('; ') : ''}</div>`,
       tr.security_scope ? `<div class="g-sub">${t('scanscope')}: ${esc(tr.security_scope)}</div>` : '',
     ]));
     out.push(layer(t('l_coverage'), [
@@ -236,7 +246,7 @@
     if (rp && (co || rp.overall_grade)) {
       const ext = rp.external && rp.external.hn;
       out.push(layer(`${t('l_community')} — ${t('repograde')} ${esc(rp.overall_grade)} (${rp.overall_score}) · ${esc(e.source_repo)}`, [
-        co && co.verdict ? `<div>${esc(co.verdict)} · ${t('vanity')} ${esc(co.vanity_risk || '?')}${co.summary ? ' — ' + esc(co.summary) : ''}</div>` : '',
+        co && co.verdict ? `<div>${esc(verdictLabel(co.verdict))} · ${t('vanity')} ${esc(riskLabel(co.vanity_risk) || '?')}${co.summary ? ' — ' + esc(co.summary) : ''}</div>` : '',
         co && Array.isArray(co.signals) && co.signals.length ? `<div class="g-sub">${co.signals.map(esc).join(' · ')}</div>` : '',
         ext ? (ext.stories ? `<div class="g-sub">HN: ${ext.stories} ${t('hn_stories')} · ${ext.total_points ?? 0}pts / ${ext.total_comments ?? 0}c · <a href="${esc(ext.top_url)}" target="_blank" rel="noopener">top</a></div>` : `<div class="g-sub">${t('hn_none')}</div>`) : '',
         (() => { const bili = rp.external && rp.external.cn && rp.external.cn.bilibili; if (!bili) return ''; return bili.videos ? `<div class="g-sub">B站: ${bili.videos} ${t('bili_videos')} · ${esc(bili.top_plays || '')} ${t('plays')}${bili.top_url ? ` · <a href="${esc(bili.top_url)}" target="_blank" rel="noopener">${esc((bili.top_title || 'top').slice(0, 24))}</a>` : ''}</div>` : `<div class="g-sub">${t('bili_none')}</div>`; })(),
@@ -271,12 +281,12 @@
           <div class="signals">
             ${grade ? `<span class="pill grade grade-${esc(grade)}">${t('repograde')} ${esc(grade)}</span>` : ''}
             <span class="pill health tip" tabindex="0" data-tip="${esc(htip)}">health ${tr.health}</span>
-            <span class="pill ${secClass(tr.security)} tip" tabindex="0" data-tip="${esc(stip)}">${esc(tr.security)}</span>
+            <span class="pill ${secClass(tr.security)} tip" tabindex="0" data-tip="${esc(stip)}">${esc(secLabel(tr.security))}</span>
             ${tr.zh ? `<span class="pill zh">${t('chinese')}</span>` : ''}
             <button class="gbtn" type="button" aria-expanded="${open}" aria-controls="${gid}" aria-label="${esc(open ? t('grounding_hide') : t('grounding_show'))}">${infoIcon}</button>
           </div>
         </div>
-        ${e.summary ? `<div class="summary">${esc(e.summary)}</div>` : ''}
+        ${(sm => sm ? `<div class="summary">${esc(sm)}</div>` : '')(skillSummary(e))}
         <div class="ground-body" id="${gid}" role="region" aria-label="${esc(t('grounding'))}"${open ? '' : ' hidden'}>${groundHtml(e)}</div>
       </li>`;
     }).join('');
