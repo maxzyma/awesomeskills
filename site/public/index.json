@@ -43,6 +43,24 @@
         "issues": [],
         "headings": 13,
         "code_blocks": 7
+      },
+      "grounding": {
+        "function": {
+          "error": "no SKILL.md body"
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates strong engagement and active maintenance, featuring a high fork count (~12k) and updates as recent as today. The high star count alongside lower watchers reflects typical bookmarking behavior for popular educational repositories rather than artificial inflation.",
+          "signals": [
+            "High star count (73,877) paired with strong fork volume (11,974), showing high code utilization.",
+            "Active maintenance with the most recent push occurring today (0d ago).",
+            "Manageable issue backlog with 72 open issues.",
+            "Watcher count (295) is low relative to stars, common for bookmarked tutorial/learning repos."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -86,6 +104,35 @@
         "issues": [],
         "headings": 23,
         "code_blocks": 9
+      },
+      "grounding": {
+        "function": {
+          "purpose": "This skill provides instructions and code templates for building Model Context Protocol (MCP) servers in Python and TypeScript to extend Claude with custom tools, resources, and external integrations.",
+          "scenarios": [
+            "Developing a custom MCP server to connect Claude with external REST APIs.",
+            "Creating an MCP tool to allow safe, read-only database querying.",
+            "Configuring Claude desktop settings (`mcp.json`) to register newly built local tools."
+          ],
+          "io": "Takes user integration requirements as input and outputs code boilerplate for Python/TypeScript MCP servers along with configuration snippets.",
+          "dependencies": [
+            "python",
+            "npm",
+            "mcp-sdk"
+          ],
+          "boundary": "It provides code and setup guidance for building MCP servers but does not host, deploy, or run the servers in a live environment."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository shows strong activity and genuine engagement, highlighted by a high fork count and immediate ongoing maintenance. Star count is consistent with popular educational resources and viral learning repositories.",
+          "signals": [
+            "73,877 stars combined with a proportionally high 11,974 forks indicating active cloning and usage",
+            "Active repository with the last push occurring 0 days ago",
+            "Manageable open issue queue of 72 issues for a project of this scale"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -129,6 +176,37 @@
         "issues": [],
         "headings": 30,
         "code_blocks": 5
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Performs structured code reviews to evaluate security vulnerabilities, performance bottlenecks, logic errors, and maintainability across codebases.",
+          "scenarios": [
+            "Auditing pull requests or git diffs before merging code",
+            "Checking source code for security flaws like injection attacks and exposed credentials",
+            "Evaluating code maintainability, test coverage, and complexity metrics"
+          ],
+          "io": "Inputs source code files, git diffs, or pull request descriptions and outputs a formatted Markdown code review with classified issues, recommended fixes, and a merge verdict.",
+          "dependencies": [
+            "git",
+            "npm",
+            "pip",
+            "cargo",
+            "radon"
+          ],
+          "boundary": "Provides static review guidelines and diagnostic CLI commands, but it does not automatically edit the code or run external continuous integration pipelines."
+        },
+        "community": {
+          "verdict": "mixed",
+          "summary": "The repository exhibits massive star and fork numbers with active daily commits, but the disproportionately low watcher count raises potential signals of viral star inflation or passive bookmarking.",
+          "signals": [
+            "Very high star count (73,877) and substantial fork count (11,974)",
+            "Extremely low watcher count (295) relative to the 73k+ stars",
+            "Active maintenance with the last push occurring 0 days ago and a low open issue count (72)"
+          ],
+          "vanity_risk": "medium"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -169,6 +247,33 @@
         ],
         "headings": 13,
         "code_blocks": 1
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Guides users in designing, architecting, and building domain-specific AI agents using minimal, effective agentic patterns.",
+          "scenarios": [
+            "Designing atomic capabilities and knowledge structures for a custom AI agent.",
+            "Learning agentic architecture, planning mechanisms, subagent patterns, and agent internals.",
+            "Simplifying over-engineered AI workflows into clean, model-driven loops."
+          ],
+          "io": "Takes domain requirements or design questions as input and outputs structured agent specifications, architectural guidance, and best practices.",
+          "dependencies": [
+            "none"
+          ],
+          "boundary": "This skill provides conceptual framework and design guidance for building agents, but does not directly execute runtime code or deploy live infrastructure."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository exhibits massive community reach and active maintenance, supported by a healthy fork-to-star ratio indicating real user engagement. With recent updates and a manageable issue count, the repository maintains strong health signals.",
+          "signals": [
+            "73,877 stars paired with 11,974 forks show strong user engagement and cloning activity",
+            "Repository is actively maintained with the last push recorded 0 days ago",
+            "Open issue count is low (72 issues) relative to the repository's high visibility"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -207,6 +312,33 @@
         "issues": [],
         "headings": 5,
         "code_blocks": 1
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Tracks and reports the progress and status of WORKs and TASKs by inspecting local markdown progress files.",
+          "scenarios": [
+            "Checking the overall progress summary for all WORK items",
+            "Viewing detailed task completion status for a specific WORK ID",
+            "Monitoring pipeline and execution status"
+          ],
+          "io": "Accepts an optional query or WORK identifier argument and outputs a formatted visual status list with task counts and progress indicators.",
+          "dependencies": [
+            "file_system"
+          ],
+          "boundary": "Only reads and displays status from markdown files; it cannot execute, create, or update WORKs or TASKs."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository exhibits strong health with very recent activity, low open issue debt, and genuine community engagement through plugin submissions.",
+          "signals": [
+            "Repository is actively maintained with the last push occurring today (0d ago)",
+            "Solid fork-to-star ratio (456 forks to 3,283 stars, ~14%) indicating real usage and community interest",
+            "Low open issue backlog (12 issues) containing active plugin submissions and ecosystem requests"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -245,6 +377,35 @@
         "issues": [],
         "headings": 6,
         "code_blocks": 2
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Orchestrates multi-agent software development workflows whenever a user request starts with a bracketed tag.",
+          "scenarios": [
+            "Initiating a structured feature development flow using a '[new-feature]' tag",
+            "Running a bugfix pipeline with automated execution by appending 'auto' to the request",
+            "Orchestrating custom work items using tags like '[WORK start]' or '[enhancement]'"
+          ],
+          "io": "Takes a user requirement string prefixed with a bracketed tag as input and produces requirement specs, task plans, verified code updates, and git commits via sub-agents as output.",
+          "dependencies": [
+            "sub-agents",
+            "file-system",
+            "git"
+          ],
+          "boundary": "It only orchestrates flow logic and delegates work to specialized sub-agents; it does not directly implement code, edit files, or execute git commands itself."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository exhibits strong community engagement with a healthy fork-to-star ratio and active maintenance. A low open issue count alongside a push within the last day reflects a well-maintained project.",
+          "signals": [
+            "3,283 stars and 456 forks indicate strong utility and reuse.",
+            "Very recent activity with the last push recorded 0 days ago.",
+            "Low open issue volume with only 12 active issues."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -288,6 +449,34 @@
         "issues": [],
         "headings": 6,
         "code_blocks": 4
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Initializes a project for uc-taskmanager pipeline execution by creating a works directory and configuring required local Claude Bash permissions.",
+          "scenarios": [
+            "Setting up a new project to use uc-taskmanager for the first time",
+            "Configuring automated Bash permissions in .claude/settings.local.json",
+            "Preparing the workspace directory structure required by the uc-taskmanager workflow"
+          ],
+          "io": "Inputs user confirmation prompt, and outputs a works directory along with updated Claude configuration settings.",
+          "dependencies": [
+            "filesystem"
+          ],
+          "boundary": "This skill only initializes directory structures and permission settings; it does not execute pipeline tasks or create work items itself."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates active maintenance and genuine community engagement, backed by a solid fork-to-star ratio and recent activity. Issue triage is prompt, with community members actively submitting plugins and partnership proposals.",
+          "signals": [
+            "High engagement with 3,283 stars and 456 forks (~14% fork ratio)",
+            "Active maintenance with the most recent push today (0d ago)",
+            "Manageable backlog of 12 open issues showing prompt maintenance",
+            "Community-driven open issues focused on plugin submissions and integration requests"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -326,6 +515,33 @@
         "issues": [],
         "headings": 8,
         "code_blocks": 2
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Performs a comprehensive security audit covering OWASP Top 10, secrets, dependencies, and smart contracts by delegating tasks to the Centinela QA agent.",
+          "scenarios": [
+            "Verifying security posture prior to a software release",
+            "Reviewing security after significant changes to authentication, authorization, or data handling",
+            "Auditing newly added dependencies and smart contracts for known vulnerabilities"
+          ],
+          "io": "Takes optional file or directory path arguments as input and outputs a detailed Markdown security audit report containing findings, a verdict, and fix recommendations.",
+          "dependencies": [
+            "Centinela (QA) agent"
+          ],
+          "boundary": "This skill only scans and documents security findings into a report and will never attempt to automatically fix or patch any identified vulnerabilities."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository shows strong community adoption and active maintenance, supported by a healthy fork-to-star ratio and zero-day push activity. Open issue activity reflects genuine ecosystem engagement with plugin submissions and feature requests.",
+          "signals": [
+            "3,283 stars and 456 forks (~13.9% fork ratio) indicating practical community usage",
+            "High maintenance frequency with the last push on the same day (0d ago)",
+            "Low open issue count (12) featuring community plugin submissions and integration proposals"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -367,6 +583,34 @@
         ],
         "headings": 2,
         "code_blocks": 0
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Provides internal rules, schemas, and workflow references for software development design (SDD) pipeline agents.",
+          "scenarios": [
+            "Referencing file and XML schemas during inter-agent communications",
+            "Enforcing sliding window context policies across workflow stages",
+            "Standardizing plan document fields and activity log rules for pipeline agents"
+          ],
+          "io": "Inputs agent queries for rules or schemas and outputs standardized file formats, context policies, and workflow definitions.",
+          "dependencies": [
+            "none"
+          ],
+          "boundary": "Does not perform direct task executions or handle direct user prompts, serving solely as an internal reference library for pipeline agents."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository exhibits strong project health with zero-day recency on commits, a manageable issue backlog, and active community plugin contributions. The fork-to-star ratio (~14%) indicates genuine engagement rather than simple star hoarding.",
+          "signals": [
+            "High recent activity with the last push occurring today (0 days ago)",
+            "Healthy fork-to-star ratio of ~14% (456 forks to 3,283 stars) indicating real usage and modification",
+            "Low number of open issues (12) demonstrating attentive maintainership",
+            "Recent issue queue consists of legitimate community plugin submissions and integration requests"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -405,6 +649,33 @@
         "issues": [],
         "headings": 8,
         "code_blocks": 2
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Addresses and fixes code review findings from QA reports by delegating implementation fixes and test updates to the Forja developer agent.",
+          "scenarios": [
+            "Fixing critical and warning issues identified in a specific QA review report",
+            "Processing the most recent review report in docs/reviews/ when no file path is provided",
+            "Preparing a fix report and updated codebase for QA re-verification"
+          ],
+          "io": "Input is an optional file path to a QA review report, and output consists of fixed code, updated tests, and a fix report for re-verification.",
+          "dependencies": [
+            "forja-dev-agent"
+          ],
+          "boundary": "This skill does not perform the initial QA code review nor does it run the final re-verification itself, focusing solely on implementing the requested fixes."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates strong community engagement with an active push schedule, low issue backlog, and a healthy fork-to-star ratio driven by third-party plugin submissions.",
+          "signals": [
+            "High activity with the last push recorded today (0d ago).",
+            "Strong engagement balance with 456 forks relative to 3,283 stars (~14% fork ratio).",
+            "Low number of open issues (12 total), mostly consisting of community plugin submissions and partnership proposals."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -443,6 +714,34 @@
         "issues": [],
         "headings": 7,
         "code_blocks": 1
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Executes a multi-stage pre-release verification checklist covering documentation, testing, and security to determine if a software version is ready to ship.",
+          "scenarios": [
+            "Verifying release readiness prior to deploying a version to production",
+            "Checking quality, documentation, and security gates before tagging a new version",
+            "Generating a documented audit report for release compliance"
+          ],
+          "io": "Takes a version tag as input and outputs a release assessment Markdown file containing test results, security findings, and a final release verdict.",
+          "dependencies": [
+            "Centinela QA agent"
+          ],
+          "boundary": "It does not automatically patch code issues, fix failing tests, or deploy the code to production environment."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates strong community health with active maintenance, a healthy fork-to-star ratio, and organic community participation visible in issue submissions.",
+          "signals": [
+            "Active maintenance with the most recent push occurring today (0d ago)",
+            "Proportional engagement with 456 forks against 3,283 stars (~1:7 ratio)",
+            "Low backlog of open issues (12 open issues)",
+            "Recent issue titles show active community integration, including plugin submissions and ecosystem requests"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -486,6 +785,38 @@
         "issues": [],
         "headings": 5,
         "code_blocks": 2
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Boots a working session by verifying the vault configuration, recovering unbanked session logs, and surfacing critical context, decisions, and open threads.",
+          "scenarios": [
+            "Initializing session context and priorities at the start of work",
+            "Recovering unbanked session logs after an incomplete session close",
+            "Surfacing active delegations, aged decisions, and focus discrepancies across notes"
+          ],
+          "io": "Reads vault state files, memory logs, and daily notes based on system environment variables, outputting a context summary to the operator and selectively updating log state.",
+          "dependencies": [
+            "Read",
+            "Glob",
+            "Edit",
+            "Write",
+            "Bash"
+          ],
+          "boundary": "It does not perform system setup or execute general task workflows, delegating unconfigured vaults to /setup and first-run installations to /start."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates active maintenance and genuine community interest through plugin submissions and integrations. A strong fork-to-star ratio and recent pushes indicate an engaged user base.",
+          "signals": [
+            "Active maintenance with the most recent push today (0d ago).",
+            "Solid fork-to-star ratio (456 forks to 3,283 stars) indicating real user adoption.",
+            "Manageable issue backlog with 12 open issues.",
+            "Community involvement evidenced by plugin submissions and integration requests in open issues."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -524,6 +855,34 @@
         "issues": [],
         "headings": 8,
         "code_blocks": 2
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Transforms an approved feature specification into working source code, tests, and architecture documentation by delegating tasks to the Forja (Dev) agent.",
+          "scenarios": [
+            "Implementing a user authentication module from an existing feature spec",
+            "Designing architecture and building a webhook event system based on product requirements",
+            "Generating unit/integration tests and QA handoff documentation for a completed feature"
+          ],
+          "io": "Takes a feature specification identifier or file path as input and outputs implemented source code, test files, architecture decision records (ADRs), and QA handoff notes.",
+          "dependencies": [
+            "Forja (Dev) agent"
+          ],
+          "boundary": "This skill does not draft original feature specifications, perform final QA testing, or manage deployment to production environments."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates active maintenance and genuine user engagement, highlighted by recent code updates and community plugin submissions. The healthy proportion of forks relative to stars indicates real practical usage rather than inflated metrics.",
+          "signals": [
+            "Active development with a push recorded today (0d ago)",
+            "Strong star-to-fork ratio (3,283 stars to 456 forks, ~14% fork rate)",
+            "Manageable backlog of 12 open issues containing active community plugin requests",
+            "35 watchers monitoring project activity"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -562,6 +921,24 @@
         "issues": [],
         "headings": 8,
         "code_blocks": 2
+      },
+      "grounding": {
+        "function": {
+          "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1028)>"
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates strong community adoption with a healthy fork-to-star ratio and very active maintenance. Low open issue counts and a push today indicate an actively managed and responsive codebase.",
+          "signals": [
+            "High star count (3,283) supported by substantial forks (456)",
+            "Active development with the most recent push occurring today (0d ago)",
+            "Low backlog of open issues (12) relative to total stars and forks",
+            "Watcher count (35) is modest relative to stars, but forks indicate real user engagement"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -600,6 +977,35 @@
         "issues": [],
         "headings": 7,
         "code_blocks": 1
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Scans the codebase for dead code, tech debt, vulnerable dependencies, and code smells by delegating analysis to the Centinela QA agent.",
+          "scenarios": [
+            "Auditing codebase quality prior to a major software release",
+            "Verifying code cleanliness after a large refactoring effort",
+            "Assessing existing tech debt during developer onboarding"
+          ],
+          "io": "Takes the local codebase as input and generates a detailed Markdown health report saved to docs/reviews/.",
+          "dependencies": [
+            "Centinela agent",
+            "filesystem"
+          ],
+          "boundary": "This skill only identifies and documents code health issues in a report, without automatically refactoring or fixing the detected code."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository shows active maintenance and genuine community engagement, backed by a strong fork-to-star ratio and recent code updates. Open issues reflect active community submissions and ecosystem interest rather than unaddressed bug backlogs.",
+          "signals": [
+            "3,283 stars paired with 456 forks (~13.9% ratio), indicating real adoption and reuse",
+            "Active development with the last commit made today (0d ago)",
+            "Low open issue count (12) featuring community plugin submissions and integration requests",
+            "Low watcher count (35) relative to stars, common for curated resources/skills but worth noting"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -643,6 +1049,39 @@
         "issues": [],
         "headings": 30,
         "code_blocks": 9
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Commits active session state, logs, and discipline audits into durable vault memory to establish a clean resume point.",
+          "scenarios": [
+            "Wrapping up a working session to safely persist progress into daily notes and memory ledgers",
+            "Performing session discipline audits to track honesty, trust-decay claims, and failure modes",
+            "Preparing a clean resume point and session summary before terminating an agent context"
+          ],
+          "io": "Takes session history and the /close trigger as input, and outputs updated memory ledgers, daily notes, and session summary files in the vault.",
+          "dependencies": [
+            "bash",
+            "edit",
+            "write",
+            "read",
+            "glob",
+            "grep"
+          ],
+          "boundary": "It does not perform initial vault setup or write memory files outside the explicitly validated vault directory structure."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates active maintenance and genuine community participation through recent commits, plugin submissions, and a healthy fork ratio relative to star count.",
+          "signals": [
+            "High community engagement with 3,283 stars and 456 forks (~13.9% fork ratio).",
+            "Extremely active development with the last push recorded today (0d ago).",
+            "Low issue backlog with only 12 open issues.",
+            "Open issues indicate genuine community interaction, including plugin submissions and feature requests."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -681,6 +1120,35 @@
         "issues": [],
         "headings": 13,
         "code_blocks": 0
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Automate Airtable operations including record management, complex filtering, and schema modifications via Rube MCP.",
+          "scenarios": [
+            "Creating, updating, and deleting individual or batch Airtable records",
+            "Filtering and querying base records using custom Airtable formulas",
+            "Inspecting base schemas and creating or updating table fields"
+          ],
+          "io": "Accepts user automation requests with base IDs, field names, and filter parameters, returning JSON data representing Airtable records, query results, or updated schemas.",
+          "dependencies": [
+            "rube",
+            "airtable",
+            "composio"
+          ],
+          "boundary": "It does not manage user access permissions, workspace billing, or non-Airtable data sources directly."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository exhibits strong engagement with a healthy fork-to-star ratio and very recent maintenance activity. Open issues demonstrate an active community proposing tools and submitting plugins.",
+          "signals": [
+            "High star count (3,283) supported by a healthy fork count (456, ~14% ratio).",
+            "Active maintenance with the latest push recorded today (0d ago).",
+            "Low open issue count (12) with community engagement around plugin submissions and partnerships."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -719,6 +1187,35 @@
         "issues": [],
         "headings": 29,
         "code_blocks": 9
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Enables AI agents to configure web analytics tracking, monitor project traffic, and run A/B experiments using the Agent Analytics CLI.",
+          "scenarios": [
+            "Adding analytics tracking snippets and custom event handlers to web apps.",
+            "Checking traffic, conversion rates, and user retention for projects.",
+            "Running A/B experiments on CTAs and UI user flows."
+          ],
+          "io": "Takes CLI setup commands and project event configurations as input, and returns tracking code snippets and analytics performance metrics as output.",
+          "dependencies": [
+            "npx",
+            "AGENT_ANALYTICS_API_KEY"
+          ],
+          "boundary": "It does not track granular micro-interactions like scroll depth or individual form field changes, focusing only on key growth and conversion events."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates active maintenance and genuine community utility with a strong fork-to-star ratio. Recent commit activity and a low open issue count reflect healthy ongoing management.",
+          "signals": [
+            "High star count (3,283) paired with 456 forks (~14% ratio)",
+            "Active development with the last push occurring today (0d ago)",
+            "Low open issue count (12) indicating manageable backlog",
+            "Reasonable ratio of forks to stars suggesting real usage over mere bookmarking"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -757,6 +1254,34 @@
         "issues": [],
         "headings": 15,
         "code_blocks": 3
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Automates ActiveCampaign CRM and marketing tasks such as managing contacts, tags, and list subscriptions via the Rube MCP framework.",
+          "scenarios": [
+            "Creating or searching for contacts using email, name, phone, or tags",
+            "Adding or removing tags from active contacts",
+            "Subscribing or unsubscribing contacts from specific marketing lists"
+          ],
+          "io": "Inputs include contact details, tag actions, and numeric list IDs; outputs are structured operation statuses and contact record objects.",
+          "dependencies": [
+            "rube"
+          ],
+          "boundary": "It does not build email campaign templates, handle custom HTML email design, or manage non-ActiveCampaign CRM platforms."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates strong community adoption with very active maintenance and genuine community contributions like plugin submissions. The high fork-to-star ratio reflects real practical utility rather than superficial star accumulation.",
+          "signals": [
+            "High commit/push activity with the last push recorded 0 days ago.",
+            "Solid fork-to-star ratio (456 forks to 3,283 stars) indicating real developer usage and experimentation.",
+            "Open issue queue shows active community involvement including plugin submissions, partnerships, and feature proposals.",
+            "Low watcher count (35) compared to stars, which is standard for curated resource and plugin repositories where users bookmark rather than monitor daily updates."
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -802,6 +1327,36 @@
         ],
         "headings": 17,
         "code_blocks": 5
+      },
+      "grounding": {
+        "function": {
+          "purpose": "Analyzes a codebase to build the .hyperflow context cache and seed the memory directory skeleton for project setup.",
+          "scenarios": [
+            "Initializing Hyperflow in a new project to generate architecture and convention profile documents",
+            "Refreshing stale .hyperflow analysis cache files after dependency or configuration changes",
+            "Installing auto-detection shims for other AI coding assistants"
+          ],
+          "io": "Inputs optional flags such as --tools, --force, or --dry-run, and outputs structured profile markdown files and memory directory skeletons inside .hyperflow/.",
+          "dependencies": [
+            "bash",
+            "git",
+            "sha256sum"
+          ],
+          "boundary": "Only performs project analysis and setup, and does not trigger the plan-to-dispatch orchestration chain or write live mid-session contexts."
+        },
+        "community": {
+          "verdict": "healthy",
+          "summary": "The repository shows strong community engagement and active maintenance with a recent push and a healthy fork-to-star ratio. High star count combined with a proportional number of forks indicates genuine utility rather than superficial hype.",
+          "signals": [
+            "Active maintenance with the last push 1 day ago",
+            "Solid fork-to-star ratio (384 forks to 2,617 stars, ~14.7%)",
+            "Moderate issue backlog with 28 open issues",
+            "Watcher count (24) is somewhat low compared to stars, typical for bookmark-heavy prompt/skill collections"
+          ],
+          "vanity_risk": "low"
+        },
+        "model": "gemini-flash-latest",
+        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
       }
     },
     {
@@ -8076,5 +8631,10 @@
         "code_blocks": 1
       }
     }
-  ]
+  ],
+  "grounding_coverage": {
+    "enriched": 20,
+    "total": 200,
+    "ok": 18
+  }
 }
