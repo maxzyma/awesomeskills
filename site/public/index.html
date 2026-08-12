@@ -8,10 +8,13 @@
   :root { --fg:#1a1a1a; --muted:#6b7280; --line:#e5e7eb; --ok:#15803d; --warn:#b45309; --unrated:#6b7280; --bg:#fff; --accent:#3730a3; }
   * { box-sizing: border-box; }
   body { font: 15px/1.5 -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--fg); background: var(--bg); margin: 0; }
-  header { padding: 28px 24px 12px; max-width: 960px; margin: 0 auto; }
+  header { padding: 28px 24px 12px; max-width: 960px; margin: 0 auto; position: relative; }
   h1 { font-size: 22px; margin: 0 0 4px; }
   .tag { color: var(--accent); font-weight: 600; }
   p.lede { color: var(--muted); margin: 4px 0 0; }
+  .lang-switch { position: absolute; top: 28px; right: 24px; font-size: 12px; color: var(--muted); user-select: none; }
+  .lang-switch button { border: none; background: none; cursor: pointer; color: var(--muted); font: inherit; padding: 2px 4px; }
+  .lang-switch button.on { color: var(--accent); font-weight: 600; }
   .bar { max-width: 960px; margin: 12px auto 0; padding: 0 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
   input[type=search] { flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
   label.chk { color: var(--muted); font-size: 14px; display: inline-flex; gap: 5px; align-items: center; }
@@ -65,90 +68,155 @@
 </head>
 <body>
 <header>
-  <h1><span class="tag">awesomeskills</span> — a trust-first index of public agent skills</h1>
-  <p class="lede">We don't index the most skills. We index the most <em>trustworthy</em> ones — real activity (not stars), security rating, Chinese coverage.</p>
+  <div class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">中</button></div>
+  <h1><span class="tag">awesomeskills</span> <span data-i18n="tagline"></span></h1>
+  <p class="lede" data-i18n="lede"></p>
 </header>
 <section class="install">
   <details class="install-fold">
-    <summary><strong>Use with your agent</strong> <span>— install the finder for your agent</span></summary>
+    <summary><strong data-i18n="use_title"></strong> <span data-i18n="use_sub"></span></summary>
   <div class="install-grid">
     <div class="ins-card">
-      <div class="ins-t">Claude Code · plugin (recommended)</div>
+      <div class="ins-t" data-i18n="card_plugin"></div>
       <pre>/plugin marketplace add maxzyma/awesomeskills
 /plugin install awesomeskills@awesomeskills</pre>
     </div>
     <div class="ins-card">
-      <div class="ins-t">Claude Code · install manually</div>
-      <pre>git clone https://github.com/maxzyma/awesomeskills
-# all projects (recommended for a finder):
-cp -r awesomeskills/skills/awesomeskills ~/.claude/skills/
-# or this project only:
-cp -r awesomeskills/skills/awesomeskills .claude/skills/</pre>
+      <div class="ins-t" data-i18n="card_manual"></div>
+      <pre data-i18n-pre="manual"></pre>
     </div>
     <div class="ins-card">
-      <div class="ins-t">Other agents &amp; any LLM</div>
-      <pre>Standard Agent Skill — install the way
-your agent expects (most read
-.agents/skills/; see its docs).
-Read-only: awesomeskills.io/llm.txt</pre>
+      <div class="ins-t" data-i18n="card_other"></div>
+      <pre data-i18n-pre="other"></pre>
     </div>
   </div>
   </details>
-  <p class="submit-line">Know a good skill we're missing? <a href="https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml" target="_blank" rel="noopener">Submit it for inclusion →</a></p>
+  <p class="submit-line"><span data-i18n="submit_q"></span> <a href="https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml" target="_blank" rel="noopener" data-i18n="submit_a"></a></p>
 </section>
 <div class="bar">
-  <input id="q" type="search" placeholder="Search a capability, e.g. pdf, browser, registry…" autofocus />
-  <label class="chk"><input type="checkbox" id="zh" /> 中文 only</label>
-  <label class="chk"><input type="checkbox" id="active" /> health ≥ 70</label>
+  <input id="q" type="search" autofocus />
+  <label class="chk"><input type="checkbox" id="zh" /> <span data-i18n="zh_only"></span></label>
+  <label class="chk"><input type="checkbox" id="active" /> <span data-i18n="health_ge"></span></label>
 </div>
 <div class="meta" id="meta"></div>
-<main id="list"><div class="empty">Loading index…</div></main>
+<main id="list"><div class="empty" data-i18n="loading"></div></main>
 <footer>
-  Health is a heuristic v0 (activity-driven, not star-driven). <code>unrated</code> security = not yet assessed, not "safe".
-  Machine-readable: <a href="./index.json" target="_blank" rel="noopener">index.json</a> · <a href="./llm.txt" target="_blank" rel="noopener">llm.txt</a>.
-  awesomeskills is an evaluator, not an executor — sandboxing is the host agent's job.
+  <span data-i18n="footer_health"></span> <span data-i18n="footer_unrated"></span>
+  <span data-i18n="footer_machine"></span> <a href="./index.json" target="_blank" rel="noopener">index.json</a> · <a href="./llm.txt" target="_blank" rel="noopener">llm.txt</a>.
+  <span data-i18n="footer_eval"></span>
 </footer>
 <script>
+  const I18N = {
+    en: {
+      tagline: '— a trust-first index of public agent skills',
+      lede: 'We don\'t index the most skills. We index the most <em>trustworthy</em> ones — real activity (not stars), security rating, Chinese coverage.',
+      use_title: 'Use with your agent', use_sub: '— install the finder for your agent',
+      card_plugin: 'Claude Code · plugin (recommended)',
+      card_manual: 'Claude Code · install manually',
+      card_other: 'Other agents & any LLM',
+      pre_manual: 'git clone https://github.com/maxzyma/awesomeskills\n# all projects (recommended for a finder):\ncp -r awesomeskills/skills/awesomeskills ~/.claude/skills/\n# or this project only:\ncp -r awesomeskills/skills/awesomeskills .claude/skills/',
+      pre_other: 'Standard Agent Skill — install the way\nyour agent expects (most read\n.agents/skills/; see its docs).\nRead-only: awesomeskills.io/llm.txt',
+      submit_q: 'Know a good skill we\'re missing?', submit_a: 'Submit it for inclusion →',
+      search_ph: 'Search a capability, e.g. pdf, browser, registry…',
+      zh_only: 'Chinese only', health_ge: 'health ≥ 70',
+      meta: (n, d) => `${n} skills · index generated ${d}`,
+      no_match: 'No matching skills.', loading: 'Loading index…',
+      grounding: 'grounding',
+      security: 'security', chinese: 'chinese', level: 'level', frontmatter: 'frontmatter',
+      valid: 'valid', invalid: 'invalid', lastpush: 'last push', ago: 'ago',
+      openissues: 'open issues', forks: 'forks', watchers: 'watchers', archived: 'archived',
+      scanscope: 'scan scope', headings: 'headings', codeblocks: 'code blocks',
+      func: 'Function / scenarios', scenarios: 'scenarios', deps: 'deps',
+      community: 'Community', vanity: 'vanity risk',
+      notrun: 'function / community analysis: not yet run for this skill (top-20 enriched so far)',
+      note: 'Assessed by awesomeskills — health = activity+maintenance (not stars); security = static scan; function & community = LLM-grounded. Source: ',
+      footer_health: 'Health is a heuristic v0 (activity-driven, not star-driven).',
+      footer_unrated: '<code>unrated</code> security = not yet assessed, not "safe".',
+      footer_machine: 'Machine-readable:',
+      footer_eval: 'awesomeskills is an evaluator, not an executor — sandboxing is the host agent\'s job.',
+    },
+    zh: {
+      tagline: '——一个可信优先的公开 agent 技能索引',
+      lede: '我们不追收录最多，而是收录最<em>可信</em>的——真实活跃度（非 star）、安全评级、中文覆盖。',
+      use_title: '接入你的 agent', use_sub: '——为你的 agent 安装 finder',
+      card_plugin: 'Claude Code · 插件（推荐）',
+      card_manual: 'Claude Code · 手动安装',
+      card_other: '其它 agent 与任意 LLM',
+      pre_manual: 'git clone https://github.com/maxzyma/awesomeskills\n# 所有项目（finder 推荐）：\ncp -r awesomeskills/skills/awesomeskills ~/.claude/skills/\n# 或仅当前项目：\ncp -r awesomeskills/skills/awesomeskills .claude/skills/',
+      pre_other: '标准 Agent Skill——按你的 agent 方式安装\n（多数读 .agents/skills/，见其文档）。\n只读：awesomeskills.io/llm.txt',
+      submit_q: '发现我们漏收的好 skill？', submit_a: '提交收录 →',
+      search_ph: '搜索能力，如 pdf、browser、registry…',
+      zh_only: '仅中文', health_ge: 'health ≥ 70',
+      meta: (n, d) => `${n} 个 skill · 索引生成于 ${d}`,
+      no_match: '没有匹配的 skill。', loading: '加载索引中…',
+      grounding: 'grounding 依据',
+      security: '安全', chinese: '中文', level: '层级', frontmatter: 'frontmatter',
+      valid: '合规', invalid: '不合规', lastpush: '最近提交', ago: '前',
+      openissues: '个开放 issue', forks: '个 fork', watchers: '个关注', archived: '已归档',
+      scanscope: '扫描范围', headings: '个标题', codeblocks: '个代码块',
+      func: '功能 / 场景', scenarios: '场景', deps: '依赖',
+      community: '社区', vanity: 'vanity 风险',
+      notrun: '功能 / 社区分析：此 skill 尚未运行（目前仅 enrich 了 top-20）',
+      note: '由 awesomeskills 评估——health = 活跃度+维护（非 star）；security = 静态扫描；function 与 community = LLM 依据。来源：',
+      footer_health: 'Health 为启发式 v0（基于活跃度，非 star）。',
+      footer_unrated: '<code>unrated</code> 安全 = 尚未评估，不等于“安全”。',
+      footer_machine: '机器可读：',
+      footer_eval: 'awesomeskills 是评估者，不是执行者——沙箱隔离是宿主 agent 的职责。',
+    },
+  };
+
+  let lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('zh') ? 'zh' : 'en');
+  const t = k => (I18N[lang] && I18N[lang][k] !== undefined) ? I18N[lang][k] : (I18N.en[k] ?? k);
+
+  function applyStatic() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-pre]').forEach(el => { el.textContent = t('pre_' + el.dataset.i18nPre); });
+    qEl.placeholder = t('search_ph');
+    document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+  }
+
   const listEl = document.getElementById('list');
   const metaEl = document.getElementById('meta');
   const qEl = document.getElementById('q');
   const zhEl = document.getElementById('zh');
   const activeEl = document.getElementById('active');
   let skills = [];
+  let generatedAt = '—';
 
   function secClass(s) { return s === 'pass' ? 'sec-pass' : s === 'warn' || s === 'fail' ? 'sec-warn' : 'sec-unrated'; }
   function esc(s) { return (s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 
-  // grounding = awesomeskills' own assessment of a skill (data from our index.json)
+  // grounding = awesomeskills' own multi-layer assessment (data from our index.json)
   function groundHtml(e) {
-    const t = e.trust || {}, f = t.health_factors || {}, p = f.parts || {}, fm = e.frontmatter;
-    const sf = t.security_findings || [];
+    const tr = e.trust || {}, f = tr.health_factors || {}, p = f.parts || {}, fm = e.frontmatter;
+    const sf = tr.security_findings || [];
     const rows = [];
-    rows.push(`<div><b>health ${t.health}</b> = recency ${p.recency ?? '?'}/40 · maintenance ${p.maintenance ?? '?'}/25 · engagement ${p.engagement ?? '?'}/20 · maturity ${p.maturity ?? '?'}/15</div>`);
-    rows.push(`<div class="ground-sub">last push ${f.recency_days ?? '?'}d ago · ${f.stars ?? '?'}★ · ${f.open_issues ?? '?'} open issues · ${f.forks ?? '?'} forks · ${f.watchers ?? '?'} watchers${f.archived ? ' · archived' : ''}</div>`);
-    rows.push(`<div>security: <b${t.security === 'fail' ? ' class="bad"' : ''}>${esc(t.security)}</b>${sf.length ? ' — ' + sf.map(x => esc(x.label)).join('; ') : ''}</div>`);
-    if (t.security_scope) rows.push(`<div class="ground-sub">scan scope: ${esc(t.security_scope)}</div>`);
-    rows.push(`<div>chinese: ${t.zh ? 'yes' : 'no'}${e.level ? ' · level: ' + esc(e.level) : ''}</div>`);
+    rows.push(`<div><b>health ${tr.health}</b> = recency ${p.recency ?? '?'}/40 · maintenance ${p.maintenance ?? '?'}/25 · engagement ${p.engagement ?? '?'}/20 · maturity ${p.maturity ?? '?'}/15</div>`);
+    rows.push(`<div class="ground-sub">${t('lastpush')} ${f.recency_days ?? '?'}d ${t('ago')} · ${f.stars ?? '?'}★ · ${f.open_issues ?? '?'} ${t('openissues')} · ${f.forks ?? '?'} ${t('forks')} · ${f.watchers ?? '?'} ${t('watchers')}${f.archived ? ' · ' + t('archived') : ''}</div>`);
+    rows.push(`<div>${t('security')}: <b${tr.security === 'fail' ? ' class="bad"' : ''}>${esc(tr.security)}</b>${sf.length ? ' — ' + sf.map(x => esc(x.label)).join('; ') : ''}</div>`);
+    if (tr.security_scope) rows.push(`<div class="ground-sub">${t('scanscope')}: ${esc(tr.security_scope)}</div>`);
+    rows.push(`<div>${t('chinese')}: ${tr.zh ? 'yes' : 'no'}${e.level ? ' · ' + t('level') + ': ' + esc(e.level) : ''}</div>`);
     if (fm) {
-      rows.push(`<div>frontmatter: ${fm.valid ? 'valid' : '<span class="bad">invalid</span>'}${fm.issues && fm.issues.length ? ' — ' + fm.issues.map(esc).join('; ') : ''}${fm.headings != null ? ` · ${fm.headings} headings · ${fm.code_blocks} code blocks` : ''}</div>`);
+      rows.push(`<div>${t('frontmatter')}: ${fm.valid ? t('valid') : '<span class="bad">' + t('invalid') + '</span>'}${fm.issues && fm.issues.length ? ' — ' + fm.issues.map(esc).join('; ') : ''}${fm.headings != null ? ` · ${fm.headings} ${t('headings')} · ${fm.code_blocks} ${t('codeblocks')}` : ''}</div>`);
     }
     if (e.grounding) {
       const fn = e.grounding.function || {}, co = e.grounding.community || {};
       if (fn.purpose) {
-        rows.push('<div class="ground-h">Function / scenarios</div>');
+        rows.push(`<div class="ground-h">${t('func')}</div>`);
         rows.push(`<div>${esc(fn.purpose)}</div>`);
-        if (Array.isArray(fn.scenarios) && fn.scenarios.length) rows.push(`<div class="ground-sub">scenarios: ${fn.scenarios.map(esc).join(' · ')}</div>`);
-        if (Array.isArray(fn.dependencies)) rows.push(`<div class="ground-sub">deps: ${fn.dependencies.map(esc).join(', ')}${fn.boundary ? ' · ' + esc(fn.boundary) : ''}</div>`);
+        if (Array.isArray(fn.scenarios) && fn.scenarios.length) rows.push(`<div class="ground-sub">${t('scenarios')}: ${fn.scenarios.map(esc).join(' · ')}</div>`);
+        if (Array.isArray(fn.dependencies)) rows.push(`<div class="ground-sub">${t('deps')}: ${fn.dependencies.map(esc).join(', ')}${fn.boundary ? ' · ' + esc(fn.boundary) : ''}</div>`);
       }
       if (co.verdict) {
-        rows.push(`<div class="ground-h">Community — ${esc(co.verdict)} · vanity risk ${esc(co.vanity_risk || '?')}</div>`);
+        rows.push(`<div class="ground-h">${t('community')} — ${esc(co.verdict)} · ${t('vanity')} ${esc(co.vanity_risk || '?')}</div>`);
         if (co.summary) rows.push(`<div>${esc(co.summary)}</div>`);
         if (Array.isArray(co.signals) && co.signals.length) rows.push(`<div class="ground-sub">${co.signals.map(esc).join(' · ')}</div>`);
       }
     } else {
-      rows.push('<div class="ground-sub">function / community analysis: not yet run for this skill (top-20 enriched so far)</div>');
+      rows.push(`<div class="ground-sub">${t('notrun')}</div>`);
     }
-    rows.push(`<div class="ground-note">Assessed by awesomeskills — health = activity+maintenance (not stars); security = static scan; function &amp; community = LLM-grounded. Source: <a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
+    rows.push(`<div class="ground-note">${t('note')}<a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
     return rows.join('');
   }
 
@@ -156,36 +224,45 @@ Read-only: awesomeskills.io/llm.txt</pre>
     const terms = qEl.value.toLowerCase().split(/\s+/).filter(Boolean);
     const rows = skills.filter(e => {
       const hay = `${e.id} ${e.name} ${e.summary} ${e.kind}`.toLowerCase();
-      if (!terms.every(t => hay.includes(t))) return false;
+      if (!terms.every(x => hay.includes(x))) return false;
       if (zhEl.checked && !e.trust.zh) return false;
       if (activeEl.checked && (e.trust.health || 0) < 70) return false;
       return true;
     });
-    if (!rows.length) { listEl.innerHTML = '<div class="empty">No matching skills.</div>'; return; }
+    metaEl.textContent = t('meta')(skills.length, generatedAt);
+    if (!rows.length) { listEl.innerHTML = `<div class="empty">${t('no_match')}</div>`; return; }
     listEl.innerHTML = rows.map(e => {
-      const t = e.trust;
+      const tr = e.trust;
       return `<div class="row">
         <div class="rowmain">
           <div class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="repo">${esc(e.source_repo || e.id)}</span><span class="kind">${esc(e.kind)}</span></div>
           <div class="signals">
-            <span class="pill health">health ${t.health}</span>
-            <span class="pill ${secClass(t.security)}">${esc(t.security)}</span>
-            ${t.zh ? '<span class="pill zh">中文</span>' : ''}
+            <span class="pill health">health ${tr.health}</span>
+            <span class="pill ${secClass(tr.security)}">${esc(tr.security)}</span>
+            ${tr.zh ? `<span class="pill zh">${t('chinese')}</span>` : ''}
           </div>
         </div>
         ${e.summary ? `<div class="summary">${esc(e.summary)}</div>` : ''}
-        <details class="grounding"><summary>grounding</summary><div class="ground-body">${groundHtml(e)}</div></details>
+        <details class="grounding"><summary>${t('grounding')}</summary><div class="ground-body">${groundHtml(e)}</div></details>
       </div>`;
     }).join('');
   }
 
+  function setLang(l) {
+    lang = l; localStorage.setItem('lang', l);
+    applyStatic();
+    render();
+  }
+
+  applyStatic();
   fetch('./index.json?t=' + Date.now()).then(r => r.json()).then(data => {
     skills = (data.skills || []).slice().sort((a, b) => (b.trust.health || 0) - (a.trust.health || 0));
-    metaEl.textContent = `${skills.length} skills · index generated ${data.generated_at || '—'}`;
+    generatedAt = data.generated_at || '—';
     render();
   }).catch(e => { listEl.innerHTML = `<div class="empty">Failed to load index.json: ${esc(String(e))}</div>`; });
 
   [qEl, zhEl, activeEl].forEach(el => el.addEventListener('input', render));
+  document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
   // copy-to-clipboard button on each install command block
   const copyIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
