@@ -17,12 +17,23 @@
   label.chk { color: var(--muted); font-size: 14px; display: inline-flex; gap: 5px; align-items: center; }
   .meta { max-width: 960px; margin: 6px auto 0; padding: 0 24px; color: var(--muted); font-size: 13px; }
   main { max-width: 960px; margin: 8px auto 40px; padding: 0 24px; }
-  .row { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .row { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .rowmain { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline; }
   .name { font-weight: 600; }
   .name a { color: var(--fg); text-decoration: none; }
   .name a:hover { text-decoration: underline; }
+  .repo { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--accent); background: #eef0fb; border-radius: 4px; padding: 1px 6px; margin-left: 8px; font-weight: 600; }
   .kind { color: var(--muted); font-size: 12px; font-weight: 400; margin-left: 8px; }
-  .summary { color: var(--muted); font-size: 14px; grid-column: 1 / -1; }
+  .summary { color: var(--muted); font-size: 14px; margin-top: 3px; }
+  .grounding { margin-top: 5px; }
+  .grounding > summary { cursor: pointer; font-size: 12px; color: var(--accent); font-weight: 600; list-style: none; user-select: none; display: inline-block; }
+  .grounding > summary::-webkit-details-marker { display: none; }
+  .grounding > summary::before { content: "\25B8 "; }
+  .grounding[open] > summary::before { content: "\25BE "; }
+  .ground-body { margin-top: 5px; padding: 8px 10px; background: #fafbfd; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; line-height: 1.6; color: #333; }
+  .ground-body b { font-variant-numeric: tabular-nums; }
+  .ground-note { color: var(--muted); margin-top: 4px; }
+  .ground-body .bad { color: var(--warn); font-weight: 600; }
   .signals { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
   .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
   .health { font-variant-numeric: tabular-nums; }
@@ -39,7 +50,10 @@
   .install-fold > summary span { color: var(--muted); }
   .install-fold[open] > summary { margin-bottom: 8px; }
   .install-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
-  .ins-card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; }
+  .ins-card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; }
+  .copy { position: absolute; top: 6px; right: 6px; display: inline-flex; align-items: center; border: 1px solid var(--line); background: #fff; border-radius: 4px; padding: 2px 4px; cursor: pointer; color: var(--muted); line-height: 1; font-size: 11px; }
+  .copy:hover { color: var(--fg); border-color: var(--muted); }
+  .copy svg { display: block; }
   .ins-t { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
   .ins-card pre { margin: 0; font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #1a1a1a; }
   .submit-line { margin: 7px 0 0; font-size: 12px; color: var(--muted); }
@@ -78,7 +92,7 @@ Read-only: awesomeskills.io/llm.txt</pre>
     </div>
   </div>
   </details>
-  <p class="submit-line">Know a good skill we're missing? <a href="https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml">Submit it for inclusion →</a></p>
+  <p class="submit-line">Know a good skill we're missing? <a href="https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml" target="_blank" rel="noopener">Submit it for inclusion →</a></p>
 </section>
 <div class="bar">
   <input id="q" type="search" placeholder="Search a capability, e.g. pdf, browser, registry…" autofocus />
@@ -89,7 +103,7 @@ Read-only: awesomeskills.io/llm.txt</pre>
 <main id="list"><div class="empty">Loading index…</div></main>
 <footer>
   Health is a heuristic v0 (activity-driven, not star-driven). <code>unrated</code> security = not yet assessed, not "safe".
-  Machine-readable: <a href="./index.json">index.json</a> · <a href="./llm.txt">llm.txt</a>.
+  Machine-readable: <a href="./index.json" target="_blank" rel="noopener">index.json</a> · <a href="./llm.txt" target="_blank" rel="noopener">llm.txt</a>.
   awesomeskills is an evaluator, not an executor — sandboxing is the host agent's job.
 </footer>
 <script>
@@ -102,6 +116,19 @@ Read-only: awesomeskills.io/llm.txt</pre>
 
   function secClass(s) { return s === 'pass' ? 'sec-pass' : s === 'warn' || s === 'fail' ? 'sec-warn' : 'sec-unrated'; }
   function esc(s) { return (s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+  // grounding = awesomeskills' own assessment of a skill (data from our index.json)
+  function groundHtml(e) {
+    const t = e.trust || {}, f = t.health_factors || {}, fm = e.frontmatter;
+    const rows = [];
+    rows.push(`<div><b>health ${t.health}</b> — recency ${f.recency_days ?? '?'}d · stars ${f.stars ?? '?'} · open issues ${f.open_issues ?? '?'}${f.archived ? ' · archived' : ''}</div>`);
+    rows.push(`<div>security: ${esc(t.security)} · chinese: ${t.zh ? 'yes' : 'no'}${e.level ? ' · level: ' + esc(e.level) : ''}</div>`);
+    if (fm) {
+      rows.push(`<div>frontmatter: ${fm.valid ? 'valid' : '<span class="bad">invalid</span>'}${fm.issues && fm.issues.length ? ' — ' + fm.issues.map(esc).join('; ') : ''}${fm.headings != null ? ` · ${fm.headings} headings · ${fm.code_blocks} code blocks` : ''}</div>`);
+    }
+    rows.push(`<div class="ground-note">Assessed by awesomeskills — health is activity-based, not stars. Source of truth: <a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
+    return rows.join('');
+  }
 
   function render() {
     const terms = qEl.value.toLowerCase().split(/\s+/).filter(Boolean);
@@ -116,13 +143,16 @@ Read-only: awesomeskills.io/llm.txt</pre>
     listEl.innerHTML = rows.map(e => {
       const t = e.trust;
       return `<div class="row">
-        <div class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="kind">${esc(e.kind)} · ${esc(e.id)}</span></div>
-        <div class="signals">
-          <span class="pill health">health ${t.health}</span>
-          <span class="pill ${secClass(t.security)}">${esc(t.security)}</span>
-          ${t.zh ? '<span class="pill zh">中文</span>' : ''}
+        <div class="rowmain">
+          <div class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="repo">${esc(e.source_repo || e.id)}</span><span class="kind">${esc(e.kind)}</span></div>
+          <div class="signals">
+            <span class="pill health">health ${t.health}</span>
+            <span class="pill ${secClass(t.security)}">${esc(t.security)}</span>
+            ${t.zh ? '<span class="pill zh">中文</span>' : ''}
+          </div>
         </div>
         ${e.summary ? `<div class="summary">${esc(e.summary)}</div>` : ''}
+        <details class="grounding"><summary>grounding</summary><div class="ground-body">${groundHtml(e)}</div></details>
       </div>`;
     }).join('');
   }
@@ -134,6 +164,24 @@ Read-only: awesomeskills.io/llm.txt</pre>
   }).catch(e => { listEl.innerHTML = `<div class="empty">Failed to load index.json: ${esc(String(e))}</div>`; });
 
   [qEl, zhEl, activeEl].forEach(el => el.addEventListener('input', render));
+
+  // copy-to-clipboard button on each install command block
+  const copyIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  document.querySelectorAll('.ins-card').forEach(card => {
+    const pre = card.querySelector('pre');
+    if (!pre) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy';
+    btn.title = 'Copy';
+    btn.innerHTML = copyIcon;
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(pre.textContent.trim())
+        .then(() => { btn.textContent = '✓'; setTimeout(() => { btn.innerHTML = copyIcon; }, 1200); })
+        .catch(() => {});
+    });
+    card.appendChild(btn);
+  });
 </script>
 </body>
 </html>
