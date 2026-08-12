@@ -40,9 +40,11 @@
   .ground-note { color: var(--muted); margin-top: 4px; }
   .ground-body .bad { color: var(--warn); font-weight: 600; }
   .signals { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
-  .pill[title] { cursor: help; }
-  .gbtn { border: none; background: none; cursor: pointer; color: var(--accent); font: inherit; font-size: 12px; font-weight: 600; padding: 0; }
-  .gbtn:hover { text-decoration: underline; }
+  .tip { position: relative; }
+  .tip:hover::after { content: attr(data-tip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 6px; padding: 6px 8px; background: #1a1a1a; color: #fff; font-size: 11px; font-weight: 400; border-radius: 4px; white-space: pre-line; width: max-content; max-width: 280px; text-align: left; line-height: 1.45; z-index: 10; pointer-events: none; }
+  .gbtn { border: none; background: none; cursor: pointer; color: var(--muted); padding: 0; display: inline-flex; align-items: center; }
+  .gbtn:hover, .gbtn.open { color: var(--accent); }
+  .gbtn svg { display: block; }
   .ground-body[hidden] { display: none; }
   .pill { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
   .health { font-variant-numeric: tabular-nums; }
@@ -190,6 +192,7 @@
 
   function secClass(s) { return s === 'pass' ? 'sec-pass' : s === 'warn' || s === 'fail' ? 'sec-warn' : 'sec-unrated'; }
   function esc(s) { return (s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+  const infoIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
 
   // grounding = awesomeskills' own multi-layer assessment (data from our index.json)
   function groundHtml(e) {
@@ -237,16 +240,16 @@
     if (!rows.length) { listEl.innerHTML = `<div class="empty">${t('no_match')}</div>`; return; }
     listEl.innerHTML = rows.map(e => {
       const tr = e.trust, f = tr.health_factors || {}, pp = f.parts || {};
-      const htitle = `recency ${pp.recency ?? '?'}/40 · maintenance ${pp.maintenance ?? '?'}/25 · engagement ${pp.engagement ?? '?'}/20 · maturity ${pp.maturity ?? '?'}/15`;
-      const stitle = (tr.security_findings || []).map(x => x.label).join('; ') || tr.security_scope || '';
+      const htip = `recency ${pp.recency ?? '?'}/40\nmaintenance ${pp.maintenance ?? '?'}/25\nengagement ${pp.engagement ?? '?'}/20\nmaturity ${pp.maturity ?? '?'}/15`;
+      const stip = (tr.security_findings || []).map(x => x.label).join('\n') || tr.security_scope || t('security');
       return `<div class="row">
         <div class="rowmain">
           <div class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="repo">${esc(e.source_repo || e.id)}</span><span class="kind">${esc(e.kind)}</span></div>
           <div class="signals">
-            <span class="pill health" title="${esc(htitle)}">health ${tr.health}</span>
-            <span class="pill ${secClass(tr.security)}" title="${esc(stitle)}">${esc(tr.security)}</span>
+            <span class="pill health tip" data-tip="${esc(htip)}">health ${tr.health}</span>
+            <span class="pill ${secClass(tr.security)} tip" data-tip="${esc(stip)}">${esc(tr.security)}</span>
             ${tr.zh ? `<span class="pill zh">${t('chinese')}</span>` : ''}
-            <button class="gbtn" type="button">${t('grounding')} ▸</button>
+            <button class="gbtn tip" data-tip="${esc(t('grounding'))}" type="button" aria-label="grounding">${infoIcon}</button>
           </div>
         </div>
         ${e.summary ? `<div class="summary">${esc(e.summary)}</div>` : ''}
@@ -278,7 +281,7 @@
     const body = b.closest('.row').querySelector('.ground-body');
     const opening = body.hasAttribute('hidden');
     if (opening) body.removeAttribute('hidden'); else body.setAttribute('hidden', '');
-    b.textContent = t('grounding') + (opening ? ' ▾' : ' ▸');
+    b.classList.toggle('open', opening);
   });
 
   // copy-to-clipboard button on each install command block
