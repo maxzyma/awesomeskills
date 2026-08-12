@@ -46,21 +46,46 @@
       },
       "grounding": {
         "function": {
-          "error": "no SKILL.md body"
+          "en": {
+            "purpose": "Provides workflows and code snippets for extracting text, generating, merging, and splitting PDF documents using CLI tools and Python libraries.",
+            "scenarios": [
+              "Extracting raw text or metadata from existing PDF files",
+              "Converting Markdown or HTML files into styled PDF documents",
+              "Merging multiple PDFs into a single file or splitting a multi-page PDF into single pages"
+            ],
+            "io": "Inputs are PDF, Markdown, or HTML files; outputs are extracted text strings, document metadata, or newly created/modified PDF files.",
+            "dependencies": [
+              "poppler-utils",
+              "pymupdf",
+              "pandoc",
+              "reportlab",
+              "wkhtmltopdf",
+              "pdfkit"
+            ],
+            "boundary": "It does not provide interactive PDF visual editing, advanced form filling, or native OCR capabilities for scanned documents without external Tesseract setup."
+          },
+          "zh": {
+            "purpose": "提供利用命令行工具和 Python 库提取文本、生成、合并及拆分 PDF 文档的工作流与代码示例。",
+            "scenarios": [
+              "从现有的 PDF 文件中提取纯文本内容或元数据",
+              "将 Markdown 或 HTML 文件转换为排版良好的 PDF 文档",
+              "将多个 PDF 文件合并为一个，或将多页 PDF 拆分为独立的单页文件"
+            ],
+            "io": "输入为 PDF、Markdown 或 HTML 文件；输出为提取的文本字符串、文档元数据或新生成/修改后的 PDF 文件。",
+            "dependencies": [
+              "poppler-utils",
+              "pymupdf",
+              "pandoc",
+              "reportlab",
+              "wkhtmltopdf",
+              "pdfkit"
+            ],
+            "boundary": "该技能不提供交互式 PDF 可视化编辑、复杂的表单填写，也不包含原生的高级 OCR 扫描件识别功能。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates strong engagement and active maintenance, featuring a high fork count (~12k) and updates as recent as today. The high star count alongside lower watchers reflects typical bookmarking behavior for popular educational repositories rather than artificial inflation.",
-          "signals": [
-            "High star count (73,877) paired with strong fork volume (11,974), showing high code utilization.",
-            "Active maintenance with the most recent push occurring today (0d ago).",
-            "Manageable issue backlog with 72 open issues.",
-            "Watcher count (295) is low relative to stars, common for bookmarked tutorial/learning repos."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "shareAI-lab/learn-claude-code",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -107,32 +132,40 @@
       },
       "grounding": {
         "function": {
-          "purpose": "This skill provides instructions and code templates for building Model Context Protocol (MCP) servers in Python and TypeScript to extend Claude with custom tools, resources, and external integrations.",
-          "scenarios": [
-            "Developing a custom MCP server to connect Claude with external REST APIs.",
-            "Creating an MCP tool to allow safe, read-only database querying.",
-            "Configuring Claude desktop settings (`mcp.json`) to register newly built local tools."
-          ],
-          "io": "Takes user integration requirements as input and outputs code boilerplate for Python/TypeScript MCP servers along with configuration snippets.",
-          "dependencies": [
-            "python",
-            "npm",
-            "mcp-sdk"
-          ],
-          "boundary": "It provides code and setup guidance for building MCP servers but does not host, deploy, or run the servers in a live environment."
+          "en": {
+            "purpose": "Guides the creation and configuration of Model Context Protocol (MCP) servers in Python or TypeScript to extend Claude with external tools and data sources.",
+            "scenarios": [
+              "Building a custom Python or TypeScript MCP server from scratch",
+              "Integrating external REST APIs or database queries into Claude tools",
+              "Configuring local MCP server settings in Claude's mcp.json file"
+            ],
+            "io": "Takes requests for custom agent capabilities or external service integrations, and outputs complete MCP server implementation code and setup instructions.",
+            "dependencies": [
+              "python",
+              "node",
+              "mcp-sdk"
+            ],
+            "boundary": "Provides code templates and implementation guidance for MCP servers, but does not automatically deploy, host, or execute the server instances on remote cloud infrastructure."
+          },
+          "zh": {
+            "purpose": "指导用户使用 Python 或 TypeScript 构建和配置 MCP（模型上下文协议）服务，以通过外部工具和数据源扩展 Claude 的能力。",
+            "scenarios": [
+              "从头使用 Python 或 TypeScript 构建自定义 MCP 服务",
+              "将外部 REST API 或数据库查询封装为 Claude 可调用的工具",
+              "在 Claude 的 mcp.json 配置文件中配置本地 MCP 服务"
+            ],
+            "io": "接收自定义功能需求或外部服务集成说明，输出可直接使用的 MCP 服务端实现代码及配置指南。",
+            "dependencies": [
+              "python",
+              "node",
+              "mcp-sdk"
+            ],
+            "boundary": "仅提供构建 MCP 服务的代码模板和配置指导，不会自动将服务端部署、托管或运行在云端基础设施上。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository shows strong activity and genuine engagement, highlighted by a high fork count and immediate ongoing maintenance. Star count is consistent with popular educational resources and viral learning repositories.",
-          "signals": [
-            "73,877 stars combined with a proportionally high 11,974 forks indicating active cloning and usage",
-            "Active repository with the last push occurring 0 days ago",
-            "Manageable open issue queue of 72 issues for a project of this scale"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "shareAI-lab/learn-claude-code",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -179,34 +212,42 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Performs structured code reviews to evaluate security vulnerabilities, performance bottlenecks, logic errors, and maintainability across codebases.",
-          "scenarios": [
-            "Auditing pull requests or git diffs before merging code",
-            "Checking source code for security flaws like injection attacks and exposed credentials",
-            "Evaluating code maintainability, test coverage, and complexity metrics"
-          ],
-          "io": "Inputs source code files, git diffs, or pull request descriptions and outputs a formatted Markdown code review with classified issues, recommended fixes, and a merge verdict.",
-          "dependencies": [
-            "git",
-            "npm",
-            "pip",
-            "cargo",
-            "radon"
-          ],
-          "boundary": "Provides static review guidelines and diagnostic CLI commands, but it does not automatically edit the code or run external continuous integration pipelines."
+          "en": {
+            "purpose": "Performs structured code reviews to evaluate security, logic correctness, performance, maintainability, and test coverage across codebases.",
+            "scenarios": [
+              "Reviewing a Git diff or Pull Request prior to merging",
+              "Auditing a codebase for security vulnerabilities, hardcoded secrets, and unsafe execution patterns",
+              "Checking code complexity and outdated or vulnerable dependencies using CLI tools"
+            ],
+            "io": "Accepts source code snippets, file paths, or Git branch diffs as input, and outputs a structured Markdown code review report containing issue severity, fix suggestions, and a merge verdict.",
+            "dependencies": [
+              "bash",
+              "git",
+              "npm",
+              "pip"
+            ],
+            "boundary": "It provides diagnostic analysis and code feedback but does not automatically rewrite source code files, push Git commits, or manage remote PR statuses."
+          },
+          "zh": {
+            "purpose": "通过检查安全漏洞、逻辑正确性、性能瓶颈、可维护性和测试覆盖率，对代码库或变更进行系统性的代码审查。",
+            "scenarios": [
+              "在合并分支前对 Git diff 或 Pull Request 进行审查",
+              "审计代码库中的安全漏洞、硬编码密钥及不安全的代码模式",
+              "使用 CLI 工具分析代码复杂度以及存在安全风险的过期依赖项"
+            ],
+            "io": "输入为源代码片段、文件路径或 Git 分支差异，输出为包含问题清单、改进建议和合并结论的结构化 Markdown 审查报告。",
+            "dependencies": [
+              "bash",
+              "git",
+              "npm",
+              "pip"
+            ],
+            "boundary": "本技能仅生成审查诊断报告与建议，不会自动重构修改源代码文件、提交 Git Commit 或管理远程平台的 PR 状态。"
+          }
         },
-        "community": {
-          "verdict": "mixed",
-          "summary": "The repository exhibits massive star and fork numbers with active daily commits, but the disproportionately low watcher count raises potential signals of viral star inflation or passive bookmarking.",
-          "signals": [
-            "Very high star count (73,877) and substantial fork count (11,974)",
-            "Extremely low watcher count (295) relative to the 73k+ stars",
-            "Active maintenance with the last push occurring 0 days ago and a low open issue count (72)"
-          ],
-          "vanity_risk": "medium"
-        },
+        "community_repo": "shareAI-lab/learn-claude-code",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -250,30 +291,38 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Guides users in designing, architecting, and building domain-specific AI agents using minimal, effective agentic patterns.",
-          "scenarios": [
-            "Designing atomic capabilities and knowledge structures for a custom AI agent.",
-            "Learning agentic architecture, planning mechanisms, subagent patterns, and agent internals.",
-            "Simplifying over-engineered AI workflows into clean, model-driven loops."
-          ],
-          "io": "Takes domain requirements or design questions as input and outputs structured agent specifications, architectural guidance, and best practices.",
-          "dependencies": [
-            "none"
-          ],
-          "boundary": "This skill provides conceptual framework and design guidance for building agents, but does not directly execute runtime code or deploy live infrastructure."
+          "en": {
+            "purpose": "Guides users in designing and architecting custom AI agents using effective, minimalist agentic patterns across any domain.",
+            "scenarios": [
+              "Designing core capabilities, knowledge access, and context loops for custom agents.",
+              "Architecting complex multi-step systems with subagents and progressive complexity.",
+              "Structuring specialized agents for business, research, operations, or creative workflows.",
+              "Reviewing agent architectures to avoid over-engineering and rigid workflow anti-patterns."
+            ],
+            "io": "Takes domain requirements or agent architecture queries as input, and outputs structured agent specifications, capability designs, and implementation advice.",
+            "dependencies": [
+              "none"
+            ],
+            "boundary": "Focuses on agent design and architectural guidance, but does not provide cloud infrastructure provisioning or complete software deployment execution."
+          },
+          "zh": {
+            "purpose": "指导用户基于极简与高效的 Agent 设计原则，针对任意领域架构和构建自定义 AI 智能体。",
+            "scenarios": [
+              "为特定领域的 Agent 设计核心能力、知识检索及循环交互机制。",
+              "针对复杂任务规划包含子 Agent 与渐进式复杂度的多步执行系统。",
+              "构建面向业务、科研、运营或创意等场景的专用智能体方案。",
+              "评审智能体架构设计，规避过度工程化和硬编码工作流等常见误区。"
+            ],
+            "io": "输入用户的 Agent 构建需求或架构疑问，输出结构化的智能体设计方案、能力规格及实施建议。",
+            "dependencies": [
+              "none"
+            ],
+            "boundary": "专注于 Agent 的架构设计与方法论指导，不提供云端基础设施的直接部署或全自动化应用上线服务。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository exhibits massive community reach and active maintenance, supported by a healthy fork-to-star ratio indicating real user engagement. With recent updates and a manageable issue count, the repository maintains strong health signals.",
-          "signals": [
-            "73,877 stars paired with 11,974 forks show strong user engagement and cloning activity",
-            "Repository is actively maintained with the last push recorded 0 days ago",
-            "Open issue count is low (72 issues) relative to the repository's high visibility"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "shareAI-lab/learn-claude-code",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -315,30 +364,36 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Tracks and reports the progress and status of WORKs and TASKs by inspecting local markdown progress files.",
-          "scenarios": [
-            "Checking the overall progress summary for all WORK items",
-            "Viewing detailed task completion status for a specific WORK ID",
-            "Monitoring pipeline and execution status"
-          ],
-          "io": "Accepts an optional query or WORK identifier argument and outputs a formatted visual status list with task counts and progress indicators.",
-          "dependencies": [
-            "file_system"
-          ],
-          "boundary": "Only reads and displays status from markdown files; it cannot execute, create, or update WORKs or TASKs."
+          "en": {
+            "purpose": "Checks and reports the current progress and status of WORKs and TASKs by reading local workspace tracking markdown files.",
+            "scenarios": [
+              "Viewing an overall status list and completion progress of all WORK items",
+              "Checking task-level execution progress for a specific WORK",
+              "Reviewing detailed completion results for an individual TASK"
+            ],
+            "io": "Input: User query or WORK/TASK identifier; Output: Formatted textual summary displaying WORK progress and TASK metrics.",
+            "dependencies": [
+              "file_system"
+            ],
+            "boundary": "This skill only reads and displays existing status from local markdown files; it does not execute tasks, modify status records, or sync with external issue trackers."
+          },
+          "zh": {
+            "purpose": "通过读取本地工作区的 Markdown 跟踪文件，检查并汇报 WORK 和 TASK 的当前进度与状态。",
+            "scenarios": [
+              "查看所有 WORK 项目的整体状态列表与完成进度",
+              "检查特定 WORK 下属 TASK 级别的执行进度",
+              "审阅单个 TASK 的具体完成结果与细节"
+            ],
+            "io": "输入：用户查询请求或 WORK/TASK 标识符；输出：包含 WORK 进度和 TASK 指标的格式化文本汇总。",
+            "dependencies": [
+              "file_system"
+            ],
+            "boundary": "该技能仅读取并展示本地 Markdown 文件中的现有状态，不会执行实际任务、修改状态记录或同步外部项目管理工具。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository exhibits strong health with very recent activity, low open issue debt, and genuine community engagement through plugin submissions.",
-          "signals": [
-            "Repository is actively maintained with the last push occurring today (0d ago)",
-            "Solid fork-to-star ratio (456 forks to 3,283 stars, ~14%) indicating real usage and community interest",
-            "Low open issue backlog (12 issues) containing active plugin submissions and ecosystem requests"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -380,32 +435,36 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Orchestrates multi-agent software development workflows whenever a user request starts with a bracketed tag.",
-          "scenarios": [
-            "Initiating a structured feature development flow using a '[new-feature]' tag",
-            "Running a bugfix pipeline with automated execution by appending 'auto' to the request",
-            "Orchestrating custom work items using tags like '[WORK start]' or '[enhancement]'"
-          ],
-          "io": "Takes a user requirement string prefixed with a bracketed tag as input and produces requirement specs, task plans, verified code updates, and git commits via sub-agents as output.",
-          "dependencies": [
-            "sub-agents",
-            "file-system",
-            "git"
-          ],
-          "boundary": "It only orchestrates flow logic and delegates work to specialized sub-agents; it does not directly implement code, edit files, or execute git commands itself."
+          "en": {
+            "purpose": "Orchestrates a structured multi-stage software development pipeline whenever a user request begins with a square-bracket tag.",
+            "scenarios": [
+              "Starting structured feature development with tags like [new-feature]",
+              "Running bug fixes through an orchestrated multi-agent development workflow using [bugfix]",
+              "Executing fully automated end-to-end task flows by appending 'auto' to tag-triggered requests"
+            ],
+            "io": "Input is a user prompt prefixed with a square-bracket tag; output is generated project artifacts (such as Requirement.md and PLAN.md) and sub-agent task execution results.",
+            "dependencies": [
+              "sdd-pipeline"
+            ],
+            "boundary": "This skill acts solely as a pipeline orchestrator and does not implement code directly without delegating to sub-agents."
+          },
+          "zh": {
+            "purpose": "当用户请求以方括号标签开头时，协调并触发结构化的多阶段软件开发工作流。",
+            "scenarios": [
+              "使用 [new-feature] 等标签启动结构化的新功能开发",
+              "通过 [bugfix] 标签引导多 Agent 协作完成缺陷修复工作流",
+              "通过在带标签的请求末尾附加 'auto' 实现全自动化的端到端任务执行"
+            ],
+            "io": "输入是以方括号标签开头的用户提示词；输出是生成的项目产物（如 Requirement.md、PLAN.md）及子 Agent 的执行结果。",
+            "dependencies": [
+              "sdd-pipeline"
+            ],
+            "boundary": "该 Skill 仅充当流程协调器，本身不会直接编写代码或执行具体任务，必须委托给对应的子 Agent。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository exhibits strong community engagement with a healthy fork-to-star ratio and active maintenance. A low open issue count alongside a push within the last day reflects a well-maintained project.",
-          "signals": [
-            "3,283 stars and 456 forks indicate strong utility and reuse.",
-            "Very recent activity with the last push recorded 0 days ago.",
-            "Low open issue volume with only 12 active issues."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -452,31 +511,34 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Initializes a project for uc-taskmanager pipeline execution by creating a works directory and configuring required local Claude Bash permissions.",
-          "scenarios": [
-            "Setting up a new project to use uc-taskmanager for the first time",
-            "Configuring automated Bash permissions in .claude/settings.local.json",
-            "Preparing the workspace directory structure required by the uc-taskmanager workflow"
-          ],
-          "io": "Inputs user confirmation prompt, and outputs a works directory along with updated Claude configuration settings.",
-          "dependencies": [
-            "filesystem"
-          ],
-          "boundary": "This skill only initializes directory structures and permission settings; it does not execute pipeline tasks or create work items itself."
+          "en": {
+            "purpose": "Initializes the uc-taskmanager pipeline for a project by creating the workspace directory and setting up necessary Claude permissions.",
+            "scenarios": [
+              "Setting up a new project to run tasks with uc-taskmanager.",
+              "Configuring recommended file and Bash execution permissions in .claude/settings.local.json."
+            ],
+            "io": "Takes user confirmation prompt input and creates the works/ directory while modifying .claude/settings.local.json.",
+            "dependencies": [
+              "none"
+            ],
+            "boundary": "It only sets up project initialization structure and permissions without executing task workflows or writing application code."
+          },
+          "zh": {
+            "purpose": "为当前项目初始化 uc-taskmanager 管线，创建工作目录并配置必要的 Claude 执行权限。",
+            "scenarios": [
+              "在新项目中首次准备并启用 uc-taskmanager 任务流程。",
+              "自动配置 .claude/settings.local.json 中推荐的文件读写与 Bash 命令权限。"
+            ],
+            "io": "接收用户的确认指令作为输入，创建 works/ 目录并更新 .claude/settings.local.json 配置文件作为输出。",
+            "dependencies": [
+              "none"
+            ],
+            "boundary": "该技能仅负责项目的初始化目录与权限配置，不会执行具体的开发任务或业务代码编写。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates active maintenance and genuine community engagement, backed by a solid fork-to-star ratio and recent activity. Issue triage is prompt, with community members actively submitting plugins and partnership proposals.",
-          "signals": [
-            "High engagement with 3,283 stars and 456 forks (~14% fork ratio)",
-            "Active maintenance with the most recent push today (0d ago)",
-            "Manageable backlog of 12 open issues showing prompt maintenance",
-            "Community-driven open issues focused on plugin submissions and integration requests"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -518,30 +580,11 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Performs a comprehensive security audit covering OWASP Top 10, secrets, dependencies, and smart contracts by delegating tasks to the Centinela QA agent.",
-          "scenarios": [
-            "Verifying security posture prior to a software release",
-            "Reviewing security after significant changes to authentication, authorization, or data handling",
-            "Auditing newly added dependencies and smart contracts for known vulnerabilities"
-          ],
-          "io": "Takes optional file or directory path arguments as input and outputs a detailed Markdown security audit report containing findings, a verdict, and fix recommendations.",
-          "dependencies": [
-            "Centinela (QA) agent"
-          ],
-          "boundary": "This skill only scans and documents security findings into a report and will never attempt to automatically fix or patch any identified vulnerabilities."
+          "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1028)>"
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository shows strong community adoption and active maintenance, supported by a healthy fork-to-star ratio and zero-day push activity. Open issue activity reflects genuine ecosystem engagement with plugin submissions and feature requests.",
-          "signals": [
-            "3,283 stars and 456 forks (~13.9% fork ratio) indicating practical community usage",
-            "High maintenance frequency with the last push on the same day (0d ago)",
-            "Low open issue count (12) featuring community plugin submissions and integration proposals"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -586,31 +629,36 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Provides internal rules, schemas, and workflow references for software development design (SDD) pipeline agents.",
-          "scenarios": [
-            "Referencing file and XML schemas during inter-agent communications",
-            "Enforcing sliding window context policies across workflow stages",
-            "Standardizing plan document fields and activity log rules for pipeline agents"
-          ],
-          "io": "Inputs agent queries for rules or schemas and outputs standardized file formats, context policies, and workflow definitions.",
-          "dependencies": [
-            "none"
-          ],
-          "boundary": "Does not perform direct task executions or handle direct user prompts, serving solely as an internal reference library for pipeline agents."
+          "en": {
+            "purpose": "Provides internal reference rules, schemas, and context policies for Spec-Driven Development (SDD) pipeline agents.",
+            "scenarios": [
+              "Referencing XML schema and task prompt rules during agent role transitions.",
+              "Applying context management policies and sliding window rules during agent execution.",
+              "Formatting work activity logs and plan files according to standardized schemas."
+            ],
+            "io": "Inputs internal pipeline execution state and context to output schema-compliant XML messages, task lists, and activity logs.",
+            "dependencies": [
+              "none"
+            ],
+            "boundary": "It does not directly execute tasks or interact with users, serving solely as reference guidelines for internal pipeline agents."
+          },
+          "zh": {
+            "purpose": "为规范驱动开发（SDD）流水线代理提供内部规则、Schema 规范及上下文策略参考。",
+            "scenarios": [
+              "在代理角色切换与通信时参考 XML 架构与共享 Prompt 规则。",
+              "在代理执行过程中应用滑动窗口上下文管理策略。",
+              "按照统一规范生成 PLAN 文件、WORK-LIST 及工作活动日志。"
+            ],
+            "io": "输入内部代理状态与任务上下文，输出符合 Schema 规范的通信 XML、任务计划及活动日志。",
+            "dependencies": [
+              "none"
+            ],
+            "boundary": "该 Skill 不直接处理用户交互或执行具体的构建与校验任务，仅作为流水线代理内部引用的规范文档。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository exhibits strong project health with zero-day recency on commits, a manageable issue backlog, and active community plugin contributions. The fork-to-star ratio (~14%) indicates genuine engagement rather than simple star hoarding.",
-          "signals": [
-            "High recent activity with the last push occurring today (0 days ago)",
-            "Healthy fork-to-star ratio of ~14% (456 forks to 3,283 stars) indicating real usage and modification",
-            "Low number of open issues (12) demonstrating attentive maintainership",
-            "Recent issue queue consists of legitimate community plugin submissions and integration requests"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -652,30 +700,38 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Addresses and fixes code review findings from QA reports by delegating implementation fixes and test updates to the Forja developer agent.",
-          "scenarios": [
-            "Fixing critical and warning issues identified in a specific QA review report",
-            "Processing the most recent review report in docs/reviews/ when no file path is provided",
-            "Preparing a fix report and updated codebase for QA re-verification"
-          ],
-          "io": "Input is an optional file path to a QA review report, and output consists of fixed code, updated tests, and a fix report for re-verification.",
-          "dependencies": [
-            "forja-dev-agent"
-          ],
-          "boundary": "This skill does not perform the initial QA code review nor does it run the final re-verification itself, focusing solely on implementing the requested fixes."
+          "en": {
+            "purpose": "Parses QA code review reports, systematically fixes critical and warning issues using a dev agent, and prepares a report for re-verification.",
+            "scenarios": [
+              "Addressing critical security or logic bugs flagged in a QA review",
+              "Resolving warning issues and adding corresponding tests before code re-verification",
+              "Automating post-review code cleanup and fix documentation generation"
+            ],
+            "io": "Takes a path to a QA review report (or defaults to the latest report) as input, and produces updated code, new tests, and a fix report as output.",
+            "dependencies": [
+              "Forja agent",
+              "file system"
+            ],
+            "boundary": "It does not perform the initial QA review itself, nor does it approve and deploy code without subsequent re-verification."
+          },
+          "zh": {
+            "purpose": "解析 QA 代码审查报告，利用开发 Agent 系统化地修复严重和警告级问题，并准备供二次验证的修复报告。",
+            "scenarios": [
+              "处理 QA 审查中标记的严重安全或逻辑漏洞",
+              "在代码重新验证前解决警告项并补充相应测试",
+              "自动化执行审查后的代码清理与修复文档生成"
+            ],
+            "io": "输入为 QA 审查报告路径（默认使用最新报告），输出为修改后的代码、更新的测试用例及修复总结报告。",
+            "dependencies": [
+              "Forja agent",
+              "file system"
+            ],
+            "boundary": "该 Skill 本身不负责进行初始 QA 审查，也不在未经后续二次验证的情况下直接批准或部署代码。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates strong community engagement with an active push schedule, low issue backlog, and a healthy fork-to-star ratio driven by third-party plugin submissions.",
-          "signals": [
-            "High activity with the last push recorded today (0d ago).",
-            "Strong engagement balance with 456 forks relative to 3,283 stars (~14% fork ratio).",
-            "Low number of open issues (12 total), mostly consisting of community plugin submissions and partnership proposals."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -717,31 +773,38 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Executes a multi-stage pre-release verification checklist covering documentation, testing, and security to determine if a software version is ready to ship.",
-          "scenarios": [
-            "Verifying release readiness prior to deploying a version to production",
-            "Checking quality, documentation, and security gates before tagging a new version",
-            "Generating a documented audit report for release compliance"
-          ],
-          "io": "Takes a version tag as input and outputs a release assessment Markdown file containing test results, security findings, and a final release verdict.",
-          "dependencies": [
-            "Centinela QA agent"
-          ],
-          "boundary": "It does not automatically patch code issues, fix failing tests, or deploy the code to production environment."
+          "en": {
+            "purpose": "Performs pre-release verification across documentation, code quality, and security to ensure software is ready for production.",
+            "scenarios": [
+              "Verifying release readiness before deploying to production",
+              "Checking documentation, test coverage, and security before tagging a version",
+              "Acting as a final QA gate after all feature implementations and reviews"
+            ],
+            "io": "Inputs a target release version tag, and outputs a Markdown assessment report containing test, security, and documentation status along with a final release verdict.",
+            "dependencies": [
+              "centinela-qa-agent",
+              "file-system"
+            ],
+            "boundary": "It evaluates pre-release criteria and generates a report, but does not perform actual code deployment or automatically fix discovered blockers."
+          },
+          "zh": {
+            "purpose": "在发布前对文档、代码质量和安全性进行全面验证，以确保软件符合上线生产的标准。",
+            "scenarios": [
+              "在部署到生产环境之前进行最终质量把关",
+              "在打版本标签前核查更新日志、测试覆盖率及安全审计",
+              "在所有功能开发和代码评审完成后评估发布就绪度"
+            ],
+            "io": "输入目标发布版本号，输出包含文档、测试与安全核查状态及最终结论（就绪或阻挡）的 Markdown 评估报告。",
+            "dependencies": [
+              "centinela-qa-agent",
+              "file-system"
+            ],
+            "boundary": "该技能仅负责评估质量门禁并生成报告，不包含自动进行代码部署或直接修复漏洞阻碍项的功能。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates strong community health with active maintenance, a healthy fork-to-star ratio, and organic community participation visible in issue submissions.",
-          "signals": [
-            "Active maintenance with the most recent push occurring today (0d ago)",
-            "Proportional engagement with 456 forks against 3,283 stars (~1:7 ratio)",
-            "Low backlog of open issues (12 open issues)",
-            "Recent issue titles show active community integration, including plugin submissions and ecosystem requests"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -788,35 +851,40 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Boots a working session by verifying the vault configuration, recovering unbanked session logs, and surfacing critical context, decisions, and open threads.",
-          "scenarios": [
-            "Initializing session context and priorities at the start of work",
-            "Recovering unbanked session logs after an incomplete session close",
-            "Surfacing active delegations, aged decisions, and focus discrepancies across notes"
-          ],
-          "io": "Reads vault state files, memory logs, and daily notes based on system environment variables, outputting a context summary to the operator and selectively updating log state.",
-          "dependencies": [
-            "Read",
-            "Glob",
-            "Edit",
-            "Write",
-            "Bash"
-          ],
-          "boundary": "It does not perform system setup or execute general task workflows, delegating unconfigured vaults to /setup and first-run installations to /start."
+          "en": {
+            "purpose": "Initializes a workspace session by verifying vault safety, recovering unbanked session data, and loading prioritized context into memory.",
+            "scenarios": [
+              "Starting a new work session to restore recent context, active priorities, and open threads.",
+              "Recovering session summaries after an unexpected session termination.",
+              "Surfacing aged decisions and delegated tasks requiring review upon startup."
+            ],
+            "io": "Inputs environment variables, vault state files, and daily notes, and outputs a synthesized session context summary and updated state files.",
+            "dependencies": [
+              "bash",
+              "python3",
+              "filesystem"
+            ],
+            "boundary": "It handles session setup and context loading only, without performing project business logic or modifying files outside the validated vault root."
+          },
+          "zh": {
+            "purpose": "在日常工作会话启动时校验 Vault 安全性，恢复未正常收尾的会话上下文并加载核心记忆信息。",
+            "scenarios": [
+              "开启新工作会话时恢复最新的工作上下文、当前优先级及待办事项。",
+              "在会话意外终止后自动恢复上次未收尾的会话捕获摘要。",
+              "启动会话时审查到期的决策事项与代理任务状态。"
+            ],
+            "io": "输入环境变量、Vault 状态文件及每日笔记，输出合成的会话上下文摘要及更新后的系统状态。",
+            "dependencies": [
+              "bash",
+              "python3",
+              "filesystem"
+            ],
+            "boundary": "它仅负责会话初始化与上下文加载，不执行具体的项目业务逻辑，也不修改 Vault 目录之外的任何文件。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates active maintenance and genuine community interest through plugin submissions and integrations. A strong fork-to-star ratio and recent pushes indicate an engaged user base.",
-          "signals": [
-            "Active maintenance with the most recent push today (0d ago).",
-            "Solid fork-to-star ratio (456 forks to 3,283 stars) indicating real user adoption.",
-            "Manageable issue backlog with 12 open issues.",
-            "Community involvement evidenced by plugin submissions and integration requests in open issues."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -858,31 +926,36 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Transforms an approved feature specification into working source code, tests, and architecture documentation by delegating tasks to the Forja (Dev) agent.",
-          "scenarios": [
-            "Implementing a user authentication module from an existing feature spec",
-            "Designing architecture and building a webhook event system based on product requirements",
-            "Generating unit/integration tests and QA handoff documentation for a completed feature"
-          ],
-          "io": "Takes a feature specification identifier or file path as input and outputs implemented source code, test files, architecture decision records (ADRs), and QA handoff notes.",
-          "dependencies": [
-            "Forja (Dev) agent"
-          ],
-          "boundary": "This skill does not draft original feature specifications, perform final QA testing, or manage deployment to production environments."
+          "en": {
+            "purpose": "Implements an approved feature specification by handling architecture design, code implementation, test writing, and QA handoff preparation via the Forja agent.",
+            "scenarios": [
+              "Translating an approved feature specification into production code and automated tests",
+              "Designing architecture decisions (ADRs) and interface contracts prior to code implementation",
+              "Executing verification checklists and packaging structured deliverable notes for QA agents"
+            ],
+            "io": "Accepts a feature spec name or file path as input, and outputs source code in src/, tests in tests/, architecture decision records, and QA handoff notes.",
+            "dependencies": [
+              "forja-agent"
+            ],
+            "boundary": "This skill only handles feature implementation and test writing, but does not perform final QA testing or production code deployment."
+          },
+          "zh": {
+            "purpose": "根据已批准的功能规范，通过 Forja 智能体进行架构设计、代码实现、测试编写并准备 QA 交接文档。",
+            "scenarios": [
+              "将已批准的功能规范转换为生产代码和自动化测试",
+              "在代码实现前编写架构决策记录（ADR）并定义接口契约",
+              "运行完成度检查清单并为 QA 智能体打包交付物与交接说明"
+            ],
+            "io": "输入功能规范标识符或文件路径，输出 src/ 中的实现代码、tests/ 中的测试文件、架构决策记录以及 QA 交接说明。",
+            "dependencies": [
+              "forja-agent"
+            ],
+            "boundary": "该技能仅负责功能的开发实现与测试编写，不包含最终的 QA 质量验证与生产环境部署。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates active maintenance and genuine user engagement, highlighted by recent code updates and community plugin submissions. The healthy proportion of forks relative to stars indicates real practical usage rather than inflated metrics.",
-          "signals": [
-            "Active development with a push recorded today (0d ago)",
-            "Strong star-to-fork ratio (3,283 stars to 456 forks, ~14% fork rate)",
-            "Manageable backlog of 12 open issues containing active community plugin requests",
-            "35 watchers monitoring project activity"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -924,21 +997,38 @@
       },
       "grounding": {
         "function": {
-          "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1028)>"
+          "en": {
+            "purpose": "Generates a complete Markdown product feature specification with acceptance criteria, scope, and risks by delegating to the Prometeo PM agent.",
+            "scenarios": [
+              "Defining functional requirements and GIVEN/WHEN/THEN acceptance criteria for new features",
+              "Documenting in-scope and out-of-scope boundaries before starting development",
+              "Preparing structured feature specifications and handoff documentation for developers"
+            ],
+            "io": "Takes a feature command or description as input and outputs a structured Markdown specification file saved to docs/specs/{feature-name}.md.",
+            "dependencies": [
+              "prometeo_pm_agent",
+              "file_system"
+            ],
+            "boundary": "This skill only creates product specifications and requirements documentation; it does not write, execute, or test actual code."
+          },
+          "zh": {
+            "purpose": "委派 Prometeo (PM) Agent 生成包含验收标准、需求范围及风险管理的完整 Markdown 产品功能规格说明书。",
+            "scenarios": [
+              "为新功能定义详细需求及 GIVEN/WHEN/THEN 格式的验收标准",
+              "在开发启动前明确功能的包含范围与排除范围",
+              "为开发团队编写结构化的需求文档及交接说明"
+            ],
+            "io": "输入功能指令或需求描述，输出生成在 docs/specs/{feature-name}.md 路径下的结构化 Markdown 规格文档。",
+            "dependencies": [
+              "prometeo_pm_agent",
+              "file_system"
+            ],
+            "boundary": "该技能仅负责产品规格与需求文档的规划编写，不负责具体的代码实现、运行或测试。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates strong community adoption with a healthy fork-to-star ratio and very active maintenance. Low open issue counts and a push today indicate an actively managed and responsive codebase.",
-          "signals": [
-            "High star count (3,283) supported by substantial forks (456)",
-            "Active development with the most recent push occurring today (0d ago)",
-            "Low backlog of open issues (12) relative to total stars and forks",
-            "Watcher count (35) is modest relative to stars, but forks indicate real user engagement"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -980,32 +1070,36 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Scans the codebase for dead code, tech debt, vulnerable dependencies, and code smells by delegating analysis to the Centinela QA agent.",
-          "scenarios": [
-            "Auditing codebase quality prior to a major software release",
-            "Verifying code cleanliness after a large refactoring effort",
-            "Assessing existing tech debt during developer onboarding"
-          ],
-          "io": "Takes the local codebase as input and generates a detailed Markdown health report saved to docs/reviews/.",
-          "dependencies": [
-            "Centinela agent",
-            "filesystem"
-          ],
-          "boundary": "This skill only identifies and documents code health issues in a report, without automatically refactoring or fixing the detected code."
+          "en": {
+            "purpose": "Scans the codebase for dead code, technical debt, outdated dependencies, and quality issues by delegating tasks to the Centinela QA agent.",
+            "scenarios": [
+              "Conducting periodic codebase hygiene and maintenance checks",
+              "Auditing code quality and dead code prior to a major software release",
+              "Evaluating technical debt and code smells following a large refactoring"
+            ],
+            "io": "Takes a trigger command and codebase files as input, and outputs a prioritized Markdown health report in docs/reviews/.",
+            "dependencies": [
+              "Centinela agent"
+            ],
+            "boundary": "This skill only identifies and reports code health issues and does not automatically refactor or fix the codebase directly."
+          },
+          "zh": {
+            "purpose": "通过委托给 Centinela (QA) 智能体，扫描代码库中的冗余代码、技术债、过期依赖及代码质量问题并生成评估报告。",
+            "scenarios": [
+              "定期进行代码库卫生检查与日常维护",
+              "在软件版本发布前审计代码质量与死代码",
+              "在完成大规模代码重构后评估技术债与代码恶臭"
+            ],
+            "io": "输入触发指令及代码库文件，输出包含优先级排序的 Markdown 格式代码健康报告文件。",
+            "dependencies": [
+              "Centinela agent"
+            ],
+            "boundary": "该技能仅负责识别和报告代码健康问题，不会自动对代码进行重构或直接修复。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository shows active maintenance and genuine community engagement, backed by a strong fork-to-star ratio and recent code updates. Open issues reflect active community submissions and ecosystem interest rather than unaddressed bug backlogs.",
-          "signals": [
-            "3,283 stars paired with 456 forks (~13.9% ratio), indicating real adoption and reuse",
-            "Active development with the last commit made today (0d ago)",
-            "Low open issue count (12) featuring community plugin submissions and integration requests",
-            "Low watcher count (35) relative to stars, common for curated resources/skills but worth noting"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -1052,36 +1146,38 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Commits active session state, logs, and discipline audits into durable vault memory to establish a clean resume point.",
-          "scenarios": [
-            "Wrapping up a working session to safely persist progress into daily notes and memory ledgers",
-            "Performing session discipline audits to track honesty, trust-decay claims, and failure modes",
-            "Preparing a clean resume point and session summary before terminating an agent context"
-          ],
-          "io": "Takes session history and the /close trigger as input, and outputs updated memory ledgers, daily notes, and session summary files in the vault.",
-          "dependencies": [
-            "bash",
-            "edit",
-            "write",
-            "read",
-            "glob",
-            "grep"
-          ],
-          "boundary": "It does not perform initial vault setup or write memory files outside the explicitly validated vault directory structure."
+          "en": {
+            "purpose": "Commits session state, logs, and audit ledgers into durable vault memory while establishing a clean resume point for future sessions.",
+            "scenarios": [
+              "Ending an active working session and persisting long-term memory to the vault",
+              "Performing end-of-session discipline audits such as honesty ledger and trust-decay logging",
+              "Generating a clean resume checkpoint and summary before session termination"
+            ],
+            "io": "Inputs include current session context and environment variables, and outputs updated vault memory files and session status reports.",
+            "dependencies": [
+              "bash",
+              "file_system"
+            ],
+            "boundary": "It does not execute operational tasks, setup unconfigured vaults, or write state outside the designated vault directory."
+          },
+          "zh": {
+            "purpose": "将当前会话状态、日志与审计台账提交至持久化 Vault 内存，并为后续会话建立干净的恢复续接点。",
+            "scenarios": [
+              "结束当前工作会话并将长效内存持久化保存至 Vault",
+              "在会话关闭前执行诚实台账与信任衰减等纪律审计",
+              "在终止会话前生成干净的续接检查点与会话总结"
+            ],
+            "io": "输入包括当前会话上下文与环境变量，输出更新后的 Vault 内存文件与会话状态报告。",
+            "dependencies": [
+              "bash",
+              "file_system"
+            ],
+            "boundary": "它不执行具体业务任务，不初始化未配置的 Vault，也不在指定的 Vault 目录之外写入任何数据。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates active maintenance and genuine community participation through recent commits, plugin submissions, and a healthy fork ratio relative to star count.",
-          "signals": [
-            "High community engagement with 3,283 stars and 456 forks (~13.9% fork ratio).",
-            "Extremely active development with the last push recorded today (0d ago).",
-            "Low issue backlog with only 12 open issues.",
-            "Open issues indicate genuine community interaction, including plugin submissions and feature requests."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -1123,32 +1219,38 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Automate Airtable operations including record management, complex filtering, and schema modifications via Rube MCP.",
-          "scenarios": [
-            "Creating, updating, and deleting individual or batch Airtable records",
-            "Filtering and querying base records using custom Airtable formulas",
-            "Inspecting base schemas and creating or updating table fields"
-          ],
-          "io": "Accepts user automation requests with base IDs, field names, and filter parameters, returning JSON data representing Airtable records, query results, or updated schemas.",
-          "dependencies": [
-            "rube",
-            "airtable",
-            "composio"
-          ],
-          "boundary": "It does not manage user access permissions, workspace billing, or non-Airtable data sources directly."
+          "en": {
+            "purpose": "Automates Airtable operations including managing bases, tables, fields, and records via the Rube MCP integration.",
+            "scenarios": [
+              "Creating, updating, and deleting single or batch Airtable records",
+              "Searching and filtering records using Airtable formula queries",
+              "Managing database schema by creating or modifying table fields"
+            ],
+            "io": "Accepts user requests with Airtable parameters like Base IDs, field maps, and formulas, and outputs API responses with queried records or execution statuses.",
+            "dependencies": [
+              "rube",
+              "airtable"
+            ],
+            "boundary": "It handles Airtable database operations only and does not perform cross-platform data synchronization or non-Airtable automation logic."
+          },
+          "zh": {
+            "purpose": "通过 Rube MCP 集成实现对 Airtable 数据 Base、表、字段及记录的自动化管理。",
+            "scenarios": [
+              "对 Airtable 记录进行增删改查及批量数据更新",
+              "使用 Airtable 公式语法筛选和检索指定记录",
+              "管理数据表结构，包括新增或更新字段与元数据"
+            ],
+            "io": "接收包含 Base ID、表名、字段映射及筛选公式等操作指令，输出查询到的数据记录或数据库修改状态结果。",
+            "dependencies": [
+              "rube",
+              "airtable"
+            ],
+            "boundary": "该技能仅限于 Airtable 数据库层面的操作，不处理跨平台数据同步或非 Airtable 的其他业务逻辑。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository exhibits strong engagement with a healthy fork-to-star ratio and very recent maintenance activity. Open issues demonstrate an active community proposing tools and submitting plugins.",
-          "signals": [
-            "High star count (3,283) supported by a healthy fork count (456, ~14% ratio).",
-            "Active maintenance with the latest push recorded today (0d ago).",
-            "Low open issue count (12) with community engagement around plugin submissions and partnerships."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -1190,32 +1292,40 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Enables AI agents to configure web analytics tracking, monitor project traffic, and run A/B experiments using the Agent Analytics CLI.",
-          "scenarios": [
-            "Adding analytics tracking snippets and custom event handlers to web apps.",
-            "Checking traffic, conversion rates, and user retention for projects.",
-            "Running A/B experiments on CTAs and UI user flows."
-          ],
-          "io": "Takes CLI setup commands and project event configurations as input, and returns tracking code snippets and analytics performance metrics as output.",
-          "dependencies": [
-            "npx",
-            "AGENT_ANALYTICS_API_KEY"
-          ],
-          "boundary": "It does not track granular micro-interactions like scroll depth or individual form field changes, focusing only on key growth and conversion events."
+          "en": {
+            "purpose": "Enables AI agents to configure web analytics, track key conversion events, and manage A/B experiments across projects via CLI commands.",
+            "scenarios": [
+              "Adding analytics snippets and custom event handlers to a web application",
+              "Querying project performance, funnel conversion, and traffic breakdown via CLI",
+              "Setting up and evaluating A/B experiments for headlines or CTA buttons"
+            ],
+            "io": "Inputs include CLI commands, event configurations, and API keys; outputs include code snippets, event logs, and experiment performance reports.",
+            "dependencies": [
+              "npx",
+              "agent-analytics CLI",
+              "AGENT_ANALYTICS_API_KEY"
+            ],
+            "boundary": "It does not provide granular session recording or track minor user interactions like scroll depth and form fields, focusing strictly on high-level growth metrics."
+          },
+          "zh": {
+            "purpose": "使 AI Agent 能够通过 CLI 命令为 Web 项目配置数据埋点、追踪核心转化事件并管理 A/B 测试。",
+            "scenarios": [
+              "为 Web 应用添加统计代码片段及自定义点击事件",
+              "通过 CLI 查询项目的流量表现、转化漏斗和留存数据",
+              "为页面标题或 CTA 按钮配置并评估 A/B 实验"
+            ],
+            "io": "输入包括 CLI 命令、事件配置和 API 密钥；输出包含埋点代码片段、事件日志和实验分析报告。",
+            "dependencies": [
+              "npx",
+              "agent-analytics CLI",
+              "AGENT_ANALYTICS_API_KEY"
+            ],
+            "boundary": "它不提供全量会话录制或表单字段、滚动深度等微观交互追踪，仅专注于高价值的关键增长指标。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates active maintenance and genuine community utility with a strong fork-to-star ratio. Recent commit activity and a low open issue count reflect healthy ongoing management.",
-          "signals": [
-            "High star count (3,283) paired with 456 forks (~14% ratio)",
-            "Active development with the last push occurring today (0d ago)",
-            "Low open issue count (12) indicating manageable backlog",
-            "Reasonable ratio of forks to stars suggesting real usage over mere bookmarking"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -1257,31 +1367,40 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Automates ActiveCampaign CRM and marketing tasks such as managing contacts, tags, and list subscriptions via the Rube MCP framework.",
-          "scenarios": [
-            "Creating or searching for contacts using email, name, phone, or tags",
-            "Adding or removing tags from active contacts",
-            "Subscribing or unsubscribing contacts from specific marketing lists"
-          ],
-          "io": "Inputs include contact details, tag actions, and numeric list IDs; outputs are structured operation statuses and contact record objects.",
-          "dependencies": [
-            "rube"
-          ],
-          "boundary": "It does not build email campaign templates, handle custom HTML email design, or manage non-ActiveCampaign CRM platforms."
+          "en": {
+            "purpose": "Automates ActiveCampaign CRM and marketing operations including contact management, tagging, list subscriptions, and automation enrollments via Rube MCP.",
+            "scenarios": [
+              "Searching for existing contacts or creating new ones with detailed contact profiles",
+              "Adding or removing tags from contacts based on user behavior or events",
+              "Subscribing or unsubscribing contacts from specific ActiveCampaign lists",
+              "Managing follow-up CRM tasks associated with contacts"
+            ],
+            "io": "Inputs user requests with contact details, tags, or list IDs, and outputs execution status or retrieved ActiveCampaign record data.",
+            "dependencies": [
+              "rube",
+              "activecampaign"
+            ],
+            "boundary": "Does not support designing email template content directly, managing ActiveCampaign account billing, or executing non-ActiveCampaign marketing platform tasks."
+          },
+          "zh": {
+            "purpose": "通过 Rube MCP 自动化 ActiveCampaign CRM 与营销任务，涵盖联系人管理、标签设置、列表订阅及自动化流程。",
+            "scenarios": [
+              "查找现有联系人或创建包含详细属性的新联系人",
+              "根据用户行为或事件为联系人添加或移除标签",
+              "管理联系人在指定 ActiveCampaign 列表中的订阅状态",
+              "创建和管理与联系人关联的 CRM 跟进任务"
+            ],
+            "io": "接收包含联系人信息、标签或列表 ID 的操作指令，输出 ActiveCampaign 操作结果或查询到的记录数据。",
+            "dependencies": [
+              "rube",
+              "activecampaign"
+            ],
+            "boundary": "不直接支持邮件模板内容的排版设计、ActiveCampaign 账户账单管理或非 ActiveCampaign 平台的营销任务。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository demonstrates strong community adoption with very active maintenance and genuine community contributions like plugin submissions. The high fork-to-star ratio reflects real practical utility rather than superficial star accumulation.",
-          "signals": [
-            "High commit/push activity with the last push recorded 0 days ago.",
-            "Solid fork-to-star ratio (456 forks to 3,283 stars) indicating real developer usage and experimentation.",
-            "Open issue queue shows active community involvement including plugin submissions, partnerships, and feature proposals.",
-            "Low watcher count (35) compared to stars, which is standard for curated resource and plugin repositories where users bookmark rather than monitor daily updates."
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "davepoon/buildwithclaude",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -1330,33 +1449,40 @@
       },
       "grounding": {
         "function": {
-          "purpose": "Analyzes a codebase to build the .hyperflow context cache and seed the memory directory skeleton for project setup.",
-          "scenarios": [
-            "Initializing Hyperflow in a new project to generate architecture and convention profile documents",
-            "Refreshing stale .hyperflow analysis cache files after dependency or configuration changes",
-            "Installing auto-detection shims for other AI coding assistants"
-          ],
-          "io": "Inputs optional flags such as --tools, --force, or --dry-run, and outputs structured profile markdown files and memory directory skeletons inside .hyperflow/.",
-          "dependencies": [
-            "bash",
-            "git",
-            "sha256sum"
-          ],
-          "boundary": "Only performs project analysis and setup, and does not trigger the plan-to-dispatch orchestration chain or write live mid-session contexts."
+          "en": {
+            "purpose": "Performs one-shot project setup by analyzing the codebase, building the `.hyperflow/` cache, setting up memory skeletons, and optionally installing AI tool detection shims.",
+            "scenarios": [
+              "Initializing Hyperflow configuration in a newly opened project",
+              "Refreshing stale `.hyperflow/` analysis cache after modifying core project config files",
+              "Installing auto-detection shims for external AI tools like Cursor, Codex, or Claude Code"
+            ],
+            "io": "Inputs: Optional execution flags (--tools, --force, --dry-run) and codebase configuration files; Outputs: `.hyperflow/` analysis Markdown cache, memory skeleton structure, and detection shims.",
+            "dependencies": [
+              "bash",
+              "agent",
+              "file_system"
+            ],
+            "boundary": "Handles project initialization and cache generation only; it does not initiate the planning, scoping, or task dispatch execution chain."
+          },
+          "zh": {
+            "purpose": "通过分析代码库、生成 `.hyperflow/` 缓存、搭建内存骨架并可选安装 AI 工具垫片，完成项目的一键式初始化。",
+            "scenarios": [
+              "在新项目中首次初始化 Hyperflow 环境与配置",
+              "在更改项目核心配置文件后刷新已过期的 `.hyperflow/` 分析缓存",
+              "为 Cursor、Codex 或 Claude Code 等外部 AI 工具安装自动检测垫片"
+            ],
+            "io": "输入：可选命令行参数（如 --tools、--force、--dry-run）及项目配置文件；输出：`.hyperflow/` 分析缓存 Markdown 文件、内存骨架及工具垫片。",
+            "dependencies": [
+              "bash",
+              "agent",
+              "file_system"
+            ],
+            "boundary": "仅负责项目初始化与分析缓存构建，不会触发后续的计划制定、范围划定或任务分发执行链。"
+          }
         },
-        "community": {
-          "verdict": "healthy",
-          "summary": "The repository shows strong community engagement and active maintenance with a recent push and a healthy fork-to-star ratio. High star count combined with a proportional number of forks indicates genuine utility rather than superficial hype.",
-          "signals": [
-            "Active maintenance with the last push 1 day ago",
-            "Solid fork-to-star ratio (384 forks to 2,617 stars, ~14.7%)",
-            "Moderate issue backlog with 28 open issues",
-            "Watcher count (24) is somewhat low compared to stars, typical for bookmark-heavy prompt/skill collections"
-          ],
-          "vanity_risk": "low"
-        },
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=GitHub signals only (external sites not yet included)"
+        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
       }
     },
     {
@@ -8633,8 +8759,112 @@
     }
   ],
   "grounding_coverage": {
-    "enriched": 20,
-    "total": 200,
-    "ok": 18
+    "enriched_skills": 20,
+    "repos": 3,
+    "total_skills": 200,
+    "function_ok": 19
+  },
+  "repos": {
+    "davepoon/buildwithclaude": {
+      "health": 99,
+      "community": {
+        "en": {
+          "verdict": "healthy",
+          "summary": "The repository demonstrates strong community engagement and active maintenance, supported by frequent pushes and active community plugin submissions.",
+          "signals": [
+            "High popularity with 3,283 stars and a healthy fork count of 456 (~14% fork-to-star ratio).",
+            "Very active ongoing development with the last code push recorded today (0d ago).",
+            "Low open issue count (12) containing constructive community feature requests, plugin submissions, and partnership inquiries."
+          ],
+          "vanity_risk": "low"
+        },
+        "zh": {
+          "verdict": "healthy",
+          "summary": "该项目展现出强劲的社区参与度和活跃的维护状态，代码更新频繁且持续收到社区的插件提交和合作请求。",
+          "signals": [
+            "关注度较高，拥有 3,283 个 Star 以及健康的 Fork 比例（456 次，约占 14%）。",
+            "代码维护非常活跃，最后一次推送就在今天（0 天前）。",
+            "未解决 Issue 数量较少（12 个），且包含建设性的社区插件提交和功能集成建议。"
+          ],
+          "vanity_risk": "low"
+        }
+      },
+      "security": {
+        "pass": 12,
+        "warn": 3
+      },
+      "frontmatter_pass_rate": 0.93,
+      "skill_count": 15,
+      "overall_score": 100,
+      "overall_grade": "A"
+    },
+    "jeremylongshore/claude-code-plugins-plus-skills": {
+      "health": 96,
+      "community": {
+        "en": {
+          "verdict": "healthy",
+          "summary": "The repository shows strong adoption and active maintenance with a solid fork-to-star ratio and very recent updates. Engagement metrics indicate genuine utility with low risk of inflated popularity.",
+          "signals": [
+            "2,617 stars combined with 384 forks (~14.7% fork ratio) indicates strong practical usage.",
+            "Very recent activity with a code push 1 day ago.",
+            "Moderate backlog of 28 open issues indicating steady community engagement."
+          ],
+          "vanity_risk": "low"
+        },
+        "zh": {
+          "verdict": "healthy",
+          "summary": "该仓库拥有较高的社区采用度和积极的维护状态，Fork 与 Star 比例健康且近期持续更新。指标反映其具备真实的实用价值，虚荣指标风险较低。",
+          "signals": [
+            "拥有 2,617 个 Star 和 384 个 Fork（Fork 比例约 14.7%），表明较高的实际使用率。",
+            "项目维护活跃，最后一次提交在 1 天前。",
+            "存在 28 个未解决 Issue，属于正常且可控的社区互动范围。"
+          ],
+          "vanity_risk": "low"
+        }
+      },
+      "security": {
+        "warn": 14,
+        "pass": 1
+      },
+      "frontmatter_pass_rate": 0.0,
+      "skill_count": 15,
+      "overall_score": 79,
+      "overall_grade": "B"
+    },
+    "shareAI-lab/learn-claude-code": {
+      "health": 100,
+      "community": {
+        "en": {
+          "verdict": "healthy",
+          "summary": "The repository exhibits high community engagement and active maintenance, evidenced by a fresh commit and significant fork count. Although the watcher count is relatively low compared to the massive star count, high fork metrics and constructive open issues point to genuine interest.",
+          "signals": [
+            "Extremely high engagement with 73,877 stars and 11,974 forks",
+            "Very active maintenance with the last push occurring today (0d ago)",
+            "Low open issue count (72) relative to repo size, showing manageable issue backlog",
+            "Relatively low watcher count (295) compared to the total star count"
+          ],
+          "vanity_risk": "medium"
+        },
+        "zh": {
+          "verdict": "healthy",
+          "summary": "该项目展现出极高的社区关注度和良好的维护状态，拥有大量 Fork 记录和当日的代码更新。尽管 Watcher 数量相对于庞大的 Star 偏低，但整体分叉量与技术议题表明其具有真实的使用与学习价值。",
+          "signals": [
+            "拥有极高的 Star（73,877）与 Fork（11,974）数量，表明受众广泛且复用率高",
+            "代码维护非常活跃，最后一次提交在 0 天前",
+            "Open Issues 数量维持在较低水平（72 项），包含具体的技术讨论与建议",
+            "Watcher 数量（295）相对于 Star 数量比例偏低"
+          ],
+          "vanity_risk": "medium"
+        }
+      },
+      "security": {
+        "warn": 3,
+        "pass": 1
+      },
+      "frontmatter_pass_rate": 0.75,
+      "skill_count": 4,
+      "overall_score": 95,
+      "overall_grade": "A"
+    }
   }
 }
