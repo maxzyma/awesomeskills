@@ -133,3 +133,14 @@ note = "Chinese-authored skill (Chinese description) — validates zh detection"
 id   = "abubakarsiddik31/claude-skills-collection"
 kind = "skill-collection"
 note = "Mixed official + community skills collection"
+
+# --- Batch 3 (2026-08): surfaced by our own github-trends pipeline (skill-context repos).
+[[source]]
+id   = "browserbase/skills"
+kind = "skill-collection"
+note = "Browserbase official skills (browser automation) — surfaced via github-trends"
+
+[[source]]
+id   = "addyosmani/agent-skills"
+kind = "skill-collection"
+note = "Addy Osmani agent skills — high-trust author; surfaced via github-trends"
