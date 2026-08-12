@@ -28,6 +28,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from skill_parser import parse_skill_md
+from security_scan import scan_skill_md
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCES = REPO_ROOT / "registry" / "sources.toml"
@@ -130,22 +131,53 @@ def _has_chinese(*texts: str | None) -> bool:
 
 
 def compute_health(repo: dict, now: datetime) -> tuple[int, dict]:
-    """Heuristic v0: activity-driven, NOT star-driven. Recency dominates; archived penalized."""
-    pushed_at = repo.get("pushed_at")
-    recency_days = None
-    if pushed_at:
-        dt = datetime.fromisoformat(pushed_at.replace("Z", "+00:00"))
-        recency_days = (now - dt).days
-    base = 0.0 if recency_days is None else max(0.0, min(100.0, 100.0 - recency_days * 0.3))
+    """Multi-factor activity/maintenance score (0-100), deliberately de-emphasizing raw stars.
+
+    recency (40) + maintenance/issue-load (25) + real engagement watch+fork ratio (20)
+    + maturity (15); archived heavily penalized. Still heuristic, but spreads across repos
+    instead of the old naive-recency version that pinned everything to ~100.
+    """
+    stars = repo.get("stargazers_count") or 0
+    open_issues = repo.get("open_issues_count") or 0
+    forks = repo.get("forks_count") or 0
+    watchers = repo.get("subscribers_count") or 0
+
+    def _days(key):
+        v = repo.get(key)
+        return (now - datetime.fromisoformat(v.replace("Z", "+00:00"))).days if v else None
+
+    recency_days = _days("pushed_at")
+    age_days = _days("created_at")
+
+    # recency: 40 fresh → ~0 by ~130 days stale
+    recency = 0.0 if recency_days is None else max(0.0, 40.0 - recency_days * 0.3)
+    # maintenance: open-issue backlog relative to size; heavy backlog = maintenance lagging
+    backlog = open_issues / max(stars, 30)
+    maintenance = 25.0 * max(0.0, 1.0 - min(backlog, 0.15) / 0.15)
+    # engagement (anti-vanity): watched + forked vs merely starred
+    eng_ratio = (watchers + forks) / max(stars, 30)
+    engagement = 20.0 * min(1.0, eng_ratio / 0.15)
+    # maturity: real history (>~1yr) that is still recently active
+    maturity = 0.0
+    if age_days is not None and recency_days is not None:
+        maturity = 15.0 * min(1.0, age_days / 365.0) * (1.0 if recency_days < 120 else 0.4)
+
+    score = recency + maintenance + engagement + maturity
     if repo.get("archived"):
-        base *= 0.3
+        score *= 0.3
+
     factors = {
         "recency_days": recency_days,
-        "stars": repo.get("stargazers_count"),
-        "open_issues": repo.get("open_issues_count"),
+        "stars": stars,
+        "open_issues": open_issues,
+        "forks": forks,
+        "watchers": watchers,
+        "age_days": age_days,
         "archived": bool(repo.get("archived")),
+        "parts": {"recency": round(recency), "maintenance": round(maintenance),
+                  "engagement": round(engagement), "maturity": round(maturity)},
     }
-    return round(base), factors
+    return round(min(100.0, score)), factors
 
 
 # ---------- entry builders ----------
@@ -189,8 +221,10 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
         if text is None:
             parsed = {"name": "", "description": "", "frontmatter_valid": False,
                       "issues": ["failed to fetch SKILL.md"], "body_headings": 0, "body_code_blocks": 0}
+            scan = {"rating": "unrated", "findings": [], "scope": "fetch failed"}
         else:
             parsed = parse_skill_md(text)
+            scan = scan_skill_md(text)
         name = parsed["name"] or (skill_dir.split("/")[-1] if skill_dir != "." else repo.get("name") or repo_id)
         entries.append({
             "id": f"{repo_id}/{skill_dir}" if skill_dir != "." else repo_id,
@@ -205,7 +239,9 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
             "trust": {
                 "health": health,  # inherited from repo
                 "health_factors": factors,
-                "security": "unrated",
+                "security": scan["rating"],
+                "security_findings": scan["findings"],
+                "security_scope": scan.get("scope"),
                 "zh": _has_chinese(parsed["description"], parsed["name"]),
             },
             "frontmatter": {

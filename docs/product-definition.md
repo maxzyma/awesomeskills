@@ -36,6 +36,17 @@
 - **每个入库 skill 必带三信号**：健康度（真实活跃度，非 star）、安全（评级，MVP 先诚实标 `unrated` 逐步补）、语言覆盖（是否含/覆盖中文场景）。
 - **agent 只消费经评估的 skill**——把"让 agent 自主找+装+用"里最危险的一环（自动分发未审代码）用信任层兜住。
 
+### grounding 四层（护城河实质 · 全做目标）
+
+grounding = 我们对每个 skill 的**多层评估**（站内、非外链源仓）。当前只有一层的元数据（health/frontmatter），远不够。目标四层，每层标注「可全量自动」还是「需 LLM + 持续运营」：
+
+1. **健康度 health（可全量自动）**：真实活跃度综合分（recency + commit 频率 + issue 堆积/响应 + 去 vanity 的 star/关注比），**有解释、有区分度**——不是当前满屏 100 的裸 recency 分。数据源 GitHub API。
+2. **安全 security（可全量自动·规则）**：静态扫描 SKILL.md + scripts，检测危险命令、数据外泄、prompt-injection、供应链模式；`pass/warn/fail` + 命中项。当前全 `unrated`（未实现）。
+3. **功能/场景分析（需 LLM）**：读 SKILL.md 正文提炼 用途 / 适用场景 / 输入输出 / 依赖 / 能力边界；替换当前照抄 description 的 summary。数据源 SKILL.md（已抓）。
+4. **社区 grounding（需 LLM + 持续运营，差异化最大）**：真实口碑——issue 质量与活跃、star 增长去 vanity、HN/Reddit/**中文社区**评价与核实。复用 `github-trends` grounding 内核为 skill 适配。数据源 GitHub issue/搜索 + 社区。
+
+原则：① grounding 是**我们的评估**（权威源 index.json，非外链源仓）；② 每 skill 各层**独立标注覆盖状态**（已评/未评），不假装全评过；③ 分「全量自动」（1、2）与「需 LLM + 运营」（3、4）——后者先小样本、再规模化，覆盖率如实 `log` 不静默。
+
 ## 4. 责任边界：评估者，非执行者（v0.1 新增）
 
 **awesomeskills 交付的是"信任信号"，不是"执行环境"。**
