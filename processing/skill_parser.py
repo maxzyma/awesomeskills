@@ -28,10 +28,24 @@ def split_frontmatter(text: str) -> tuple[dict, str]:
     if end is None:
         return {}, text
     fm: dict[str, str] = {}
-    for line in lines[1:end]:
+    i = 1
+    while i < end:
+        line = lines[i]
         if ":" in line and not line.lstrip().startswith("#"):
             key, val = line.split(":", 1)
-            fm[key.strip()] = val.strip().strip('"').strip("'")
+            key, val = key.strip(), val.strip()
+            if val in (">", ">-", ">+", "|", "|-", "|+"):
+                # YAML block scalar: collect following more-indented lines
+                base = len(line) - len(line.lstrip())
+                block: list[str] = []
+                i += 1
+                while i < end and (not lines[i].strip() or (len(lines[i]) - len(lines[i].lstrip())) > base):
+                    block.append(lines[i].strip())
+                    i += 1
+                fm[key] = " ".join(x for x in block if x).strip()
+                continue
+            fm[key] = val.strip('"').strip("'")
+        i += 1
     return fm, "\n".join(lines[end + 1:])
 
 
