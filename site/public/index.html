@@ -169,7 +169,7 @@
       submit_q: 'Know a good skill we\'re missing?', submit_a: 'Submit it for inclusion →',
       search_ph: 'Search a capability, e.g. pdf, browser, registry…', search_aria: 'Search skills',
       zh_only: 'Chinese only', health_ge: 'health ≥ 70',
-      repo_all: 'All repos', sort_relevance: 'Sort: completeness', sort_health: 'Sort: activity', sort_grade: 'Sort: repo grade', sort_name: 'Sort: name',
+      repo_all: 'All repos', sort_relevance: 'Sort: trust', sort_health: 'Sort: activity', sort_grade: 'Sort: repo grade', sort_name: 'Sort: name',
       prev: '‹ Prev', next: 'Next ›', page_of: (p, n) => `page ${p} / ${n}`,
       meta: (m, n, d) => `${m} of ${n} skills · index generated ${d}`,
       no_match: 'No matching skills.', loading: 'Loading index…',
@@ -199,7 +199,7 @@
       submit_q: '发现我们漏收的好 skill？', submit_a: '提交收录 →',
       search_ph: '搜索能力，如 pdf、browser、registry…', search_aria: '搜索 skill',
       zh_only: '仅中文', health_ge: 'health ≥ 70',
-      repo_all: '全部仓库', sort_relevance: '排序：完整度', sort_health: '排序：活跃度', sort_grade: '排序：仓库评级', sort_name: '排序：名称',
+      repo_all: '全部仓库', sort_relevance: '排序：可信度', sort_health: '排序：活跃度', sort_grade: '排序：仓库评级', sort_name: '排序：名称',
       prev: '‹ 上一页', next: '下一页 ›', page_of: (p, n) => `第 ${p} / ${n} 页`,
       meta: (m, n, d) => `${n} 个 skill 中 ${m} 个匹配 · 索引生成于 ${d}`,
       no_match: '没有匹配的 skill。', loading: '加载索引中…',
@@ -245,13 +245,23 @@
     repoEl.innerHTML = `<option value="">${t('repo_all')}</option>` + rs.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
     sortEl.value = sv; repoEl.value = rv;
   }
+  // Composite trust score (default sort). Trust-first product: rank by all trust
+  // signals, not activity alone. Completeness is a GATE (broken entries sink), then
+  // rank the rest by health + repo grade, demoted by security warn/fail.
+  const SEC_ADJUST = { pass: 0, warn: -8, fail: -25 };
+  function done(e) { return (e.frontmatter && e.frontmatter.valid && (e.summary || '').trim()) ? 1 : 0; }
+  function trustScore(e) {
+    const health = e.trust && e.trust.health || 0;
+    const grade = (repos[e.source_repo] || {}).overall_score || 0;
+    const sec = SEC_ADJUST[e.trust && e.trust.security] ?? -3; // unrated: small penalty
+    return 0.55 * health + 0.35 * grade + sec;
+  }
   function sortRows(rows) {
-    const done = e => (e.frontmatter && e.frontmatter.valid && (e.summary || '').trim()) ? 1 : 0;
     const by = sortEl.value, a = [...rows];
     if (by === 'health') a.sort((x, y) => (y.trust.health || 0) - (x.trust.health || 0));
     else if (by === 'grade') a.sort((x, y) => ((repos[y.source_repo] || {}).overall_score || 0) - ((repos[x.source_repo] || {}).overall_score || 0));
     else if (by === 'name') a.sort((x, y) => x.name.localeCompare(y.name));
-    else a.sort((x, y) => done(y) - done(x) || (y.trust.health || 0) - (x.trust.health || 0));
+    else a.sort((x, y) => done(y) - done(x) || trustScore(y) - trustScore(x));
     return a;
   }
   function renderPager(pages) {
