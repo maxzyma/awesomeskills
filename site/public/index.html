@@ -151,7 +151,7 @@
       security: 'security', chinese: 'Chinese', yes: 'yes', no: 'no', level: 'level', frontmatter: 'frontmatter', valid: 'valid', invalid: 'invalid',
       lastpush: 'last push', ago: 'ago', openissues: 'open issues', forks: 'forks', watchers: 'watchers', archived: 'archived',
       scanscope: 'scan scope', headings: 'headings', codeblocks: 'code blocks', scenarios: 'scenarios', deps: 'deps',
-      repograde: 'repo', vanity: 'vanity risk', hn_stories: 'HN stories', hn_none: 'no HN discussion', notrun: 'function / community not yet run for this skill',
+      repograde: 'repo', vanity: 'vanity risk', hn_stories: 'HN stories', hn_none: 'no HN discussion', bili_videos: 'Bilibili videos', bili_none: 'no Bilibili videos', plays: 'plays', notrun: 'function / community not yet run for this skill',
       note: 'Assessed by awesomeskills — health = activity+maintenance (not stars); security = static scan of SKILL.md; function & community = LLM-grounded (community is per-repo). Source: ',
       footer_health: 'Health is a heuristic (activity-driven, not stars).', footer_unrated: '<code>unrated</code> security = not yet assessed, not "safe".',
       footer_machine: 'Machine-readable:', footer_eval: 'awesomeskills is an evaluator, not an executor — sandboxing a pulled skill is the host agent\'s job.',
@@ -173,7 +173,7 @@
       security: '安全', chinese: '中文', yes: '是', no: '否', level: '层级', frontmatter: 'frontmatter', valid: '合规', invalid: '不合规',
       lastpush: '最近提交', ago: '前', openissues: '个开放 issue', forks: '个 fork', watchers: '个关注', archived: '已归档',
       scanscope: '扫描范围', headings: '个标题', codeblocks: '个代码块', scenarios: '场景', deps: '依赖',
-      repograde: '仓库', vanity: 'vanity 风险', hn_stories: '条 HN 讨论', hn_none: '无 HN 讨论', notrun: '此 skill 尚未运行功能 / 社区分析',
+      repograde: '仓库', vanity: 'vanity 风险', hn_stories: '条 HN 讨论', hn_none: '无 HN 讨论', bili_videos: '个 B站视频', bili_none: '无 B站视频', plays: '播放', notrun: '此 skill 尚未运行功能 / 社区分析',
       note: '由 awesomeskills 评估——health = 活跃度+维护（非 star）；security = SKILL.md 静态扫描；function 与 community = LLM 依据（community 按仓库）。来源：',
       footer_health: 'Health 为启发式（基于活跃度，非 star）。', footer_unrated: '<code>unrated</code> 安全 = 尚未评估，不等于“安全”。',
       footer_machine: '机器可读：', footer_eval: 'awesomeskills 是评估者，不是执行者——拉取的 skill 的沙箱隔离是宿主 agent 的职责。',
@@ -239,6 +239,7 @@
         co && co.verdict ? `<div>${esc(co.verdict)} · ${t('vanity')} ${esc(co.vanity_risk || '?')}${co.summary ? ' — ' + esc(co.summary) : ''}</div>` : '',
         co && Array.isArray(co.signals) && co.signals.length ? `<div class="g-sub">${co.signals.map(esc).join(' · ')}</div>` : '',
         ext ? (ext.stories ? `<div class="g-sub">HN: ${ext.stories} ${t('hn_stories')} · ${ext.total_points ?? 0}pts / ${ext.total_comments ?? 0}c · <a href="${esc(ext.top_url)}" target="_blank" rel="noopener">top</a></div>` : `<div class="g-sub">${t('hn_none')}</div>`) : '',
+        (() => { const bili = rp.external && rp.external.cn && rp.external.cn.bilibili; if (!bili) return ''; return bili.videos ? `<div class="g-sub">B站: ${bili.videos} ${t('bili_videos')} · ${esc(bili.top_plays || '')} ${t('plays')}${bili.top_url ? ` · <a href="${esc(bili.top_url)}" target="_blank" rel="noopener">${esc((bili.top_title || 'top').slice(0, 24))}</a>` : ''}</div>` : `<div class="g-sub">${t('bili_none')}</div>`; })(),
       ]));
     } else if (!fn) {
       out.push(`<div class="g-sub">${t('notrun')}</div>`);

@@ -149,14 +149,14 @@ def compute_health(repo: dict, now: datetime) -> tuple[int, dict]:
     recency_days = _days("pushed_at")
     age_days = _days("created_at")
 
-    # recency: 40 fresh → ~0 by ~130 days stale
-    recency = 0.0 if recency_days is None else max(0.0, 40.0 - recency_days * 0.3)
-    # maintenance: open-issue backlog relative to size; heavy backlog = maintenance lagging
+    # recency: 40 fresh → ~0 by ~80 days stale (steeper, so "recently touched" isn't near-free)
+    recency = 0.0 if recency_days is None else max(0.0, 40.0 - recency_days * 0.5)
+    # maintenance: open-issue backlog relative to size; stricter threshold
     backlog = open_issues / max(stars, 30)
-    maintenance = 25.0 * max(0.0, 1.0 - min(backlog, 0.15) / 0.15)
-    # engagement (anti-vanity): watched + forked vs merely starred
+    maintenance = 25.0 * max(0.0, 1.0 - min(backlog, 0.10) / 0.10)
+    # engagement (anti-vanity): watched + forked vs merely starred; harder to max out
     eng_ratio = (watchers + forks) / max(stars, 30)
-    engagement = 20.0 * min(1.0, eng_ratio / 0.15)
+    engagement = 20.0 * min(1.0, eng_ratio / 0.25)
     # maturity: real history (>~1yr) that is still recently active
     maturity = 0.0
     if age_days is not None and recency_days is not None:
