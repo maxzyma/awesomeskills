@@ -21,11 +21,13 @@ HIGH = [
 ]
 
 # (regex, human label) — low-severity ⇒ warn
+# Note: plain curl/pip/npm are NOT flagged — they're near-ubiquitous in skills and produced
+# a high false-positive rate. Only genuinely suspicious low-severity patterns remain here.
 LOW = [
     (r"\bsudo\b", "uses sudo"),
     (r"ignore\s+(all\s+)?(previous|prior|above)\s+(instructions|prompts)", "prompt-injection-like phrasing"),
     (r"disregard[^\n]*instructions", "prompt-injection-like phrasing"),
-    (r"\bpip\s+install\b|\bnpm\s+i(nstall)?\b|\bcurl\b|\bwget\b", "network / install commands"),
+    (r"chmod\s+\+x[^\n]*&&[^\n]*\./", "downloads then executes a script"),
 ]
 
 _ALLOWED_TOOLS = re.compile(r"^allowed-tools:\s*(.+)$", re.M | re.I)
