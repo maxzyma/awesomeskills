@@ -33,6 +33,7 @@
   .ground-body { margin-top: 5px; padding: 8px 10px; background: #fafbfd; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; line-height: 1.6; color: #333; }
   .ground-body b { font-variant-numeric: tabular-nums; }
   .ground-sub { color: var(--muted); font-size: 11px; }
+  .ground-body .ground-h { font-weight: 600; color: var(--accent); margin-top: 7px; }
   .ground-note { color: var(--muted); margin-top: 4px; }
   .ground-body .bad { color: var(--warn); font-weight: 600; }
   .signals { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
@@ -131,7 +132,23 @@ Read-only: awesomeskills.io/llm.txt</pre>
     if (fm) {
       rows.push(`<div>frontmatter: ${fm.valid ? 'valid' : '<span class="bad">invalid</span>'}${fm.issues && fm.issues.length ? ' — ' + fm.issues.map(esc).join('; ') : ''}${fm.headings != null ? ` · ${fm.headings} headings · ${fm.code_blocks} code blocks` : ''}</div>`);
     }
-    rows.push(`<div class="ground-note">Assessed by awesomeskills — health = activity+maintenance (not stars); security = static scan of SKILL.md. Source: <a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
+    if (e.grounding) {
+      const fn = e.grounding.function || {}, co = e.grounding.community || {};
+      if (fn.purpose) {
+        rows.push('<div class="ground-h">Function / scenarios</div>');
+        rows.push(`<div>${esc(fn.purpose)}</div>`);
+        if (Array.isArray(fn.scenarios) && fn.scenarios.length) rows.push(`<div class="ground-sub">scenarios: ${fn.scenarios.map(esc).join(' · ')}</div>`);
+        if (Array.isArray(fn.dependencies)) rows.push(`<div class="ground-sub">deps: ${fn.dependencies.map(esc).join(', ')}${fn.boundary ? ' · ' + esc(fn.boundary) : ''}</div>`);
+      }
+      if (co.verdict) {
+        rows.push(`<div class="ground-h">Community — ${esc(co.verdict)} · vanity risk ${esc(co.vanity_risk || '?')}</div>`);
+        if (co.summary) rows.push(`<div>${esc(co.summary)}</div>`);
+        if (Array.isArray(co.signals) && co.signals.length) rows.push(`<div class="ground-sub">${co.signals.map(esc).join(' · ')}</div>`);
+      }
+    } else {
+      rows.push('<div class="ground-sub">function / community analysis: not yet run for this skill (top-20 enriched so far)</div>');
+    }
+    rows.push(`<div class="ground-note">Assessed by awesomeskills — health = activity+maintenance (not stars); security = static scan; function &amp; community = LLM-grounded. Source: <a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
     return rows.join('');
   }
 
