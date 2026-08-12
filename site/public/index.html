@@ -42,8 +42,12 @@
   .signals { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
   .pill { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 6px; border: none; line-height: 1.5; font-variant-numeric: tabular-nums; }
   .pill.health { background: #f1f2f6; color: #4b5563; display: inline-flex; align-items: center; gap: 4px; }
+  .pi { pointer-events: none; }
   .pill .pi { width: 13px; height: 13px; }
   .pill.icon-only { padding: 3px 7px; }
+  .pill.grade { display: inline-flex; align-items: center; gap: 3px; }
+  .gbtn .pi { transition: transform .15s; }
+  .gbtn[aria-expanded="true"] .pi { transform: rotate(180deg); }
   .sec-pass { background: #e7f4ec; color: var(--ok); }
   .sec-warn { background: #fdf0e3; color: var(--warn); }
   .sec-unrated { background: #f1f2f6; color: var(--muted); }
@@ -142,6 +146,8 @@
     fail: _svg('<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>'),
     unrated: _svg('<circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line>'),
   };
+  const chevronDownIcon = _svg('<polyline points="6 9 12 15 18 9"></polyline>');
+  const repoIcon = _svg('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>');
 
   const I18N = {
     en: {
@@ -298,11 +304,11 @@
         <div class="rowmain">
           <h2 class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="repo">${esc(e.source_repo || e.id)}</span>${e.kind && e.kind !== 'skill' ? `<span class="kind">${esc(e.kind)}</span>` : ''}</h2>
           <div class="signals">
-            ${grade ? `<span class="pill grade grade-${esc(grade)} tip" tabindex="0" data-tip="${esc(gradeTip)}">${t('repograde')} ${esc(grade)}</span>` : ''}
+            ${grade ? `<span class="pill grade grade-${esc(grade)} tip" tabindex="0" data-tip="${esc(gradeTip)}">${repoIcon}${esc(grade)}</span>` : ''}
             <span class="pill health tip" tabindex="0" data-tip="${esc(htip)}">${activityIcon}${tr.health}</span>
             <span class="pill ${secClass(tr.security)} icon-only tip" tabindex="0" role="img" aria-label="${esc(stip)}" data-tip="${esc(stip)}">${SEC_ICON[tr.security] || SEC_ICON.unrated}</span>
             ${tr.zh ? `<span class="pill zh">${t('chinese')}</span>` : ''}
-            <button class="gbtn" type="button" aria-expanded="${open}" aria-controls="${gid}" aria-label="${esc(open ? t('grounding_hide') : t('grounding_show'))}">${infoIcon}</button>
+            <button class="gbtn tip" type="button" aria-expanded="${open}" aria-controls="${gid}" aria-label="${esc(open ? t('grounding_hide') : t('grounding_show'))}" data-tip="${esc(t('grounding'))}">${chevronDownIcon}</button>
           </div>
         </div>
         ${(sm => sm ? `<div class="summary">${esc(sm)}</div>` : '')(skillSummary(e))}
