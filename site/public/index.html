@@ -41,7 +41,9 @@
 
   .signals { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
   .pill { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 6px; border: none; line-height: 1.5; font-variant-numeric: tabular-nums; }
-  .pill.health { background: #f1f2f6; color: #4b5563; }
+  .pill.health { background: #f1f2f6; color: #4b5563; display: inline-flex; align-items: center; gap: 4px; }
+  .pill .pi { width: 13px; height: 13px; }
+  .pill.icon-only { padding: 3px 7px; }
   .sec-pass { background: #e7f4ec; color: var(--ok); }
   .sec-warn { background: #fdf0e3; color: var(--warn); }
   .sec-unrated { background: #f1f2f6; color: var(--muted); }
@@ -132,6 +134,14 @@
   const chevIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>';
   const infoIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
   const copyIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  const _svg = p => `<svg class="pi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+  const activityIcon = _svg('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>');
+  const SEC_ICON = {
+    pass: _svg('<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'),
+    warn: _svg('<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>'),
+    fail: _svg('<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>'),
+    unrated: _svg('<circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line>'),
+  };
 
   const I18N = {
     en: {
@@ -150,8 +160,11 @@
       l_health: 'Health', l_security: 'Security', l_coverage: 'Coverage', l_func: 'Function / scenarios', l_community: 'Community',
       security: 'security', chinese: 'Chinese', yes: 'yes', no: 'no', level: 'level', frontmatter: 'frontmatter', valid: 'valid', invalid: 'invalid',
       f_recency: 'recency', f_maintenance: 'maintenance', f_engagement: 'engagement', f_maturity: 'maturity',
-      sec_pass: 'pass', sec_warn: 'warn', sec_fail: 'fail', sec_unrated: 'unrated',
+      sec_pass: 'clean', sec_warn: 'warn', sec_fail: 'fail', sec_unrated: 'unrated',
       v_healthy: 'healthy', v_mixed: 'mixed', v_concern: 'concern', risk_low: 'low', risk_medium: 'medium', risk_high: 'high',
+      sec_pass_tip: 'security: no risky patterns found — static scan of SKILL.md only (scripts not scanned; not a safety guarantee)',
+      sec_warn_tip: 'security: low-risk patterns', sec_fail_tip: 'security: high-risk patterns', sec_unrated_tip: 'security: not assessed',
+      health_word: 'activity health', grade_tip: 'repo grade · overall',
       lastpush: 'last push', ago: 'ago', openissues: 'open issues', forks: 'forks', watchers: 'watchers', archived: 'archived',
       scanscope: 'scan scope', headings: 'headings', codeblocks: 'code blocks', scenarios: 'scenarios', deps: 'deps',
       repograde: 'repo', vanity: 'vanity risk', hn_stories: 'HN stories', hn_none: 'no HN discussion', bili_videos: 'Bilibili videos', bili_none: 'no Bilibili videos', plays: 'plays', notrun: 'function / community not yet run for this skill',
@@ -175,8 +188,11 @@
       l_health: '健康度', l_security: '安全', l_coverage: '覆盖', l_func: '功能 / 场景', l_community: '社区',
       security: '安全', chinese: '中文', yes: '是', no: '否', level: '层级', frontmatter: 'frontmatter', valid: '合规', invalid: '不合规',
       f_recency: '最近度', f_maintenance: '维护', f_engagement: '参与', f_maturity: '成熟度',
-      sec_pass: '通过', sec_warn: '警告', sec_fail: '未通过', sec_unrated: '未评级',
+      sec_pass: '未见风险', sec_warn: '告警', sec_fail: '高风险', sec_unrated: '未评估',
       v_healthy: '健康', v_mixed: '中等', v_concern: '存疑', risk_low: '低', risk_medium: '中', risk_high: '高',
+      sec_pass_tip: '安全：未见危险模式——仅 SKILL.md 静态扫描（未扫 scripts；不等于安全保证）',
+      sec_warn_tip: '安全：低风险模式', sec_fail_tip: '安全：高风险模式', sec_unrated_tip: '安全：尚未评估',
+      health_word: '活跃度', grade_tip: '仓库评级 · 综合',
       lastpush: '最近提交', ago: '前', openissues: '个开放 issue', forks: '个 fork', watchers: '个关注', archived: '已归档',
       scanscope: '扫描范围', headings: '个标题', codeblocks: '个代码块', scenarios: '场景', deps: '依赖',
       repograde: '仓库', vanity: 'vanity 风险', hn_stories: '条 HN 讨论', hn_none: '无 HN 讨论', bili_videos: '个 B站视频', bili_none: '无 B站视频', plays: '播放', notrun: '此 skill 尚未运行功能 / 社区分析',
@@ -271,17 +287,20 @@
     if (!rows.length) { listEl.innerHTML = `<li class="empty">${t('no_match')}</li>`; return; }
     listEl.innerHTML = rows.map((e, i) => {
       const tr = e.trust, f = tr.health_factors || {}, pp = f.parts || {};
-      const htip = `recency ${pp.recency ?? '?'}/40\nmaintenance ${pp.maintenance ?? '?'}/25\nengagement ${pp.engagement ?? '?'}/20\nmaturity ${pp.maturity ?? '?'}/15`;
-      const stip = (tr.security_findings || []).map(x => x.label).join('\n') || tr.security_scope || t('security');
-      const grade = (repos[e.source_repo] || {}).overall_grade;
+      const rp2 = repos[e.source_repo] || {};
+      const htip = `${t('health_word')}\n${t('f_recency')} ${pp.recency ?? '?'}/40 · ${t('f_maintenance')} ${pp.maintenance ?? '?'}/25 · ${t('f_engagement')} ${pp.engagement ?? '?'}/20 · ${t('f_maturity')} ${pp.maturity ?? '?'}/15`;
+      const fnd = (tr.security_findings || []).map(x => x.label).join('; ');
+      const stip = t('sec_' + tr.security + '_tip') + (fnd ? ': ' + fnd : '');
+      const grade = rp2.overall_grade;
+      const gradeTip = `${t('grade_tip')} ${rp2.overall_score ?? ''}`;
       const gid = 'g' + i, open = openRows.has(e.id);
       return `<li class="row" data-id="${esc(e.id)}">
         <div class="rowmain">
           <h2 class="name"><a href="${esc(e.source_url)}" target="_blank" rel="noopener">${esc(e.name)}</a><span class="repo">${esc(e.source_repo || e.id)}</span>${e.kind && e.kind !== 'skill' ? `<span class="kind">${esc(e.kind)}</span>` : ''}</h2>
           <div class="signals">
-            ${grade ? `<span class="pill grade grade-${esc(grade)}">${t('repograde')} ${esc(grade)}</span>` : ''}
-            <span class="pill health tip" tabindex="0" data-tip="${esc(htip)}">health ${tr.health}</span>
-            <span class="pill ${secClass(tr.security)} tip" tabindex="0" data-tip="${esc(stip)}">${esc(secLabel(tr.security))}</span>
+            ${grade ? `<span class="pill grade grade-${esc(grade)} tip" tabindex="0" data-tip="${esc(gradeTip)}">${t('repograde')} ${esc(grade)}</span>` : ''}
+            <span class="pill health tip" tabindex="0" data-tip="${esc(htip)}">${activityIcon}${tr.health}</span>
+            <span class="pill ${secClass(tr.security)} icon-only tip" tabindex="0" role="img" aria-label="${esc(stip)}" data-tip="${esc(stip)}">${SEC_ICON[tr.security] || SEC_ICON.unrated}</span>
             ${tr.zh ? `<span class="pill zh">${t('chinese')}</span>` : ''}
             <button class="gbtn" type="button" aria-expanded="${open}" aria-controls="${gid}" aria-label="${esc(open ? t('grounding_hide') : t('grounding_show'))}">${infoIcon}</button>
           </div>
