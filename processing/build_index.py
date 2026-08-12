@@ -16,6 +16,7 @@ Standard library only. Honors HTTPS_PROXY. Optional GITHUB_TOKEN raises rate lim
 
 from __future__ import annotations
 
+import http.client
 import json
 import os
 import re
@@ -95,7 +96,7 @@ def _get(url: str, token: str | None, accept: str = "application/vnd.github+json
         except urllib.error.HTTPError as e:
             print(f"  ! {url}: HTTP {e.code}", file=sys.stderr)
             return None
-        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as e:
             if attempt == 2:
                 print(f"  ! {url}: {e} (gave up)", file=sys.stderr)
                 return None
@@ -193,6 +194,9 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
     branch = repo.get("default_branch") or "main"
 
     paths = fetch_skill_paths(repo_id, branch, token)
+    # skip placeholder/non-skill SKILL.md (e.g. a README/ dir, or template/example dirs)
+    paths = [p for p in paths if not any(seg in ("readme", "template", "example", "examples")
+                                          for seg in p.lower().split("/"))]
     truncated = len(paths) > MAX_SKILLS_PER_REPO
     if truncated:
         print(f"  … {repo_id}: {len(paths)} SKILL.md found, capping at {MAX_SKILLS_PER_REPO}", file=sys.stderr)
