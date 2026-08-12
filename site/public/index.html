@@ -32,6 +32,7 @@
   .grounding[open] > summary::before { content: "\25BE "; }
   .ground-body { margin-top: 5px; padding: 8px 10px; background: #fafbfd; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; line-height: 1.6; color: #333; }
   .ground-body b { font-variant-numeric: tabular-nums; }
+  .ground-sub { color: var(--muted); font-size: 11px; }
   .ground-note { color: var(--muted); margin-top: 4px; }
   .ground-body .bad { color: var(--warn); font-weight: 600; }
   .signals { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
@@ -119,14 +120,18 @@ Read-only: awesomeskills.io/llm.txt</pre>
 
   // grounding = awesomeskills' own assessment of a skill (data from our index.json)
   function groundHtml(e) {
-    const t = e.trust || {}, f = t.health_factors || {}, fm = e.frontmatter;
+    const t = e.trust || {}, f = t.health_factors || {}, p = f.parts || {}, fm = e.frontmatter;
+    const sf = t.security_findings || [];
     const rows = [];
-    rows.push(`<div><b>health ${t.health}</b> — recency ${f.recency_days ?? '?'}d · stars ${f.stars ?? '?'} · open issues ${f.open_issues ?? '?'}${f.archived ? ' · archived' : ''}</div>`);
-    rows.push(`<div>security: ${esc(t.security)} · chinese: ${t.zh ? 'yes' : 'no'}${e.level ? ' · level: ' + esc(e.level) : ''}</div>`);
+    rows.push(`<div><b>health ${t.health}</b> = recency ${p.recency ?? '?'}/40 · maintenance ${p.maintenance ?? '?'}/25 · engagement ${p.engagement ?? '?'}/20 · maturity ${p.maturity ?? '?'}/15</div>`);
+    rows.push(`<div class="ground-sub">last push ${f.recency_days ?? '?'}d ago · ${f.stars ?? '?'}★ · ${f.open_issues ?? '?'} open issues · ${f.forks ?? '?'} forks · ${f.watchers ?? '?'} watchers${f.archived ? ' · archived' : ''}</div>`);
+    rows.push(`<div>security: <b${t.security === 'fail' ? ' class="bad"' : ''}>${esc(t.security)}</b>${sf.length ? ' — ' + sf.map(x => esc(x.label)).join('; ') : ''}</div>`);
+    if (t.security_scope) rows.push(`<div class="ground-sub">scan scope: ${esc(t.security_scope)}</div>`);
+    rows.push(`<div>chinese: ${t.zh ? 'yes' : 'no'}${e.level ? ' · level: ' + esc(e.level) : ''}</div>`);
     if (fm) {
       rows.push(`<div>frontmatter: ${fm.valid ? 'valid' : '<span class="bad">invalid</span>'}${fm.issues && fm.issues.length ? ' — ' + fm.issues.map(esc).join('; ') : ''}${fm.headings != null ? ` · ${fm.headings} headings · ${fm.code_blocks} code blocks` : ''}</div>`);
     }
-    rows.push(`<div class="ground-note">Assessed by awesomeskills — health is activity-based, not stars. Source of truth: <a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
+    rows.push(`<div class="ground-note">Assessed by awesomeskills — health = activity+maintenance (not stars); security = static scan of SKILL.md. Source: <a href="./index.json" target="_blank" rel="noopener">index.json</a></div>`);
     return rows.join('');
   }
 

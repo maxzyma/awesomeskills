@@ -1,578 +1,578 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-08-11T12:19:59+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-08-12T02:09:06+00:00. Human + agent readable. Full data: /index.json
 # health = real activity 0-100 (NOT stars) | security rating | zh = Chinese coverage
 # Entries are skill-level (one per SKILL.md); repo-level rows are awesome-lists/hubs.
 
-- writing-hookify-rules (anthropics/claude-plugins-official/plugins/hookify/skills/writing-rules) — health 100, security unrated, en
-  This skill should be used when the user asks to "create a hookify rule", "write a hook rule", "configure hookify", "add a hookify rule", or needs guidance on hookify rule syntax and patterns.
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/hookify/skills/writing-rules
-- work-status (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-status) — health 100, security unrated, en
-  Shows WORK progress and TASK status. Use when the user asks about WORK list, WORK progress, TASK status, or pipeline status (e.g., "WORK list", "WORK-01 progress", "show status").
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/work-status
-- work-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-pipeline) — health 100, security unrated, en
-  Triggers the WORK-PIPELINE when a user request starts with a [] tag (e.g., [new-feature], [bugfix], [WORK start]). Use this skill whenever you detect a [] tag at the beginning of a user message.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/work-pipeline
-- uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 100, security unrated, en
-  Initialize uc-taskmanager for the current project. Creates works/ directory and configures Bash permissions in .claude/settings.local.json. Use when the user says "uctm init", "initialize uctm", "uctm 초기화", or "초기화".
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/init
-- security-audit (davepoon/buildwithclaude/plugins/agent-triforce/skills/security-audit) — health 100, security unrated, en
-  Deep security audit covering OWASP Top 10, authentication, authorization, data protection, dependency vulnerabilities, and secrets scanning. Delegates to the Centinela (QA) agent.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/security-audit
-- sdd-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline) — health 100, security unrated, en [frontmatter:invalid]
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/sdd-pipeline
-- scaffold (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/scaffold) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/scaffold
-- run-claude-osint (elementalsouls/Claude-OSINT/.claude/skills/run-claude-osint) — health 100, security unrated, en
-  Build, validate, and run the claude-osint skills repo — check SKILL.md frontmatter, run the secret_scan.py and h1_reference.py helpers, run sync-skill-content.sh, run the smoke test. Use when asked to run, build, test, validate, or smoke-test claude-osint or its OSINT skills/scripts.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/.claude/skills/run-claude-osint
-- review-findings (davepoon/buildwithclaude/plugins/agent-triforce/skills/review-findings) — health 100, security unrated, en
-  Addresses and fixes findings from a QA code review. Reads the review report, fixes critical and warning issues, and prepares for re-verification. Delegates to the Forja (Dev) agent.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/review-findings
-- release-check (davepoon/buildwithclaude/plugins/agent-triforce/skills/release-check) — health 100, security unrated, en
-  Pre-release verification checklist. Validates features, tests, docs, security, and quality gates before shipping. Delegates to the Centinela (QA) agent.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/release-check
-- pr (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/pr) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/pr
-- plan (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/plan) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/plan
-- osint-methodology (elementalsouls/Claude-OSINT/skills/osint-methodology) — health 100, security unrated, en
-  Comprehensive OSINT methodology for external red-team operations and authorized attack-surface assessments. Covers the 6-stage recon pipeline (seed → asset expansion → enrichment → exposure analysis → convergence → operator-armed active validation) with connector-resilience and stage-vs-gating discipline, asset-graph discipline, severity rubric, confidence upgrade workflows, time budgeting, identity-fabric mapping, breach×identity correlation with per-person identity dossiers, detectability tagging, detection-aware probing, WAF/CDN bypass, vulnerability prioritization, phishing infrastructure planning, bug bounty submission, and client deliverable templates. Use when planning or executing reconnaissance against authorized targets, mapping an organization's external attack surface, investigating a person/entity, or producing client deliverables.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/osint-methodology
-- osint-autopilot (elementalsouls/Claude-OSINT/skills/osint-autopilot) — health 100, security unrated, en
-  End-to-end external OSINT engagement autopilot. Run the FULL osint-methodology pipeline to completion in ONE go for an authorized domain — engagement folder, Stages 1-5 (seed, expansion, enrichment, exposure, convergence), multi-agent per-host content+JS fan-out, headline verification, auto-generated findings, and a consolidated multi-tab .xlsx deliverable. Stops ONLY for Stage 6 (active exploitation) arming and out-of-scope sibling assets. Use whenever asked to "run OSINT / recon / attack-surface" on a target — do NOT deliver a thin passive first pass.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/osint-autopilot
-- org-attack-surface (elementalsouls/Claude-OSINT/skills/org-attack-surface) — health 100, security unrated, en [frontmatter:invalid]
-  Org-grade attack-surface mapping: given a company's legal identity, discover its ENTIRE owned internet footprint — corporate family -> owned domains -> owned netblocks/ASN -> live assets — with attribution discipline, not just DNS breadth. The org-first attribution pyramid (legal entity -> LEI/registration -> corporate family -> owned domains -> owned netblocks/ASN -> live assets). Corporate-identity resolution via the GLEIF LEI API (legal name -> LEI, exact-LEI direct-children expansion, downward-only depth-capped BFS, NEVER a name re-resolution), SEC-EDGAR full-text search + Exhibit-21 subsidiary entity names, OpenCorporates entity corroboration, Wikidata SPARQL corporate graph (P856/P355/P749/P1830). Domain attribution via reverse-WHOIS (WhoisXML preview-then-purchase quota guard, SecurityTrails associated-domains — both paid), crt.sh O= certificate-transparency organization pivot (keyless), infrastructure correlation (shared NS/MX/SaaS-TXT, netblock membership, reverse-DNS PTR), and the independent-evidence combiner (1-prod(1-w_i), rule of three, OwnerTier NONE/WEAK/MODERATE/STRONG/CONFIRMED) — discover-only `related:` candidates are NEVER auto-scanned. Netblock/ASN attribution via org-first RIR queries (ARIN Whois-RWS org-handle search, RIPE DB organisation + inverse-org search) that recover 'dark netblocks' with no DNS link to the seed, ASN discovery (RIPEstat + BGPView union), the HYPERSCALER-SCOPE GUARD (never attribute a whole AWS/GCP/Azure/Cloudflare announced range to a tenant — keep only the seed-containing block, tag shared_hosting_cdn), and org-identity-seeded internet-scan-index queries (Shodan/Censys/ZoomEye/FOFA/BinaryEdge org: filters + an always-on keyless crt.sh fallback). Promote-to-scan triage ranks forgotten discover-only netblocks by remote-access exposure (gateway-vendor/KEV/control-plane/datastore port scoring) into an operator queue. Attribution confidence rubric + anti-patterns (namesake grafting via GLEIF name re-resolution, single-signal ownership, hyperscaler over-attribution, privacy-WHOIS pivot poisoning, RIR org-name collisions). Passive/keyless-first OSINT only — every paid-key dependency is enrichment on top of a keyless core, never a hard requirement. Use when mapping an organization's full corporate-family internet footprint, resolving a legal entity to its LEI/subsidiaries, discovering domains/netblocks/ASNs an org owns beyond its one seed domain, auditing M&A/shadow-IT sprawl, or scoping an engagement that starts from a company NAME rather than a domain.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/org-attack-surface
-- open (davepoon/buildwithclaude/plugins/aigent-os/skills/open) — health 100, security unrated, en
-  Boot the session, load context from the vault, and surface what matters
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/aigent-os/skills/open
-- offensive-osint (elementalsouls/Claude-OSINT/skills/offensive-osint) — health 100, security unrated, en [frontmatter:invalid]
-  Operational arsenal for external red-team and bug-bounty reconnaissance. Concrete wordlists (28 Swagger paths, 13 GraphQL paths, 35 high-risk ports, 6 missing-header findings, 15 always-on HTTP checks, 5 SAML paths, cloud bucket permutations, JS guess-paths, vendor product fingerprints for Citrix/F5/Pulse/Fortinet/Cisco/PaloAlto/VMware/Exchange, cloud-native service fingerprints, container/K8s exposure paths, CI/CD platform paths, documentation/wiki leak paths, WHOIS/RDAP, DNS record catalog, Wayback CDX recipes), 80-pattern secret-regex catalog (incl. modern AI API keys: Anthropic/OpenAI/HuggingFace/Cloudflare/DigitalOcean/npm/PyPI/Docker Hub/Atlassian/DataDog/Sentry/ngrok; plus a provider-expansion tier: Postman PMAK/GitLab/Square/Shopify/Mailchimp/PagerDuty/Asana/Databricks/Grafana/Terraform Cloud/Fastly/Algolia/Segment/Airtable/GCP+Google OAuth/Azure AD/Facebook OAuth/RubyGems/JFrog/Okta/Slack app-level/Dropbox/Doppler/HashiCorp Vault/Firebase Cloud Messaging), 80+ dork corpus across 9 categories, GitHub code-search dorks, copy-paste curl/httpie probes for every check, post-discovery enumeration workflows (AWS/GitHub/Slack/JWT/PMAK/Anthropic/OpenAI), endpoint interest scoring rubric (0–100), mobile app ownership confidence + APK static-analysis pipeline (acquisition, apktool/aapt2/jadx/androguard decompile, manifest exported-component/deep-link/misconfig extraction, Firebase config, network-security-config, embedded-secret scan), identity-fabric endpoints (Entra/Okta/ADFS/Google/SAML/M365 Teams+SharePoint+OneDrive+OAuth + user-enum), GraphQL field-suggestion enumeration when introspection disabled, 9 read-only secret validators (Postman/AWS/GitHub/Slack/Anthropic/OpenAI/npm/Atlassian/DataDog), Postman workspace search (verified endpoint), Stack Exchange sweep, public SaaS dorks, email security analysis (SPF/DMARC/DKIM/BIMI/MTA-STS/DNSSEC), origin-discovery / CDN bypass techniques, TLS deep audit (sslyze/testssl.sh/JA3/JA4), reverse-DNS sweep + IPv6 enum, vulnerability prioritization data sources (NVD/EPSS/CISA KEV/ExploitDB/Metasploit), 27 attack-path hint templates, 80+ severity-matrix examples, LinkedIn employee enumeration, job posting tech-stack analysis, Slack/Discord workspace discovery, package registry leak hunting (npm/PyPI/Docker Hub/Quay/GHCR), sat imagery for physical recon, tooling quick-install one-liners, sector-specific recon notes (healthcare/finance/ICS-SCADA/IoT/government), runnable stdlib-only secret_scan.py helper, plus the existing tool references for username/email/phone/people/social/breach/infrastructure/crypto/media/geospatial/AI/archiving/automation. Use when you need concrete probe paths, regexes, payloads, scoring rules, curl one-liners, and tool URLs for an authorized external recon engagement.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/offensive-osint
-- m5-onboard (anthropics/claude-plugins-official/plugins/cwc-makers/skills/m5-onboard) — health 100, security unrated, en
-  End-to-end onboarding for a freshly-plugged-in M5Stack ESP32 device (Cardputer, Cardputer-Adv, Core, CoreS3, Stick) — detect on USB, flash UIFlow 2.0 firmware, and install the Claude Buddy MicroPython app bundle. Use whenever the user plugs in or wants to flash/provision/reset an M5Stack or ESP32 board, or says "m5-onboard go".
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/cwc-makers/skills/m5-onboard
-- last30days (mvanhorn/last30days-skill/skills/last30days) — health 100, security unrated, en
-  Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.
-  https://github.com/mvanhorn/last30days-skill/tree/main/skills/last30days
-- issue (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/issue) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/issue
-- implement-feature (davepoon/buildwithclaude/plugins/agent-triforce/skills/implement-feature) — health 100, security unrated, en
-  Implements a feature from its specification. Reads the spec, designs architecture, writes code and tests. Delegates to the Forja (Dev) agent.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/implement-feature
-- identity-provider-recon (elementalsouls/Claude-OSINT/skills/identity-provider-recon) — health 100, security unrated, en [frontmatter:invalid]
-  Organization-grade identity-fabric mapping: tenant/federation fingerprinting and the pre-auth user-ENUMERATION oracle methodology — enumeration and fingerprint only, never credential submission. Covers domain-to-tenant resolution (Microsoft getuserrealm.srf Managed/Federated namespace check, Entra OIDC metadata tenant-GUID extraction, Autodiscover v2), keyless Microsoft tenant-federation mapping (GetFederationInformation SOAP -> sibling-domain discovery, discover-only ROE, FEDERATED_WITH provenance edge held out of attack-path pivoting), Okta org-slug derivation + OIDC fingerprint + governed custom-domain enumeration, ADFS passive/active fingerprint + version inference, Google Workspace MX-correlated detection, generic OIDC (Auth0/Keycloak/Ping Identity/OneLogin/Duo) discovery, SAML metadata (5 paths), Azure AD Seamless-SSO Negotiate-challenge detection, Microsoft Defender for Identity (MDI) sensor-API presence check, the user-enumeration oracle methodology for Microsoft GetCredentialType (IfExistsResult semantics: exists / doesn't-exist / exists-in-federated-tenant / throttled) and Okta /api/v1/authn (errorCode differential), Medium-detectability discipline with a hard 20-candidate-per-tenant cap and admin/role interest-based ranking, and name x confirmed-email-pattern login-candidate synthesis that FAILS CLOSED with zero output when no org pattern is confirmed. Grounded directly in a production ASM implementation's sso_idp.py, tenant_recon.py, and core/email_patterns.py modules. Deepens — does not duplicate — offensive-osint skill's Identity Fabric endpoint reference with the tenant-federation MAP, the oracle WORKFLOW, and the candidate-SYNTHESIS methodology that reference lacks. Use when fingerprinting an organization's identity provider, mapping its tenant/federation boundary, running an authorized pre-auth user-enumeration pass, or synthesizing login candidates from harvested names to feed that oracle — never for password spray, credential submission, or auth bypass.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/identity-provider-recon
-- hyperflow (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/hyperflow) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/hyperflow
-- handoff (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/handoff) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/handoff
-- frontend-design (anthropics/claude-plugins-official/plugins/frontend-design/skills/frontend-design) — health 100, security unrated, en
-  Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design/skills/frontend-design
-- flush (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/flush) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/flush
-- feature-spec (davepoon/buildwithclaude/plugins/agent-triforce/skills/feature-spec) — health 100, security unrated, en
-  Creates a complete product feature specification with acceptance criteria, scope, dependencies, and risks. Delegates to the Prometeo (PM) agent.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/feature-spec
-- exposure-risk-quantification (elementalsouls/Claude-OSINT/skills/exposure-risk-quantification) — health 100, security unrated, en [frontmatter:invalid]
-  FAIR-aligned exposure quantification: turns a pile of recon findings into a defensible 0-100 + A-F org risk score (Likelihood x Impact, three ownership-aware factors: exposure/threat/impact), an ownership + proof demotion cap so unproven or weakly-owned findings can't inflate the number, a $-denominated FAIR loss-magnitude estimate (IBM/Ponemon per-record cost bands, cross-source record dedup, threat-factor annualization), attack-path amplification (curated red-team chain catalog + generic graph-walk engine, with a kill-chain vs shared-fate honesty gate), and a board-ready one-pager deliverable (hero $ + letter grade + top-3 findings + top attack path + the ask). Extends osint-methodology's severity rubric and client deliverable templates with quantification. Passive analysis only -- operates on findings already collected, no target traffic, no API keys. Use when asked to score risk, quantify exposure, estimate breach cost, build a board report, translate technical findings to dollars, or explain why a grade or dollar figure came out the way it did.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/exposure-risk-quantification
-- example-skill (anthropics/claude-plugins-official/plugins/example-plugin/skills/example-skill) — health 100, security unrated, en
-  This skill should be used when the user asks to "demonstrate skills", "show skill format", "create a skill template", or discusses skill development patterns. Provides a reference template for creating Claude Code plugin skills.
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/example-plugin/skills/example-skill
-- example-command (anthropics/claude-plugins-official/plugins/example-plugin/skills/example-command) — health 100, security unrated, en
-  An example user-invoked skill that demonstrates frontmatter options and the skills/<name>/SKILL.md layout
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/example-plugin/skills/example-command
-- email-domain-security (elementalsouls/Claude-OSINT/skills/email-domain-security) — health 100, security unrated, en [frontmatter:invalid]
-  Rigorous, defensible email-spoofability verdict and SPF supply-chain risk analysis computed from published DNS alone. Deepens the record-level SPF/DMARC/DKIM/BIMI/MTA-STS/DNSSEC fetch recipes in the offensive-osint arsenal (§16.14) with the reasoning that section doesn't do: a priority-ordered composite verdict for whether an attacker can actually land header-From-spoofed mail in an inbox, and by which vector (exact-domain vs subdomain) — grounded in the single most-misunderstood distinction in email security: the envelope MAIL FROM that SPF authenticates vs the visible header From: that only DMARC governs. Explains precisely why SPF -all/~all alone is NOT spoof-proof without DMARC enforcement, and why SPF +all bypasses DMARC even under p=reject pct=100. Covers RFC 7208 §4.6.4's 10-DNS-lookup / 2-void-lookup PermError fail-open condition with a runnable stdlib-only lookup-counter script, plus the SPF-include-takeover supply-chain vector (an attacker re-registering a dead include inherits SPF-pass authority over the victim domain) with strict transient-vs-NXDOMAIN discrimination discipline so a temporary SERVFAIL is never mistaken for a takeover lead. Fully passive: DNS TXT reads only, no mail sent, no RCPT TO probe, no API keys. Use when auditing a domain's real spoofing resistance (not just its published records), explaining to a client why 'we have SPF -all' does not mean they're covered, investigating an SPF PermError or an unusually long include chain, evaluating a dead SPF include as a takeover lead, or writing a defensible spoofability finding for a deliverable.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/email-domain-security
-- dispatch (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/dispatch) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/dispatch
-- design (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/design) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/design
-- deploy (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/deploy) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/deploy
-- continuous-exposure-monitoring (elementalsouls/Claude-OSINT/skills/continuous-exposure-monitoring) — health 100, security unrated, en [frontmatter:invalid]
-  Turns one-shot external recon into a continuous monitoring program. Covers the scheduled re-scan-and-diff loop (baseline snapshot -> interval sleep -> re-scan -> asset/finding delta -> threshold-gated webhook alert), the scan-to-scan diff engine (new/removed/changed assets by a tracked-attribute table, new/resolved findings by a stable cross-scan fingerprint), adversary CTI / chatter monitoring across six public feeds (ransomwatch, ransomware.live, HackerNews Algolia search, Reddit security-subreddit RSS, GitHub Gist code-search, public Telegram channel scraping) with a source-kind-aware severity engine (leak-site/forum/telegram/paste tiers, CRITICAL through INFO), literal/glob/regex watchlist pattern matching, full-corpus capture with retroactive rescan on new watchlist entries, infrastructure-tracking-over-time discipline (certificate-transparency, passive-DNS, port/service, and typosquat re-enumeration cadence, and what a genuine 'perimeter drift' event looks like in the diff output), a five-state finding-lifecycle state machine (open/triaged/risk_accepted/resolved/false_positive) with per-severity SLA and fingerprint-based cross-scan dedup and auto-resolve/reopen rules, the alert-fatigue trap where a lifecycle-unaware rule re-fires on an already-accepted finding, a durable retry/backoff alert-outbox pattern ('queued is not delivered'), and copy-paste bash-cron plus PowerShell-Scheduled-Task recipes for a re-scan+diff loop with the Slack-compatible webhook payload shape. Passive OSINT and analysis only -- no new active-intrusion technique. Use when setting up ongoing monitoring for a retainer or MSSP engagement, tuning alert thresholds to avoid fatigue, triaging a finding's lifecycle status, investigating adversary chatter about a brand, building a 'what changed on the perimeter since last week' report, or deciding whether a persisting finding should re-alert.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/continuous-exposure-monitoring
-- configure (anthropics/claude-plugins-official/external_plugins/discord/skills/configure) — health 100, security unrated, en
-  Set up the Discord channel — save the bot token and review access policy. Use when the user pastes a Discord bot token, asks to configure Discord, asks "how do I set this up" or "who can reach me," or wants to check channel status.
-  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord/skills/configure
-- configure (anthropics/claude-plugins-official/external_plugins/imessage/skills/configure) — health 100, security unrated, en
-  Check iMessage channel setup and review access policy. Use when the user asks to configure iMessage, asks "how do I set this up" or "who can reach me," or wants to know why texts aren't reaching the assistant.
-  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage/skills/configure
-- configure (anthropics/claude-plugins-official/external_plugins/telegram/skills/configure) — health 100, security unrated, en
-  Set up the Telegram channel — save the bot token and review access policy. Use when the user pastes a Telegram bot token, asks to configure Telegram, asks "how do I set this up" or "who can reach me," or wants to check channel status.
-  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram/skills/configure
-- competitive-ads-extractor (ComposioHQ/awesome-claude-skills/competitive-ads-extractor) — health 100, security unrated, en
-  Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/competitive-ads-extractor
-- code-health (davepoon/buildwithclaude/plugins/agent-triforce/skills/code-health) — health 100, security unrated, en
-  Scans the codebase for dead code, tech debt, outdated dependencies, and code quality issues. Delegates to the Centinela (QA) agent.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/code-health
-- cloud-saas-exposure (elementalsouls/Claude-OSINT/skills/cloud-saas-exposure) — health 100, security unrated, en [frontmatter:invalid]
-  Organization-grade cloud and supply-chain attack-surface discovery: S3/GCS/Azure Blob bucket discovery via observed-name mining (CNAME/cert-SAN/Wayback) and bounded two-class permutation (6 prefixes x 15 suffixes on trusted tokens, bounded target-bound expansion on subdomain stems), existence (HEAD/GET) vs public-listing confirmation, object-key triage into 9 value tiers (database dumps, credentials, IaC state, kubeconfig, VCS dirs, config, archives, PII, logs), dangling-CNAME bucket-takeover detection, and the ownership-gated severity model that stops an unattributable public bucket from becoming a false CRITICAL; the fully offline AWS-account-ID recovery from a leaked AKIA/ASIA/AROA access key (base32 decode, runnable stdlib Python, canonical test vector, AWS-documentation-example-ID screening); dependency-confusion confirmation for npm/PyPI (internal-signal classifier -- private-registry binding vs org-namespace match -- paired with a read-only public-registry 404 check and the npm scope-claimability nuance the public search API misses); and passive cloud-native/container/Kubernetes/CI control-plane fingerprinting (Lambda URLs, API Gateway, Cloud Run, App Service, kubelet/etcd/K8s API/dashboard, Jenkins/GitLab/Argo CD) as an org-attribution and exposure surface. Passive/discovery only -- no exploitation, no credential submission, no active control-plane confirmation (a stage-6 validate_cloud active tier is described but out of scope). Use when enumerating a target's cloud storage footprint, recovering an AWS account ID from a leaked key, confirming a supply-chain dependency-confusion vector, or fingerprinting cloud-native/K8s/CI infrastructure for an authorized external recon engagement.
-  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/cloud-saas-exposure
-- close (davepoon/buildwithclaude/plugins/aigent-os/skills/close) — health 100, security unrated, en
-  Commit the session to durable vault memory and prepare a clean resume point
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/aigent-os/skills/close
-- claude-security (anthropics/claude-plugins-official/plugins/claude-security/skills/claude-security) — health 100, security unrated, en
-  The Claude Security menu — pick a job: scan the codebase (the whole repository or a scoped part of it), scan changes (this branch's or a pull request's diff, or one commit), or suggest patches (findings turned into targeted patch files, each verified by a panel of agents, that you apply when you choose).
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-security/skills/claude-security
-- claude-md-improver (anthropics/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver) — health 100, security unrated, en
-  Audit and improve CLAUDE.md files in repositories. Use when user asks to check, audit, update, improve, or fix CLAUDE.md files. Scans for all CLAUDE.md files, evaluates quality against templates, outputs quality report, then makes targeted updates. Also use when the user mentions "CLAUDE.md maintenance" or "project memory optimization".
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-md-management/skills/claude-md-improver
-- claude-automation-recommender (anthropics/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender) — health 100, security unrated, en
-  Analyze a codebase and recommend Claude Code automations (hooks, subagents, skills, plugins, MCP servers). Use when user asks for automation recommendations, wants to optimize their Claude Code setup, mentions improving Claude Code workflows, asks how to first set up Claude Code for a project, or wants to know what Claude Code features they should use.
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-code-setup/skills/claude-automation-recommender
-- changelog-generator (ComposioHQ/awesome-claude-skills/changelog-generator) — health 100, security unrated, en
-  Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns hours of manual changelog writing into minutes of automated generation.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/changelog-generator
-- cardputer-buddy (anthropics/claude-plugins-official/plugins/cwc-makers/skills/cardputer-buddy) — health 100, security unrated, en
-  Iterate on the Cardputer-Adv MicroPython app bundle (Claude Buddy, Snake, Hello) after the device is already provisioned via m5-onboard. Use when the user wants to add a new app, push a single changed .py without re-flashing, watch device serial logs, or run a one-shot REPL command. Trigger on "add an app", "push to the cardputer", "tail the device", "run on the device", or follow-up work after /maker-setup.
-  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/cwc-makers/skills/cardputer-buddy
-- canvas-design (ComposioHQ/awesome-claude-skills/canvas-design) — health 100, security unrated, en
-  Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/canvas-design
-- cache (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/cache) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/cache
-- bridge (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/bridge) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/bridge
-- brand-guidelines (ComposioHQ/awesome-claude-skills/brand-guidelines) — health 100, security unrated, en
-  Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/brand-guidelines
-- background (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/background) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/background
-- awesome-agent-skills (VoltAgent/awesome-agent-skills) — health 100, security unrated, en
-  A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.
-  https://github.com/VoltAgent/awesome-agent-skills
-- automotive-skills-suite (jherrodthomas/automotive-skills-suite) — health 100, security unrated, en
-  100+ installable Claude skills covering Engineering areas such as, ISO 26262 functional safety, ISO/SAE 21434 cybersecurity, ISO 21448 SOTIF, AIAG-VDA quality (APQP/PPAP/FMEA), Automotive SPICE, and continuous improvement tools — every builder paired with a confirmation reviewer.
-  https://github.com/jherrodthomas/automotive-skills-suite
-- audit (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/audit) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/audit
-- artifacts-builder (ComposioHQ/awesome-claude-skills/artifacts-builder) — health 100, security unrated, en
-  Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/artifacts-builder
-- airtable-automation (davepoon/buildwithclaude/plugins/all-skills/skills/airtable-automation) — health 100, security unrated, en
-  Automate Airtable tasks via Rube MCP (Composio): records, bases, tables, fields, views. Always search tools first for current schemas.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/airtable-automation
-- agent-browser (majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser) — health 100, security unrated, en
-  Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/3rd-agent-browser
-- agent-analytics (davepoon/buildwithclaude/plugins/all-skills/skills/agent-analytics) — health 100, security unrated, en
-  Analytics your AI agent can actually use. Track, analyze, run A/B experiments, and optimize across all your projects via CLI. Includes a growth playbook so your agent knows HOW to grow, not just what to track.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/agent-analytics
-- agency-os (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/agency-os/skills/agency-os) — health 100, security unrated, en [frontmatter:invalid]
-  |
-  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/agency-os/skills/agency-os
-- activecampaign-automation (davepoon/buildwithclaude/plugins/all-skills/skills/activecampaign-automation) — health 100, security unrated, en
-  Automate ActiveCampaign tasks via Rube MCP (Composio): manage contacts, tags, list subscriptions, automation enrollment, and tasks. Always search tools first for current schemas.
-  https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/activecampaign-automation
-- active-campaign-automation (ComposioHQ/awesome-claude-skills/composio-skills/active-campaign-automation) — health 100, security unrated, en
-  Automate ActiveCampaign tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/active-campaign-automation
-- acculynx-automation (ComposioHQ/awesome-claude-skills/composio-skills/acculynx-automation) — health 100, security unrated, en
-  Automate Acculynx tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/acculynx-automation
-- accredible-certificates-automation (ComposioHQ/awesome-claude-skills/composio-skills/accredible-certificates-automation) — health 100, security unrated, en
-  Automate Accredible Certificates tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/accredible-certificates-automation
-- access (anthropics/claude-plugins-official/external_plugins/discord/skills/access) — health 100, security unrated, en
-  Manage Discord channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the Discord channel.
-  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord/skills/access
-- access (anthropics/claude-plugins-official/external_plugins/imessage/skills/access) — health 100, security unrated, en
-  Manage iMessage channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the iMessage channel.
-  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage/skills/access
-- access (anthropics/claude-plugins-official/external_plugins/telegram/skills/access) — health 100, security unrated, en
-  Manage Telegram channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the Telegram channel.
-  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram/skills/access
-- accelo-automation (ComposioHQ/awesome-claude-skills/composio-skills/accelo-automation) — health 100, security unrated, en
-  Automate Accelo tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/accelo-automation
-- abyssale-automation (ComposioHQ/awesome-claude-skills/composio-skills/abyssale-automation) — health 100, security unrated, en
-  Automate Abyssale tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/abyssale-automation
-- abuselpdb-automation (ComposioHQ/awesome-claude-skills/composio-skills/abuselpdb-automation) — health 100, security unrated, en
-  Automate Abuselpdb tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/abuselpdb-automation
-- abstract-automation (ComposioHQ/awesome-claude-skills/composio-skills/abstract-automation) — health 100, security unrated, en
-  Automate Abstract tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/abstract-automation
-- ably-automation (ComposioHQ/awesome-claude-skills/composio-skills/ably-automation) — health 100, security unrated, en
-  Automate Ably tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/ably-automation
-- 80-01-autonomous-work (majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work) — health 100, security unrated, en
-  Work autonomously without waiting for hand-holding — complete tasks end-to-end without asking for permission at every step.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-01-autonomous-work
-- 71-agent-framework-integration (majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration) — health 100, security unrated, en [frontmatter:invalid]
-  Create your agent-integration skill from OpenAI SDK and LiteLLM documentation before learning framework integration
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/71-agent-framework-integration
-- 39-agent-skills-mcp-code-execution-panaversity-agentfactory (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory) — health 100, security unrated, en [frontmatter:invalid]
-  Build a specification-first Digital FTE that orchestrates accumulated intelligence from Lessons 1-7. Learn to compose execution skills into production-ready agents, validate against specifications, and position for monetization.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory
-- 39-agent-skills-mcp-code-execution (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution) — health 100, security unrated, en [frontmatter:invalid]
-  Create a skill that orchestrates the write-execute-analyze loop to autonomously process data. Learn to implement error recovery, iterate toward robust solutions, and test your skill across diverse input scenarios. This is where specification-driven development meets real problem-solving.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution
-- 36-anthropic-agents-kit-development (majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development) — health 100, security unrated, en [frontmatter:invalid]
-  Create your Claude Agent SDK skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/36-anthropic-agents-kit-development
-- 35-google-adk-reliable-agents (majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents) — health 100, security unrated, en [frontmatter:invalid]
-  Create your Google Agent Development Kit skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/35-google-adk-reliable-agents
-- 34-openai-agents-sdk-panaversity-agentfactory-8f59f147 (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147) — health 100, security unrated, en [frontmatter:invalid]
-  Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147
-- 34-openai-agents-sdk (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk) — health 100, security unrated, en [frontmatter:invalid]
-  Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk
-- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework) — health 100, security unrated, en
-  Generated by Gremlin Forge Meta-Agent 🍆👾⚡
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework
-- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf) — health 100, security unrated, en
-  Generated by Gremlin Forge Meta-Agent 🍆👾⚡
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf
-- 2026-legal-research-agent (majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent) — health 100, security unrated, en [frontmatter:invalid]
-  >
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/2026-legal-research-agent
-- 200-agents-md (majiayu000/claude-skill-registry/skills/agent/200-agents-md) — health 100, security unrated, en
-  Use when you need to generate an AGENTS.md file for a Java repository — covering project conventions, tech stack, file structure, commands, Git workflow, and contributor boundaries — through a modular, step-based interactive process that adapts to your specific project needs. This should trigger for requests such as Create AGENTS.md; Update AGENTS.md file; Add agent instructions. Part of cursor-rules-java project
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/200-agents-md
-- 003-agents-installation (majiayu000/claude-skill-registry/skills/agent/003-agents-installation) — health 100, security unrated, en
-  Use when you need to install the embedded robot agents into either .cursor/agents or .claude/agents, selecting the destination interactively and copying the embedded agent definitions from project assets. This should trigger for requests such as Install embedded agents; Bootstrap .cursor/agents; Bootstrap .claude/agents; Copy robot agents. Part of cursor-rules-java project
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/003-agents-installation
-- 0000-dorgonman-kano-agent-backlog-s-59370436 (majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436) — health 100, security unrated, en [frontmatter:invalid]
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436
-- -2chat-automation (ComposioHQ/awesome-claude-skills/composio-skills/-2chat-automation) — health 100, security unrated, en [frontmatter:invalid]
-  Automate 2chat tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/-2chat-automation
-- -21risk-automation (ComposioHQ/awesome-claude-skills/composio-skills/-21risk-automation) — health 100, security unrated, en [frontmatter:invalid]
-  Automate 21risk tasks via Rube MCP (Composio). Always search tools first for current schemas.
-  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/-21risk-automation
-- web-artifacts-builder (anthropics/skills/skills/web-artifacts-builder) — health 99, security unrated, en
-  Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
-  https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
-- transcript-fixer (daymade/claude-code-skills/daymade-audio/transcript-fixer) — health 99, security unrated, en [frontmatter:invalid]
-  >-
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/transcript-fixer
-- theme-factory (anthropics/skills/skills/theme-factory) — health 99, security unrated, en
-  Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
-  https://github.com/anthropics/skills/tree/main/skills/theme-factory
-- stepfun-tts (daymade/claude-code-skills/daymade-audio/stepfun-tts) — health 99, security unrated, zh
-  Generate Chinese / Japanese speech with StepFun's stepaudio-2.5-tts — Contextual TTS that replaces step-tts-2's `voice_label` with natural-language `instruction` (≤200 chars) plus inline `()` parentheses for句内 prosody. Use when the user wants emotional / prosody control over voice synthesis (whisper, pause, stress, mood pivot mid-sentence), batch-generates game / app voice lines, migrates from `step-tts-2` (the `voice_label → instruction` breaking change), or hits StepFun's stricter 2.5-era censorship (死/消失/political terms). Triggers on 阶跃 TTS, StepAudio 合成, 语音合成, 配音, 文本转语音, TTS 升级, 迁移 step-tts-2. For transcription with the sibling stepaudio-2.5-asr model, use the stepfun-asr skill instead.
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/stepfun-tts
-- stepfun-asr (daymade/claude-code-skills/daymade-audio/stepfun-asr) — health 99, security unrated, zh
-  Transcribe audio with StepFun's stepaudio-2.5-asr — an SSE endpoint (NOT /v1/audio/transcriptions) with 32K context, ~85-101x RTF on long audio, and a single-call ceiling around 30 minutes (no client-side chunking). Use when transcribing Chinese / English audio with StepFun, when long-form recordings (5-30 min) need to land in one request, when migrating from step-asr / step-asr-1.1, or when hitting the misleading `model stepaudio-2.5-asr not supported` error (which actually means wrong endpoint). Triggers on 阶跃 ASR, StepFun ASR, stepaudio-2.5-asr, 转录, 语音识别, 长音频转写, 语音转文字. For TTS with the sibling stepaudio-2.5-tts model, use the stepfun-tts skill instead.
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/stepfun-asr
-- slack-gif-creator (anthropics/skills/skills/slack-gif-creator) — health 99, security unrated, en
-  Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack.
-  https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator
-- skill-creator (anthropics/skills/skills/skill-creator) — health 99, security unrated, en
-  Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
-  https://github.com/anthropics/skills/tree/main/skills/skill-creator
-- pptx (anthropics/skills/skills/pptx) — health 99, security unrated, en
-  Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.
-  https://github.com/anthropics/skills/tree/main/skills/pptx
-- pdf (anthropics/skills/skills/pdf) — health 99, security unrated, en
-  Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
-  https://github.com/anthropics/skills/tree/main/skills/pdf
-- meeting-minutes-taker (daymade/claude-code-skills/daymade-audio/meeting-minutes-taker) — health 99, security unrated, en [frontmatter:invalid]
-  >
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/meeting-minutes-taker
-- mcp-builder (anthropics/skills/skills/mcp-builder) — health 99, security unrated, en
-  Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).
-  https://github.com/anthropics/skills/tree/main/skills/mcp-builder
-- internal-comms (anthropics/skills/skills/internal-comms) — health 99, security unrated, en
-  A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
-  https://github.com/anthropics/skills/tree/main/skills/internal-comms
-- frontend-design (anthropics/skills/skills/frontend-design) — health 99, security unrated, en
-  Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
-  https://github.com/anthropics/skills/tree/main/skills/frontend-design
-- docx (anthropics/skills/skills/docx) — health 99, security unrated, en
-  Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.
-  https://github.com/anthropics/skills/tree/main/skills/docx
-- doc-coauthoring (anthropics/skills/skills/doc-coauthoring) — health 99, security unrated, en
-  Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.
-  https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring
-- django-expert (Jeffallan/claude-skills/skills/django-expert) — health 99, security unrated, en
-  Use when building Django web applications or REST APIs with Django REST Framework. Invoke when working with settings.py, models.py, manage.py, or any Django project file. Creates Django models with proper indexes, optimizes ORM queries using select_related/prefetch_related, builds DRF serializers and viewsets, and configures JWT authentication. Trigger terms: Django, DRF, Django REST Framework, Django ORM, Django model, serializer, viewset, Python web.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/django-expert
-- devops-engineer (Jeffallan/claude-skills/skills/devops-engineer) — health 99, security unrated, en
-  Creates Dockerfiles, configures CI/CD pipelines, writes Kubernetes manifests, and generates Terraform/Pulumi infrastructure templates. Handles deployment automation, GitOps configuration, incident response runbooks, and internal developer platform tooling. Use when setting up CI/CD pipelines, containerizing applications, managing infrastructure as code, deploying to Kubernetes clusters, configuring cloud platforms, automating releases, or responding to production incidents. Invoke for pipelines, Docker, Kubernetes, GitOps, Terraform, GitHub Actions, on-call, or platform engineering.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/devops-engineer
-- debugging-wizard (Jeffallan/claude-skills/skills/debugging-wizard) — health 99, security unrated, en
-  Parses error messages, traces execution flow through stack traces, correlates log entries to identify failure points, and applies systematic hypothesis-driven methodology to isolate and resolve bugs. Use when investigating errors, analyzing stack traces, finding root causes of unexpected behavior, troubleshooting crashes, or performing log analysis, error investigation, or root cause analysis.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/debugging-wizard
-- database-optimizer (Jeffallan/claude-skills/skills/database-optimizer) — health 99, security unrated, en
-  Optimizes database queries and improves performance across PostgreSQL and MySQL systems. Use when investigating slow queries, analyzing execution plans, or optimizing database performance. Invoke for index design, query rewrites, configuration tuning, partitioning strategies, lock contention resolution.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/database-optimizer
-- csharp-developer (Jeffallan/claude-skills/skills/csharp-developer) — health 99, security unrated, en
-  Use when building C# applications with .NET 8+, ASP.NET Core APIs, or Blazor web apps. Builds REST APIs using minimal or controller-based routing, configures database access with Entity Framework Core, implements async patterns and cancellation, structures applications with CQRS via MediatR, and scaffolds Blazor components with state management. Invoke for C#, .NET, ASP.NET Core, Blazor, Entity Framework, EF Core, Minimal API, MAUI, SignalR.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/csharp-developer
-- cpp-pro (Jeffallan/claude-skills/skills/cpp-pro) — health 99, security unrated, en
-  Writes, optimizes, and debugs C++ applications using modern C++20/23 features, template metaprogramming, and high-performance systems techniques. Use when building or refactoring C++ code requiring concepts, ranges, coroutines, SIMD optimization, or careful memory management — or when addressing performance bottlenecks, concurrency issues, and build system configuration with CMake.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/cpp-pro
-- competitors-analysis (daymade/claude-code-skills/competitors-analysis) — health 99, security unrated, en [frontmatter:invalid]
-  >-
-  https://github.com/daymade/claude-code-skills/tree/main/competitors-analysis
-- codex-image-gallery (daymade/claude-code-skills/codex-image-gallery) — health 99, security unrated, en
-  Start or reuse a self-contained local web gallery for browsing Codex-generated images. Use when the user asks to browse Codex generated images, open a local image gallery, inspect ~/.codex/generated_images, view a Codex image output folder, or browse image files produced by Codex.
-  https://github.com/daymade/claude-code-skills/tree/main/codex-image-gallery
-- code-reviewer (Jeffallan/claude-skills/skills/code-reviewer) — health 99, security unrated, en
-  Analyzes code diffs and files to identify bugs, security vulnerabilities (SQL injection, XSS, insecure deserialization), code smells, N+1 queries, naming issues, and architectural concerns, then produces a structured review report with prioritized, actionable feedback. Use when reviewing pull requests, conducting code quality audits, identifying refactoring opportunities, or checking for security issues. Invoke for PR reviews, code quality checks, refactoring suggestions, review code, code quality. Complements specialized skills (security-reviewer, test-master) by providing broad-scope review across correctness, performance, maintainability, and test coverage in a single pass.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/code-reviewer
-- code-documenter (Jeffallan/claude-skills/skills/code-documenter) — health 99, security unrated, en
-  Generates, formats, and validates technical documentation — including docstrings, OpenAPI/Swagger specs, JSDoc annotations, doc portals, and user guides. Use when adding docstrings to functions or classes, creating API documentation, building documentation sites, or writing tutorials and user guides. Invoke for OpenAPI/Swagger specs, JSDoc, doc portals, getting started guides.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/code-documenter
-- cloudflare-troubleshooting (daymade/claude-code-skills/cloudflare-troubleshooting) — health 99, security unrated, en
-  Investigate and resolve Cloudflare configuration issues using API-driven evidence gathering. Use when troubleshooting ERR_TOO_MANY_REDIRECTS, SSL errors, DNS issues, or any Cloudflare-related problems. Focus on systematic investigation using Cloudflare API to examine actual configuration rather than making assumptions.
-  https://github.com/daymade/claude-code-skills/tree/main/cloudflare-troubleshooting
-- cloud-architect (Jeffallan/claude-skills/skills/cloud-architect) — health 99, security unrated, en
-  Designs cloud architectures, creates migration plans, generates cost optimization recommendations, and produces disaster recovery strategies across AWS, Azure, and GCP. Use when designing cloud architectures, planning migrations, or optimizing multi-cloud deployments. Invoke for Well-Architected Framework, cost optimization, disaster recovery, landing zones, security architecture, serverless design.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/cloud-architect
-- cli-developer (Jeffallan/claude-skills/skills/cli-developer) — health 99, security unrated, en
-  Use when building CLI tools, implementing argument parsing, or adding interactive prompts. Invoke for parsing flags and subcommands, displaying progress bars and spinners, generating bash/zsh/fish completion scripts, CLI design, shell completions, and cross-platform terminal applications using commander, click, typer, or cobra.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/cli-developer
-- cli-demo-generator (daymade/claude-code-skills/cli-demo-generator) — health 99, security unrated, en
-  Generates professional animated CLI demos as GIFs using VHS terminal recordings. Handles tape file creation, self-bootstrapping demos with hidden setup, output noise filtering, post-processing speed-up, and frame-level verification. Use when users want to create terminal demos, record CLI workflows as GIFs, generate animated documentation, build demo tapes for README files, or need to showcase any command-line tool visually. Also triggers on "record terminal", "VHS tape", "demo GIF", "animate my CLI", or any request to visually demonstrate shell commands.
-  https://github.com/daymade/claude-code-skills/tree/main/cli-demo-generator
-- claude-code-hooks (daymade/claude-code-skills/daymade-claude-code/claude-code-hooks) — health 99, security unrated, en [frontmatter:invalid]
-  >-
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-claude-code/claude-code-hooks
-- claude-code-history-files-finder (daymade/claude-code-skills/daymade-claude-code/claude-code-history-files-finder) — health 99, security unrated, en [frontmatter:invalid]
-  >-
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-claude-code/claude-code-history-files-finder
-- claude-api (anthropics/skills/skills/claude-api) — health 99, security unrated, en [frontmatter:invalid]
-  |-
-  https://github.com/anthropics/skills/tree/main/skills/claude-api
-- chaos-engineer (Jeffallan/claude-skills/skills/chaos-engineer) — health 99, security unrated, en
-  Designs chaos experiments, creates failure injection frameworks, and facilitates game day exercises for distributed systems — producing runbooks, experiment manifests, rollback procedures, and post-mortem templates. Use when designing chaos experiments, implementing failure injection frameworks, or conducting game day exercises. Invoke for chaos experiments, resilience testing, blast radius control, game days, antifragile systems, fault injection, Chaos Monkey, Litmus Chaos.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/chaos-engineer
-- capture-screen (daymade/claude-code-skills/capture-screen) — health 99, security unrated, en
-  Programmatic screenshot capture on macOS. Find window IDs with Swift CGWindowListCopyWindowInfo, control application windows via AppleScript (zoom, scroll, select), and capture with screencapture. Use when automating screenshots, capturing application windows for documentation, or building multi-shot visual workflows.
-  https://github.com/daymade/claude-code-skills/tree/main/capture-screen
-- canvas-design (anthropics/skills/skills/canvas-design) — health 99, security unrated, en
-  Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
-  https://github.com/anthropics/skills/tree/main/skills/canvas-design
-- brand-guidelines (anthropics/skills/skills/brand-guidelines) — health 99, security unrated, en
-  Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
-  https://github.com/anthropics/skills/tree/main/skills/brand-guidelines
-- bilibili-source (daymade/claude-code-skills/bilibili-source) — health 99, security unrated, zh
-  Fetch comprehensive, login-free data for any Bilibili (B站) video — title, UP name and follower count, publish date, partition, tags, per-part cids, live stats (view, like, coin, favorite, share, reply, danmaku), and full danmaku (bullet-comment) text. Use this skill whenever working with a Bilibili video and needing real, citable numbers or metadata — ingesting a Bilibili source into a knowledge base, analyzing why a video performed, verifying a creator's claimed metrics, building a case study, or any time a Bilibili view/like/favorite count is about to be written into a document — fetch it, never hand-type or estimate it. Accepts BVID, av numbers, b23.tv short links, or full URLs. Subtitles are also covered but require the user's Bilibili login.
-  https://github.com/daymade/claude-code-skills/tree/main/bilibili-source
-- benchmark-due-diligence (daymade/claude-code-skills/benchmark-due-diligence) — health 99, security unrated, en [frontmatter:invalid]
-  >
-  https://github.com/daymade/claude-code-skills/tree/main/benchmark-due-diligence
-- auto-repo-setup (daymade/claude-code-skills/auto-repo-setup) — health 99, security unrated, en [frontmatter:invalid]
-  >-
-  https://github.com/daymade/claude-code-skills/tree/main/auto-repo-setup
-- atlassian-mcp (Jeffallan/claude-skills/skills/atlassian-mcp) — health 99, security unrated, en
-  Integrates with Atlassian products to manage project tracking and documentation via MCP protocol. Use when querying Jira issues with JQL filters, creating and updating tickets with custom fields, searching or editing Confluence pages with CQL, managing sprints and backlogs, setting up MCP server authentication, syncing documentation, or debugging Atlassian API integrations.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/atlassian-mcp
-- asr-transcribe-to-text (daymade/claude-code-skills/daymade-audio/asr-transcribe-to-text) — health 99, security unrated, en [frontmatter:invalid]
-  >-
-  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/asr-transcribe-to-text
-- architecture-designer (Jeffallan/claude-skills/skills/architecture-designer) — health 99, security unrated, en
-  Use when designing new high-level system architecture, reviewing existing designs, or making architectural decisions. Invoke to create architecture diagrams, write Architecture Decision Records (ADRs), evaluate technology trade-offs, design component interactions, and plan for scalability. Use for system design, architecture review, microservices structuring, ADR authoring, scalability planning, and infrastructure pattern selection — distinct from code-level design patterns or database-only design tasks.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/architecture-designer
-- api-designer (Jeffallan/claude-skills/skills/api-designer) — health 99, security unrated, en
-  Use when designing REST or GraphQL APIs, creating OpenAPI specifications, or planning API architecture. Invoke for resource modeling, versioning strategies, pagination patterns, error handling standards.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/api-designer
-- angular-architect (Jeffallan/claude-skills/skills/angular-architect) — health 99, security unrated, en
-  Generates Angular 17+ standalone components, configures advanced routing with lazy loading and guards, implements NgRx state management, applies RxJS patterns, and optimizes bundle performance. Use when building Angular 17+ applications with standalone components or signals, setting up NgRx stores, establishing RxJS reactive patterns, performance tuning, or writing Angular tests for enterprise apps.
-  https://github.com/Jeffallan/claude-skills/tree/main/skills/angular-architect
-- algorithmic-art (anthropics/skills/skills/algorithmic-art) — health 99, security unrated, en
-  Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.
-  https://github.com/anthropics/skills/tree/main/skills/algorithmic-art
-- ai-act-readiness (alirezarezvani/claude-skills/.gemini/skills/ai-act-readiness) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/ai-act-readiness
-- agile-product-owner (alirezarezvani/claude-skills/.gemini/skills/agile-product-owner) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agile-product-owner
-- agenthub (alirezarezvani/claude-skills/.gemini/skills/agenthub) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agenthub
-- agent-workflow-designer (alirezarezvani/claude-skills/.gemini/skills/agent-workflow-designer) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-workflow-designer
-- agent-protocol (alirezarezvani/claude-skills/.gemini/skills/agent-protocol) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-protocol
-- agent-harness (alirezarezvani/claude-skills/.gemini/skills/agent-harness) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-harness
-- agent-designer (alirezarezvani/claude-skills/.gemini/skills/agent-designer) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-designer
-- agent-decision-receipts (alirezarezvani/claude-skills/.gemini/skills/agent-decision-receipts) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-decision-receipts
-- aeo (alirezarezvani/claude-skills/.gemini/skills/aeo) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/aeo
-- adversarial-reviewer (alirezarezvani/claude-skills/.gemini/skills/adversarial-reviewer) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/adversarial-reviewer
-- ad-creative (alirezarezvani/claude-skills/.gemini/skills/ad-creative) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/ad-creative
-- ab-test-setup (alirezarezvani/claude-skills/.gemini/skills/ab-test-setup) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/ab-test-setup
-- a11y-audit (alirezarezvani/claude-skills/.gemini/skills/a11y-audit) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/a11y-audit
-- TEMPLATE (alirezarezvani/claude-skills/.gemini/skills/TEMPLATE) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/TEMPLATE
-- README (alirezarezvani/claude-skills/.gemini/skills/README) — health 99, security unrated, en [frontmatter:invalid]
-  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/README
-- awesome-claude-skills (BehiSecc/awesome-claude-skills) — health 97, security unrated, en
-  A curated list of Claude Skills.
-  https://github.com/BehiSecc/awesome-claude-skills
-- pdf (shareAI-lab/learn-claude-code/skills/pdf) — health 96, security unrated, en
+- pdf (shareAI-lab/learn-claude-code/skills/pdf) — health 100, security warn, en
   Process PDF files - extract text, create PDFs, merge documents. Use when user asks to read PDF, create PDF, or work with PDF files.
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/pdf
-- mcp-builder (shareAI-lab/learn-claude-code/skills/mcp-builder) — health 96, security unrated, en
+- mcp-builder (shareAI-lab/learn-claude-code/skills/mcp-builder) — health 100, security warn, en
   Build MCP (Model Context Protocol) servers that give Claude new capabilities. Use when user wants to create an MCP server, add tools to Claude, or integrate external services.
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/mcp-builder
-- code-review (shareAI-lab/learn-claude-code/skills/code-review) — health 96, security unrated, en
+- code-review (shareAI-lab/learn-claude-code/skills/code-review) — health 100, security warn, en
   Perform thorough code reviews with security, performance, and maintainability analysis. Use when user asks to review code, check for bugs, or audit a codebase.
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/code-review
-- agent-builder (shareAI-lab/learn-claude-code/skills/agent-builder) — health 96, security unrated, en [frontmatter:invalid]
+- agent-builder (shareAI-lab/learn-claude-code/skills/agent-builder) — health 100, security pass, en [frontmatter:invalid]
   |
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/agent-builder
-- dev-browser (SawyerHood/dev-browser/skills/dev-browser) — health 92, security unrated, en
-  Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases include "go to [url]", "click on", "fill out the form", "take a screenshot", "scrape", "automate", "test the website", "log into", or any browser interaction request.
-  https://github.com/SawyerHood/dev-browser/tree/main/skills/dev-browser
-- claude-skills-collection (abubakarsiddik31/claude-skills-collection) — health 91, security unrated, en
+- work-status (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-status) — health 99, security pass, en
+  Shows WORK progress and TASK status. Use when the user asks about WORK list, WORK progress, TASK status, or pipeline status (e.g., "WORK list", "WORK-01 progress", "show status").
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/work-status
+- work-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-pipeline) — health 99, security pass, en
+  Triggers the WORK-PIPELINE when a user request starts with a [] tag (e.g., [new-feature], [bugfix], [WORK start]). Use this skill whenever you detect a [] tag at the beginning of a user message.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/work-pipeline
+- uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 99, security warn, en
+  Initialize uc-taskmanager for the current project. Creates works/ directory and configures Bash permissions in .claude/settings.local.json. Use when the user says "uctm init", "initialize uctm", "uctm 초기화", or "초기화".
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/init
+- security-audit (davepoon/buildwithclaude/plugins/agent-triforce/skills/security-audit) — health 99, security pass, en
+  Deep security audit covering OWASP Top 10, authentication, authorization, data protection, dependency vulnerabilities, and secrets scanning. Delegates to the Centinela (QA) agent.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/security-audit
+- sdd-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline) — health 99, security pass, en [frontmatter:invalid]
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/sdd-pipeline
+- review-findings (davepoon/buildwithclaude/plugins/agent-triforce/skills/review-findings) — health 99, security pass, en
+  Addresses and fixes findings from a QA code review. Reads the review report, fixes critical and warning issues, and prepares for re-verification. Delegates to the Forja (Dev) agent.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/review-findings
+- release-check (davepoon/buildwithclaude/plugins/agent-triforce/skills/release-check) — health 99, security pass, en
+  Pre-release verification checklist. Validates features, tests, docs, security, and quality gates before shipping. Delegates to the Centinela (QA) agent.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/release-check
+- open (davepoon/buildwithclaude/plugins/aigent-os/skills/open) — health 99, security warn, en
+  Boot the session, load context from the vault, and surface what matters
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/aigent-os/skills/open
+- implement-feature (davepoon/buildwithclaude/plugins/agent-triforce/skills/implement-feature) — health 99, security pass, en
+  Implements a feature from its specification. Reads the spec, designs architecture, writes code and tests. Delegates to the Forja (Dev) agent.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/implement-feature
+- feature-spec (davepoon/buildwithclaude/plugins/agent-triforce/skills/feature-spec) — health 99, security pass, en
+  Creates a complete product feature specification with acceptance criteria, scope, dependencies, and risks. Delegates to the Prometeo (PM) agent.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/feature-spec
+- code-health (davepoon/buildwithclaude/plugins/agent-triforce/skills/code-health) — health 99, security pass, en
+  Scans the codebase for dead code, tech debt, outdated dependencies, and code quality issues. Delegates to the Centinela (QA) agent.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/code-health
+- close (davepoon/buildwithclaude/plugins/aigent-os/skills/close) — health 99, security warn, en
+  Commit the session to durable vault memory and prepare a clean resume point
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/aigent-os/skills/close
+- airtable-automation (davepoon/buildwithclaude/plugins/all-skills/skills/airtable-automation) — health 99, security pass, en
+  Automate Airtable tasks via Rube MCP (Composio): records, bases, tables, fields, views. Always search tools first for current schemas.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/airtable-automation
+- agent-analytics (davepoon/buildwithclaude/plugins/all-skills/skills/agent-analytics) — health 99, security pass, en
+  Analytics your AI agent can actually use. Track, analyze, run A/B experiments, and optimize across all your projects via CLI. Includes a growth playbook so your agent knows HOW to grow, not just what to track.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/agent-analytics
+- activecampaign-automation (davepoon/buildwithclaude/plugins/all-skills/skills/activecampaign-automation) — health 99, security pass, en
+  Automate ActiveCampaign tasks via Rube MCP (Composio): manage contacts, tags, list subscriptions, automation enrollment, and tasks. Always search tools first for current schemas.
+  https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/activecampaign-automation
+- scaffold (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/scaffold) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/scaffold
+- pr (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/pr) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/pr
+- plan (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/plan) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/plan
+- issue (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/issue) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/issue
+- hyperflow (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/hyperflow) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/hyperflow
+- handoff (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/handoff) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/handoff
+- flush (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/flush) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/flush
+- dispatch (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/dispatch) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/dispatch
+- design (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/design) — health 96, security pass, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/design
+- deploy (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/deploy) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/deploy
+- cache (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/cache) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/cache
+- bridge (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/bridge) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/bridge
+- background (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/background) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/background
+- audit (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/audit) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/audit
+- ai-act-readiness (alirezarezvani/claude-skills/.gemini/skills/ai-act-readiness) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/ai-act-readiness
+- agile-product-owner (alirezarezvani/claude-skills/.gemini/skills/agile-product-owner) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agile-product-owner
+- agenthub (alirezarezvani/claude-skills/.gemini/skills/agenthub) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agenthub
+- agent-workflow-designer (alirezarezvani/claude-skills/.gemini/skills/agent-workflow-designer) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-workflow-designer
+- agent-protocol (alirezarezvani/claude-skills/.gemini/skills/agent-protocol) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-protocol
+- agent-harness (alirezarezvani/claude-skills/.gemini/skills/agent-harness) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-harness
+- agent-designer (alirezarezvani/claude-skills/.gemini/skills/agent-designer) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-designer
+- agent-decision-receipts (alirezarezvani/claude-skills/.gemini/skills/agent-decision-receipts) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/agent-decision-receipts
+- agency-os (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/agency-os/skills/agency-os) — health 96, security warn, en [frontmatter:invalid]
+  |
+  https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/agency-os/skills/agency-os
+- aeo (alirezarezvani/claude-skills/.gemini/skills/aeo) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/aeo
+- adversarial-reviewer (alirezarezvani/claude-skills/.gemini/skills/adversarial-reviewer) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/adversarial-reviewer
+- ad-creative (alirezarezvani/claude-skills/.gemini/skills/ad-creative) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/ad-creative
+- ab-test-setup (alirezarezvani/claude-skills/.gemini/skills/ab-test-setup) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/ab-test-setup
+- a11y-audit (alirezarezvani/claude-skills/.gemini/skills/a11y-audit) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/a11y-audit
+- TEMPLATE (alirezarezvani/claude-skills/.gemini/skills/TEMPLATE) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/TEMPLATE
+- README (alirezarezvani/claude-skills/.gemini/skills/README) — health 96, security pass, en [frontmatter:invalid]
+  https://github.com/alirezarezvani/claude-skills/tree/main/.gemini/skills/README
+- transcript-fixer (daymade/claude-code-skills/daymade-audio/transcript-fixer) — health 94, security warn, en [frontmatter:invalid]
+  >-
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/transcript-fixer
+- stepfun-tts (daymade/claude-code-skills/daymade-audio/stepfun-tts) — health 94, security pass, zh
+  Generate Chinese / Japanese speech with StepFun's stepaudio-2.5-tts — Contextual TTS that replaces step-tts-2's `voice_label` with natural-language `instruction` (≤200 chars) plus inline `()` parentheses for句内 prosody. Use when the user wants emotional / prosody control over voice synthesis (whisper, pause, stress, mood pivot mid-sentence), batch-generates game / app voice lines, migrates from `step-tts-2` (the `voice_label → instruction` breaking change), or hits StepFun's stricter 2.5-era censorship (死/消失/political terms). Triggers on 阶跃 TTS, StepAudio 合成, 语音合成, 配音, 文本转语音, TTS 升级, 迁移 step-tts-2. For transcription with the sibling stepaudio-2.5-asr model, use the stepfun-asr skill instead.
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/stepfun-tts
+- stepfun-asr (daymade/claude-code-skills/daymade-audio/stepfun-asr) — health 94, security pass, zh
+  Transcribe audio with StepFun's stepaudio-2.5-asr — an SSE endpoint (NOT /v1/audio/transcriptions) with 32K context, ~85-101x RTF on long audio, and a single-call ceiling around 30 minutes (no client-side chunking). Use when transcribing Chinese / English audio with StepFun, when long-form recordings (5-30 min) need to land in one request, when migrating from step-asr / step-asr-1.1, or when hitting the misleading `model stepaudio-2.5-asr not supported` error (which actually means wrong endpoint). Triggers on 阶跃 ASR, StepFun ASR, stepaudio-2.5-asr, 转录, 语音识别, 长音频转写, 语音转文字. For TTS with the sibling stepaudio-2.5-tts model, use the stepfun-tts skill instead.
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/stepfun-asr
+- meeting-minutes-taker (daymade/claude-code-skills/daymade-audio/meeting-minutes-taker) — health 94, security pass, en [frontmatter:invalid]
+  >
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/meeting-minutes-taker
+- competitors-analysis (daymade/claude-code-skills/competitors-analysis) — health 94, security pass, en [frontmatter:invalid]
+  >-
+  https://github.com/daymade/claude-code-skills/tree/main/competitors-analysis
+- codex-image-gallery (daymade/claude-code-skills/codex-image-gallery) — health 94, security pass, en
+  Start or reuse a self-contained local web gallery for browsing Codex-generated images. Use when the user asks to browse Codex generated images, open a local image gallery, inspect ~/.codex/generated_images, view a Codex image output folder, or browse image files produced by Codex.
+  https://github.com/daymade/claude-code-skills/tree/main/codex-image-gallery
+- cloudflare-troubleshooting (daymade/claude-code-skills/cloudflare-troubleshooting) — health 94, security warn, en
+  Investigate and resolve Cloudflare configuration issues using API-driven evidence gathering. Use when troubleshooting ERR_TOO_MANY_REDIRECTS, SSL errors, DNS issues, or any Cloudflare-related problems. Focus on systematic investigation using Cloudflare API to examine actual configuration rather than making assumptions.
+  https://github.com/daymade/claude-code-skills/tree/main/cloudflare-troubleshooting
+- cli-demo-generator (daymade/claude-code-skills/cli-demo-generator) — health 94, security warn, en
+  Generates professional animated CLI demos as GIFs using VHS terminal recordings. Handles tape file creation, self-bootstrapping demos with hidden setup, output noise filtering, post-processing speed-up, and frame-level verification. Use when users want to create terminal demos, record CLI workflows as GIFs, generate animated documentation, build demo tapes for README files, or need to showcase any command-line tool visually. Also triggers on "record terminal", "VHS tape", "demo GIF", "animate my CLI", or any request to visually demonstrate shell commands.
+  https://github.com/daymade/claude-code-skills/tree/main/cli-demo-generator
+- claude-code-hooks (daymade/claude-code-skills/daymade-claude-code/claude-code-hooks) — health 94, security warn, en [frontmatter:invalid]
+  >-
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-claude-code/claude-code-hooks
+- claude-code-history-files-finder (daymade/claude-code-skills/daymade-claude-code/claude-code-history-files-finder) — health 94, security pass, en [frontmatter:invalid]
+  >-
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-claude-code/claude-code-history-files-finder
+- capture-screen (daymade/claude-code-skills/capture-screen) — health 94, security pass, en
+  Programmatic screenshot capture on macOS. Find window IDs with Swift CGWindowListCopyWindowInfo, control application windows via AppleScript (zoom, scroll, select), and capture with screencapture. Use when automating screenshots, capturing application windows for documentation, or building multi-shot visual workflows.
+  https://github.com/daymade/claude-code-skills/tree/main/capture-screen
+- bilibili-source (daymade/claude-code-skills/bilibili-source) — health 94, security pass, zh
+  Fetch comprehensive, login-free data for any Bilibili (B站) video — title, UP name and follower count, publish date, partition, tags, per-part cids, live stats (view, like, coin, favorite, share, reply, danmaku), and full danmaku (bullet-comment) text. Use this skill whenever working with a Bilibili video and needing real, citable numbers or metadata — ingesting a Bilibili source into a knowledge base, analyzing why a video performed, verifying a creator's claimed metrics, building a case study, or any time a Bilibili view/like/favorite count is about to be written into a document — fetch it, never hand-type or estimate it. Accepts BVID, av numbers, b23.tv short links, or full URLs. Subtitles are also covered but require the user's Bilibili login.
+  https://github.com/daymade/claude-code-skills/tree/main/bilibili-source
+- benchmark-due-diligence (daymade/claude-code-skills/benchmark-due-diligence) — health 94, security pass, en [frontmatter:invalid]
+  >
+  https://github.com/daymade/claude-code-skills/tree/main/benchmark-due-diligence
+- awesome-claude-skills (BehiSecc/awesome-claude-skills) — health 94, security unrated, en
+  A curated list of Claude Skills.
+  https://github.com/BehiSecc/awesome-claude-skills
+- auto-repo-setup (daymade/claude-code-skills/auto-repo-setup) — health 94, security pass, en [frontmatter:invalid]
+  >-
+  https://github.com/daymade/claude-code-skills/tree/main/auto-repo-setup
+- asr-transcribe-to-text (daymade/claude-code-skills/daymade-audio/asr-transcribe-to-text) — health 94, security warn, en [frontmatter:invalid]
+  >-
+  https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/asr-transcribe-to-text
+- agent-browser (majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser) — health 94, security warn, en
+  Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/3rd-agent-browser
+- 80-01-autonomous-work (majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work) — health 94, security pass, en
+  Work autonomously without waiting for hand-holding — complete tasks end-to-end without asking for permission at every step.
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-01-autonomous-work
+- 71-agent-framework-integration (majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration) — health 94, security pass, en [frontmatter:invalid]
+  Create your agent-integration skill from OpenAI SDK and LiteLLM documentation before learning framework integration
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/71-agent-framework-integration
+- 39-agent-skills-mcp-code-execution-panaversity-agentfactory (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory) — health 94, security pass, en [frontmatter:invalid]
+  Build a specification-first Digital FTE that orchestrates accumulated intelligence from Lessons 1-7. Learn to compose execution skills into production-ready agents, validate against specifications, and position for monetization.
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory
+- 39-agent-skills-mcp-code-execution (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution) — health 94, security pass, en [frontmatter:invalid]
+  Create a skill that orchestrates the write-execute-analyze loop to autonomously process data. Learn to implement error recovery, iterate toward robust solutions, and test your skill across diverse input scenarios. This is where specification-driven development meets real problem-solving.
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution
+- 36-anthropic-agents-kit-development (majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development) — health 94, security pass, en [frontmatter:invalid]
+  Create your Claude Agent SDK skill in one prompt, then learn to improve it throughout the chapter
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/36-anthropic-agents-kit-development
+- 35-google-adk-reliable-agents (majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents) — health 94, security pass, en [frontmatter:invalid]
+  Create your Google Agent Development Kit skill in one prompt, then learn to improve it throughout the chapter
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/35-google-adk-reliable-agents
+- 34-openai-agents-sdk-panaversity-agentfactory-8f59f147 (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147) — health 94, security pass, en [frontmatter:invalid]
+  Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147
+- 34-openai-agents-sdk (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk) — health 94, security pass, en [frontmatter:invalid]
+  Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk
+- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework) — health 94, security pass, en
+  Generated by Gremlin Forge Meta-Agent 🍆👾⚡
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework
+- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf) — health 94, security pass, en
+  Generated by Gremlin Forge Meta-Agent 🍆👾⚡
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf
+- 2026-legal-research-agent (majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent) — health 94, security pass, en [frontmatter:invalid]
+  >
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/2026-legal-research-agent
+- 200-agents-md (majiayu000/claude-skill-registry/skills/agent/200-agents-md) — health 94, security pass, en
+  Use when you need to generate an AGENTS.md file for a Java repository — covering project conventions, tech stack, file structure, commands, Git workflow, and contributor boundaries — through a modular, step-based interactive process that adapts to your specific project needs. This should trigger for requests such as Create AGENTS.md; Update AGENTS.md file; Add agent instructions. Part of cursor-rules-java project
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/200-agents-md
+- 003-agents-installation (majiayu000/claude-skill-registry/skills/agent/003-agents-installation) — health 94, security pass, en
+  Use when you need to install the embedded robot agents into either .cursor/agents or .claude/agents, selecting the destination interactively and copying the embedded agent definitions from project assets. This should trigger for requests such as Install embedded agents; Bootstrap .cursor/agents; Bootstrap .claude/agents; Copy robot agents. Part of cursor-rules-java project
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/003-agents-installation
+- 0000-dorgonman-kano-agent-backlog-s-59370436 (majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436) — health 94, security pass, en [frontmatter:invalid]
+  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436
+- web-artifacts-builder (anthropics/skills/skills/web-artifacts-builder) — health 93, security pass, en
+  Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
+  https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
+- theme-factory (anthropics/skills/skills/theme-factory) — health 93, security pass, en
+  Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
+  https://github.com/anthropics/skills/tree/main/skills/theme-factory
+- slack-gif-creator (anthropics/skills/skills/slack-gif-creator) — health 93, security warn, en
+  Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack.
+  https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator
+- skill-creator (anthropics/skills/skills/skill-creator) — health 93, security pass, en
+  Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
+  https://github.com/anthropics/skills/tree/main/skills/skill-creator
+- pptx (anthropics/skills/skills/pptx) — health 93, security warn, en
+  Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.
+  https://github.com/anthropics/skills/tree/main/skills/pptx
+- pdf (anthropics/skills/skills/pdf) — health 93, security warn, en
+  Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
+  https://github.com/anthropics/skills/tree/main/skills/pdf
+- mcp-builder (anthropics/skills/skills/mcp-builder) — health 93, security pass, en
+  Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).
+  https://github.com/anthropics/skills/tree/main/skills/mcp-builder
+- internal-comms (anthropics/skills/skills/internal-comms) — health 93, security pass, en
+  A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
+  https://github.com/anthropics/skills/tree/main/skills/internal-comms
+- frontend-design (anthropics/skills/skills/frontend-design) — health 93, security pass, en
+  Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
+  https://github.com/anthropics/skills/tree/main/skills/frontend-design
+- docx (anthropics/skills/skills/docx) — health 93, security warn, en
+  Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.
+  https://github.com/anthropics/skills/tree/main/skills/docx
+- doc-coauthoring (anthropics/skills/skills/doc-coauthoring) — health 93, security pass, en
+  Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.
+  https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring
+- claude-api (anthropics/skills/skills/claude-api) — health 93, security warn, en [frontmatter:invalid]
+  |-
+  https://github.com/anthropics/skills/tree/main/skills/claude-api
+- canvas-design (anthropics/skills/skills/canvas-design) — health 93, security pass, en
+  Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
+  https://github.com/anthropics/skills/tree/main/skills/canvas-design
+- brand-guidelines (anthropics/skills/skills/brand-guidelines) — health 93, security pass, en
+  Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+  https://github.com/anthropics/skills/tree/main/skills/brand-guidelines
+- algorithmic-art (anthropics/skills/skills/algorithmic-art) — health 93, security pass, en
+  Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.
+  https://github.com/anthropics/skills/tree/main/skills/algorithmic-art
+- awesome-agent-skills (VoltAgent/awesome-agent-skills) — health 91, security unrated, en
+  A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.
+  https://github.com/VoltAgent/awesome-agent-skills
+- competitive-ads-extractor (ComposioHQ/awesome-claude-skills/competitive-ads-extractor) — health 90, security pass, en
+  Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/competitive-ads-extractor
+- changelog-generator (ComposioHQ/awesome-claude-skills/changelog-generator) — health 90, security pass, en
+  Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns hours of manual changelog writing into minutes of automated generation.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/changelog-generator
+- canvas-design (ComposioHQ/awesome-claude-skills/canvas-design) — health 90, security pass, en
+  Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/canvas-design
+- brand-guidelines (ComposioHQ/awesome-claude-skills/brand-guidelines) — health 90, security pass, en
+  Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/brand-guidelines
+- artifacts-builder (ComposioHQ/awesome-claude-skills/artifacts-builder) — health 90, security pass, en
+  Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/artifacts-builder
+- active-campaign-automation (ComposioHQ/awesome-claude-skills/composio-skills/active-campaign-automation) — health 90, security pass, en
+  Automate ActiveCampaign tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/active-campaign-automation
+- acculynx-automation (ComposioHQ/awesome-claude-skills/composio-skills/acculynx-automation) — health 90, security pass, en
+  Automate Acculynx tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/acculynx-automation
+- accredible-certificates-automation (ComposioHQ/awesome-claude-skills/composio-skills/accredible-certificates-automation) — health 90, security pass, en
+  Automate Accredible Certificates tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/accredible-certificates-automation
+- accelo-automation (ComposioHQ/awesome-claude-skills/composio-skills/accelo-automation) — health 90, security pass, en
+  Automate Accelo tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/accelo-automation
+- abyssale-automation (ComposioHQ/awesome-claude-skills/composio-skills/abyssale-automation) — health 90, security pass, en
+  Automate Abyssale tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/abyssale-automation
+- abuselpdb-automation (ComposioHQ/awesome-claude-skills/composio-skills/abuselpdb-automation) — health 90, security pass, en
+  Automate Abuselpdb tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/abuselpdb-automation
+- abstract-automation (ComposioHQ/awesome-claude-skills/composio-skills/abstract-automation) — health 90, security pass, en
+  Automate Abstract tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/abstract-automation
+- ably-automation (ComposioHQ/awesome-claude-skills/composio-skills/ably-automation) — health 90, security pass, en
+  Automate Ably tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/ably-automation
+- -2chat-automation (ComposioHQ/awesome-claude-skills/composio-skills/-2chat-automation) — health 90, security pass, en [frontmatter:invalid]
+  Automate 2chat tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/-2chat-automation
+- -21risk-automation (ComposioHQ/awesome-claude-skills/composio-skills/-21risk-automation) — health 90, security pass, en [frontmatter:invalid]
+  Automate 21risk tasks via Rube MCP (Composio). Always search tools first for current schemas.
+  https://github.com/ComposioHQ/awesome-claude-skills/tree/master/composio-skills/-21risk-automation
+- run-claude-osint (elementalsouls/Claude-OSINT/.claude/skills/run-claude-osint) — health 89, security warn, en
+  Build, validate, and run the claude-osint skills repo — check SKILL.md frontmatter, run the secret_scan.py and h1_reference.py helpers, run sync-skill-content.sh, run the smoke test. Use when asked to run, build, test, validate, or smoke-test claude-osint or its OSINT skills/scripts.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/.claude/skills/run-claude-osint
+- osint-methodology (elementalsouls/Claude-OSINT/skills/osint-methodology) — health 89, security warn, en
+  Comprehensive OSINT methodology for external red-team operations and authorized attack-surface assessments. Covers the 6-stage recon pipeline (seed → asset expansion → enrichment → exposure analysis → convergence → operator-armed active validation) with connector-resilience and stage-vs-gating discipline, asset-graph discipline, severity rubric, confidence upgrade workflows, time budgeting, identity-fabric mapping, breach×identity correlation with per-person identity dossiers, detectability tagging, detection-aware probing, WAF/CDN bypass, vulnerability prioritization, phishing infrastructure planning, bug bounty submission, and client deliverable templates. Use when planning or executing reconnaissance against authorized targets, mapping an organization's external attack surface, investigating a person/entity, or producing client deliverables.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/osint-methodology
+- osint-autopilot (elementalsouls/Claude-OSINT/skills/osint-autopilot) — health 89, security warn, en
+  End-to-end external OSINT engagement autopilot. Run the FULL osint-methodology pipeline to completion in ONE go for an authorized domain — engagement folder, Stages 1-5 (seed, expansion, enrichment, exposure, convergence), multi-agent per-host content+JS fan-out, headline verification, auto-generated findings, and a consolidated multi-tab .xlsx deliverable. Stops ONLY for Stage 6 (active exploitation) arming and out-of-scope sibling assets. Use whenever asked to "run OSINT / recon / attack-surface" on a target — do NOT deliver a thin passive first pass.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/osint-autopilot
+- org-attack-surface (elementalsouls/Claude-OSINT/skills/org-attack-surface) — health 89, security fail, en [frontmatter:invalid]
+  Org-grade attack-surface mapping: given a company's legal identity, discover its ENTIRE owned internet footprint — corporate family -> owned domains -> owned netblocks/ASN -> live assets — with attribution discipline, not just DNS breadth. The org-first attribution pyramid (legal entity -> LEI/registration -> corporate family -> owned domains -> owned netblocks/ASN -> live assets). Corporate-identity resolution via the GLEIF LEI API (legal name -> LEI, exact-LEI direct-children expansion, downward-only depth-capped BFS, NEVER a name re-resolution), SEC-EDGAR full-text search + Exhibit-21 subsidiary entity names, OpenCorporates entity corroboration, Wikidata SPARQL corporate graph (P856/P355/P749/P1830). Domain attribution via reverse-WHOIS (WhoisXML preview-then-purchase quota guard, SecurityTrails associated-domains — both paid), crt.sh O= certificate-transparency organization pivot (keyless), infrastructure correlation (shared NS/MX/SaaS-TXT, netblock membership, reverse-DNS PTR), and the independent-evidence combiner (1-prod(1-w_i), rule of three, OwnerTier NONE/WEAK/MODERATE/STRONG/CONFIRMED) — discover-only `related:` candidates are NEVER auto-scanned. Netblock/ASN attribution via org-first RIR queries (ARIN Whois-RWS org-handle search, RIPE DB organisation + inverse-org search) that recover 'dark netblocks' with no DNS link to the seed, ASN discovery (RIPEstat + BGPView union), the HYPERSCALER-SCOPE GUARD (never attribute a whole AWS/GCP/Azure/Cloudflare announced range to a tenant — keep only the seed-containing block, tag shared_hosting_cdn), and org-identity-seeded internet-scan-index queries (Shodan/Censys/ZoomEye/FOFA/BinaryEdge org: filters + an always-on keyless crt.sh fallback). Promote-to-scan triage ranks forgotten discover-only netblocks by remote-access exposure (gateway-vendor/KEV/control-plane/datastore port scoring) into an operator queue. Attribution confidence rubric + anti-patterns (namesake grafting via GLEIF name re-resolution, single-signal ownership, hyperscaler over-attribution, privacy-WHOIS pivot poisoning, RIR org-name collisions). Passive/keyless-first OSINT only — every paid-key dependency is enrichment on top of a keyless core, never a hard requirement. Use when mapping an organization's full corporate-family internet footprint, resolving a legal entity to its LEI/subsidiaries, discovering domains/netblocks/ASNs an org owns beyond its one seed domain, auditing M&A/shadow-IT sprawl, or scoping an engagement that starts from a company NAME rather than a domain.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/org-attack-surface
+- offensive-osint (elementalsouls/Claude-OSINT/skills/offensive-osint) — health 89, security fail, en [frontmatter:invalid]
+  Operational arsenal for external red-team and bug-bounty reconnaissance. Concrete wordlists (28 Swagger paths, 13 GraphQL paths, 35 high-risk ports, 6 missing-header findings, 15 always-on HTTP checks, 5 SAML paths, cloud bucket permutations, JS guess-paths, vendor product fingerprints for Citrix/F5/Pulse/Fortinet/Cisco/PaloAlto/VMware/Exchange, cloud-native service fingerprints, container/K8s exposure paths, CI/CD platform paths, documentation/wiki leak paths, WHOIS/RDAP, DNS record catalog, Wayback CDX recipes), 80-pattern secret-regex catalog (incl. modern AI API keys: Anthropic/OpenAI/HuggingFace/Cloudflare/DigitalOcean/npm/PyPI/Docker Hub/Atlassian/DataDog/Sentry/ngrok; plus a provider-expansion tier: Postman PMAK/GitLab/Square/Shopify/Mailchimp/PagerDuty/Asana/Databricks/Grafana/Terraform Cloud/Fastly/Algolia/Segment/Airtable/GCP+Google OAuth/Azure AD/Facebook OAuth/RubyGems/JFrog/Okta/Slack app-level/Dropbox/Doppler/HashiCorp Vault/Firebase Cloud Messaging), 80+ dork corpus across 9 categories, GitHub code-search dorks, copy-paste curl/httpie probes for every check, post-discovery enumeration workflows (AWS/GitHub/Slack/JWT/PMAK/Anthropic/OpenAI), endpoint interest scoring rubric (0–100), mobile app ownership confidence + APK static-analysis pipeline (acquisition, apktool/aapt2/jadx/androguard decompile, manifest exported-component/deep-link/misconfig extraction, Firebase config, network-security-config, embedded-secret scan), identity-fabric endpoints (Entra/Okta/ADFS/Google/SAML/M365 Teams+SharePoint+OneDrive+OAuth + user-enum), GraphQL field-suggestion enumeration when introspection disabled, 9 read-only secret validators (Postman/AWS/GitHub/Slack/Anthropic/OpenAI/npm/Atlassian/DataDog), Postman workspace search (verified endpoint), Stack Exchange sweep, public SaaS dorks, email security analysis (SPF/DMARC/DKIM/BIMI/MTA-STS/DNSSEC), origin-discovery / CDN bypass techniques, TLS deep audit (sslyze/testssl.sh/JA3/JA4), reverse-DNS sweep + IPv6 enum, vulnerability prioritization data sources (NVD/EPSS/CISA KEV/ExploitDB/Metasploit), 27 attack-path hint templates, 80+ severity-matrix examples, LinkedIn employee enumeration, job posting tech-stack analysis, Slack/Discord workspace discovery, package registry leak hunting (npm/PyPI/Docker Hub/Quay/GHCR), sat imagery for physical recon, tooling quick-install one-liners, sector-specific recon notes (healthcare/finance/ICS-SCADA/IoT/government), runnable stdlib-only secret_scan.py helper, plus the existing tool references for username/email/phone/people/social/breach/infrastructure/crypto/media/geospatial/AI/archiving/automation. Use when you need concrete probe paths, regexes, payloads, scoring rules, curl one-liners, and tool URLs for an authorized external recon engagement.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/offensive-osint
+- identity-provider-recon (elementalsouls/Claude-OSINT/skills/identity-provider-recon) — health 89, security warn, en [frontmatter:invalid]
+  Organization-grade identity-fabric mapping: tenant/federation fingerprinting and the pre-auth user-ENUMERATION oracle methodology — enumeration and fingerprint only, never credential submission. Covers domain-to-tenant resolution (Microsoft getuserrealm.srf Managed/Federated namespace check, Entra OIDC metadata tenant-GUID extraction, Autodiscover v2), keyless Microsoft tenant-federation mapping (GetFederationInformation SOAP -> sibling-domain discovery, discover-only ROE, FEDERATED_WITH provenance edge held out of attack-path pivoting), Okta org-slug derivation + OIDC fingerprint + governed custom-domain enumeration, ADFS passive/active fingerprint + version inference, Google Workspace MX-correlated detection, generic OIDC (Auth0/Keycloak/Ping Identity/OneLogin/Duo) discovery, SAML metadata (5 paths), Azure AD Seamless-SSO Negotiate-challenge detection, Microsoft Defender for Identity (MDI) sensor-API presence check, the user-enumeration oracle methodology for Microsoft GetCredentialType (IfExistsResult semantics: exists / doesn't-exist / exists-in-federated-tenant / throttled) and Okta /api/v1/authn (errorCode differential), Medium-detectability discipline with a hard 20-candidate-per-tenant cap and admin/role interest-based ranking, and name x confirmed-email-pattern login-candidate synthesis that FAILS CLOSED with zero output when no org pattern is confirmed. Grounded directly in a production ASM implementation's sso_idp.py, tenant_recon.py, and core/email_patterns.py modules. Deepens — does not duplicate — offensive-osint skill's Identity Fabric endpoint reference with the tenant-federation MAP, the oracle WORKFLOW, and the candidate-SYNTHESIS methodology that reference lacks. Use when fingerprinting an organization's identity provider, mapping its tenant/federation boundary, running an authorized pre-auth user-enumeration pass, or synthesizing login candidates from harvested names to feed that oracle — never for password spray, credential submission, or auth bypass.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/identity-provider-recon
+- exposure-risk-quantification (elementalsouls/Claude-OSINT/skills/exposure-risk-quantification) — health 89, security pass, en [frontmatter:invalid]
+  FAIR-aligned exposure quantification: turns a pile of recon findings into a defensible 0-100 + A-F org risk score (Likelihood x Impact, three ownership-aware factors: exposure/threat/impact), an ownership + proof demotion cap so unproven or weakly-owned findings can't inflate the number, a $-denominated FAIR loss-magnitude estimate (IBM/Ponemon per-record cost bands, cross-source record dedup, threat-factor annualization), attack-path amplification (curated red-team chain catalog + generic graph-walk engine, with a kill-chain vs shared-fate honesty gate), and a board-ready one-pager deliverable (hero $ + letter grade + top-3 findings + top attack path + the ask). Extends osint-methodology's severity rubric and client deliverable templates with quantification. Passive analysis only -- operates on findings already collected, no target traffic, no API keys. Use when asked to score risk, quantify exposure, estimate breach cost, build a board report, translate technical findings to dollars, or explain why a grade or dollar figure came out the way it did.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/exposure-risk-quantification
+- email-domain-security (elementalsouls/Claude-OSINT/skills/email-domain-security) — health 89, security warn, en [frontmatter:invalid]
+  Rigorous, defensible email-spoofability verdict and SPF supply-chain risk analysis computed from published DNS alone. Deepens the record-level SPF/DMARC/DKIM/BIMI/MTA-STS/DNSSEC fetch recipes in the offensive-osint arsenal (§16.14) with the reasoning that section doesn't do: a priority-ordered composite verdict for whether an attacker can actually land header-From-spoofed mail in an inbox, and by which vector (exact-domain vs subdomain) — grounded in the single most-misunderstood distinction in email security: the envelope MAIL FROM that SPF authenticates vs the visible header From: that only DMARC governs. Explains precisely why SPF -all/~all alone is NOT spoof-proof without DMARC enforcement, and why SPF +all bypasses DMARC even under p=reject pct=100. Covers RFC 7208 §4.6.4's 10-DNS-lookup / 2-void-lookup PermError fail-open condition with a runnable stdlib-only lookup-counter script, plus the SPF-include-takeover supply-chain vector (an attacker re-registering a dead include inherits SPF-pass authority over the victim domain) with strict transient-vs-NXDOMAIN discrimination discipline so a temporary SERVFAIL is never mistaken for a takeover lead. Fully passive: DNS TXT reads only, no mail sent, no RCPT TO probe, no API keys. Use when auditing a domain's real spoofing resistance (not just its published records), explaining to a client why 'we have SPF -all' does not mean they're covered, investigating an SPF PermError or an unusually long include chain, evaluating a dead SPF include as a takeover lead, or writing a defensible spoofability finding for a deliverable.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/email-domain-security
+- django-expert (Jeffallan/claude-skills/skills/django-expert) — health 89, security warn, en
+  Use when building Django web applications or REST APIs with Django REST Framework. Invoke when working with settings.py, models.py, manage.py, or any Django project file. Creates Django models with proper indexes, optimizes ORM queries using select_related/prefetch_related, builds DRF serializers and viewsets, and configures JWT authentication. Trigger terms: Django, DRF, Django REST Framework, Django ORM, Django model, serializer, viewset, Python web.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/django-expert
+- devops-engineer (Jeffallan/claude-skills/skills/devops-engineer) — health 89, security warn, en
+  Creates Dockerfiles, configures CI/CD pipelines, writes Kubernetes manifests, and generates Terraform/Pulumi infrastructure templates. Handles deployment automation, GitOps configuration, incident response runbooks, and internal developer platform tooling. Use when setting up CI/CD pipelines, containerizing applications, managing infrastructure as code, deploying to Kubernetes clusters, configuring cloud platforms, automating releases, or responding to production incidents. Invoke for pipelines, Docker, Kubernetes, GitOps, Terraform, GitHub Actions, on-call, or platform engineering.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/devops-engineer
+- debugging-wizard (Jeffallan/claude-skills/skills/debugging-wizard) — health 89, security pass, en
+  Parses error messages, traces execution flow through stack traces, correlates log entries to identify failure points, and applies systematic hypothesis-driven methodology to isolate and resolve bugs. Use when investigating errors, analyzing stack traces, finding root causes of unexpected behavior, troubleshooting crashes, or performing log analysis, error investigation, or root cause analysis.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/debugging-wizard
+- database-optimizer (Jeffallan/claude-skills/skills/database-optimizer) — health 89, security pass, en
+  Optimizes database queries and improves performance across PostgreSQL and MySQL systems. Use when investigating slow queries, analyzing execution plans, or optimizing database performance. Invoke for index design, query rewrites, configuration tuning, partitioning strategies, lock contention resolution.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/database-optimizer
+- csharp-developer (Jeffallan/claude-skills/skills/csharp-developer) — health 89, security pass, en
+  Use when building C# applications with .NET 8+, ASP.NET Core APIs, or Blazor web apps. Builds REST APIs using minimal or controller-based routing, configures database access with Entity Framework Core, implements async patterns and cancellation, structures applications with CQRS via MediatR, and scaffolds Blazor components with state management. Invoke for C#, .NET, ASP.NET Core, Blazor, Entity Framework, EF Core, Minimal API, MAUI, SignalR.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/csharp-developer
+- cpp-pro (Jeffallan/claude-skills/skills/cpp-pro) — health 89, security pass, en
+  Writes, optimizes, and debugs C++ applications using modern C++20/23 features, template metaprogramming, and high-performance systems techniques. Use when building or refactoring C++ code requiring concepts, ranges, coroutines, SIMD optimization, or careful memory management — or when addressing performance bottlenecks, concurrency issues, and build system configuration with CMake.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/cpp-pro
+- continuous-exposure-monitoring (elementalsouls/Claude-OSINT/skills/continuous-exposure-monitoring) — health 89, security pass, en [frontmatter:invalid]
+  Turns one-shot external recon into a continuous monitoring program. Covers the scheduled re-scan-and-diff loop (baseline snapshot -> interval sleep -> re-scan -> asset/finding delta -> threshold-gated webhook alert), the scan-to-scan diff engine (new/removed/changed assets by a tracked-attribute table, new/resolved findings by a stable cross-scan fingerprint), adversary CTI / chatter monitoring across six public feeds (ransomwatch, ransomware.live, HackerNews Algolia search, Reddit security-subreddit RSS, GitHub Gist code-search, public Telegram channel scraping) with a source-kind-aware severity engine (leak-site/forum/telegram/paste tiers, CRITICAL through INFO), literal/glob/regex watchlist pattern matching, full-corpus capture with retroactive rescan on new watchlist entries, infrastructure-tracking-over-time discipline (certificate-transparency, passive-DNS, port/service, and typosquat re-enumeration cadence, and what a genuine 'perimeter drift' event looks like in the diff output), a five-state finding-lifecycle state machine (open/triaged/risk_accepted/resolved/false_positive) with per-severity SLA and fingerprint-based cross-scan dedup and auto-resolve/reopen rules, the alert-fatigue trap where a lifecycle-unaware rule re-fires on an already-accepted finding, a durable retry/backoff alert-outbox pattern ('queued is not delivered'), and copy-paste bash-cron plus PowerShell-Scheduled-Task recipes for a re-scan+diff loop with the Slack-compatible webhook payload shape. Passive OSINT and analysis only -- no new active-intrusion technique. Use when setting up ongoing monitoring for a retainer or MSSP engagement, tuning alert thresholds to avoid fatigue, triaging a finding's lifecycle status, investigating adversary chatter about a brand, building a 'what changed on the perimeter since last week' report, or deciding whether a persisting finding should re-alert.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/continuous-exposure-monitoring
+- code-reviewer (Jeffallan/claude-skills/skills/code-reviewer) — health 89, security pass, en
+  Analyzes code diffs and files to identify bugs, security vulnerabilities (SQL injection, XSS, insecure deserialization), code smells, N+1 queries, naming issues, and architectural concerns, then produces a structured review report with prioritized, actionable feedback. Use when reviewing pull requests, conducting code quality audits, identifying refactoring opportunities, or checking for security issues. Invoke for PR reviews, code quality checks, refactoring suggestions, review code, code quality. Complements specialized skills (security-reviewer, test-master) by providing broad-scope review across correctness, performance, maintainability, and test coverage in a single pass.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/code-reviewer
+- code-documenter (Jeffallan/claude-skills/skills/code-documenter) — health 89, security pass, en
+  Generates, formats, and validates technical documentation — including docstrings, OpenAPI/Swagger specs, JSDoc annotations, doc portals, and user guides. Use when adding docstrings to functions or classes, creating API documentation, building documentation sites, or writing tutorials and user guides. Invoke for OpenAPI/Swagger specs, JSDoc, doc portals, getting started guides.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/code-documenter
+- cloud-saas-exposure (elementalsouls/Claude-OSINT/skills/cloud-saas-exposure) — health 89, security warn, en [frontmatter:invalid]
+  Organization-grade cloud and supply-chain attack-surface discovery: S3/GCS/Azure Blob bucket discovery via observed-name mining (CNAME/cert-SAN/Wayback) and bounded two-class permutation (6 prefixes x 15 suffixes on trusted tokens, bounded target-bound expansion on subdomain stems), existence (HEAD/GET) vs public-listing confirmation, object-key triage into 9 value tiers (database dumps, credentials, IaC state, kubeconfig, VCS dirs, config, archives, PII, logs), dangling-CNAME bucket-takeover detection, and the ownership-gated severity model that stops an unattributable public bucket from becoming a false CRITICAL; the fully offline AWS-account-ID recovery from a leaked AKIA/ASIA/AROA access key (base32 decode, runnable stdlib Python, canonical test vector, AWS-documentation-example-ID screening); dependency-confusion confirmation for npm/PyPI (internal-signal classifier -- private-registry binding vs org-namespace match -- paired with a read-only public-registry 404 check and the npm scope-claimability nuance the public search API misses); and passive cloud-native/container/Kubernetes/CI control-plane fingerprinting (Lambda URLs, API Gateway, Cloud Run, App Service, kubelet/etcd/K8s API/dashboard, Jenkins/GitLab/Argo CD) as an org-attribution and exposure surface. Passive/discovery only -- no exploitation, no credential submission, no active control-plane confirmation (a stage-6 validate_cloud active tier is described but out of scope). Use when enumerating a target's cloud storage footprint, recovering an AWS account ID from a leaked key, confirming a supply-chain dependency-confusion vector, or fingerprinting cloud-native/K8s/CI infrastructure for an authorized external recon engagement.
+  https://github.com/elementalsouls/Claude-OSINT/tree/main/skills/cloud-saas-exposure
+- cloud-architect (Jeffallan/claude-skills/skills/cloud-architect) — health 89, security pass, en
+  Designs cloud architectures, creates migration plans, generates cost optimization recommendations, and produces disaster recovery strategies across AWS, Azure, and GCP. Use when designing cloud architectures, planning migrations, or optimizing multi-cloud deployments. Invoke for Well-Architected Framework, cost optimization, disaster recovery, landing zones, security architecture, serverless design.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/cloud-architect
+- cli-developer (Jeffallan/claude-skills/skills/cli-developer) — health 89, security warn, en
+  Use when building CLI tools, implementing argument parsing, or adding interactive prompts. Invoke for parsing flags and subcommands, displaying progress bars and spinners, generating bash/zsh/fish completion scripts, CLI design, shell completions, and cross-platform terminal applications using commander, click, typer, or cobra.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/cli-developer
+- chaos-engineer (Jeffallan/claude-skills/skills/chaos-engineer) — health 89, security pass, en
+  Designs chaos experiments, creates failure injection frameworks, and facilitates game day exercises for distributed systems — producing runbooks, experiment manifests, rollback procedures, and post-mortem templates. Use when designing chaos experiments, implementing failure injection frameworks, or conducting game day exercises. Invoke for chaos experiments, resilience testing, blast radius control, game days, antifragile systems, fault injection, Chaos Monkey, Litmus Chaos.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/chaos-engineer
+- atlassian-mcp (Jeffallan/claude-skills/skills/atlassian-mcp) — health 89, security pass, en
+  Integrates with Atlassian products to manage project tracking and documentation via MCP protocol. Use when querying Jira issues with JQL filters, creating and updating tickets with custom fields, searching or editing Confluence pages with CQL, managing sprints and backlogs, setting up MCP server authentication, syncing documentation, or debugging Atlassian API integrations.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/atlassian-mcp
+- architecture-designer (Jeffallan/claude-skills/skills/architecture-designer) — health 89, security pass, en
+  Use when designing new high-level system architecture, reviewing existing designs, or making architectural decisions. Invoke to create architecture diagrams, write Architecture Decision Records (ADRs), evaluate technology trade-offs, design component interactions, and plan for scalability. Use for system design, architecture review, microservices structuring, ADR authoring, scalability planning, and infrastructure pattern selection — distinct from code-level design patterns or database-only design tasks.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/architecture-designer
+- api-designer (Jeffallan/claude-skills/skills/api-designer) — health 89, security pass, en
+  Use when designing REST or GraphQL APIs, creating OpenAPI specifications, or planning API architecture. Invoke for resource modeling, versioning strategies, pagination patterns, error handling standards.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/api-designer
+- angular-architect (Jeffallan/claude-skills/skills/angular-architect) — health 89, security pass, en
+  Generates Angular 17+ standalone components, configures advanced routing with lazy loading and guards, implements NgRx state management, applies RxJS patterns, and optimizes bundle performance. Use when building Angular 17+ applications with standalone components or signals, setting up NgRx stores, establishing RxJS reactive patterns, performance tuning, or writing Angular tests for enterprise apps.
+  https://github.com/Jeffallan/claude-skills/tree/main/skills/angular-architect
+- writing-hookify-rules (anthropics/claude-plugins-official/plugins/hookify/skills/writing-rules) — health 87, security fail, en
+  This skill should be used when the user asks to "create a hookify rule", "write a hook rule", "configure hookify", "add a hookify rule", or needs guidance on hookify rule syntax and patterns.
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/hookify/skills/writing-rules
+- m5-onboard (anthropics/claude-plugins-official/plugins/cwc-makers/skills/m5-onboard) — health 87, security warn, en
+  End-to-end onboarding for a freshly-plugged-in M5Stack ESP32 device (Cardputer, Cardputer-Adv, Core, CoreS3, Stick) — detect on USB, flash UIFlow 2.0 firmware, and install the Claude Buddy MicroPython app bundle. Use whenever the user plugs in or wants to flash/provision/reset an M5Stack or ESP32 board, or says "m5-onboard go".
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/cwc-makers/skills/m5-onboard
+- frontend-design (anthropics/claude-plugins-official/plugins/frontend-design/skills/frontend-design) — health 87, security pass, en
+  Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design/skills/frontend-design
+- example-skill (anthropics/claude-plugins-official/plugins/example-plugin/skills/example-skill) — health 87, security pass, en
+  This skill should be used when the user asks to "demonstrate skills", "show skill format", "create a skill template", or discusses skill development patterns. Provides a reference template for creating Claude Code plugin skills.
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/example-plugin/skills/example-skill
+- example-command (anthropics/claude-plugins-official/plugins/example-plugin/skills/example-command) — health 87, security warn, en
+  An example user-invoked skill that demonstrates frontmatter options and the skills/<name>/SKILL.md layout
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/example-plugin/skills/example-command
+- configure (anthropics/claude-plugins-official/external_plugins/discord/skills/configure) — health 87, security pass, en
+  Set up the Discord channel — save the bot token and review access policy. Use when the user pastes a Discord bot token, asks to configure Discord, asks "how do I set this up" or "who can reach me," or wants to check channel status.
+  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord/skills/configure
+- configure (anthropics/claude-plugins-official/external_plugins/imessage/skills/configure) — health 87, security pass, en
+  Check iMessage channel setup and review access policy. Use when the user asks to configure iMessage, asks "how do I set this up" or "who can reach me," or wants to know why texts aren't reaching the assistant.
+  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage/skills/configure
+- configure (anthropics/claude-plugins-official/external_plugins/telegram/skills/configure) — health 87, security pass, en
+  Set up the Telegram channel — save the bot token and review access policy. Use when the user pastes a Telegram bot token, asks to configure Telegram, asks "how do I set this up" or "who can reach me," or wants to check channel status.
+  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram/skills/configure
+- claude-security (anthropics/claude-plugins-official/plugins/claude-security/skills/claude-security) — health 87, security pass, en
+  The Claude Security menu — pick a job: scan the codebase (the whole repository or a scoped part of it), scan changes (this branch's or a pull request's diff, or one commit), or suggest patches (findings turned into targeted patch files, each verified by a panel of agents, that you apply when you choose).
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-security/skills/claude-security
+- claude-md-improver (anthropics/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver) — health 87, security warn, en
+  Audit and improve CLAUDE.md files in repositories. Use when user asks to check, audit, update, improve, or fix CLAUDE.md files. Scans for all CLAUDE.md files, evaluates quality against templates, outputs quality report, then makes targeted updates. Also use when the user mentions "CLAUDE.md maintenance" or "project memory optimization".
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-md-management/skills/claude-md-improver
+- claude-automation-recommender (anthropics/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender) — health 87, security pass, en
+  Analyze a codebase and recommend Claude Code automations (hooks, subagents, skills, plugins, MCP servers). Use when user asks for automation recommendations, wants to optimize their Claude Code setup, mentions improving Claude Code workflows, asks how to first set up Claude Code for a project, or wants to know what Claude Code features they should use.
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-code-setup/skills/claude-automation-recommender
+- cardputer-buddy (anthropics/claude-plugins-official/plugins/cwc-makers/skills/cardputer-buddy) — health 87, security pass, en
+  Iterate on the Cardputer-Adv MicroPython app bundle (Claude Buddy, Snake, Hello) after the device is already provisioned via m5-onboard. Use when the user wants to add a new app, push a single changed .py without re-flashing, watch device serial logs, or run a one-shot REPL command. Trigger on "add an app", "push to the cardputer", "tail the device", "run on the device", or follow-up work after /maker-setup.
+  https://github.com/anthropics/claude-plugins-official/tree/main/plugins/cwc-makers/skills/cardputer-buddy
+- access (anthropics/claude-plugins-official/external_plugins/discord/skills/access) — health 87, security pass, en
+  Manage Discord channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the Discord channel.
+  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord/skills/access
+- access (anthropics/claude-plugins-official/external_plugins/imessage/skills/access) — health 87, security pass, en
+  Manage iMessage channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the iMessage channel.
+  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage/skills/access
+- access (anthropics/claude-plugins-official/external_plugins/telegram/skills/access) — health 87, security pass, en
+  Manage Telegram channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the Telegram channel.
+  https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram/skills/access
+- claude-skills-collection (abubakarsiddik31/claude-skills-collection) — health 85, security unrated, en
   A curated collection of official and community-built Claude Skills – extend Anthropic's Claude with powerful, modular capabilities for productivity, creativity, coding, and more.
   https://github.com/abubakarsiddik31/claude-skills-collection
-- obsidian-markdown (kepano/obsidian-skills/skills/obsidian-markdown) — health 81, security unrated, en
-  Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.
-  https://github.com/kepano/obsidian-skills/tree/main/skills/obsidian-markdown
-- obsidian-cli (kepano/obsidian-skills/skills/obsidian-cli) — health 81, security unrated, en
-  Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.
-  https://github.com/kepano/obsidian-skills/tree/main/skills/obsidian-cli
-- obsidian-bases (kepano/obsidian-skills/skills/obsidian-bases) — health 81, security unrated, en
-  Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
-  https://github.com/kepano/obsidian-skills/tree/main/skills/obsidian-bases
-- json-canvas (kepano/obsidian-skills/skills/json-canvas) — health 81, security unrated, en
-  Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.
-  https://github.com/kepano/obsidian-skills/tree/main/skills/json-canvas
-- defuddle (kepano/obsidian-skills/skills/defuddle) — health 81, security unrated, en
-  Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.
-  https://github.com/kepano/obsidian-skills/tree/main/skills/defuddle
-- universal-learner (huangserva/skill-prompt-generator/.claude/skills/universal-learner) — health 72, security unrated, zh
+- last30days (mvanhorn/last30days-skill/skills/last30days) — health 84, security warn, en
+  Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.
+  https://github.com/mvanhorn/last30days-skill/tree/main/skills/last30days
+- dev-browser (SawyerHood/dev-browser/skills/dev-browser) — health 76, security warn, en
+  Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases include "go to [url]", "click on", "fill out the form", "take a screenshot", "scrape", "automate", "test the website", "log into", or any browser interaction request.
+  https://github.com/SawyerHood/dev-browser/tree/main/skills/dev-browser
+- automotive-skills-suite (jherrodthomas/automotive-skills-suite) — health 75, security unrated, en
+  100+ installable Claude skills covering Engineering areas such as, ISO 26262 functional safety, ISO/SAE 21434 cybersecurity, ISO 21448 SOTIF, AIAG-VDA quality (APQP/PPAP/FMEA), Automotive SPICE, and continuous improvement tools — every builder paired with a confirmation reviewer.
+  https://github.com/jherrodthomas/automotive-skills-suite
+- universal-learner (huangserva/skill-prompt-generator/.claude/skills/universal-learner) — health 66, security pass, zh
   通用学习器 - 从任何领域的Prompt中自动提取可复用元素，持续学习和积累知识
   https://github.com/huangserva/skill-prompt-generator/tree/main/.claude/skills/universal-learner
-- universal-learner (huangserva/skill-prompt-generator/.codex/skills/universal-learner) — health 72, security unrated, zh
+- universal-learner (huangserva/skill-prompt-generator/.codex/skills/universal-learner) — health 66, security pass, zh
   通用学习器 - 从任何领域的Prompt中自动提取可复用元素，持续学习和积累知识
   https://github.com/huangserva/skill-prompt-generator/tree/main/.codex/skills/universal-learner
-- prompt-analyzer (huangserva/skill-prompt-generator/.claude/skills/prompt-analyzer) — health 72, security unrated, zh
+- prompt-analyzer (huangserva/skill-prompt-generator/.claude/skills/prompt-analyzer) — health 66, security pass, zh
   提示词分析与洞察 - 查看Prompt详情、对比差异、推荐相似提示词、元素库统计
   https://github.com/huangserva/skill-prompt-generator/tree/main/.claude/skills/prompt-analyzer
-- prompt-analyzer (huangserva/skill-prompt-generator/.codex/skills/prompt-analyzer) — health 72, security unrated, zh
+- prompt-analyzer (huangserva/skill-prompt-generator/.codex/skills/prompt-analyzer) — health 66, security pass, zh
   提示词分析与洞察 - 查看Prompt详情、对比差异、推荐相似提示词、元素库统计
   https://github.com/huangserva/skill-prompt-generator/tree/main/.codex/skills/prompt-analyzer
-- offensive-vuln-classes (SnailSploit/Claude-Red/Skills/fuzzing/offensive-vuln-classes) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-vuln-classes
-- offensive-toctou (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-toctou) — health 72, security unrated, en
-  Time-of-Check / Time-of-Use (TOCTOU) race condition exploitation methodology across binary, kernel, filesystem, web, and container layers. Covers symbolic-link races (open/access/stat split), file-descriptor races, fopen/realpath traversal races, /proc and procfs races, FUSE-backed slow-fs races to widen the window, ptrace and signal races, kernel double-fetch / userspace pointer races, container/runc/symlink escape primitives, kubernetes admission/authz TOCTOU, web auth-vs-authz TOCTOU, JWT-claim TOCTOU at gateway vs service, payment/idempotency races, and modern race-amplification techniques (single-packet attack, slow loris, FUSE pause, cgroup freeze, scheduler shaping). Use when you've identified a 'check then act' pattern in code, when fuzzing for race conditions, or when exploiting concurrency bugs in privileged binaries / kernel / orchestrators.
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-toctou
-- offensive-oauth (SnailSploit/Claude-Red/Skills/auth/offensive-oauth) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/auth/offensive-oauth
-- offensive-mitigations (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-mitigations) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-mitigations
-- offensive-jwt (SnailSploit/Claude-Red/Skills/auth/offensive-jwt) — health 72, security unrated, en
-  JWT attack methodology for penetration testers. Covers algorithm confusion (alg:none, RS256→HS256), weak HMAC secret brute force, kid parameter injection (SQLi, path traversal), jku/x5u/jwk header injection, JWKS cache poisoning, JWS/JWE confusion, timing attacks, and mobile JWT storage extraction. Use when testing JWT-based authentication, hunting auth bypass via token manipulation, or evaluating JWT implementation security in web or mobile apps.
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/auth/offensive-jwt
-- offensive-fuzzing-course (SnailSploit/Claude-Red/Skills/fuzzing/offensive-fuzzing-course) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-fuzzing-course
-- offensive-fuzzing (SnailSploit/Claude-Red/Skills/fuzzing/offensive-fuzzing) — health 72, security unrated, en
-  Practical offensive fuzzing methodology covering target identification, fuzzer selection (AFL++, libFuzzer, Honggfuzz, Boofuzz, syzkaller), harness writing, corpus curation, mutation strategies, coverage measurement, and crash triage. Use when setting up or running fuzz campaigns against any target: file parsers, network protocols, kernel drivers, EDR engines, embedded firmware, or language runtimes.
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-fuzzing
-- offensive-exploit-development (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-exploit-development) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-exploit-development
-- offensive-exploit-dev-course (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-exploit-dev-course) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-exploit-dev-course
-- offensive-crash-analysis (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-crash-analysis) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-crash-analysis
-- offensive-cloud (SnailSploit/Claude-Red/Skills/cloud/offensive-cloud) — health 72, security unrated, en [frontmatter:invalid]
-  Cloud security attack methodology covering AWS, Azure, and GCP. Includes credential harvesting (IMDS, ~/.aws, env vars, leaked CI secrets, instance roles), enumeration with cloud-specific tools (pacu, ScoutSuite, Prowler, ROADtools, gcp_enum), privilege escalation paths (IAM PassRole, AssumeRole chains, Lambda/Functions privilege flips, Azure Owner-on-self, GCP serviceAccountTokenCreator), persistence techniques (IAM user/key creation, AAD app registration, GCP svc account key creation, EventBridge/Logic Apps backdoors), data exfiltration (S3/Blob/GCS, snapshot share, RDS/CosmosDB/Cloud SQL exfil), cloud-native lateral movement (cross-account assume, Azure AD multi-tenant, GCP project hierarchy), serverless attacks (Lambda env vars, layer hijack, Step Functions), Kubernetes-on-cloud (EKS/AKS/GKE-specific paths to node and AWS metadata), and CSPM evasion (CloudTrail blind spots, GuardDuty mute, Sentinel rule shaping). Use when the engagement scope is cloud accounts, when you've stolen cloud credentials, or when assessing cloud posture.
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/cloud/offensive-cloud
-- offensive-bug-identification (SnailSploit/Claude-Red/Skills/fuzzing/offensive-bug-identification) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-bug-identification
-- offensive-basic-exploitation (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-basic-exploitation) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-basic-exploitation
-- offensive-ai-security (SnailSploit/Claude-Red/Skills/ai/offensive-ai-security) — health 72, security unrated, en [frontmatter:invalid]
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/ai/offensive-ai-security
-- offensive-active-directory (SnailSploit/Claude-Red/Skills/active-directory/offensive-active-directory) — health 72, security unrated, en
-  Active Directory attack methodology for internal network red team engagements. Covers reconnaissance (BloodHound, PowerView, ADExplorer), credential abuse (Kerberoasting, ASREProasting, NTLM relay, LLMNR/NBT-NS poisoning), privilege escalation (ACL abuse, GPO abuse, unconstrained/constrained delegation), lateral movement (Pass-the-Hash, Pass-the-Ticket, Overpass-the-Hash, WMI/WinRM/PsExec), persistence (Golden/Silver/Diamond Tickets, DCSync, DCShadow, AdminSDHolder, Skeleton Key), forest trust attacks, ADCS abuse (ESC1-ESC15), and modern MDI/Defender for Identity evasion. Use when assessing on-prem AD, hybrid AD/Entra ID environments, or ADCS deployments.
-  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/active-directory/offensive-active-directory
-- intelligent-prompt-generator (huangserva/skill-prompt-generator/.claude/skills/intelligent-prompt-generator) — health 72, security unrated, zh
+- intelligent-prompt-generator (huangserva/skill-prompt-generator/.claude/skills/intelligent-prompt-generator) — health 66, security pass, zh
   智能提示词生成器 v2.0 - 支持人像/跨domain/设计三种模式，语义理解、常识推理、一致性检查
   https://github.com/huangserva/skill-prompt-generator/tree/main/.claude/skills/intelligent-prompt-generator
-- intelligent-prompt-generator (huangserva/skill-prompt-generator/.codex/skills/intelligent-prompt-generator) — health 72, security unrated, zh
+- intelligent-prompt-generator (huangserva/skill-prompt-generator/.codex/skills/intelligent-prompt-generator) — health 66, security pass, zh
   智能提示词生成器 v2.0 - 支持人像/跨domain/设计三种模式，语义理解、常识推理、一致性检查
   https://github.com/huangserva/skill-prompt-generator/tree/main/.codex/skills/intelligent-prompt-generator
-- awesome-claude-skills (travisvn/awesome-claude-skills) — health 69, security unrated, en
+- obsidian-markdown (kepano/obsidian-skills/skills/obsidian-markdown) — health 65, security pass, en
+  Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.
+  https://github.com/kepano/obsidian-skills/tree/main/skills/obsidian-markdown
+- obsidian-cli (kepano/obsidian-skills/skills/obsidian-cli) — health 65, security pass, en
+  Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.
+  https://github.com/kepano/obsidian-skills/tree/main/skills/obsidian-cli
+- obsidian-bases (kepano/obsidian-skills/skills/obsidian-bases) — health 65, security pass, en
+  Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
+  https://github.com/kepano/obsidian-skills/tree/main/skills/obsidian-bases
+- json-canvas (kepano/obsidian-skills/skills/json-canvas) — health 65, security pass, en
+  Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.
+  https://github.com/kepano/obsidian-skills/tree/main/skills/json-canvas
+- defuddle (kepano/obsidian-skills/skills/defuddle) — health 65, security warn, en
+  Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.
+  https://github.com/kepano/obsidian-skills/tree/main/skills/defuddle
+- offensive-vuln-classes (SnailSploit/Claude-Red/Skills/fuzzing/offensive-vuln-classes) — health 63, security pass, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-vuln-classes
+- offensive-toctou (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-toctou) — health 63, security pass, en
+  Time-of-Check / Time-of-Use (TOCTOU) race condition exploitation methodology across binary, kernel, filesystem, web, and container layers. Covers symbolic-link races (open/access/stat split), file-descriptor races, fopen/realpath traversal races, /proc and procfs races, FUSE-backed slow-fs races to widen the window, ptrace and signal races, kernel double-fetch / userspace pointer races, container/runc/symlink escape primitives, kubernetes admission/authz TOCTOU, web auth-vs-authz TOCTOU, JWT-claim TOCTOU at gateway vs service, payment/idempotency races, and modern race-amplification techniques (single-packet attack, slow loris, FUSE pause, cgroup freeze, scheduler shaping). Use when you've identified a 'check then act' pattern in code, when fuzzing for race conditions, or when exploiting concurrency bugs in privileged binaries / kernel / orchestrators.
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-toctou
+- offensive-oauth (SnailSploit/Claude-Red/Skills/auth/offensive-oauth) — health 63, security pass, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/auth/offensive-oauth
+- offensive-mitigations (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-mitigations) — health 63, security pass, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-mitigations
+- offensive-jwt (SnailSploit/Claude-Red/Skills/auth/offensive-jwt) — health 63, security warn, en
+  JWT attack methodology for penetration testers. Covers algorithm confusion (alg:none, RS256→HS256), weak HMAC secret brute force, kid parameter injection (SQLi, path traversal), jku/x5u/jwk header injection, JWKS cache poisoning, JWS/JWE confusion, timing attacks, and mobile JWT storage extraction. Use when testing JWT-based authentication, hunting auth bypass via token manipulation, or evaluating JWT implementation security in web or mobile apps.
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/auth/offensive-jwt
+- offensive-fuzzing-course (SnailSploit/Claude-Red/Skills/fuzzing/offensive-fuzzing-course) — health 63, security fail, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-fuzzing-course
+- offensive-fuzzing (SnailSploit/Claude-Red/Skills/fuzzing/offensive-fuzzing) — health 63, security pass, en
+  Practical offensive fuzzing methodology covering target identification, fuzzer selection (AFL++, libFuzzer, Honggfuzz, Boofuzz, syzkaller), harness writing, corpus curation, mutation strategies, coverage measurement, and crash triage. Use when setting up or running fuzz campaigns against any target: file parsers, network protocols, kernel drivers, EDR engines, embedded firmware, or language runtimes.
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-fuzzing
+- offensive-exploit-development (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-exploit-development) — health 63, security warn, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-exploit-development
+- offensive-exploit-dev-course (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-exploit-dev-course) — health 63, security fail, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-exploit-dev-course
+- offensive-crash-analysis (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-crash-analysis) — health 63, security warn, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-crash-analysis
+- offensive-cloud (SnailSploit/Claude-Red/Skills/cloud/offensive-cloud) — health 63, security fail, en [frontmatter:invalid]
+  Cloud security attack methodology covering AWS, Azure, and GCP. Includes credential harvesting (IMDS, ~/.aws, env vars, leaked CI secrets, instance roles), enumeration with cloud-specific tools (pacu, ScoutSuite, Prowler, ROADtools, gcp_enum), privilege escalation paths (IAM PassRole, AssumeRole chains, Lambda/Functions privilege flips, Azure Owner-on-self, GCP serviceAccountTokenCreator), persistence techniques (IAM user/key creation, AAD app registration, GCP svc account key creation, EventBridge/Logic Apps backdoors), data exfiltration (S3/Blob/GCS, snapshot share, RDS/CosmosDB/Cloud SQL exfil), cloud-native lateral movement (cross-account assume, Azure AD multi-tenant, GCP project hierarchy), serverless attacks (Lambda env vars, layer hijack, Step Functions), Kubernetes-on-cloud (EKS/AKS/GKE-specific paths to node and AWS metadata), and CSPM evasion (CloudTrail blind spots, GuardDuty mute, Sentinel rule shaping). Use when the engagement scope is cloud accounts, when you've stolen cloud credentials, or when assessing cloud posture.
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/cloud/offensive-cloud
+- offensive-bug-identification (SnailSploit/Claude-Red/Skills/fuzzing/offensive-bug-identification) — health 63, security warn, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/fuzzing/offensive-bug-identification
+- offensive-basic-exploitation (SnailSploit/Claude-Red/Skills/exploit-dev/offensive-basic-exploitation) — health 63, security warn, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/exploit-dev/offensive-basic-exploitation
+- offensive-ai-security (SnailSploit/Claude-Red/Skills/ai/offensive-ai-security) — health 63, security warn, en [frontmatter:invalid]
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/ai/offensive-ai-security
+- offensive-active-directory (SnailSploit/Claude-Red/Skills/active-directory/offensive-active-directory) — health 63, security pass, en
+  Active Directory attack methodology for internal network red team engagements. Covers reconnaissance (BloodHound, PowerView, ADExplorer), credential abuse (Kerberoasting, ASREProasting, NTLM relay, LLMNR/NBT-NS poisoning), privilege escalation (ACL abuse, GPO abuse, unconstrained/constrained delegation), lateral movement (Pass-the-Hash, Pass-the-Ticket, Overpass-the-Hash, WMI/WinRM/PsExec), persistence (Golden/Silver/Diamond Tickets, DCSync, DCShadow, AdminSDHolder, Skeleton Key), forest trust attacks, ADCS abuse (ESC1-ESC15), and modern MDI/Defender for Identity evasion. Use when assessing on-prem AD, hybrid AD/Entra ID environments, or ADCS deployments.
+  https://github.com/SnailSploit/Claude-Red/tree/main/Skills/active-directory/offensive-active-directory
+- awesome-claude-skills (travisvn/awesome-claude-skills) — health 55, security unrated, en
   A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code
   https://github.com/travisvn/awesome-claude-skills
-- karpathy-guidelines (forrestchang/andrej-karpathy-skills/skills/karpathy-guidelines) — health 66, security unrated, en
+- karpathy-guidelines (forrestchang/andrej-karpathy-skills/skills/karpathy-guidelines) — health 54, security pass, en
   Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
   https://github.com/forrestchang/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines
-- webgpu-threejs-tsl (dgreenheck/webgpu-claude-skill/skills/webgpu-threejs-tsl) — health 63, security unrated, en
-  Comprehensive guide for developing WebGPU-enabled Three.js applications using TSL (Three.js Shading Language). Covers WebGPU renderer setup, TSL syntax and node materials, compute shaders, post-processing effects, and WGSL integration. Use this skill when working with Three.js WebGPU, TSL shaders, node materials, or GPU compute in Three.js.
-  https://github.com/dgreenheck/webgpu-claude-skill/tree/main/skills/webgpu-threejs-tsl
-- swiftui-ui-patterns (Dimillian/Skills/swiftui-ui-patterns) — health 60, security unrated, en
-  Best practices and example-driven guidance for building SwiftUI views and components, including navigation hierarchies, custom view modifiers, and responsive layouts with stacks and grids. Use when creating or refactoring SwiftUI UI, designing tab architecture with TabView, composing screens with VStack/HStack, managing @State or @Binding, building declarative iOS interfaces, or needing component-specific patterns and examples.
-  https://github.com/Dimillian/Skills/tree/main/swiftui-ui-patterns
-- swiftui-performance-audit (Dimillian/Skills/swiftui-performance-audit) — health 60, security unrated, en
-  Audit and improve SwiftUI runtime performance from code review and architecture. Use for requests to diagnose slow rendering, janky scrolling, high CPU/memory usage, excessive view updates, or layout thrash in SwiftUI apps, and to provide guidance for user-run Instruments profiling when code review alone is insufficient.
-  https://github.com/Dimillian/Skills/tree/main/swiftui-performance-audit
-- swiftui-liquid-glass (Dimillian/Skills/swiftui-liquid-glass) — health 60, security unrated, en
-  Implement, review, or improve SwiftUI features using the iOS 26+ Liquid Glass API. Use when asked to adopt Liquid Glass in new SwiftUI UI, refactor an existing feature to Liquid Glass, or review Liquid Glass usage for correctness, performance, and design alignment.
-  https://github.com/Dimillian/Skills/tree/main/swiftui-liquid-glass
-- swift-concurrency-expert (Dimillian/Skills/swift-concurrency-expert) — health 60, security unrated, en
-  Swift Concurrency review and remediation for Swift 6.2+. Use when asked to review Swift Concurrency usage, improve concurrency compliance, or fix Swift concurrency compiler errors in a feature or file. Concrete actions include adding Sendable conformance, applying @MainActor annotations, resolving actor isolation warnings, fixing data race diagnostics, and migrating completion handlers to async/await.
-  https://github.com/Dimillian/Skills/tree/main/swift-concurrency-expert
-- review-swarm (Dimillian/Skills/review-swarm) — health 60, security unrated, en
-  Parallel read-only multi-agent review of a current git diff or explicit file scope to find behavioral regressions, security or privacy risks, performance or reliability issues, and contract or test coverage gaps. Use when the user asks for a review swarm, parallel review, diff review, regression review, security review, or wants high-signal issues plus a prioritized fix path without editing files.
-  https://github.com/Dimillian/Skills/tree/main/review-swarm
-- review-and-simplify-changes (Dimillian/Skills/review-and-simplify-changes) — health 60, security unrated, en
-  Review a git diff or explicit file scope for reuse, code quality, efficiency, clarity, and standards issues, then optionally apply safe Codex-driven fixes. Use when the user asks to \"simplify code\", \"review changed code\", \"check for code reuse\", \"review code quality\", \"review efficiency\", \"simplify changes\", \"clean up code\", \"refactor changes\", or \"run simplify\".
-  https://github.com/Dimillian/Skills/tree/main/review-and-simplify-changes
-- react-component-performance (Dimillian/Skills/react-component-performance) — health 60, security unrated, en
-  Analyze and optimize React component performance issues (slow renders, re-render thrash, laggy lists, expensive computations). Use when asked to profile or improve a React component, reduce re-renders, or speed up UI updates in React apps.
-  https://github.com/Dimillian/Skills/tree/main/react-component-performance
-- project-skill-audit (Dimillian/Skills/project-skill-audit) — health 60, security unrated, en
-  Analyze a project's past Codex sessions, memory files, and existing local skills to recommend the highest-value skills to create or update. Use when a user asks what skills a project needs, wants skill ideas grounded in real project history, wants an audit of current project-local skills, or wants recommendations for updating stale or incomplete skills instead of creating duplicates.
-  https://github.com/Dimillian/Skills/tree/main/project-skill-audit
-- orchestrate-batch-refactor (Dimillian/Skills/orchestrate-batch-refactor) — health 60, security unrated, en
-  Plan and execute large refactor or rewrite efforts efficiently with parallel multi-agent analysis and implementation. Use when a user asks to refactor many files, split workstreams, analyze a target code area, and coordinate sub-agents with clear ownership and dependency-aware execution.
-  https://github.com/Dimillian/Skills/tree/main/orchestrate-batch-refactor
-- macos-spm-app-packaging (Dimillian/Skills/macos-spm-app-packaging) — health 60, security unrated, en
-  Scaffold, build, and package SwiftPM-based macOS apps without an Xcode project. Use when you need a from-scratch macOS app layout, SwiftPM targets/resources, a custom .app bundle assembly script, or signing/notarization/appcast steps outside Xcode.
-  https://github.com/Dimillian/Skills/tree/main/macos-spm-app-packaging
-- macos-menubar-tuist-app (Dimillian/Skills/macos-menubar-tuist-app) — health 60, security unrated, en
-  Build, refactor, or review macOS menubar apps that use Tuist and SwiftUI. Use when creating or maintaining LSUIElement menubar utilities, defining Tuist targets/manifests, implementing model-client-store-view architecture, adding script-based launch flows, or validating reliable local build/run behavior without Xcode-first workflows.
-  https://github.com/Dimillian/Skills/tree/main/macos-menubar-tuist-app
-- ios-debugger-agent (Dimillian/Skills/ios-debugger-agent) — health 60, security unrated, en
-  Use XcodeBuildMCP to build, run, launch, and debug the current iOS project on a booted simulator. Trigger when asked to run an iOS app, interact with the simulator UI, inspect on-screen state, capture logs/console output, or diagnose runtime behavior using XcodeBuildMCP tools.
-  https://github.com/Dimillian/Skills/tree/main/ios-debugger-agent
-- github (Dimillian/Skills/github) — health 60, security unrated, en
-  Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries. Use when the user asks about GitHub issues, pull requests, workflows, or wants to interact with GitHub repositories from the command line — including tasks like check CI status, create PR, list issues, or query the GitHub API.
-  https://github.com/Dimillian/Skills/tree/main/github
-- bug-hunt-swarm (Dimillian/Skills/bug-hunt-swarm) — health 60, security unrated, en
-  Parallel read-only multi-agent root-cause investigation for bugs, regressions, crashes, flaky behavior, or unexplained failures. Use when the user asks to investigate a bug, find the root cause, trace a regression, understand why something broke, or wants a ranked diagnosis with the fastest proof path without making code edits.
-  https://github.com/Dimillian/Skills/tree/main/bug-hunt-swarm
-- app-store-changelog (Dimillian/Skills/app-store-changelog) — health 60, security unrated, en
-  Create user-facing App Store release notes by collecting and summarizing all user-impacting changes since the last git tag (or a specified ref). Use when asked to generate a comprehensive release changelog, App Store "What's New" text, or release notes based on git history or tags.
-  https://github.com/Dimillian/Skills/tree/main/app-store-changelog
-- claude-skills (simonw/claude-skills) — health 28, security unrated, en
+- claude-skills (simonw/claude-skills) — health 49, security unrated, en
   The contents of /mnt/skills in Claude's code interpreter environment
   https://github.com/simonw/claude-skills
+- webgpu-threejs-tsl (dgreenheck/webgpu-claude-skill/skills/webgpu-threejs-tsl) — health 44, security pass, en
+  Comprehensive guide for developing WebGPU-enabled Three.js applications using TSL (Three.js Shading Language). Covers WebGPU renderer setup, TSL syntax and node materials, compute shaders, post-processing effects, and WGSL integration. Use this skill when working with Three.js WebGPU, TSL shaders, node materials, or GPU compute in Three.js.
+  https://github.com/dgreenheck/webgpu-claude-skill/tree/main/skills/webgpu-threejs-tsl
+- swiftui-ui-patterns (Dimillian/Skills/swiftui-ui-patterns) — health 37, security pass, en
+  Best practices and example-driven guidance for building SwiftUI views and components, including navigation hierarchies, custom view modifiers, and responsive layouts with stacks and grids. Use when creating or refactoring SwiftUI UI, designing tab architecture with TabView, composing screens with VStack/HStack, managing @State or @Binding, building declarative iOS interfaces, or needing component-specific patterns and examples.
+  https://github.com/Dimillian/Skills/tree/main/swiftui-ui-patterns
+- swiftui-performance-audit (Dimillian/Skills/swiftui-performance-audit) — health 37, security pass, en
+  Audit and improve SwiftUI runtime performance from code review and architecture. Use for requests to diagnose slow rendering, janky scrolling, high CPU/memory usage, excessive view updates, or layout thrash in SwiftUI apps, and to provide guidance for user-run Instruments profiling when code review alone is insufficient.
+  https://github.com/Dimillian/Skills/tree/main/swiftui-performance-audit
+- swiftui-liquid-glass (Dimillian/Skills/swiftui-liquid-glass) — health 37, security pass, en
+  Implement, review, or improve SwiftUI features using the iOS 26+ Liquid Glass API. Use when asked to adopt Liquid Glass in new SwiftUI UI, refactor an existing feature to Liquid Glass, or review Liquid Glass usage for correctness, performance, and design alignment.
+  https://github.com/Dimillian/Skills/tree/main/swiftui-liquid-glass
+- swift-concurrency-expert (Dimillian/Skills/swift-concurrency-expert) — health 37, security pass, en
+  Swift Concurrency review and remediation for Swift 6.2+. Use when asked to review Swift Concurrency usage, improve concurrency compliance, or fix Swift concurrency compiler errors in a feature or file. Concrete actions include adding Sendable conformance, applying @MainActor annotations, resolving actor isolation warnings, fixing data race diagnostics, and migrating completion handlers to async/await.
+  https://github.com/Dimillian/Skills/tree/main/swift-concurrency-expert
+- review-swarm (Dimillian/Skills/review-swarm) — health 37, security pass, en
+  Parallel read-only multi-agent review of a current git diff or explicit file scope to find behavioral regressions, security or privacy risks, performance or reliability issues, and contract or test coverage gaps. Use when the user asks for a review swarm, parallel review, diff review, regression review, security review, or wants high-signal issues plus a prioritized fix path without editing files.
+  https://github.com/Dimillian/Skills/tree/main/review-swarm
+- review-and-simplify-changes (Dimillian/Skills/review-and-simplify-changes) — health 37, security pass, en
+  Review a git diff or explicit file scope for reuse, code quality, efficiency, clarity, and standards issues, then optionally apply safe Codex-driven fixes. Use when the user asks to \"simplify code\", \"review changed code\", \"check for code reuse\", \"review code quality\", \"review efficiency\", \"simplify changes\", \"clean up code\", \"refactor changes\", or \"run simplify\".
+  https://github.com/Dimillian/Skills/tree/main/review-and-simplify-changes
+- react-component-performance (Dimillian/Skills/react-component-performance) — health 37, security pass, en
+  Analyze and optimize React component performance issues (slow renders, re-render thrash, laggy lists, expensive computations). Use when asked to profile or improve a React component, reduce re-renders, or speed up UI updates in React apps.
+  https://github.com/Dimillian/Skills/tree/main/react-component-performance
+- project-skill-audit (Dimillian/Skills/project-skill-audit) — health 37, security pass, en
+  Analyze a project's past Codex sessions, memory files, and existing local skills to recommend the highest-value skills to create or update. Use when a user asks what skills a project needs, wants skill ideas grounded in real project history, wants an audit of current project-local skills, or wants recommendations for updating stale or incomplete skills instead of creating duplicates.
+  https://github.com/Dimillian/Skills/tree/main/project-skill-audit
+- orchestrate-batch-refactor (Dimillian/Skills/orchestrate-batch-refactor) — health 37, security pass, en
+  Plan and execute large refactor or rewrite efforts efficiently with parallel multi-agent analysis and implementation. Use when a user asks to refactor many files, split workstreams, analyze a target code area, and coordinate sub-agents with clear ownership and dependency-aware execution.
+  https://github.com/Dimillian/Skills/tree/main/orchestrate-batch-refactor
+- macos-spm-app-packaging (Dimillian/Skills/macos-spm-app-packaging) — health 37, security pass, en
+  Scaffold, build, and package SwiftPM-based macOS apps without an Xcode project. Use when you need a from-scratch macOS app layout, SwiftPM targets/resources, a custom .app bundle assembly script, or signing/notarization/appcast steps outside Xcode.
+  https://github.com/Dimillian/Skills/tree/main/macos-spm-app-packaging
+- macos-menubar-tuist-app (Dimillian/Skills/macos-menubar-tuist-app) — health 37, security warn, en
+  Build, refactor, or review macOS menubar apps that use Tuist and SwiftUI. Use when creating or maintaining LSUIElement menubar utilities, defining Tuist targets/manifests, implementing model-client-store-view architecture, adding script-based launch flows, or validating reliable local build/run behavior without Xcode-first workflows.
+  https://github.com/Dimillian/Skills/tree/main/macos-menubar-tuist-app
+- ios-debugger-agent (Dimillian/Skills/ios-debugger-agent) — health 37, security pass, en
+  Use XcodeBuildMCP to build, run, launch, and debug the current iOS project on a booted simulator. Trigger when asked to run an iOS app, interact with the simulator UI, inspect on-screen state, capture logs/console output, or diagnose runtime behavior using XcodeBuildMCP tools.
+  https://github.com/Dimillian/Skills/tree/main/ios-debugger-agent
+- github (Dimillian/Skills/github) — health 37, security pass, en
+  Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries. Use when the user asks about GitHub issues, pull requests, workflows, or wants to interact with GitHub repositories from the command line — including tasks like check CI status, create PR, list issues, or query the GitHub API.
+  https://github.com/Dimillian/Skills/tree/main/github
+- bug-hunt-swarm (Dimillian/Skills/bug-hunt-swarm) — health 37, security pass, en
+  Parallel read-only multi-agent root-cause investigation for bugs, regressions, crashes, flaky behavior, or unexplained failures. Use when the user asks to investigate a bug, find the root cause, trace a regression, understand why something broke, or wants a ranked diagnosis with the fastest proof path without making code edits.
+  https://github.com/Dimillian/Skills/tree/main/bug-hunt-swarm
+- app-store-changelog (Dimillian/Skills/app-store-changelog) — health 37, security pass, en
+  Create user-facing App Store release notes by collecting and summarizing all user-impacting changes since the last git tag (or a specified ref). Use when asked to generate a comprehensive release changelog, App Store "What's New" text, or release notes based on git history or tags.
+  https://github.com/Dimillian/Skills/tree/main/app-store-changelog
