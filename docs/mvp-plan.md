@@ -9,7 +9,8 @@
 - [x] 私有仓 + monorepo 目录骨架
 - [x] 产品定义 v0.1（分发=单skill+静态index，责任边界）
 - [x] `registry/schema.md` + `registry/sources.toml`（首批种子源）
-- [x] `processing/build_index.py`：sources → GitHub API → health/zh → `index.json` + `llm.txt`
+- [x] `processing/build_index.py`：sources → GitHub API → fail-closed `base-index.json`
+- [x] digest-bound enrichment cache + schema validator + deterministic public-index merge
 - [x] 首版真实 `registry/index.json` + `site/public/llm.txt`（种子源实跑）
 - [x] `skills/awesomeskills/`：薄客户端 skill
 - [x] `site/index.html`：极简查阅器（fetch index.json）
@@ -23,6 +24,9 @@
 - [ ] security 从 `unrated` → 真实静态扫描（prompt-injection / 数据外泄启发式）
 - [ ] health 公式用真实样本回归校准
 - [ ] 扩充种子源，收录请求入口上线
+- [x] 收录处理规则：提交仅作公开仓指针，信任信号全由 pipeline 计算；MVP 人工闸门 + 只读校验脚本
+- [x] 模型/Agent enrichment 从核心可信分和 CI 必需路径解耦
+- [ ] GitHub Action：校验 submission issue，半自动创建仅新增 source 指针的草稿 PR
 
 ### M3+ — 形态升级（愿意托管 server 时）
 - [ ] remote MCP（`skills.search`/`skills.get`），index.json 作数据源

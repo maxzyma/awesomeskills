@@ -118,9 +118,12 @@ grounding = 我们对每个 skill 的**多层评估**（站内、非外链源仓
 
 MVP 做：
 1. `registry/sources.toml`：**首批几十个高信号种子源**（已抓取的 trending skill 仓 + 调研确认的头部仓）。
-2. `processing/build_index.py`：读 sources → 调 GitHub API 取真实活跃度 → 算 health / 检测 zh → 生成 `index.json` + `llm.txt`。
+2. `processing/build_index.py`：读 sources → 调 GitHub API → 生成确定性的 `base-index.json`（health / security / frontmatter / digest / repo grade）。可选 Agent enrichment 按 digest 缓存，由 `merge_index.py` 合并为 `index.json` + `llm.txt`，不参与可信分。
 3. `skills/awesomeskills/`：薄客户端 skill（读静态 index，筛选，指导安装，digest 校验）。
 4. `site/`：极简 Human 查阅器（静态，fetch 同一 index.json）。
+5. 收录请求采用“提交=公开仓指针，信任=流水线计算”：MVP 由 maintainer 人工闸门，后续用
+   GitHub Action 校验 issue 并半自动创建只改 source 指针的草稿 PR。详见
+   [`submission-workflow.md`](submission-workflow.md)。
 
 MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建、包管理 lockfile、账号体系、执行隔离（见责任边界）。
 

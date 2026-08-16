@@ -46,6 +46,8 @@ don't maintain a per-agent directory table (it goes stale; the authoritative sou
 Know a good public skill we're missing?
 **[Open a submission request](https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml)** —
 we review for real activity, security, and language coverage before indexing.
+The request is only a public repository pointer; all trust signals are recomputed by our pipeline.
+Maintainer workflow: [`docs/submission-workflow.md`](docs/submission-workflow.md).
 
 ## Layout
 
@@ -61,3 +63,16 @@ we review for real activity, security, and language coverage before indexing.
 
 > Status: **early**. Distribution is a finder skill + static index (no server); MCP is a
 > possible future. See [`docs/product-definition.md`](docs/product-definition.md).
+
+## Build artifacts
+
+The publish path is deliberately split so model availability cannot block trust assessment:
+
+```bash
+GITHUB_TOKEN=... python3 processing/build_index.py
+python3 processing/detect_enrichment_changes.py
+python3 processing/merge_index.py
+```
+
+`base-index.json` and repo grades are deterministic. Optional agent summaries live in a
+digest-bound cache and never affect ranking. See [`docs/enrichment-policy.md`](docs/enrichment-policy.md).

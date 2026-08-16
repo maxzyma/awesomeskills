@@ -7,9 +7,10 @@ Offline batch job — NO server. For each curated source repo it:
     (name/description/validation), so the index granularity is the *skill*, not the repo
   - repos with no SKILL.md (awesome-lists, hubs) fall back to a single repo-level entry
 
-Emits two static artifacts:
-  - registry/index.json          machine-readable skill index (see docs §6)
-  - site/public/{index.json,llm.txt}   deployable copies
+Emits one deterministic artifact:
+  - registry/base-index.json     health / security / frontmatter / content digests
+
+Run merge_index.py afterwards to combine optional agent enrichment into the public index.
 
 Standard library only. Honors HTTPS_PROXY. Optional GITHUB_TOKEN raises rate limit.
 """
@@ -17,6 +18,7 @@ Standard library only. Honors HTTPS_PROXY. Optional GITHUB_TOKEN raises rate lim
 from __future__ import annotations
 
 import http.client
+import hashlib
 import json
 import os
 import re
@@ -25,6 +27,7 @@ import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -33,15 +36,18 @@ from security_scan import scan_skill_md
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCES = REPO_ROOT / "registry" / "sources.toml"
-INDEX_OUT = REPO_ROOT / "registry" / "index.json"
-LLM_OUT = REPO_ROOT / "site" / "public" / "llm.txt"
+BASE_OUT = REPO_ROOT / "registry" / "base-index.json"
 
 API = "https://api.github.com/repos/"
 RAW = "https://raw.githubusercontent.com/"
-SCHEMA_VERSION = "0.2"  # 0.1 was repo-level; 0.2 is skill-level
+SCHEMA_VERSION = "0.3"  # 0.3 separates deterministic base data from enrichment
 MAX_SKILLS_PER_REPO = 15  # cap per repo; truncation is logged, never silent
 
 _GITHUB_ID = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+
+
+class BuildError(RuntimeError):
+    """A source could not be assessed completely; never publish a partial build."""
 
 
 def is_public_github_id(repo_id: str) -> bool:
@@ -88,7 +94,8 @@ def _get(url: str, token: str | None, accept: str = "application/vnd.github+json
     req.add_header("User-Agent", "awesomeskills-build-index")
     if token and not raw:
         req.add_header("Authorization", f"Bearer {token}")
-    for attempt in range(3):
+    attempts = 5
+    for attempt in range(attempts):
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 data = resp.read().decode("utf-8")
@@ -97,10 +104,10 @@ def _get(url: str, token: str | None, accept: str = "application/vnd.github+json
             print(f"  ! {url}: HTTP {e.code}", file=sys.stderr)
             return None
         except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as e:
-            if attempt == 2:
+            if attempt == attempts - 1:
                 print(f"  ! {url}: {e} (gave up)", file=sys.stderr)
                 return None
-            time.sleep(1.5 * (attempt + 1))
+            time.sleep(min(6.0, 1.5 * (attempt + 1)))
     return None
 
 
@@ -108,13 +115,59 @@ def fetch_repo(repo_id: str, token: str | None) -> dict | None:
     return _get(API + repo_id, token)
 
 
-def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]:
+def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str] | None:
     tree = _get(f"{API}{repo_id}/git/trees/{branch}?recursive=1", token)
     if not tree:
-        return []
-    return sorted(
-        item["path"] for item in tree.get("tree", [])
-        if item.get("type") == "blob" and item.get("path", "").endswith("SKILL.md")
+        return None
+    if not tree.get("truncated"):
+        return sorted(
+            item["path"] for item in tree.get("tree", [])
+            if item.get("type") == "blob" and item.get("path", "").endswith("SKILL.md")
+        )
+
+    # GitHub truncates very large recursive trees. Walk subtrees in path order and stop only
+    # after enough eligible paths are known for the public per-repo cap.
+    print(f"  … {repo_id}: recursive tree truncated; walking subtrees", file=sys.stderr)
+    root = _get(f"{API}{repo_id}/git/trees/{branch}", token)
+    if not root:
+        raise BuildError(f"failed to fetch root Git tree for {repo_id}")
+    found: list[str] = []
+
+    def walk_node(node: dict, prefix: str = "") -> None:
+        for item in sorted(node.get("tree", []), key=lambda row: row.get("path", "")):
+            if len(found) > MAX_SKILLS_PER_REPO:
+                return
+            path = f"{prefix}/{item['path']}" if prefix else item["path"]
+            if item.get("type") == "blob" and path.endswith("SKILL.md") and _eligible_skill_path(path):
+                found.append(path)
+            elif item.get("type") == "tree":
+                walk_sha(item["sha"], path)
+
+    def walk_sha(sha: str, prefix: str) -> None:
+        child = _get(f"{API}{repo_id}/git/trees/{sha}?recursive=1", token)
+        if not child:
+            raise BuildError(f"failed to fetch subtree {prefix} for {repo_id}")
+        if child.get("truncated"):
+            child = _get(f"{API}{repo_id}/git/trees/{sha}", token)
+            if not child:
+                raise BuildError(f"failed to fetch subtree root {prefix} for {repo_id}")
+            walk_node(child, prefix)
+            return
+        for item in sorted(child.get("tree", []), key=lambda row: row.get("path", "")):
+            if len(found) > MAX_SKILLS_PER_REPO:
+                return
+            path = f"{prefix}/{item['path']}"
+            if item.get("type") == "blob" and path.endswith("SKILL.md") and _eligible_skill_path(path):
+                found.append(path)
+
+    walk_node(root)
+    return found
+
+
+def _eligible_skill_path(path: str) -> bool:
+    return not any(
+        segment in ("readme", "template", "example", "examples")
+        for segment in path.lower().split("/")
     )
 
 
@@ -194,9 +247,10 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
     branch = repo.get("default_branch") or "main"
 
     paths = fetch_skill_paths(repo_id, branch, token)
+    if paths is None:
+        raise BuildError(f"failed to fetch Git tree for {repo_id}")
     # skip placeholder/non-skill SKILL.md (e.g. a README/ dir, or template/example dirs)
-    paths = [p for p in paths if not any(seg in ("readme", "template", "example", "examples")
-                                          for seg in p.lower().split("/"))]
+    paths = [path for path in paths if _eligible_skill_path(path)]
     truncated = len(paths) > MAX_SKILLS_PER_REPO
     if truncated:
         print(f"  … {repo_id}: {len(paths)} SKILL.md found, capping at {MAX_SKILLS_PER_REPO}", file=sys.stderr)
@@ -220,15 +274,14 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
     entries: list[dict] = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         texts = list(ex.map(lambda p: fetch_raw(repo_id, branch, p, token), paths))
+    failed_paths = [path for path, text in zip(paths, texts) if text is None]
+    if failed_paths:
+        raise BuildError(f"failed to fetch {len(failed_paths)} SKILL.md file(s) for {repo_id}")
     for path, text in zip(paths, texts):
         skill_dir = _skill_dir(path)
-        if text is None:
-            parsed = {"name": "", "description": "", "frontmatter_valid": False,
-                      "issues": ["failed to fetch SKILL.md"], "body_headings": 0, "body_code_blocks": 0}
-            scan = {"rating": "unrated", "findings": [], "scope": "fetch failed"}
-        else:
-            parsed = parse_skill_md(text)
-            scan = scan_skill_md(text)
+        assert text is not None
+        parsed = parse_skill_md(text)
+        scan = scan_skill_md(text)
         name = parsed["name"] or (skill_dir.split("/")[-1] if skill_dir != "." else repo.get("name") or repo_id)
         entries.append({
             "id": f"{repo_id}/{skill_dir}" if skill_dir != "." else repo_id,
@@ -240,6 +293,8 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
             "kind": "skill",
             "level": "skill",
             "path": path,
+            "source_ref": branch,
+            "content_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
             "trust": {
                 "health": health,  # inherited from repo
                 "health_factors": factors,
@@ -258,39 +313,52 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
     return entries
 
 
-# ---------- artifacts ----------
+# ---------- deterministic repo assessment + artifact ----------
 
-def write_index(entries: list[dict], generated_at: str) -> None:
+
+def build_repo_summaries(entries: list[dict]) -> dict[str, dict]:
+    """Build repo grades from deterministic signals only (never LLM/community output)."""
+    repos: dict[str, dict] = {}
+    for repo_id in sorted({entry["source_repo"] for entry in entries}):
+        rows = [entry for entry in entries if entry["source_repo"] == repo_id]
+        health = rows[0]["trust"]["health"]
+        security = Counter(row["trust"]["security"] for row in rows)
+        frontmatter = [row for row in rows if row.get("frontmatter")]
+        fm_rate = (
+            sum(1 for row in frontmatter if row["frontmatter"]["valid"]) / len(frontmatter)
+            if frontmatter else None
+        )
+        total = sum(security.values()) or 1
+        score = health - security.get("fail", 0) / total * 40 - security.get("warn", 0) / total * 10
+        if fm_rate is not None:
+            score = score * 0.85 + fm_rate * 100 * 0.15
+        score = max(0, min(100, round(score)))
+        grade = "A" if score >= 85 else "B" if score >= 70 else "C" if score >= 55 else "D"
+        repos[repo_id] = {
+            "health": health,
+            "security": dict(security),
+            "frontmatter_pass_rate": round(fm_rate, 2) if fm_rate is not None else None,
+            "skill_count": len(rows),
+            "overall_score": score,
+            "overall_grade": grade,
+            "score_policy": "deterministic-v1",
+        }
+    return repos
+
+
+def write_base(entries: list[dict], generated_at: str) -> None:
     entries.sort(key=lambda e: (e["trust"]["health"], e["name"]), reverse=True)
-    payload = {"schema_version": SCHEMA_VERSION, "generated_at": generated_at, "skills": entries}
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at": generated_at,
+        "repos": build_repo_summaries(entries),
+        "skills": entries,
+    }
     blob = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
-    INDEX_OUT.write_text(blob, encoding="utf-8")
-    print(f"  wrote {INDEX_OUT.relative_to(REPO_ROOT)} ({len(entries)} entries)")
-    site_copy = LLM_OUT.parent / "index.json"
-    site_copy.parent.mkdir(parents=True, exist_ok=True)
-    site_copy.write_text(blob, encoding="utf-8")
-    print(f"  wrote {site_copy.relative_to(REPO_ROOT)}")
-
-
-def write_llm_txt(entries: list[dict], generated_at: str) -> None:
-    lines = [
-        "# awesomeskills — a trust-first index of public agent/Claude skills",
-        f"# Generated {generated_at}. Human + agent readable. Full data: /index.json",
-        "# health = real activity 0-100 (NOT stars) | security rating | zh = Chinese coverage",
-        "# Entries are skill-level (one per SKILL.md); repo-level rows are awesome-lists/hubs.",
-        "",
-    ]
-    for e in entries:
-        t = e["trust"]
-        zh = "zh" if t["zh"] else "en"
-        flag = "" if not e.get("frontmatter") else ("" if e["frontmatter"]["valid"] else " [frontmatter:invalid]")
-        lines.append(f"- {e['name']} ({e['id']}) — health {t['health']}, security {t['security']}, {zh}{flag}")
-        if e["summary"]:
-            lines.append(f"  {e['summary']}")
-        lines.append(f"  {e['source_url']}")
-    LLM_OUT.parent.mkdir(parents=True, exist_ok=True)
-    LLM_OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"  wrote {LLM_OUT.relative_to(REPO_ROOT)}")
+    temporary = BASE_OUT.with_suffix(BASE_OUT.suffix + ".tmp")
+    temporary.write_text(blob, encoding="utf-8")
+    os.replace(temporary, BASE_OUT)
+    print(f"  wrote {BASE_OUT.relative_to(REPO_ROOT)} ({len(entries)} entries)")
 
 
 def main() -> int:
@@ -304,6 +372,7 @@ def main() -> int:
     print(f"building skill-level index from {len(sources)} sources...")
 
     entries: list[dict] = []
+    failures: list[str] = []
     repo_count = skill_level = repo_level = 0
     for src in sources:
         if not is_public_github_id(src["id"]):
@@ -311,9 +380,14 @@ def main() -> int:
             continue
         repo = fetch_repo(src["id"], token)
         if repo is None:
+            failures.append(f"failed to fetch repository metadata for {src['id']}")
             continue
         repo_count += 1
-        got = build_skill_entries(src, repo, now, token)
+        try:
+            got = build_skill_entries(src, repo, now, token)
+        except BuildError as exc:
+            failures.append(str(exc))
+            continue
         entries.extend(got)
         if got and got[0].get("level") == "skill":
             skill_level += len(got)
@@ -322,12 +396,16 @@ def main() -> int:
             repo_level += 1
             print(f"  ok {src['id']}: repo-level (no SKILL.md)")
 
-    if not entries:
-        print("no entries produced — aborting", file=sys.stderr)
+    if failures:
+        print("build incomplete — base index not updated:", file=sys.stderr)
+        for failure in failures:
+            print(f"  - {failure}", file=sys.stderr)
+        return 1
+    if not entries or repo_count != len(sources):
+        print("no complete source set produced — base index not updated", file=sys.stderr)
         return 1
 
-    write_index(entries, generated_at)
-    write_llm_txt(entries, generated_at)
+    write_base(entries, generated_at)
     print(f"done: {len(entries)} entries from {repo_count} repos "
           f"({skill_level} skill-level, {repo_level} repo-level fallbacks)")
     return 0
