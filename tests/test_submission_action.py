@@ -14,11 +14,51 @@ sys.path.insert(0, str(ROOT / "processing"))
 
 from submission_action import (  # noqa: E402
     Assessment, GitHubAPI, assess_submission, ensure_draft_pull, parse_submission, report_body,
-    source_block,
+    report_build_result, source_block,
 )
 
 
 class SubmissionActionTest(unittest.TestCase):
+    def test_build_report_preserves_observed_repository_shape(self):
+        class FakeAPI:
+            def __init__(self):
+                self.comment = ""
+
+            def get(self, path):
+                if path == "repos/example/new-skills":
+                    return {"visibility": "public", "private": False, "default_branch": "main"}
+                if "/git/trees/main" in path:
+                    return {"truncated": False, "tree": [
+                        {"type": "blob", "path": "skills/a/SKILL.md"},
+                    ]}
+                raise AssertionError(path)
+
+            def request(self, method, path, payload=None, allow_404=False):
+                if method == "GET" and "/pulls?" in path:
+                    return [{"html_url": "https://github.com/maxzyma/awesomeskills/pull/1"}]
+                if method == "GET" and "/comments?" in path:
+                    return []
+                if method == "POST" and path.endswith("/comments"):
+                    self.comment = payload["body"]
+                    return {}
+                raise AssertionError((method, path))
+
+        event = {
+            "issue": {"number": 42, "body": """### GitHub repo (owner/repo or URL)
+example/new-skills
+
+### Kind
+skill-collection (many SKILL.md)
+"""},
+            "repository": {
+                "full_name": "maxzyma/awesomeskills", "owner": {"login": "maxzyma"},
+            },
+        }
+        api = FakeAPI()
+        self.assertEqual(report_build_result(api, event, True), 0)
+        self.assertIn("Default branch: `main`", api.comment)
+        self.assertIn("Standard `SKILL.md`: 1", api.comment)
+
     def test_idempotent_github_write_retries_transient_failure(self):
         class Response:
             def __enter__(self):
