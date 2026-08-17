@@ -247,24 +247,33 @@ def ensure_draft_pull(api: GitHubAPI, event: dict, assessment: Assessment) -> st
     )
     branch_path = f"/repos/{repo_path}/git/refs/heads/{urllib.parse.quote(branch, safe='')}"
     existing_ref = api.request("GET", branch_path.replace("refs/", "ref/"), allow_404=True)
-    if existing_ref:
-        api.request("PATCH", branch_path, {"sha": base_ref["object"]["sha"], "force": True})
-    else:
-        api.request("POST", f"/repos/{repo_path}/git/refs", {
-            "ref": f"refs/heads/{branch}", "sha": base_ref["object"]["sha"],
-        })
-
-    quoted_branch = urllib.parse.quote(branch, safe="")
-    contents_path = f"/repos/{repo_path}/contents/registry/sources.toml?ref={quoted_branch}"
+    base_sha = base_ref["object"]["sha"]
+    base_commit = api.request("GET", f"/repos/{repo_path}/git/commits/{base_sha}")
+    quoted_base = urllib.parse.quote(base_branch, safe="")
+    contents_path = f"/repos/{repo_path}/contents/registry/sources.toml?ref={quoted_base}"
     current = api.request("GET", contents_path)
     text = base64.b64decode(current["content"]).decode("utf-8").rstrip()
     text += source_block(assessment, issue_number)
-    api.request("PUT", f"/repos/{repo_path}/contents/registry/sources.toml", {
-        "message": f"chore: propose {assessment.repo_id} from issue #{issue_number}",
-        "content": base64.b64encode((text + "\n").encode()).decode(),
-        "sha": current["sha"],
-        "branch": branch,
+    blob = api.request("POST", f"/repos/{repo_path}/git/blobs", {
+        "content": text + "\n", "encoding": "utf-8",
     })
+    tree = api.request("POST", f"/repos/{repo_path}/git/trees", {
+        "base_tree": base_commit["tree"]["sha"],
+        "tree": [{
+            "path": "registry/sources.toml", "mode": "100644", "type": "blob",
+            "sha": blob["sha"],
+        }],
+    })
+    proposal = api.request("POST", f"/repos/{repo_path}/git/commits", {
+        "message": f"chore: propose {assessment.repo_id} from issue #{issue_number}",
+        "tree": tree["sha"], "parents": [base_sha],
+    })
+    if existing_ref:
+        api.request("PATCH", branch_path, {"sha": proposal["sha"], "force": True})
+    else:
+        api.request("POST", f"/repos/{repo_path}/git/refs", {
+            "ref": f"refs/heads/{branch}", "sha": proposal["sha"],
+        })
 
     pull = find_pull(api, repo_path, owner, branch)
     if not pull:

@@ -155,11 +155,19 @@ skill-collection; run something
                     return {"object": {"sha": "base-sha"}}
                 if "/git/ref/heads/automation" in path:
                     return None
+                if method == "GET" and "/git/commits/base-sha" in path:
+                    return {"tree": {"sha": "base-tree"}}
                 if method == "GET" and "/contents/registry/sources.toml" in path:
                     return {
                         "sha": "file-sha",
                         "content": base64.b64encode(b'schema_version = "0.1"\n').decode(),
                     }
+                if method == "POST" and path.endswith("/git/blobs"):
+                    return {"sha": "blob-sha"}
+                if method == "POST" and path.endswith("/git/trees"):
+                    return {"sha": "tree-sha"}
+                if method == "POST" and path.endswith("/git/commits"):
+                    return {"sha": "proposal-sha"}
                 if method == "GET" and "/pulls?" in path:
                     return []
                 if method == "POST" and path.endswith("/pulls"):
@@ -179,13 +187,13 @@ skill-collection; run something
         api = FakeAPI()
         url = ensure_draft_pull(api, event, assessment)
         self.assertEqual(url, "https://github.com/maxzyma/awesomeskills/pull/1")
-        put = next(call for call in api.calls if call[0] == "PUT")
-        written = base64.b64decode(put[2]["content"]).decode()
+        blob = next(call for call in api.calls if call[0] == "POST" and call[1].endswith("/git/blobs"))
+        written = blob[2]["content"]
         self.assertIn('id   = "example/skills"', written)
         self.assertIn('kind = "skill-collection"', written)
         self.assertNotIn("passed", written)
 
-    def test_rerun_resets_owned_branch_and_reuses_open_pull(self):
+    def test_rerun_moves_owned_branch_once_and_reuses_open_pull(self):
         class FakeAPI:
             def __init__(self):
                 self.calls = []
@@ -196,11 +204,19 @@ skill-collection; run something
                     return {"object": {"sha": "new-base"}}
                 if "/git/ref/heads/automation" in path:
                     return {"object": {"sha": "old-proposal"}}
+                if method == "GET" and "/git/commits/new-base" in path:
+                    return {"tree": {"sha": "base-tree"}}
                 if method == "GET" and "/contents/registry/sources.toml" in path:
                     return {
                         "sha": "file-sha",
                         "content": base64.b64encode(b'schema_version = "0.1"\n').decode(),
                     }
+                if method == "POST" and path.endswith("/git/blobs"):
+                    return {"sha": "blob-sha"}
+                if method == "POST" and path.endswith("/git/trees"):
+                    return {"sha": "tree-sha"}
+                if method == "POST" and path.endswith("/git/commits"):
+                    return {"sha": "new-proposal"}
                 if method == "GET" and "/pulls?" in path:
                     return [{"number": 7, "html_url": "https://github.com/maxzyma/awesomeskills/pull/7"}]
                 return {}
@@ -224,7 +240,7 @@ skill-collection; run something
             call for call in api.calls
             if call[0] == "PATCH" and "/git/refs/heads/automation" in call[1]
         )
-        self.assertEqual(reset[2], {"sha": "new-base", "force": True})
+        self.assertEqual(reset[2], {"sha": "new-proposal", "force": True})
         self.assertFalse(any(call[0] == "POST" and call[1].endswith("/pulls") for call in api.calls))
 
 
