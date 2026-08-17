@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "processing"))
 
 from detect_enrichment_changes import build_manifest
-from build_index import _get, fetch_skill_paths
+from build_index import _get, fetch_raw, fetch_skill_paths
 from enrichment_store import (
     EnrichmentError, apply_candidate, validate_candidate, validate_manifest_binding,
 )
@@ -123,6 +123,16 @@ class EnrichmentPipelineTest(unittest.TestCase):
         ):
             self.assertEqual(_get("https://api.github.com/example", None), {"ok": True})
             sleep.assert_called_once()
+
+    def test_raw_skill_fetch_uses_authenticated_contents_api(self):
+        with patch("build_index._get", return_value="content") as request:
+            self.assertEqual(fetch_raw("o/r", "feature/x", "skills/a b/SKILL.md", "token"), "content")
+        request.assert_called_once_with(
+            "https://api.github.com/repos/o/r/contents/skills/a%20b/SKILL.md?ref=feature%2Fx",
+            "token",
+            accept="application/vnd.github.raw+json",
+            raw=True,
+        )
 
     def test_changed_digest_is_pending_and_old_result_is_stale(self):
         cache = apply_candidate({"entries": {}, "repos": {}}, self.candidate)
