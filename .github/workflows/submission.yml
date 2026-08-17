@@ -1,0 +1,58 @@
+name: Process skill submission
+
+on:
+  issues:
+    types: [opened, edited, reopened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: submission-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-propose:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate issue and maintain draft PR
+        id: submission
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 processing/submission_action.py
+      - name: Build deterministic assessment on the proposal branch
+        if: steps.submission.outputs.status == 'pass'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PROPOSAL_BRANCH: ${{ steps.submission.outputs.branch }}
+        run: |
+          git fetch origin "$PROPOSAL_BRANCH"
+          git checkout --force -B "$PROPOSAL_BRANCH" "origin/$PROPOSAL_BRANCH"
+          python3 processing/build_index.py
+          python3 processing/merge_index.py
+          python3 -m unittest discover -s tests -v
+          python3 -m py_compile processing/*.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add registry/base-index.json registry/index.json site/public/index.json site/public/llm.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: assess submission #${{ github.event.issue.number }}"
+            git push origin "HEAD:$PROPOSAL_BRANCH"
+          fi
+      - name: Report deterministic build success
+        if: success() && steps.submission.outputs.status == 'pass'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 processing/submission_action.py --build-success
+      - name: Report deterministic build failure
+        if: failure() && steps.submission.outputs.status == 'pass'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 processing/submission_action.py --build-failure

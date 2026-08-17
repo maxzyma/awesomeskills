@@ -10,26 +10,29 @@ community grounding；这些信任信号全部由同一条 pipeline 从公开证
 背书。站点排序和展示仍以生成后的信任信号为准，来源作者、star 数或 issue 中的自述都不能绕过
 计算规则。
 
-## MVP：人工闸门
+## 当前流程：自动预检 + 人工合并闸门
 
-维护者按以下顺序处理带 `submission` label 的 issue：
+`.github/workflows/submission.yml` 在带 `submission` label 的 issue 创建、编辑、重新打开或加标时
+自动运行。Action 按以下顺序处理：
 
 1. **规范化指针**：只接受公开 `github.com/owner/repo`；拒绝私有仓、内部地址、下载包和可变的
    第三方镜像，并检查 `sources.toml` 是否已收录。
 2. **确认可评估内容**：查看默认分支是否存在标准命名的 `SKILL.md`。没有时记录真实形态：
    awesome-list / registry 可作为 repo-level 来源；只有 `.skill` 等归档包时，必须明确当前抓取器
    是否支持解包，不能把“包内存在”误报成“Git 树中存在”。
-3. **人工范围闸门**：确认仓库与 agent skill 发现相关、没有明显的冒充或所有权异常，issue 信息足以
-   解释为何值得花 pipeline 成本。这里不人工打可信分。
-4. **添加指针**：仅把 `id`、`kind` 和事实性 `note` 加入 `registry/sources.toml`。不要写 health、
+3. **自动形态结论**：公开、未重复、Git 树完整且形态与所选 kind 一致时标记 `pass`；树截断、
+   skill 类仓缺少标准 `SKILL.md`、只有 `.skill` 包时标记 `needs_review`；私有或重复项标记 `fail`。
+4. **添加指针**：`pass` 时在机器人专属分支仅把规范化后的 `id`、枚举 `kind` 和固定事实性 `note`
+   加入 `registry/sources.toml`。Issue 自由文本不会进入命令或仓库。不要写 health、
    grade、security 或“可信”结论。
 5. **确定性重算**：运行 `build_index.py` 生成 `base-index.json`，确认全部 source 均存在且
    health、security、frontmatter、digest 和 repo grade 完整。任何抓取失败都必须终止构建。
 6. **可选增量 enrichment**：用 `detect_enrichment_changes.py` 生成待处理清单；Agent 结果必须通过
    `validate_enrichment.py` 并与当前 digest 匹配，再由 `merge_index.py` 生成公开 index。enrichment
    缺失或失败不改变可信分，也不阻止确定性 index 发布。
-7. **给出可审计结论**：PR/issue 记录“收录 / 暂缓 / 拒绝”的原因和 pipeline 证据。低分或 warning
-   不应被人工改成 pass；若风险超出展示边界，可以不收录并说明政策依据。
+7. **草稿 PR 与人工闸门**：Action 把指针与确定性生成物提交到草稿 PR，并更新同一条机器人
+   Issue 评论。Maintainer 检查仓库范围、冒充/所有权异常和 pipeline diff 后决定是否合并。
+   Action 永不自动合并；低分或 warning 不应被人工改成 pass。
 
 人工闸门的最低检查可以运行：
 
@@ -39,18 +42,22 @@ GITHUB_TOKEN=... python3 processing/validate_submission.py owner/repo
 
 脚本只做公开性、重复项和标准文件形态检查，不生成信任结论，也不修改仓库。
 
-## 后续：GitHub Action 半自动开 PR
+## 自动化安全边界
 
-后续 Action 可以在 `submission` issue 创建或修改时：
+Action 当前会：
 
 1. 读取并规范化 issue 中的 repo 指针；
 2. 执行与本地相同的只读校验，把结果评论回 issue；
-3. 校验通过后创建一个草稿 PR，且只修改 `sources.toml`；
-4. 在受保护环境中运行完整 pipeline，把生成物与机器计算的信任信号提交到该 PR；
+3. 校验通过后创建一个草稿 PR，人工内容只修改 `sources.toml`；
+4. 在 GitHub runner 中运行无 LLM 的完整确定性 pipeline，把机器生成物和可信信号提交到该 PR；
 5. 要求 maintainer 审核后合并，失败或证据不足时保留 issue，不自动收录。
 
-Action 不应接受 issue 中的信任字段，不应把提交者声明映射为评分，也不应自动合并。凭据只放在
-GitHub Actions secrets/environment 中；来自 fork 或不可信 issue 文本的内容不能进入 shell 命令。
+Action 不接受 issue 中的信任字段，不把提交者声明映射为评分，也不自动合并。它仅使用短期
+`github.token`，不需要 Gemini、Codex 或第三方模型密钥。Issue 和目标仓内容都按不可信数据处理：
+自由文本不进入 shell，仓库脚本不执行，GitHub API 或完整构建失败时 fail closed。
+
+仓库设置必须允许 GitHub Actions 创建 Pull Request；否则预检仍会安全失败并在 workflow 日志中
+留下原因。分支保护和 maintainer review 仍应作为合并条件。
 
 ## 当前格式边界核验（2026-08-12）
 
