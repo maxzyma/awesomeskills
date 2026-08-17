@@ -50,6 +50,23 @@ class EnrichmentPipelineTest(unittest.TestCase):
             "repos": [{"id": "o/r", "community": {"en": {"summary": "evidence"}}}],
         }
 
+    def test_agent_output_schema_is_strict_structured_output_compatible(self):
+        schema = json.loads((ROOT / "registry" / "enrichment.schema.json").read_text())
+
+        def inspect(node):
+            if not isinstance(node, dict):
+                return
+            if node.get("type") == "object":
+                self.assertIs(node.get("additionalProperties"), False)
+                self.assertEqual(set(node.get("required", [])), set(node.get("properties", {})))
+            for value in node.values():
+                if isinstance(value, dict):
+                    inspect(value)
+                elif isinstance(value, list):
+                    for item in value:
+                        inspect(item)
+
+        inspect(schema)
     def test_valid_candidate_becomes_fresh(self):
         validate_candidate(self.candidate, self.base)
         cache = apply_candidate({"entries": {}, "repos": {}}, self.candidate)
