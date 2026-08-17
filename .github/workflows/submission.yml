@@ -29,6 +29,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 processing/submission_action.py
       - name: Build deterministic assessment on the proposal branch
+        id: build
         if: steps.submission.outputs.status == 'pass'
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -48,13 +49,12 @@ jobs:
             git push origin "HEAD:$PROPOSAL_BRANCH"
           fi
       - name: Report deterministic build success
-        if: success() && steps.submission.outputs.status == 'pass'
+        if: steps.submission.outputs.status == 'pass' && steps.build.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GH_TOKEN: ${{ github.token }}
-          PROPOSAL_BRANCH: ${{ steps.submission.outputs.branch }}
         run: |
-          sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$PROPOSAL_BRANCH" --jq .object.sha)"
+          sha="$(git rev-parse HEAD)"
           for attempt in 1 2 3 4 5; do
             gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$sha" \
               -f state=success \
@@ -67,13 +67,12 @@ jobs:
           done
           python3 processing/submission_action.py --build-success
       - name: Report deterministic build failure
-        if: failure() && steps.submission.outputs.status == 'pass'
+        if: steps.submission.outputs.status == 'pass' && steps.build.outcome == 'failure'
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GH_TOKEN: ${{ github.token }}
-          PROPOSAL_BRANCH: ${{ steps.submission.outputs.branch }}
         run: |
-          sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$PROPOSAL_BRANCH" --jq .object.sha)"
+          sha="$(git rev-parse HEAD)"
           for attempt in 1 2 3 4 5; do
             gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$sha" \
               -f state=failure \
