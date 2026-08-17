@@ -179,7 +179,8 @@ class GitHubAPI:
                 "X-GitHub-Api-Version": "2022-11-28",
             },
         )
-        idempotent = method in {"GET", "PUT", "PATCH", "DELETE"}
+        safe_git_post = method == "POST" and path.endswith(("/git/blobs", "/git/trees", "/git/commits"))
+        idempotent = method in {"GET", "PUT", "PATCH", "DELETE"} or safe_git_post
         for attempt in range(5):
             try:
                 with urllib.request.urlopen(request, timeout=30) as response:
@@ -387,7 +388,6 @@ def main() -> int:
             reasons=("automatic processing failed safely; a maintainer should inspect the workflow log",),
         )
         try:
-            close_stale_pull(api, event, branch)
             upsert_issue_comment(api, event, report_body(fallback))
         except (ActionError, KeyError, TypeError, ValueError, urllib.error.URLError):
             pass
