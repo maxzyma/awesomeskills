@@ -32,8 +32,8 @@ body:
   - type: textarea
     id: why
     attributes:
-      label: Why is it trustworthy / worth indexing?
-      description: Real usage, active maintenance, what it does well. Not just "it has stars".
+      label: Why is it worth evaluating?
+      description: Explain its scope and usefulness. This text does not affect trust scores.
     validations:
       required: true
   - type: checkboxes

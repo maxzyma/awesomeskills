@@ -26,7 +26,7 @@
 - [ ] 扩充种子源，收录请求入口上线
 - [x] 收录处理规则：提交仅作公开仓指针，信任信号全由 pipeline 计算；MVP 人工闸门 + 只读校验脚本
 - [x] 模型/Agent enrichment 从核心可信分和 CI 必需路径解耦
-- [ ] GitHub Action：校验 submission issue，半自动创建仅新增 source 指针的草稿 PR
+- [x] GitHub Action：校验 submission issue，回写结论并创建含确定性评估生成物的草稿 PR
 
 ### M3+ — 形态升级（愿意托管 server 时）
 - [ ] remote MCP（`skills.search`/`skills.get`），index.json 作数据源
