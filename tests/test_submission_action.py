@@ -115,6 +115,48 @@ skill-collection; run something
         self.assertIn('kind = "skill-collection"', written)
         self.assertNotIn("passed", written)
 
+    def test_rerun_resets_owned_branch_and_reuses_open_pull(self):
+        class FakeAPI:
+            def __init__(self):
+                self.calls = []
+
+            def request(self, method, path, payload=None, allow_404=False):
+                self.calls.append((method, path, payload, allow_404))
+                if "/git/ref/heads/main" in path:
+                    return {"object": {"sha": "new-base"}}
+                if "/git/ref/heads/automation" in path:
+                    return {"object": {"sha": "old-proposal"}}
+                if method == "GET" and "/contents/registry/sources.toml" in path:
+                    return {
+                        "sha": "file-sha",
+                        "content": base64.b64encode(b'schema_version = "0.1"\n').decode(),
+                    }
+                if method == "GET" and "/pulls?" in path:
+                    return [{"number": 7, "html_url": "https://github.com/maxzyma/awesomeskills/pull/7"}]
+                return {}
+
+        event = {
+            "issue": {"number": 42},
+            "repository": {
+                "full_name": "maxzyma/awesomeskills", "default_branch": "main",
+                "owner": {"login": "maxzyma"},
+            },
+        }
+        assessment = Assessment(
+            "pass", "example/skills", "skill-collection", "main", 2, 0, False, ("passed",),
+        )
+        api = FakeAPI()
+        self.assertEqual(
+            ensure_draft_pull(api, event, assessment),
+            "https://github.com/maxzyma/awesomeskills/pull/7",
+        )
+        reset = next(
+            call for call in api.calls
+            if call[0] == "PATCH" and "/git/refs/heads/automation" in call[1]
+        )
+        self.assertEqual(reset[2], {"sha": "new-base", "force": True})
+        self.assertFalse(any(call[0] == "POST" and call[1].endswith("/pulls") for call in api.calls))
+
 
 if __name__ == "__main__":
     unittest.main()

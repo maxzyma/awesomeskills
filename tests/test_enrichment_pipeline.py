@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+# ruff: noqa: E402
+
 import sys
 import unittest
+import urllib.error
 from unittest.mock import patch
 from pathlib import Path
 
@@ -9,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "processing"))
 
 from detect_enrichment_changes import build_manifest
-from build_index import fetch_skill_paths
+from build_index import _get, fetch_skill_paths
 from enrichment_store import (
     EnrichmentError, apply_candidate, validate_candidate, validate_manifest_binding,
 )
@@ -99,6 +102,27 @@ class EnrichmentPipelineTest(unittest.TestCase):
 
         with patch("build_index._get", side_effect=fake_get):
             self.assertEqual(fetch_skill_paths("o/r", "main", None), ["skills/a/SKILL.md"])
+
+    def test_transient_github_http_error_is_retried(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"ok": true}'
+
+        transient = urllib.error.HTTPError(
+            "https://api.github.com/example", 504, "gateway timeout", {}, None,
+        )
+        with (
+            patch("build_index.urllib.request.urlopen", side_effect=[transient, Response()]),
+            patch("build_index.time.sleep") as sleep,
+        ):
+            self.assertEqual(_get("https://api.github.com/example", None), {"ok": True})
+            sleep.assert_called_once()
 
     def test_changed_digest_is_pending_and_old_result_is_stale(self):
         cache = apply_candidate({"entries": {}, "repos": {}}, self.candidate)

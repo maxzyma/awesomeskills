@@ -101,6 +101,18 @@ def _get(url: str, token: str | None, accept: str = "application/vnd.github+json
                 data = resp.read().decode("utf-8")
                 return data if raw else json.loads(data)
         except urllib.error.HTTPError as e:
+            if e.code in {408, 429, 500, 502, 503, 504} and attempt < attempts - 1:
+                retry_after = e.headers.get("Retry-After") if e.headers else None
+                try:
+                    delay = min(20.0, float(retry_after)) if retry_after else min(6.0, 1.5 * (attempt + 1))
+                except ValueError:
+                    delay = min(6.0, 1.5 * (attempt + 1))
+                print(
+                    f"  ! {url}: HTTP {e.code}; retrying in {delay:g}s",
+                    file=sys.stderr,
+                )
+                time.sleep(delay)
+                continue
             print(f"  ! {url}: HTTP {e.code}", file=sys.stderr)
             return None
         except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as e:
