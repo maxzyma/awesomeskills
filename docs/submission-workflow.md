@@ -57,7 +57,9 @@ Action 不接受 issue 中的信任字段，不把提交者声明映射为评分
 自由文本不进入 shell，仓库脚本不执行，GitHub API 或完整构建失败时 fail closed。
 
 仓库设置必须允许 GitHub Actions 创建 Pull Request；否则预检仍会安全失败并在 workflow 日志中
-留下原因。分支保护和 maintainer review 仍应作为合并条件。
+留下原因。机器人 PR 由只读的 `submission-pr.yml` 在 `pull_request_target` 上校验；它只接受同仓
+`automation/submission-*` 分支和 `github-actions[bot]` actor，检出精确 head SHA，不持久化凭据，
+也不使用 secrets。分支保护和 maintainer review 仍应作为合并条件。
 
 ## 当前格式边界核验（2026-08-12）
 
