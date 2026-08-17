@@ -184,7 +184,14 @@ def _eligible_skill_path(path: str) -> bool:
 
 
 def fetch_raw(repo_id: str, branch: str, path: str, token: str | None) -> str | None:
-    return _get(f"{RAW}{repo_id}/{branch}/{path}", token, accept="text/plain", raw=True)
+    encoded_path = urllib.parse.quote(path, safe="/")
+    encoded_ref = urllib.parse.quote(branch, safe="")
+    return _get(
+        f"{API}{repo_id}/contents/{encoded_path}?ref={encoded_ref}",
+        token,
+        accept="application/vnd.github.raw+json",
+        raw=True,
+    )
 
 
 # ---------- signals ----------
