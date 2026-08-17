@@ -84,6 +84,32 @@ skill-collection (many SKILL.md)
             self.assertEqual(GitHubAPI("token").request("PUT", "/example", {}), {"ok": True})
         sleep.assert_called_once_with(2.0)
 
+    def test_content_addressed_git_post_retries_transient_failure(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"sha":"blob-sha"}'
+
+        unavailable = urllib.error.HTTPError(
+            "https://api.github.com/example", 503, "unavailable", {},
+            BytesIO(b'{"message":"unavailable"}'),
+        )
+        with (
+            patch(
+                "submission_action.urllib.request.urlopen",
+                side_effect=[unavailable, Response()],
+            ),
+            patch("submission_action.time.sleep") as sleep,
+        ):
+            result = GitHubAPI("token").request("POST", "/repos/o/r/git/blobs", {})
+        self.assertEqual(result, {"sha": "blob-sha"})
+        sleep.assert_called_once_with(2.0)
+
     def test_issue_form_is_parsed_as_data_only(self):
         body = """### GitHub repo (owner/repo or URL)
 https://github.com/example/skills.git
