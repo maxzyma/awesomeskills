@@ -1,0 +1,38 @@
+name: Validate automated submission PR
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-validation:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'automation/submission-') &&
+      github.actor == 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run unit tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Check Python sources
+        run: python3 -m py_compile processing/*.py
+      - name: Reproduce merged artifacts without an LLM
+        run: |
+          tmpdir="$(mktemp -d)"
+          python3 processing/merge_index.py \
+            --index "$tmpdir/index.json" \
+            --site "$tmpdir/site-index.json" \
+            --llm "$tmpdir/llm.txt"
+          cmp registry/index.json "$tmpdir/index.json"
+          cmp site/public/index.json "$tmpdir/site-index.json"
+          cmp site/public/llm.txt "$tmpdir/llm.txt"
