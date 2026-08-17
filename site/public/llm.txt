@@ -1,5 +1,5 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-08-17T15:12:47+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-08-17T15:23:25+00:00. Human + agent readable. Full data: /index.json
 # health/security/repo grade are deterministic; optional summaries are agent enrichment
 
 - pdf (shareAI-lab/learn-claude-code/skills/pdf) — health 93, security pass, en
