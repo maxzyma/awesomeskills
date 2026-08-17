@@ -1,673 +1,799 @@
 {
   "schema_version": "0.1",
-  "updated_at": "2026-08-16T14:21:57+00:00",
+  "updated_at": "2026-08-17T15:35:02+00:00",
   "entries": {
     "shareAI-lab/learn-claude-code/skills/pdf": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "b143723126a9951c556063edbdf15fce252a505e11c85a3fdbaa221f1116d178",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Provides workflows and code snippets for reading, creating, merging, and splitting PDF files using command-line utilities and Python libraries.",
+            "purpose": "Provides example workflows for reading, creating, merging, and splitting PDF files.",
             "scenarios": [
-              "Extract text content from an existing PDF file.",
-              "Convert Markdown or HTML documents into PDF reports.",
-              "Merge multiple PDF files into one or split a PDF into single pages."
+              "Extract text and metadata from a PDF.",
+              "Create a PDF from Markdown, HTML, or drawing commands.",
+              "Combine multiple PDFs or split a PDF into individual pages.",
+              "Use OCR when a scanned PDF has no extractable text."
             ],
-            "io": "Accepts PDF files, Markdown documents, or HTML files as input, and outputs extracted text or converted/manipulated PDF files.",
+            "io": "Inputs are PDF, Markdown, or HTML files and optional styling or page-selection parameters. Outputs are extracted text, metadata, newly generated PDFs, merged PDFs, or per-page PDFs.",
             "dependencies": [
-              "poppler-utils",
-              "pymupdf",
-              "pandoc",
-              "reportlab",
-              "wkhtmltopdf"
+              "pdftotext from Poppler for text extraction",
+              "PyMuPDF (fitz) for reading, merging, and splitting",
+              "Pandoc and optionally XeLaTeX for Markdown conversion",
+              "ReportLab for programmatic creation",
+              "wkhtmltopdf or pdfkit for HTML conversion",
+              "pytesseract for optional OCR"
             ],
-            "boundary": "Provides code templates and instructions for file-level PDF operations, but does not provide advanced interactive PDF editing, form filling, or high-level visual design tools."
+            "boundary": "The evidence provides command and code examples, not an integrated application. Tool availability, encoding, layout fidelity, OCR accuracy, and large-file resource use must be handled by the caller."
           },
           "zh": {
-            "purpose": "提供使用命令行工具和 Python 库进行 PDF 文本提取、文档创建、合并与拆分的工作流程及代码指南。",
+            "purpose": "提供读取、创建、合并和拆分 PDF 文件的示例工作流。",
             "scenarios": [
-              "从已有的 PDF 文件中提取纯文本内容。",
-              "将 Markdown 或 HTML 文档转换为格式化的 PDF 报告。",
-              "将多个 PDF 文件合并为一个文件，或将多页 PDF 拆分为独立页面。"
+              "从 PDF 提取文本和元数据。",
+              "从 Markdown、HTML 或绘图指令创建 PDF。",
+              "合并多个 PDF，或将 PDF 拆分为单页文件。",
+              "扫描件无法提取文本时使用 OCR。"
             ],
-            "io": "输入为 PDF 文件、Markdown 或 HTML 文档，输出为提取的文本内容或处理/生成的 PDF 文件。",
+            "io": "输入为 PDF、Markdown 或 HTML 文件，以及可选的样式或页面选择参数；输出为提取的文本、元数据、新建 PDF、合并 PDF 或逐页 PDF。",
             "dependencies": [
-              "poppler-utils",
-              "pymupdf",
-              "pandoc",
-              "reportlab",
-              "wkhtmltopdf"
+              "用于文本提取的 Poppler pdftotext",
+              "用于读取、合并和拆分的 PyMuPDF（fitz）",
+              "用于 Markdown 转换的 Pandoc，以及可选的 XeLaTeX",
+              "用于编程创建 PDF 的 ReportLab",
+              "用于 HTML 转换的 wkhtmltopdf 或 pdfkit",
+              "可选 OCR 所需的 pytesseract"
             ],
-            "boundary": "仅提供文件级 PDF 操作的脚本指导与模板，不直接提供交互式 PDF 编辑、表单填写或高级视觉排版设计能力。"
+            "boundary": "证据仅提供命令和代码示例，并非完整应用。调用方需处理工具可用性、编码、版式保真度、OCR 准确性和大文件资源占用。"
           }
         },
-        "community_repo": "shareAI-lab/learn-claude-code",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "PDF text extraction, creation, merging, splitting, and scanned-document OCR guidance.",
+        "model": "configured-default",
+        "community_repo": "shareAI-lab/learn-claude-code"
       }
     },
     "shareAI-lab/learn-claude-code/skills/mcp-builder": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "1f0d78f420282374f87b9c6f0dfaad97397d840c7e47f4c878f01d00ab905b9a",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides users in building custom Model Context Protocol (MCP) servers in Python or TypeScript to extend Claude's capabilities with tools, resources, and external integrations.",
+            "purpose": "Guides creation of basic Model Context Protocol servers that expose callable tools and readable resources to an MCP client.",
             "scenarios": [
-              "Creating custom Python or TypeScript MCP servers to connect Claude with external APIs",
-              "Exposing database query functions as read-only MCP tools for Claude",
-              "Configuring local MCP server registration in Claude settings files"
+              "Create a Python MCP server with typed asynchronous tools.",
+              "Create a TypeScript server using the MCP SDK and stdio transport.",
+              "Wrap an external HTTP API as an MCP tool.",
+              "Expose SQLite query results or file-backed resources.",
+              "Inspect a server or send a basic JSON-RPC test request."
             ],
-            "io": "Inputs natural language specifications for custom integrations or tools, and outputs ready-to-run MCP server code templates and setup instructions.",
+            "io": "Inputs are tool arguments, resource identifiers, JSON-RPC requests, API responses, database rows, or files. Outputs are MCP tool/resource responses, typically text content over stdio.",
             "dependencies": [
-              "python",
-              "node",
-              "mcp-sdk"
+              "Python mcp package for the Python examples",
+              "@modelcontextprotocol/sdk for TypeScript",
+              "Python asyncio and stdio transport",
+              "httpx for the HTTP API example",
+              "sqlite3 for the database example",
+              "MCP Inspector for optional testing",
+              "An MCP-compatible client configuration"
             ],
-            "boundary": "It provides code templates and setup guidance for building MCP servers, but does not automatically host, deploy, or manage infrastructure for the generated servers."
+            "boundary": "The evidence is starter guidance rather than a production framework. Authentication, authorization, path confinement, SQL safety, secret handling, schema compatibility, deployment, and robust error handling remain implementation responsibilities."
           },
           "zh": {
-            "purpose": "指导用户使用 Python 或 TypeScript 构建自定义 MCP（模型上下文协议）服务器，以通过工具和外部集成扩展 Claude 的能力。",
+            "purpose": "指导创建基础 Model Context Protocol 服务器，向 MCP 客户端暴露可调用工具和可读资源。",
             "scenarios": [
-              "使用 Python 或 TypeScript 开发对接外部 API 的自定义 MCP 服务器",
-              "将数据库查询功能作为只读工具暴露给 Claude 调用",
-              "配置 Claude 本地配置文件以注册并运行新构建的 MCP 服务"
+              "创建带类型化异步工具的 Python MCP 服务器。",
+              "使用 MCP SDK 和 stdio 传输创建 TypeScript 服务器。",
+              "将外部 HTTP API 封装为 MCP 工具。",
+              "暴露 SQLite 查询结果或文件型资源。",
+              "使用检查器或基础 JSON-RPC 请求测试服务器。"
             ],
-            "io": "输入关于自定义集成或工具的自然语言需求，输出可运行的 MCP 服务器代码模板、依赖安装指南及配置文件示例。",
+            "io": "输入包括工具参数、资源标识符、JSON-RPC 请求、API 响应、数据库行或文件；输出为 MCP 工具或资源响应，通常通过 stdio 返回文本内容。",
             "dependencies": [
-              "python",
-              "node",
-              "mcp-sdk"
+              "Python 示例所需的 mcp 包",
+              "TypeScript 所需的 @modelcontextprotocol/sdk",
+              "Python asyncio 和 stdio 传输",
+              "HTTP API 示例所需的 httpx",
+              "数据库示例所需的 sqlite3",
+              "可选的 MCP Inspector",
+              "兼容 MCP 的客户端配置"
             ],
-            "boundary": "仅负责提供 MCP 服务器的代码编写与配置指导，不包含自动进行远程云端部署或基础设施托管的功能。"
+            "boundary": "证据属于入门模板，而非生产框架。认证、授权、路径限制、SQL 安全、密钥管理、协议版本兼容、部署和健壮错误处理仍需实现者负责。"
           }
         },
-        "community_repo": "shareAI-lab/learn-claude-code",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Introductory construction of stdio-based MCP servers in Python or TypeScript, including tools, resources, API access, and testing examples.",
+        "model": "configured-default",
+        "community_repo": "shareAI-lab/learn-claude-code"
       }
     },
     "shareAI-lab/learn-claude-code/skills/code-review": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "a64c8c43b4962f2600aa97fba826b615f9c3e8d1bf3656abbeadd148f65f8f25",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Perform thorough code reviews with a focus on security, performance, correctness, and maintainability.",
+            "purpose": "Supplies a checklist and report format for identifying defects and improvement opportunities in source code.",
             "scenarios": [
-              "Auditing code snippets or files for security vulnerabilities",
-              "Reviewing git diffs or pull requests prior to merging",
-              "Identifying performance bottlenecks and logical edge cases in a codebase"
+              "Review a file or component for logic and error-handling defects.",
+              "Look for injection, authorization, credential, or data-exposure problems.",
+              "Identify inefficient queries, blocking I/O, leaks, or poor algorithms.",
+              "Assess naming, complexity, duplication, dead code, and test coverage."
             ],
-            "io": "Inputs are source code files, code snippets, or git diffs, and outputs are structured review reports containing categorized issues, fix suggestions, and a merge verdict.",
+            "io": "Inputs are source code, diffs, repository context, tests, and optional scanner output. Output is a structured review containing a summary, prioritized issues, suggested fixes, positive observations, and a merge-readiness verdict.",
             "dependencies": [
-              "bash",
-              "git",
-              "npm",
-              "pip"
+              "Language-specific source and test context",
+              "Optional npm audit, pip-audit, or cargo audit",
+              "Optional grep and Git history/diff commands",
+              "Optional Radon for Python complexity analysis"
             ],
-            "boundary": "This skill provides static code review insights and recommendations, but it does not automatically execute code refactoring or deploy fixes to the target repository."
+            "boundary": "The checklist cannot establish correctness or security without adequate context and validation. Automated audit commands are optional external checks, may produce false positives or miss issues, and some example thresholds are heuristics rather than project-specific rules."
           },
           "zh": {
-            "purpose": "对代码进行全面的审查，重点评估安全性、性能、正确性及可维护性。",
+            "purpose": "提供检查清单和报告格式，用于识别源代码缺陷及改进机会。",
             "scenarios": [
-              "审计代码片段或文件中的安全漏洞与注入风险",
-              "在合并前对 Git 代码差异或 Pull Request 进行评审",
-              "排查代码中潜在的性能瓶颈与逻辑漏洞"
+              "审查文件或组件中的逻辑与错误处理缺陷。",
+              "查找注入、授权、凭据或数据暴露问题。",
+              "识别低效查询、阻塞 I/O、资源泄漏或低效算法。",
+              "评估命名、复杂度、重复、死代码和测试覆盖。"
             ],
-            "io": "输入为源代码文件、片段或 Git 差异，输出为包含分类问题、修复建议及合并结论的结构化审查报告。",
+            "io": "输入为源代码、差异、仓库上下文、测试和可选扫描器结果；输出为包含摘要、分级问题、修复建议、正面观察和合并就绪结论的结构化审查。",
             "dependencies": [
-              "bash",
-              "git",
-              "npm",
-              "pip"
+              "对应语言的源码与测试上下文",
+              "可选的 npm audit、pip-audit 或 cargo audit",
+              "可选的 grep、Git 历史和差异命令",
+              "可选的 Python 复杂度工具 Radon"
             ],
-            "boundary": "本技能仅提供静态代码审查分析与改进建议，不会自动对目标代码库进行重构或部署修复。"
+            "boundary": "缺少充分上下文和验证时，清单不能证明代码正确或安全。自动审计属于可选外部检查，可能误报或漏报；示例阈值是启发式规则，并非项目专属标准。"
           }
         },
-        "community_repo": "shareAI-lab/learn-claude-code",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Structured source-code review guidance covering security, correctness, performance, maintainability, and tests.",
+        "model": "configured-default",
+        "community_repo": "shareAI-lab/learn-claude-code"
       }
     },
     "shareAI-lab/learn-claude-code/skills/agent-builder": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "4b88e0f4c19caf58f38ca6bd27e55d8ab94ebf0ad54d4ffb7da83559e020dbc7",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides users in designing and building minimal, effective AI agents across various domains using foundational agentic design principles.",
+            "purpose": "Frames AI-agent design around a model loop, a small capability set, on-demand knowledge, and controlled conversational context.",
             "scenarios": [
-              "Designing specialized AI agents for business operations, research, or customer service.",
-              "Architecting agentic workflows with capabilities, subagents, and planning loops.",
-              "Understanding agent internals, tool-use orchestration, and context management."
+              "Define the purpose, domain, capabilities, and knowledge for a new assistant.",
+              "Design a minimal agent loop that chooses between tool use and responding.",
+              "Add progress tracking when multi-step work loses coherence.",
+              "Introduce isolated subagents or on-demand skills when usage demonstrates a need."
             ],
-            "io": "Accepts user requirements or questions about agent architecture, and outputs agent design frameworks, capability specifications, and structural guidance.",
+            "io": "Inputs are a target purpose, operating domain, desired actions, knowledge sources, context constraints, and delegation boundaries. Outputs are an agent architecture or scaffold organized around capabilities, knowledge, context, and optional progressive-complexity mechanisms.",
             "dependencies": [
-              "none"
+              "A language model capable of choosing actions",
+              "A runtime that executes capabilities and feeds results back to the model",
+              "Optional referenced Python templates and initialization script, whose contents are not included in this evidence"
             ],
-            "boundary": "Provides architectural design and strategic patterns for AI agents but does not directly execute, host, or deploy code for live agents."
+            "boundary": "The evidence presents design philosophy and high-level patterns, not a complete production implementation. It does not specify model-provider integration, persistence, authentication, observability, evaluation, or safeguards for consequential autonomous actions."
           },
           "zh": {
-            "purpose": "指导用户遵循核心设计原则，为不同业务与研究领域设计并构建高效的 AI 智能体。",
+            "purpose": "以模型循环、少量能力、按需知识和受控会话上下文为核心组织 AI 智能体设计。",
             "scenarios": [
-              "为业务运营、学术研究或客户服务设计专用的 AI 智能体。",
-              "构建包含工具能力、子智能体与任务规划的智能体架构。",
-              "理解智能体运行机制、工具调用编排及上下文管理策略。"
+              "为新助手定义目标、领域、能力和知识。",
+              "设计在调用工具与直接响应之间选择的最小智能体循环。",
+              "多步骤工作失去连贯性时加入进度跟踪。",
+              "在实际使用表明确有需要时，引入隔离子智能体或按需技能。"
             ],
-            "io": "输入用户的智能体需求或架构疑问，输出智能体设计框架、能力规范及架构指导。",
+            "io": "输入为目标用途、运行领域、期望动作、知识来源、上下文约束和委派边界；输出为围绕能力、知识、上下文及可选渐进复杂度机制组织的智能体架构或脚手架。",
             "dependencies": [
-              "none"
+              "能够选择动作的语言模型",
+              "执行能力并将结果反馈给模型的运行时",
+              "可选的 Python 模板和初始化脚本；其内容未包含在本证据中"
             ],
-            "boundary": "专注于智能体架构设计与方法论指导，不直接提供线上智能体的部署、托管或代码运行服务。"
+            "boundary": "证据主要描述设计理念和高层模式，不是完整生产实现；未规定模型供应商集成、持久化、认证、可观测性、评估或高影响自主操作的防护措施。"
           }
         },
-        "community_repo": "shareAI-lab/learn-claude-code",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Conceptual design guidance for minimal tool-using AI agents and progressive additions such as planning, subagents, and on-demand skills.",
+        "model": "configured-default",
+        "community_repo": "shareAI-lab/learn-claude-code"
       }
     },
     "davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-status": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "d8f159a8c7e88be403a59c3baab357f5f0c744918fab9627a0bba0b4676fc737",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Checks and reports the current status and progress of tracked WORK items and associated TASKs using local markdown status files.",
+            "purpose": "Reports aggregate WORK progress and task-level status from task-manager Markdown records.",
             "scenarios": [
-              "Viewing the overall progress summary for all WORK items in a project",
-              "Checking detailed TASK-level progress for a specific WORK (e.g., WORK-01)",
-              "Reviewing pipeline execution status and individual task output details"
+              "List all WORK items and their completion counts.",
+              "Show progress for a specific WORK.",
+              "Read completion details for a particular TASK.",
+              "Summarize pipeline status using the documented status values."
             ],
-            "io": "Accepts user queries or WORK identifiers as input and outputs a formatted progress summary with status indicators.",
+            "io": "Input is an optional WORK or TASK query plus files such as works/WORK-LIST.md, works/WORK-NN/PROGRESS.md, and TASK-NN_result.md. Output is a concise human-readable status summary.",
             "dependencies": [
-              "file_system"
+              "A project using the documented works/ directory layout",
+              "WORK-LIST.md master index",
+              "Per-WORK PROGRESS.md files",
+              "Per-task result files for detailed completion information"
             ],
-            "boundary": "It only reads and displays progress from local markdown files without executing tasks, updating statuses, or making changes to the project."
+            "boundary": "It only interprets status recorded in the expected files. It does not create work, execute tasks, validate completion claims, or define behavior when records are missing, inconsistent, or use another layout."
           },
           "zh": {
-            "purpose": "通过读取本地 Markdown 状态文件，检查并汇报当前 WORK 项及其关联 TASK 的执行进度与状态。",
+            "purpose": "从任务管理器的 Markdown 记录中汇报 WORK 汇总进度和 TASK 级状态。",
             "scenarios": [
-              "查看项目中所有 WORK 项的总体进度汇总",
-              "查询特定 WORK（如 WORK-01）内部各 TASK 的详细执行进度",
-              "检索流水线执行状态及已完成任务的具体结果"
+              "列出所有 WORK 及其完成数量。",
+              "显示指定 WORK 的进度。",
+              "读取特定 TASK 的完成详情。",
+              "按照文档中的状态值汇总流水线状态。"
             ],
-            "io": "输入用户查询语句或 WORK 标识符，输出带状态标识的格式化进度摘要。",
+            "io": "输入为可选的 WORK 或 TASK 查询，以及 works/WORK-LIST.md、works/WORK-NN/PROGRESS.md、TASK-NN_result.md 等文件；输出为简洁的人类可读状态摘要。",
             "dependencies": [
-              "file_system"
+              "采用规定 works/ 目录布局的项目",
+              "WORK-LIST.md 主索引",
+              "各 WORK 的 PROGRESS.md",
+              "用于详细完成信息的 TASK 结果文件"
             ],
-            "boundary": "该技能仅读取并展示本地 Markdown 文件中的状态信息，不执行实际任务、不更新状态也不修改项目文件。"
+            "boundary": "仅解释预期文件中记录的状态，不创建工作、不执行任务，也不验证完成声明；对记录缺失、冲突或采用其他布局的情况未作定义。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Read-only presentation of WORK and TASK progress from a prescribed works-directory document layout.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-pipeline": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "a78f30f3f3a82770e676874e817408fa0f7249ece4ee0e62ee1b01218295bdd9",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Orchestrates structured multi-agent work pipelines whenever a user request starts with a bracketed tag.",
+            "purpose": "Routes a square-bracket-tagged request through specifier, planning, scheduling, building, verification, and commit roles according to an execution mode.",
             "scenarios": [
-              "Automating software development tasks initiated with tags like `[new-feature]` or `[bugfix]`.",
-              "Executing step-by-step development flows requiring specification, planning, building, and verification.",
-              "Running end-to-end automated task execution using approval-skipping flags like 'auto'."
+              "Start a new-feature or bug-fix workflow from a leading bracketed tag.",
+              "Create a requirement package and pause for user approval.",
+              "Run a direct, pipeline, or full execution path selected by the specifier.",
+              "Skip approval gates when the request explicitly ends with the documented auto marker."
             ],
-            "io": "Takes a tagged user requirement string as input and produces task documentation, code changes, and commits via sub-agents as output.",
+            "io": "Input is a user requirement beginning with a square-bracket tag and an optional auto suffix. Outputs are pipeline artifacts under works/ and summaries or approval prompts produced by the participating roles.",
             "dependencies": [
-              "sdd-pipeline references",
-              "sub-agents (specifier, planner, scheduler, builder, verifier, committer)"
+              "Sibling sdd-pipeline references, especially references/agent-flow.md",
+              "Specifier, planner, scheduler, builder, verifier, and committer agent roles",
+              "A works/ artifact layout",
+              "An orchestration runtime capable of invoking the roles and pausing for approval"
             ],
-            "boundary": "Does not perform direct code edits or testing itself, acting solely as an orchestrator that delegates execution to specialized sub-agents."
+            "boundary": "The evidence defines routing and gates but not the referenced role prompts or artifact schemas. It depends on side effects by multiple agents; automatic mode intentionally removes approval pauses but does not itself define additional safety controls."
           },
           "zh": {
-            "purpose": "根据用户消息开头的方括号标签触发并协调多 Agent 协作的工作流水线。",
+            "purpose": "依据执行模式，将以方括号标签开头的请求交由规格、规划、调度、构建、验证和提交角色处理。",
             "scenarios": [
-              "自动处理带有 `[new-feature]` 或 `[bugfix]` 等标签的软件开发任务。",
-              "执行需要需求分析、规划、构建和验证等阶段的复杂功能开发流程。",
-              "在启用 auto 标志时实现无需人工干预的端到端自动化流水线运行。"
+              "通过开头的功能或缺陷标签启动工作流。",
+              "创建需求材料后暂停并请求用户批准。",
+              "执行规格角色选定的 direct、pipeline 或 full 路径。",
+              "请求以规定的 auto 标记结尾时跳过审批停顿。"
             ],
-            "io": "输入为带方括号标签的用户需求指令，输出为由子 Agent 生成的工作文档、代码修改及提交记录。",
+            "io": "输入为以方括号标签开头的用户需求及可选 auto 后缀；输出为 works/ 下的流水线产物，以及各角色产生的摘要或审批提示。",
             "dependencies": [
-              "sdd-pipeline 参考文档",
-              "子 Agent (specifier, planner, scheduler, builder, verifier, committer)"
+              "同级 sdd-pipeline 参考资料，尤其是 references/agent-flow.md",
+              "specifier、planner、scheduler、builder、verifier、committer 角色",
+              "works/ 产物布局",
+              "能够调用角色并在审批处暂停的编排运行时"
             ],
-            "boundary": "自身不直接执行代码修改或测试验证，仅作为总控调度器分发任务给专门的子 Agent 执行。"
+            "boundary": "证据规定了路由和审批门，但未包含被引用的角色提示词或产物模式。该流程依赖多个智能体产生副作用；自动模式会明确取消审批停顿，但未额外定义安全控制。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Orchestration trigger for tagged requests in a specification-driven WORK pipeline with approval gates and execution modes.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "80dda3fa8ed227660829f6c21ed7d01faf62944c36f75e0d77e5497c5532063a",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Initializes the uc-taskmanager pipeline in the current project by creating the required directory structure and setting up Claude Bash permissions.",
+            "purpose": "Prepares a project for the uc-taskmanager workflow by ensuring a works/ directory exists and optionally merging a predefined permission allowlist into local settings.",
             "scenarios": [
-              "Setting up a new project directory for uc-taskmanager pipeline execution.",
-              "Automatically configuring bash command permissions in .claude/settings.local.json."
+              "Initialize uc-taskmanager in a project that lacks works/.",
+              "Preserve an existing works/ directory.",
+              "Ask before configuring local Bash, read, edit, and write permissions.",
+              "Merge missing permissions without duplicating or deleting existing allow or deny entries."
             ],
-            "io": "Takes initialization commands and user approval as input, and outputs a created works/ directory and updated settings file.",
+            "io": "Inputs are the current project, the user's permission-setup decision, and an optional existing .claude/settings.local.json. Outputs are a works/ directory, an updated settings file when approved, and an initialization summary.",
             "dependencies": [
-              "bash"
+              "Filesystem write access in the project",
+              "JSON parsing and merge support",
+              "User approval before permission changes",
+              "Claude settings format with permissions.allow and permissions.deny arrays"
             ],
-            "boundary": "It only handles project initialization and local permission configuration, without executing actual tasks or modifying source code."
+            "boundary": "The procedure changes project files and proposes a very broad allowlist, including unrestricted-looking file permissions plus Git, curl, and language tool commands. It does not validate whether each permission is necessary for a specific project or describe rollback beyond preserving existing entries."
           },
           "zh": {
-            "purpose": "在当前项目中初始化 uc-taskmanager 执行环境，创建 works/ 目录并配置本地 Claude 的 Bash 权限。",
+            "purpose": "通过确保 works/ 目录存在，并可选地将预设权限白名单合并到本地设置，为 uc-taskmanager 工作流准备项目。",
             "scenarios": [
-              "在新项目中准备 uc-taskmanager 工作流环境。",
-              "自动配置 .claude/settings.local.json 中的 Bash 命令许可列表。"
+              "在缺少 works/ 的项目中初始化 uc-taskmanager。",
+              "保留已有 works/ 目录。",
+              "配置本地 Bash、读取、编辑和写入权限前先征得用户同意。",
+              "合并缺失权限，不重复也不删除已有 allow 或 deny 项。"
             ],
-            "io": "输入为初始化触发命令及用户确认，输出为创建的 works/ 目录和更新后的配置文件。",
+            "io": "输入为当前项目、用户对权限设置的决定，以及可选的 .claude/settings.local.json；输出为 works/ 目录、经批准后更新的设置文件和初始化摘要。",
             "dependencies": [
-              "bash"
+              "项目内的文件系统写权限",
+              "JSON 解析与合并能力",
+              "修改权限前的用户批准",
+              "包含 permissions.allow 和 permissions.deny 数组的 Claude 设置格式"
             ],
-            "boundary": "仅负责环境与权限初始化，不涉及后续任务管线的具体执行或业务代码开发。"
+            "boundary": "该流程会修改项目文件，并提出范围很宽的允许列表，包括近似不受限的文件权限以及 Git、curl 和语言工具命令。它不会验证每项权限对具体项目是否必要，也未提供除保留原条目外的回滚方案。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Initialization procedure for a uc-taskmanager project directory and Claude-local permission configuration.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agent-triforce/skills/security-audit": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "c0e4dc0b0e0a9cde948e7b9ea1651fd491c0704a4fb79686b5b35b4485955bad",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Performs a comprehensive security audit of the codebase covering OWASP Top 10, secrets scanning, and dependency vulnerabilities by delegating to the Centinela QA agent.",
+            "purpose": "Directs a QA role to inspect a codebase or selected paths and produce a dated security-audit report without applying fixes.",
             "scenarios": [
-              "Verifying security posture prior to a software release",
-              "Auditing code changes affecting authentication, authorization, or data handling",
-              "Scanning dependencies for known CVEs and detecting hardcoded credentials"
+              "Perform a pre-release security review.",
+              "Audit authentication, authorization, or data-handling changes.",
+              "Scan for exposed secrets and dependency vulnerabilities.",
+              "Check Solidity code for reentrancy, overflow, and access-control issues when present."
             ],
-            "io": "Accepts an optional target path scope as input and generates a detailed Markdown audit report with findings, recommendations, and a verdict.",
+            "io": "Input is an optional source-path scope; otherwise the documented default is src/. Output is docs/reviews/security-audit-{date}.md containing severity-organized findings, scan results, a verdict, and recommended fix order.",
             "dependencies": [
-              "Centinela QA agent",
-              "file system"
+              "A Centinela QA agent or equivalent reviewer",
+              "SIGN IN, Security Verification, Quality Verification, TIME OUT, and Non-Normal checklists referenced but not included in the evidence",
+              "Dependency and secret-scanning capabilities",
+              "Access to the scoped code and dependency manifests"
             ],
-            "boundary": "This skill only identifies and documents security vulnerabilities and will never attempt to automatically fix any issues."
+            "boundary": "The workflow is assessment-only and explicitly does not fix vulnerabilities. The evidence does not specify scanner implementations, severity criteria, checklist contents, or proof that an OWASP category has been exhaustively tested."
           },
           "zh": {
-            "purpose": "通过委托给 Centinela (QA) Agent，对代码库进行涵盖 OWASP Top 10、密钥扫描和依赖漏洞的全方位深度安全审计。",
+            "purpose": "指导 QA 角色检查代码库或指定路径，并生成带日期的安全审计报告，不直接修复问题。",
             "scenarios": [
-              "在软件正式发布前进行全面安全状况验证",
-              "审计涉及身份验证、授权或数据处理的关键代码变更",
-              "扫描第三方依赖项中的已知 CVE 漏洞及查找硬编码密钥"
+              "发布前执行安全审查。",
+              "审计认证、授权或数据处理相关变更。",
+              "扫描泄露密钥和依赖漏洞。",
+              "存在 Solidity 时检查重入、溢出和访问控制问题。"
             ],
-            "io": "输入可选的目标文件路径范围，输出一份包含漏洞细节与判定结论的 Markdown 格式安全审计报告。",
+            "io": "输入为可选源码路径范围；未指定时文档默认使用 src/。输出为 docs/reviews/security-audit-{date}.md，包含按严重性组织的问题、扫描结果、结论和建议修复顺序。",
             "dependencies": [
-              "Centinela QA agent",
-              "file system"
+              "Centinela QA 智能体或等效审查者",
+              "证据未包含的 SIGN IN、Security Verification、Quality Verification、TIME OUT 和 Non-Normal 清单",
+              "依赖与密钥扫描能力",
+              "对目标代码和依赖清单的访问"
             ],
-            "boundary": "该技能仅对安全漏洞进行识别与文档记录，绝不会自动尝试修复任何发现的安全问题。"
+            "boundary": "该工作流只评估，明确不修复漏洞。证据未规定扫描器实现、严重性判定标准、清单内容，也不能证明对 OWASP 类别进行了穷尽验证。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Documented codebase security-audit workflow covering OWASP categories, secrets, dependencies, authentication, authorization, data handling, and optional Solidity checks.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "d6a62112aaecbb08b4594412482d996f2b56052c31159b9892084c717cbf39f7",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Provides reference rules, schemas, and workflow definitions for internal agents operating within an SDD pipeline.",
+            "purpose": "Identifies the rule and schema documents consumed by pipeline agents rather than exposing a direct end-user workflow.",
             "scenarios": [
-              "Referencing workflow flows and context policies during automated pipeline agent execution.",
-              "Validating file content schemas and XML communication structures between agent roles.",
-              "Ensuring consistent task ID formatting, PLAN.md structures, and activity logging across sub-agents."
+              "Locate the pipeline flow definition.",
+              "Locate schemas for generated files and XML communication.",
+              "Locate shared TASK, PLAN, WORK-LIST, context-window, and activity-log rules."
             ],
-            "io": "Input: Internal queries or context calls from pipeline agents regarding operational rules; Output: Reference schemas, flow guidelines, and formatting specifications.",
+            "io": "Input is an internal agent's need for a pipeline rule or schema. Output is a reference-document location selected from the listed files.",
             "dependencies": [
-              "none"
+              "references/agent-flow.md",
+              "references/file-content-schema.md",
+              "references/shared-prompt-sections.md",
+              "references/context-policy.md",
+              "references/xml-schema.md",
+              "references/work-activity-log.md"
             ],
-            "boundary": "It does not execute pipeline actions or process direct user requests, serving strictly as an internal documentation standard for sub-agents."
+            "boundary": "Only an index and brief document descriptions are present. The referenced contents are not included in the supplied evidence, so the actual orchestration rules, schemas, and validation behavior cannot be assessed here."
           },
           "zh": {
-            "purpose": "为 SDD（规范驱动开发）流水线的各类内部智能体提供规则、Schema 及工作流定义参考。",
+            "purpose": "标识流水线智能体使用的规则与模式文档，本身不是面向终端用户的直接工作流。",
             "scenarios": [
-              "供流水线智能体在自动化执行过程中查阅工作流定义与上下文滑动窗口策略。",
-              "规范与校验智能体角色之间的文件格式 Schema 及 XML 通信结构。",
-              "统一跨智能体的 Task ID 命名、PLAN.md 结构及活动日志记录标准。"
+              "定位流水线流程定义。",
+              "定位生成文件和 XML 通信模式。",
+              "定位 TASK、PLAN、WORK-LIST、上下文窗口和活动日志的共享规则。"
             ],
-            "io": "输入：智能体对流水线规则或 Schema 的内部查询请求；输出：工作流定义、XML 规范及提示词规则等参考文档。",
+            "io": "输入为内部智能体对某项流水线规则或模式的需求；输出为从列出的文件中选定的参考文档位置。",
             "dependencies": [
-              "none"
+              "references/agent-flow.md",
+              "references/file-content-schema.md",
+              "references/shared-prompt-sections.md",
+              "references/context-policy.md",
+              "references/xml-schema.md",
+              "references/work-activity-log.md"
             ],
-            "boundary": "该技能仅作为内部参考文档库，不直接响应用户调用或执行具体的代码与流水线任务。"
+            "boundary": "所附证据只有索引和简短文档说明，未包含引用文件正文，因此无法据此评估实际编排规则、模式和验证行为。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Index of internal reference documents used by a specification-driven development pipeline.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agent-triforce/skills/review-findings": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "4c3825a14287a7397261caa91b7591b5f32f8f97abdb3312ec98c66dceed38d3",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Addresses and resolves code review findings from QA reports by delegating fix implementations to the developer agent.",
+            "purpose": "Guides a development role through understanding, prioritizing, fixing, testing, and reporting on code-review findings.",
             "scenarios": [
-              "Fixing critical and warning issues found during a QA code review",
-              "Processing a specific review report file to systematically resolve code defects",
-              "Preparing code fixes, updated tests, and a report for QA re-verification"
+              "Fix critical findings before lower-priority warnings.",
+              "Update tests alongside each review-driven correction.",
+              "Document justified deferrals for warnings.",
+              "Prepare a fix report for QA re-verification."
             ],
-            "io": "Takes an optional QA review report file path as input and outputs code fixes, updated tests, and a fix report.",
+            "io": "Input is a specified review-report path or, by convention, the most recent report in docs/reviews/. Outputs are code and test changes plus a fix report describing resolutions and deferrals.",
             "dependencies": [
-              "forja-dev-agent"
+              "A Forja development agent or equivalent implementer",
+              "An existing QA review report",
+              "SIGN IN, Implementation Complete, Pre-Delivery, and TIME OUT checklists referenced but not included",
+              "Project build and test tooling"
             ],
-            "boundary": "Does not perform the initial QA code review or conduct the final re-verification itself."
+            "boundary": "The workflow performs repository modifications and relies on an external review report's correctness. The evidence does not define how the latest report is selected, how conflicting findings are resolved, or what constitutes adequate re-verification."
           },
           "zh": {
-            "purpose": "通过委托给开发 Agent，读取并修复 QA 代码审查报告中提出的问题。",
+            "purpose": "指导开发角色理解、排序、修复、测试并汇报代码审查问题。",
             "scenarios": [
-              "在收到 QA 代码审查报告后修复严重和警告级别的缺陷",
-              "指定特定的审查文档文件以系统化解决代码缺陷",
-              "准备代码修复方案、更新测试用例并生成供 QA 复核的修复报告"
+              "先修复严重问题，再处理警告。",
+              "为每项审查驱动的修复同步更新测试。",
+              "记录有理由延期处理的警告。",
+              "准备供 QA 重新验证的修复报告。"
             ],
-            "io": "输入可选的 QA 审查报告文件路径，输出修复后的代码、更新的测试用例及修复报告。",
+            "io": "输入为指定审查报告路径，或按约定选取 docs/reviews/ 中最新报告；输出为代码和测试变更，以及说明已解决项和延期项的修复报告。",
             "dependencies": [
-              "forja-dev-agent"
+              "Forja 开发智能体或等效实现者",
+              "已有 QA 审查报告",
+              "证据未包含的 SIGN IN、Implementation Complete、Pre-Delivery 和 TIME OUT 清单",
+              "项目构建与测试工具"
             ],
-            "boundary": "该技能不负责执行初始的代码审查或最终的二次复核验证。"
+            "boundary": "该流程会修改仓库，并依赖外部审查报告的准确性。证据未定义如何选取“最新”报告、如何解决冲突问题或何种结果算充分重新验证。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Development workflow for addressing critical and warning findings recorded in a QA review report.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agent-triforce/skills/release-check": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "2ab6e5383b1197c4e444c0472bf3f079c97d1444cf498f939b4f9f915f2ae6ba",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Runs a comprehensive pre-release verification checklist covering documentation, testing, and security to determine if a software version is ready for production.",
+            "purpose": "Coordinates a final QA assessment and records whether a named version is ready for release or blocked.",
             "scenarios": [
-              "Performing a final quality gate before tagging a release version (e.g., v1.2.0).",
-              "Auditing CHANGELOG, test coverage, and security compliance before deploying to production.",
-              "Generating a formal pre-release assessment report with blocking reasons if verification fails."
+              "Verify a release candidate before production deployment.",
+              "Check CHANGELOG, technical-debt records, specifications, and documentation.",
+              "Run tests and code-health checks.",
+              "Perform the final security and release-readiness gate."
             ],
-            "io": "Takes a release version identifier as input and outputs a detailed Markdown assessment report with a final verdict (READY FOR RELEASE or BLOCKED).",
+            "io": "Input is a version identifier and the repository's release artifacts. Output is docs/reviews/release-check-{version}.md with documentation, testing, quality, and security results plus a READY FOR RELEASE or BLOCKED verdict.",
             "dependencies": [
-              "Centinela QA Agent"
+              "A Centinela QA agent or equivalent reviewer",
+              "Project test and code-health tooling",
+              "A security-audit capability",
+              "CHANGELOG, TECH_DEBT, specifications, and other release documentation",
+              "SIGN IN, TIME OUT, quality, security, and release-readiness checklists referenced but not included"
             ],
-            "boundary": "Evaluates release readiness and generates verification reports, but does not automatically execute code deployment or fix detected code issues."
+            "boundary": "This is an assessment and report workflow; it does not deploy or tag a release. The evidence does not define quantitative passing thresholds or guarantee that all project-specific release requirements are covered."
           },
           "zh": {
-            "purpose": "在软件发布前运行涵盖文档、质量与安全的综合检查清单，以确定特定版本是否具备上线条件。",
+            "purpose": "协调最终 QA 评估，并记录指定版本可以发布还是被阻止。",
             "scenarios": [
-              "在打版本标签（如 v1.2.0）前执行最终的质量与安全关卡评估。",
-              "在上线前审计 CHANGELOG、测试覆盖率及安全合规状态。",
-              "生成正式的发布评估报告，并在存在阻碍项时给出具体的拦截原因。"
+              "生产部署前验证候选版本。",
+              "检查 CHANGELOG、技术债记录、规格和文档。",
+              "运行测试和代码健康检查。",
+              "执行最终安全与发布就绪门禁。"
             ],
-            "io": "输入为发布版本号，输出为保存在文档中的 Markdown 评估报告及最终的发布结论（READY 或 BLOCKED）。",
+            "io": "输入为版本标识和仓库发布产物；输出为 docs/reviews/release-check-{version}.md，包含文档、测试、质量、安全结果，以及 READY FOR RELEASE 或 BLOCKED 结论。",
             "dependencies": [
-              "Centinela QA Agent"
+              "Centinela QA 智能体或等效审查者",
+              "项目测试和代码健康工具",
+              "安全审计能力",
+              "CHANGELOG、TECH_DEBT、规格及其他发布文档",
+              "证据未包含的 SIGN IN、TIME OUT、质量、安全和发布就绪清单"
             ],
-            "boundary": "仅负责发布前的核查与评估报告生成，不直接执行代码上线部署或自动修复检测出的问题。"
+            "boundary": "这是评估和报告工作流，不部署也不创建版本标签。证据未定义量化通过阈值，也不能保证覆盖项目特有的全部发布要求。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Pre-release assessment workflow for documentation, tests, code quality, security, and release readiness.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/aigent-os/skills/open": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "bb1bd39c6d37196a10c129288aeb26271999d6663809d74ef5bd1e2e6fb9d554",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Boots a working session by validating the vault layout, recovering recent context, and surfacing active priorities.",
+            "purpose": "Loads selected durable context at session start and surfaces only decisions, drift, blockers, dropped work, and open threads needing attention.",
             "scenarios": [
-              "Initializing a new working session to restore recent context and active priorities.",
-              "Recovering unbanked session summaries from daily captures after an improper session close.",
-              "Surfacing pending decisions and stale delegations before starting daily tasks."
+              "Validate that AIGENT_ROOT or AIGENT_VAULT resolves to a configured vault.",
+              "Route an unready installation to first-run setup.",
+              "Recover a newer unbanked session capture into the session log.",
+              "Read prioritized memory, daily notes, delegation state, decisions, and runtime state.",
+              "Trigger periodic skill-gap or weekly reconciliation checks when due."
             ],
-            "io": "Reads local vault files and configuration state to output a session context summary and update local state files.",
+            "io": "Inputs are environment-resolved vault paths, .aigent state markers, and Markdown or JSON memory records. Outputs are a brief session orientation, refreshed runtime state, and in limited recovery cases an updated session log.",
             "dependencies": [
-              "bash",
-              "file_system"
+              "AIGENT_ROOT and optionally AIGENT_VAULT",
+              "Existing vault/memory and vault/daily directories",
+              "Machine-readable .aigent state",
+              "update-active-state.py daemon",
+              "Referenced /start, /skill-hunt, and /reconcile capabilities",
+              "The documented vault memory files"
             ],
-            "boundary": "It does not perform initial environment setup or execute task-specific workflows beyond context loading and state reconciliation."
+            "boundary": "The protocol applies only to a preconfigured aigent-OS vault and must stop if validation fails. Most operations are reads, but recovery and runtime refresh can write or execute a daemon; the contents and behavior of referenced scripts and auxiliary skills are not included in the evidence."
           },
           "zh": {
-            "purpose": "通过验证 Vault 存储库、恢复近期上下文并呈现当前核心优先级来启动工作会话。",
+            "purpose": "在会话开始时加载精选持久上下文，仅提示需要关注的决策、注意力偏移、阻塞、遗落工作和开放事项。",
             "scenarios": [
-              "启动新的工作会话并恢复近期上下文和活跃优先级。",
-              "在会话异常关闭后，从每日记录中自动恢复未入账的会话摘要。",
-              "在开始日常工作前呈现待决的决策和停滞的委派任务。"
+              "验证 AIGENT_ROOT 或 AIGENT_VAULT 是否指向已配置 vault。",
+              "将未就绪安装引导至首次运行设置。",
+              "将更新的未归档会话捕获恢复到会话日志。",
+              "读取高优先级记忆、每日记录、委派状态、决策和运行时状态。",
+              "到期时触发技能缺口或每周对账检查。"
             ],
-            "io": "输入为本地 Vault 库文件与配置状态，输出为会话上下文摘要及更新后的本地状态文件。",
+            "io": "输入为通过环境变量解析的 vault 路径、.aigent 状态标记以及 Markdown 或 JSON 记忆记录；输出为简短会话导向、刷新的运行时状态，并在有限恢复场景中更新会话日志。",
             "dependencies": [
-              "bash",
-              "file_system"
+              "AIGENT_ROOT 和可选的 AIGENT_VAULT",
+              "已有 vault/memory 与 vault/daily 目录",
+              "机器可读的 .aigent 状态",
+              "update-active-state.py 守护脚本",
+              "被引用的 /start、/skill-hunt 和 /reconcile 能力",
+              "文档规定的 vault 记忆文件"
             ],
-            "boundary": "它不负责系统初次安装配置，也不在上下文加载之外执行具体的业务任务。"
+            "boundary": "该协议仅适用于已配置的 aigent-OS vault，验证失败必须停止。多数操作为读取，但恢复和运行时刷新可能写入或执行守护脚本；所引用脚本及辅助技能的实际内容未包含在证据中。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Session-start protocol for a configured aigent-OS vault, including contextual recall, recovery checks, priority reconciliation, and runtime-state refresh.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agent-triforce/skills/implement-feature": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "843bf4b5799a9521d05091555e6658a2d2db19166f4178725375f3facda0df17",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Executes end-to-end feature implementation from an approved specification by designing architecture, writing source code and tests, and preparing QA handoff artifacts.",
+            "purpose": "Guides a development role from an approved feature specification to implementation, tests, and a structured QA handoff.",
             "scenarios": [
-              "Implementing code and unit/integration tests from an approved feature specification document",
-              "Designing architecture and writing Architecture Decision Records (ADR) for complex system changes",
-              "Preparing structured delivery packages and notes for handoff to QA testing"
+              "Implement a named feature whose specification has been approved.",
+              "Create an ADR for a significant architectural decision.",
+              "Define interfaces before writing implementation code.",
+              "Add unit and integration tests and prepare QA instructions."
             ],
-            "io": "Inputs a feature name or spec file path, and outputs source code in src/, test suites in tests/, optional ADRs, and QA handoff documentation.",
+            "io": "Input is a feature name or path to an approved specification. Outputs are implementation files under src/, tests under tests/, optional ADRs, and handoff notes describing changes, testing, and known limitations.",
             "dependencies": [
-              "forja-dev-agent",
-              "qa-agent"
+              "A Forja development agent or equivalent implementer",
+              "An approved feature specification",
+              "Project source and test structure",
+              "SIGN IN, Implementation Complete, Pre-Delivery, TIME OUT, and SIGN OUT checklists referenced but not included",
+              "Build and test tooling appropriate to the project"
             ],
-            "boundary": "Does not draft or approve initial product specifications, nor does it perform final QA test execution."
+            "boundary": "The evidence defines a generic workflow, not language- or framework-specific implementation rules. It assumes an adequate approved specification and does not itself perform independent QA, deployment, or release approval."
           },
           "zh": {
-            "purpose": "根据已批准的特性规范进行端到端功能开发，包括架构设计、代码与测试编写以及 QA 交付准备。",
+            "purpose": "指导开发角色从已批准功能规格推进到实现、测试和结构化 QA 交接。",
             "scenarios": [
-              "根据已批准的功能规范文档编写实现代码及单元/集成测试",
-              "针对复杂的系统变更设计架构并创建架构决策记录（ADR）",
-              "整理结构化的交付内容与说明，以便移交给 QA 团队"
+              "实现已有批准规格的命名功能。",
+              "为重大架构决策创建 ADR。",
+              "先定义接口，再编写实现代码。",
+              "增加单元和集成测试，并准备 QA 测试说明。"
             ],
-            "io": "输入特性名称或规范文件路径，输出 src/ 中的源代码、tests/ 中的测试套件、可选的 ADR 文件以及 QA 交付说明。",
+            "io": "输入为功能名称或已批准规格的路径；输出为 src/ 下的实现、tests/ 下的测试、可选 ADR，以及说明变更、测试方法和已知限制的交接记录。",
             "dependencies": [
-              "forja-dev-agent",
-              "qa-agent"
+              "Forja 开发智能体或等效实现者",
+              "已批准的功能规格",
+              "项目源码与测试目录结构",
+              "证据未包含的 SIGN IN、Implementation Complete、Pre-Delivery、TIME OUT 和 SIGN OUT 清单",
+              "适合项目的构建与测试工具"
             ],
-            "boundary": "不负责撰写或批准初始产品需求规范，也不负责执行最终的 QA 测试。"
+            "boundary": "证据规定的是通用流程，不包含语言或框架专属实现规则。它假设规格充分且已批准，本身不执行独立 QA、部署或发布批准。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Specification-driven implementation workflow covering architecture, contracts, source code, tests, validation checkpoints, and QA handoff.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agent-triforce/skills/feature-spec": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "c433a18101c9e1fc8717fbc6b7cd6d48707ecc14f558bd3a95c870dc527affe9",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Creates detailed product feature specifications with acceptance criteria, scope, and risks by delegating to the Prometeo (PM) agent.",
+            "purpose": "Guides a product-management role in converting a feature request into a reviewable specification.",
             "scenarios": [
-              "Defining new product features or business requirements before technical implementation",
-              "Writing structured user stories with GIVEN/WHEN/THEN acceptance criteria",
-              "Documenting feature scope, dependencies, and risks to prepare handoff notes for developers"
+              "Define a new feature or business requirement.",
+              "Write user stories with GIVEN/WHEN/THEN acceptance criteria.",
+              "Separate in-scope and out-of-scope work.",
+              "Record dependencies, risks, success measures, open questions, and developer handoff notes."
             ],
-            "io": "Takes a feature description prompt as input and produces a comprehensive product spec markdown file at docs/specs/{feature-name}.md.",
+            "io": "Input is a feature description. Output is docs/specs/{feature-name}.md containing the problem, metrics, stories, acceptance criteria, scope, dependencies, risks, questions, and handoff information.",
             "dependencies": [
-              "prometeo-agent",
-              "file-system"
+              "A Prometeo product-management agent or equivalent spec author",
+              "Access to existing specifications for conflict research",
+              "SIGN IN, Spec Completion, TIME OUT, and SIGN OUT checklists referenced but not included"
             ],
-            "boundary": "This skill only generates product specification documentation and handoff notes; it does not write or execute implementation code."
+            "boundary": "The workflow writes a specification but does not implement or verify the feature. It expects clarification rather than guessing, while the evidence does not define the exact specification template, naming normalization, or approval mechanism."
           },
           "zh": {
-            "purpose": "通过委派给 Prometeo (PM) Agent，创建包含验收标准、范围、依赖项和风险的完整产品功能规格说明书。",
+            "purpose": "指导产品管理角色将功能请求转换为可评审规格。",
             "scenarios": [
-              "在开始代码开发前定义全新的产品功能或业务需求",
-              "编写包含 GIVEN/WHEN/THEN 格式验收标准的技术用户故事",
-              "梳理功能范围、依赖关系与潜在风险，并为开发团队准备结构化的交接文档"
+              "定义新功能或业务需求。",
+              "编写带 GIVEN/WHEN/THEN 验收标准的用户故事。",
+              "区分范围内和范围外工作。",
+              "记录依赖、风险、成功指标、开放问题和开发交接说明。"
             ],
-            "io": "输入功能概念或需求描述文本，输出位于 docs/specs/{feature-name}.md 的 Markdown 格式规格说明书。",
+            "io": "输入为功能描述；输出为 docs/specs/{feature-name}.md，包含问题、指标、故事、验收标准、范围、依赖、风险、问题和交接信息。",
             "dependencies": [
-              "prometeo-agent",
-              "file-system"
+              "Prometeo 产品管理智能体或等效规格作者",
+              "用于冲突研究的现有规格访问权限",
+              "证据未包含的 SIGN IN、Spec Completion、TIME OUT 和 SIGN OUT 清单"
             ],
-            "boundary": "该技能仅负责产品需求规格书的撰写与开发交接规划，不包含任何实际的代码编写与功能实现。"
+            "boundary": "该工作流只编写规格，不实现也不验证功能。它要求遇到不明确内容时询问，而非猜测；但证据未定义确切规格模板、名称规范化或审批机制。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Product-feature specification workflow producing structured scope, stories, acceptance criteria, dependencies, risks, and developer handoff.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/agent-triforce/skills/code-health": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "0572aa328df8db20558264ed0e1b8287ccd50f4efce2756ac94f9dadc2837736",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Scans the codebase for dead code, technical debt, vulnerable dependencies, and code smells to generate a comprehensive health report.",
+            "purpose": "Directs a QA role to scan source, tests, and configuration files and produce a prioritized code-health report.",
             "scenarios": [
-              "Performing a periodic codebase maintenance and quality check",
-              "Auditing dependencies and dead code prior to a new release",
-              "Verifying code cleanliness after completing a major refactoring"
+              "Run a periodic codebase hygiene review.",
+              "Assess cleanliness after a large refactor.",
+              "Check dead code and unresolved debt before a release.",
+              "Inventory outdated or vulnerable dependencies, complexity, nesting, and duplication."
             ],
-            "io": "Takes a execution command or codebase scan trigger and outputs a detailed Markdown health report saved to docs/reviews/.",
+            "io": "Input is the repository's source, test, configuration, dependency, and prior-review material. Output is docs/reviews/code-health-{date}.md with verified findings prioritized as Critical, Warning, or Suggestion.",
             "dependencies": [
-              "Centinela QA agent"
+              "A Centinela QA agent or equivalent reviewer",
+              "Language-specific dead-code and dependency inspection tools",
+              "Access to source, tests, config, and previous scan reports",
+              "SIGN IN and Scan Complete/TIME OUT checklists referenced but not included"
             ],
-            "boundary": "Identifies and categorizes code quality issues but does not automatically apply code fixes or perform refactoring."
+            "boundary": "The workflow reports findings and hands them to development; it does not apply fixes. Claims of avoiding false positives depend on reviewer validation, and the evidence does not define concrete analyzers or universal thresholds for code smells."
           },
           "zh": {
-            "purpose": "扫描代码库中的死代码、技术债务、安全漏洞及代码异味，生成全面的代码健康报告。",
+            "purpose": "指导 QA 角色扫描源码、测试和配置文件，并生成按优先级组织的代码健康报告。",
             "scenarios": [
-              "定期对代码库进行日常维护和质量检查",
-              "在版本发布前审计依赖项风险与无用代码",
-              "在完成大型代码重构后验证代码整洁度"
+              "执行周期性代码库卫生检查。",
+              "大型重构后评估代码整洁度。",
+              "发布前检查死代码和未解决技术债。",
+              "盘点过期或有漏洞的依赖、复杂度、深层嵌套和重复。"
             ],
-            "io": "接收扫描指令或触发信号，输出一份存放在 docs/reviews/ 目录下的 Markdown 格式健康报告。",
+            "io": "输入为仓库源码、测试、配置、依赖信息和历史审查材料；输出为 docs/reviews/code-health-{date}.md，其中已验证问题按 Critical、Warning、Suggestion 排序。",
             "dependencies": [
-              "Centinela QA agent"
+              "Centinela QA 智能体或等效审查者",
+              "对应语言的死代码与依赖检查工具",
+              "对源码、测试、配置及历史扫描报告的访问",
+              "证据未包含的 SIGN IN 和 Scan Complete/TIME OUT 清单"
             ],
-            "boundary": "仅负责诊断并记录代码健康问题与提报，不会自动修改或重构代码。"
+            "boundary": "该流程只报告问题并交接给开发，不应用修复。避免误报的说法依赖审查者验证；证据未定义具体分析器或通用代码异味阈值。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Codebase hygiene assessment for dead code, technical debt, dependency state, code smells, and TODO/FIXME records.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/aigent-os/skills/close": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "7e1eb4884157c66bd73272dc08be42956de212a2d295f368b5c166a78a964acb",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Safely commits session memory, audit logs, and durable state to the vault to create a clean resume point for future sessions.",
+            "purpose": "Commits material session outcomes to durable vault memory and establishes a clean, recoverable next-session pickup point.",
             "scenarios": [
-              "Ending an active session and persisting durable memory state to the vault",
-              "Auditing session work discipline including honesty logs, trust decay, and failure modes prior to close",
-              "Verifying vault layout and environment paths before executing session-closing daemons"
+              "Validate the configured vault before any mutation.",
+              "Record consequential work, trust claims, failures, decision outcomes, and staged memories.",
+              "Update affected project, person, concept, priority, delegation, and session records.",
+              "Create a context capsule when workload or context conditions require it.",
+              "Rebuild memory heat, run system checks, refresh runtime state, and stamp a successful close."
             ],
-            "io": "Accepts the `/close` trigger and vault environment variables (`$AIGENT_ROOT`, `$AIGENT_VAULT`), and outputs updated vault memory files, audit ledgers, and a closure status response.",
+            "io": "Inputs are session outcomes, a validated vault, existing memory records, state markers, and daemon results. Outputs include updated Markdown and JSON/JSONL memory artifacts, optional capsules, refreshed indexes/runtime state, a concise commit summary, and .aigent/last-close after required writes succeed.",
             "dependencies": [
-              "bash",
-              "file_system"
+              "AIGENT_ROOT and optionally AIGENT_VAULT",
+              "Existing vault/memory and vault/daily structures",
+              "Referenced /honesty-check and /digest capabilities",
+              "Memory-heat, usage-sync, system-check, and runtime-state daemons",
+              "Node.js, Python, and shell where the documented daemons require them",
+              "Stable session and record identifiers for idempotency"
             ],
-            "boundary": "It does not write data outside the validated vault directory or proceed with session closure if the vault environment is unconfigured or invalid."
+            "boundary": "This is a broad mutation protocol restricted to a verified vault. It must not advance the close marker after required-write failures. The evidence does not include the invoked daemon or auxiliary-skill implementations, and several conditional ledger or capsule decisions require judgment from session context."
           },
           "zh": {
-            "purpose": "安全地将会话记忆、审计日志和持久化状态提交至 Vault，以构筑供后续会话恢复的干净断点。",
+            "purpose": "将重要会话结果提交到持久 vault 记忆，并建立清晰、可恢复的下次会话接续点。",
             "scenarios": [
-              "结束当前会话并将持久化记忆状态保存至 Vault",
-              "在关闭前进行工作纪律审计（包括诚信日志、信任衰减与失效模式）",
-              "在执行会话关闭守护程序前校验 Vault 布局及环境变量路径"
+              "任何修改前验证已配置 vault。",
+              "记录重要工作、信任声明、失败、决策结果和暂存记忆。",
+              "更新受影响的项目、人员、概念、优先级、委派和会话记录。",
+              "在工作量或上下文条件满足时创建上下文胶囊。",
+              "重建记忆热度、运行系统检查、刷新运行时状态，并在成功后写入关闭时间。"
             ],
-            "io": "输入包含 `/close` 触发指令及 Vault 环境变量（`$AIGENT_ROOT`、`$AIGENT_VAULT`），输出更新后的 Vault 记忆文件、审计日志及关闭状态指示。",
+            "io": "输入为会话结果、已验证 vault、现有记忆记录、状态标记和守护脚本结果；输出包括更新的 Markdown、JSON/JSONL 记忆产物、可选胶囊、刷新后的索引与运行时状态、简短提交摘要，以及必需写入成功后的 .aigent/last-close。",
             "dependencies": [
-              "bash",
-              "file_system"
+              "AIGENT_ROOT 和可选的 AIGENT_VAULT",
+              "已有 vault/memory 与 vault/daily 结构",
+              "被引用的 /honesty-check 和 /digest 能力",
+              "记忆热度、用量同步、系统检查和运行时状态守护脚本",
+              "相关守护脚本所需的 Node.js、Python 和 shell",
+              "用于幂等性的稳定会话与记录标识"
             ],
-            "boundary": "如果 Vault 环境未配置或路径无效，它不会强行执行关闭，且绝不在已验证的 Vault 目录之外写入数据。"
+            "boundary": "这是一个仅限已验证 vault 的广泛写入协议。必要写入失败后不得推进关闭标记。证据未包含所调用守护脚本或辅助技能的实现，多个账本或胶囊条件也需要依据会话上下文作判断。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Idempotent end-of-session persistence protocol for a validated aigent-OS vault, including ledgers, daily notes, capsules, indexes, checks, runtime state, and close stamping.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/all-skills/skills/airtable-automation": {
@@ -715,129 +841,165 @@
       }
     },
     "davepoon/buildwithclaude/plugins/all-skills/skills/agent-analytics": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "1fc22970247285419a67afcd19220f71348da427de58b285d99eb04705ab8ea9",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Agent Analytics allows AI agents to instrument tracking, query metrics, run A/B experiments, and optimize growth across web projects via a CLI tool.",
+            "purpose": "Guides an agent in adding lightweight product analytics, querying project performance, and running conversion experiments using Agent Analytics.",
             "scenarios": [
-              "Adding analytics scripts and standard custom event tracking to web applications",
-              "Checking project performance metrics like traffic, conversion rates, and retention cohorts via CLI commands",
-              "Setting up and evaluating A/B experiments on headlines, CTAs, or user flows"
+              "Create an analytics project and add automatic page-view tracking.",
+              "Instrument a small set of high-value custom events.",
+              "Inspect traffic, pages, sessions, funnels, retention, and activity times.",
+              "Create, read, and complete an A/B experiment.",
+              "Verify recently emitted events."
             ],
-            "io": "Accepts CLI setup commands, project details, and API keys as inputs, and outputs integration snippets, event logs, and analytics query results.",
+            "io": "Inputs include an Agent Analytics API key, project name and domain, browser events and properties, query periods, funnel steps, or experiment definitions. Outputs include a project write token and tracking snippet, recorded events, analytical summaries, and experiment probabilities, lift, or recommendations.",
             "dependencies": [
               "npx",
-              "AGENT_ANALYTICS_API_KEY"
+              "@agent-analytics/cli",
+              "AGENT_ANALYTICS_API_KEY or a token supplied during login",
+              "Agent Analytics hosted service or a self-hosted deployment",
+              "A web application capable of loading the tracker and calling window.aa"
             ],
-            "boundary": "It does not support granular or high-noise tracking such as scroll depth, form field interactions, or mapping every link click on a page."
+            "boundary": "The evidence describes one analytics platform and its claimed behavior. It does not independently establish privacy properties, statistical validity, availability, or schema stability; experiments need sufficient exposure, and instrumentation changes still require application access and deployment."
           },
           "zh": {
-            "purpose": "Agent Analytics 允许 AI Agent 通过 CLI 工具为 Web 项目添加统计埋点、查询数据指标、运行 A/B 实验并优化增长。",
+            "purpose": "指导智能体使用 Agent Analytics 添加轻量产品分析、查询项目表现并运行转化实验。",
             "scenarios": [
-              "为 Web 应用添加基础统计代码及核心自定义事件埋点",
-              "通过 CLI 查询项目流量、转化率及留存分析等关键数据",
-              "针对关键行动按钮（CTA）、文案或业务流程配置并评估 A/B 实验"
+              "创建分析项目并添加自动页面浏览追踪。",
+              "埋点少量高价值自定义事件。",
+              "查看流量、页面、会话、漏斗、留存和活跃时段。",
+              "创建、读取和结束 A/B 实验。",
+              "验证新近发送的事件。"
             ],
-            "io": "输入 CLI 操作命令、项目参数及 API 密钥，输出埋点代码片段、事件日志和分析统计结果。",
+            "io": "输入包括 Agent Analytics API 密钥、项目名称与域名、浏览器事件与属性、查询周期、漏斗步骤或实验定义；输出包括项目写入令牌和追踪片段、已记录事件、分析摘要，以及实验概率、提升或建议。",
             "dependencies": [
               "npx",
-              "AGENT_ANALYTICS_API_KEY"
+              "@agent-analytics/cli",
+              "AGENT_ANALYTICS_API_KEY 或登录时提供的令牌",
+              "Agent Analytics 托管服务或自托管部署",
+              "能够加载追踪器并调用 window.aa 的 Web 应用"
             ],
-            "boundary": "该工具不支持过度细粒度或高噪音的数据追踪，如页面滚动深度、表单逐字段交互或全站所有链接的点击统计。"
+            "boundary": "证据描述的是特定分析平台及其自述行为，并未独立证明隐私属性、统计有效性、可用性或模式稳定性。实验需要足够曝光量，埋点变更仍需应用访问和部署。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Agent Analytics setup, event instrumentation, querying, funnel and retention analysis, and A/B experiment management through its CLI and browser tracker.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "davepoon/buildwithclaude/plugins/all-skills/skills/activecampaign-automation": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "ffe7c05cd73da528915661d2cb1e91723d589fd1de4de482e74d3df71459010e",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Automates ActiveCampaign operations including contact management, tagging, list subscriptions, and automation enrollments via Rube MCP.",
+            "purpose": "Documents tool sequences and parameter conventions for automating common ActiveCampaign CRM and marketing operations through Rube MCP.",
             "scenarios": [
-              "Creating new contacts or searching for existing ones by email or phone",
-              "Adding or removing tags from contacts to segment audiences",
-              "Subscribing or unsubscribing contacts from specific marketing lists"
+              "Find or create a contact.",
+              "Add or remove contact tags.",
+              "Subscribe or unsubscribe a contact from a list.",
+              "Enroll an existing contact in an automation.",
+              "Create a dated follow-up task associated with a contact."
             ],
-            "io": "Accepts contact metadata, list IDs, tag names, and action instructions, returning execution status and updated CRM records.",
+            "io": "Inputs include contact emails or IDs, names, phone numbers, tags, list and automation IDs, task types, due dates, and actions. Outputs are contact records or mutation results returned by the current ActiveCampaign tools exposed through Rube MCP.",
             "dependencies": [
-              "rube",
-              "active_campaign"
+              "Rube MCP with RUBE_SEARCH_TOOLS and RUBE_MANAGE_CONNECTIONS",
+              "An active Composio connection for the active_campaign toolkit",
+              "An ActiveCampaign account and configured lists, automations, users, and task types",
+              "Current tool schemas discovered before use"
             ],
-            "boundary": "Does not support creating or editing email campaign templates, designing automation workflows from scratch, or providing advanced reporting analytics."
+            "boundary": "The workflow depends on live third-party schemas and authentication. It cannot create ActiveCampaign automations and may require IDs from the ActiveCampaign UI. Mutations can affect customer records and subscriptions; callers must handle authorization, identity matching, rate limits, response nesting, date validity, and duplicate-contact behavior."
           },
           "zh": {
-            "purpose": "通过 Rube MCP 自动化 ActiveCampaign 操作，包括联系人管理、标签设置、邮件列表订阅及自动化流程跟进。",
+            "purpose": "记录通过 Rube MCP 自动执行常见 ActiveCampaign CRM 与营销操作的工具顺序和参数约定。",
             "scenarios": [
-              "按邮箱或电话查找现有联系人或创建新联系人",
-              "为联系人添加或移除标签以实现精准分群",
-              "管理联系人在特定邮件营销列表中的订阅或退订状态"
+              "查找或创建联系人。",
+              "添加或移除联系人标签。",
+              "将联系人订阅到列表或取消订阅。",
+              "把已有联系人加入自动化流程。",
+              "创建关联联系人的定时跟进任务。"
             ],
-            "io": "接收联系人元数据、列表 ID、标签名称和操作指令，返回执行状态及更新后的 CRM 记录。",
+            "io": "输入包括联系人邮箱或 ID、姓名、电话、标签、列表与自动化 ID、任务类型、截止时间和动作；输出为 Rube MCP 当前暴露的 ActiveCampaign 工具返回的联系人记录或变更结果。",
             "dependencies": [
-              "rube",
-              "active_campaign"
+              "带 RUBE_SEARCH_TOOLS 和 RUBE_MANAGE_CONNECTIONS 的 Rube MCP",
+              "Composio 中 active_campaign 工具包的有效连接",
+              "ActiveCampaign 账户及已配置的列表、自动化、用户和任务类型",
+              "操作前发现的最新工具模式"
             ],
-            "boundary": "不支持直接设计邮件模板、从零构建复杂自动化工作流逻辑或生成高级分析报告。"
+            "boundary": "该工作流依赖实时第三方模式和认证，不能创建 ActiveCampaign 自动化，部分 ID 需从 ActiveCampaign 界面获取。变更会影响客户记录和订阅；调用方需处理授权、身份匹配、速率限制、响应嵌套、日期有效性和重复联系人行为。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "ActiveCampaign contact, tag, list-subscription, automation-enrollment, and contact-task operations through Composio's Rube MCP toolkit.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     },
     "daymade/claude-code-skills/daymade-audio/transcript-fixer": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "ceb2adcbb6216c71029e6b2c6d6bae2227f436ef811ac657b6985451d779a91c",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Automatically corrects speech-to-text transcription errors using a hybrid pipeline of local dictionary rules and AI-powered context analysis that continuously learns from past fixes.",
+            "purpose": "Corrects recurring and context-dependent speech-to-text errors while accumulating confirmed, domain-scoped correction knowledge for future transcripts.",
             "scenarios": [
-              "Correcting garbled names, technical jargon, and homophones in meeting notes or lecture transcripts.",
-              "Cleaning up mixed Chinese/English speech recognition outputs from engines like Whisper, Otter, or Tencent Meeting.",
-              "Building and expanding a personalized domain dictionary from user review feedback to speed up future runs."
+              "Apply safe dictionary corrections and defer risky matches for review.",
+              "Perform a full-document native AI pass for names, homophones, terminology, and mixed Chinese/English ASR errors.",
+              "Maintain project dictionaries, person-name variants, and domain context cues.",
+              "Queue uncertain entities or wording for anchored human review, optionally with audio playback.",
+              "Audit false positives, numeric damage, timestamps, and final transcript diffs.",
+              "Process multiple related transcripts while preserving per-file scope and reusable corrections."
             ],
-            "io": "Takes raw text transcripts or speech-to-text output files as input and returns cleaned text along with an updated local correction database.",
+            "io": "Inputs include transcript text or Markdown, domain names, a SQLite correction database, optional people roster and context files, optional source audio, raw transcripts, and human review decisions. Outputs include corrected transcripts, Stage 1/2 and review sidecars, change and diff reports, persistent dictionary or review-queue records, and optional archived or renamed final files.",
             "dependencies": [
-              "uv",
-              "python"
+              "uv for running bundled Python scripts and resolving inline dependencies",
+              "Bundled correction, review-dashboard, audio-fetch, timestamp, numeric-scan, split, and diff scripts",
+              "SQLite correction database under the transcript-fixer configuration directory",
+              "Optional people roster and per-domain context Markdown files",
+              "Claude native language review for the documented default AI phase",
+              "Optional GLM or Anthropic API credentials for standalone API mode",
+              "Optional lark-cli, curl, and ffprobe for Feishu/Lark audio retrieval and timeline validation",
+              "Optional audio file and local review dashboard for human adjudication"
             ],
-            "boundary": "It does not transcribe raw audio files into text directly, nor does it perform general document rewriting unrelated to speech recognition errors."
+            "boundary": "The evidence describes an extensive workflow rather than guaranteeing transcript accuracy. Dictionary replacements can create false positives; entity and numeric changes require evidence or human review, and uncertain text should remain unchanged. The workflow modifies local files and persistent SQLite state, may access external APIs in optional modes, and relies on many referenced scripts and documents whose implementations were not supplied here. Domain isolation, anchor integrity, raw-source preservation, and final diff review are essential limits stated by the source."
           },
           "zh": {
-            "purpose": "结合本地字典规则过滤与 AI 上下文分析，自动修正语音识别（ASR）文本中的错误，并在使用过程中不断积累学习个性化词库。",
+            "purpose": "纠正重复性和上下文相关的语音转文字错误，同时积累经确认、按领域隔离的纠正规则供未来转写复用。",
             "scenarios": [
-              "修复会议纪要或讲座逐字稿中的同音错别字、技术专有名词及人名错误。",
-              "清理 Whisper、Otter 或腾讯会议等引擎输出的中英文混杂语音转文字结果。",
-              "通过用户确认的修改记录自动更新本地领域词库，提升后续自动化纠错效率。"
+              "应用安全字典纠正，并将高风险匹配延后审查。",
+              "对全文执行原生 AI 复核，处理人名、同音词、术语及中英混合 ASR 错误。",
+              "维护项目字典、人名变体和领域上下文提示。",
+              "将不确定实体或措辞加入带锚点的人工审查队列，并可结合音频播放。",
+              "审计误修、数字损坏、时间戳和最终差异。",
+              "处理多份相关转写，同时保持逐文件范围并沉淀可复用纠正。"
             ],
-            "io": "输入包含语音识别错误的文本或逐字稿文件，输出修正后的文本及更新后的本地纠错数据库。",
+            "io": "输入包括转写文本或 Markdown、领域名称、SQLite 纠正数据库、可选人员名册与上下文文件、可选源音频、原始转写和人工审查决定；输出包括纠正后的转写、Stage 1/2 与审查旁文件、变更和差异报告、持久字典或审查队列记录，以及可选归档或重命名后的最终文件。",
             "dependencies": [
-              "uv",
-              "python"
+              "用于运行内置 Python 脚本并解析内联依赖的 uv",
+              "内置纠正、审查面板、音频获取、时间戳、数字扫描、拆分和差异脚本",
+              "transcript-fixer 配置目录下的 SQLite 纠正数据库",
+              "可选人员名册和逐领域上下文 Markdown 文件",
+              "文档默认 AI 阶段所需的 Claude 原生语言复核",
+              "独立 API 模式可选的 GLM 或 Anthropic 凭据",
+              "飞书/Lark 音频获取与时间线验证可选的 lark-cli、curl 和 ffprobe",
+              "用于人工判定的可选音频文件和本地审查面板"
             ],
-            "boundary": "该技能不直接处理音频文件转写为文本，也不对与语音识别错误无关的普通文本进行修改或重写。"
+            "boundary": "证据描述的是复杂工作流，不保证转写准确。字典替换可能误修；实体和数字变更需要证据或人工判断，不确定文本应保持原样。流程会修改本地文件和持久 SQLite 状态，可选模式可能访问外部 API，并依赖大量未随证据提供实现的脚本与参考文档。来源明确要求遵守领域隔离、锚点完整、原始来源保留和最终差异审查等边界。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "A multi-stage ASR transcript-correction system combining persistent dictionaries, native model review, optional API correction, domain context, person rosters, review queues, audio-assisted adjudication, and verification utilities.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-audio/stepfun-tts": {
@@ -8254,6 +8416,52 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+      }
+    },
+    "davepoon/buildwithclaude/plugins/all-skills/skills/agent-memory-discipline": {
+      "content_sha256": "c01ed4b91ccbc8a88214ab685d591bf8cad8a89c0c18bae0b433c9216ad5e180",
+      "status": "fresh",
+      "generated_at": "2026-08-17T15:23:25Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Defines when an agent should consult long-term memory before project work and when it should save durable decisions, corrections, failures, preferences, or environment facts afterward.",
+            "scenarios": [
+              "Recall project conventions before choosing tools or writing code, tests, commits, or documentation.",
+              "Save a user correction or a decision that will matter in future sessions.",
+              "Record why an approach failed or a persistent environment constraint.",
+              "Close superseded memories with validity periods instead of deleting them.",
+              "Surface contradictory memories rather than silently selecting one."
+            ],
+            "io": "Inputs are the current request, project identity, memory-search results, and newly established decisions or observations. Outputs are focused recall context or atomic memory records containing what, why, when, provenance, and supersession information.",
+            "dependencies": [
+              "A connected memory backend such as Markdown files, a local MCP server, or a hosted memory service",
+              "Search and write operations supported by that backend"
+            ],
+            "boundary": "The skill supplies behavioral policy, not a memory backend. It advises against storing secrets, personal data, transient state, or rereadable file contents; it also distinguishes observations from human-confirmed policy and limits recall attempts to avoid loops."
+          },
+          "zh": {
+            "purpose": "规定智能体何时应在项目工作前查询长期记忆，以及何时应在事后保存持久决策、纠正、失败、偏好或环境事实。",
+            "scenarios": [
+              "选择工具或编写代码、测试、提交、文档前回忆项目约定。",
+              "保存会影响未来会话的用户纠正或决策。",
+              "记录某方案失败的原因或持久环境约束。",
+              "通过有效期关闭被取代的记忆，而不是删除历史。",
+              "遇到矛盾记忆时显式提示，而非静默挑选。"
+            ],
+            "io": "输入为当前请求、项目标识、记忆搜索结果和新确认的决策或观察；输出为聚焦的回忆上下文，或包含内容、原因、时间、来源和取代关系的原子记忆记录。",
+            "dependencies": [
+              "已连接的记忆后端，例如 Markdown 文件、本地 MCP 服务器或托管记忆服务",
+              "该后端支持的搜索与写入操作"
+            ],
+            "boundary": "该技能提供行为策略，不实现记忆后端。它要求避免保存密钥、个人数据、瞬态状态或可重新读取的文件内容；同时区分观察与经人确认的政策，并限制召回尝试以防循环。"
+          }
+        },
+        "scope": "Backend-neutral operating rules for recalling and recording durable agent memory while preserving history and uncertainty.",
+        "model": "configured-default",
+        "community_repo": "davepoon/buildwithclaude"
       }
     }
   },
