@@ -101,10 +101,22 @@ def _get(url: str, token: str | None, accept: str = "application/vnd.github+json
                 data = resp.read().decode("utf-8")
                 return data if raw else json.loads(data)
         except urllib.error.HTTPError as e:
-            if e.code in {408, 429, 500, 502, 503, 504} and attempt < attempts - 1:
+            detail = e.read().decode("utf-8", errors="replace")
+            secondary_limit = e.code == 403 and (
+                "secondary rate limit" in detail.lower()
+                or (e.headers and e.headers.get("X-RateLimit-Remaining") == "0")
+                or (e.headers and e.headers.get("Retry-After"))
+            )
+            retryable = e.code in {408, 429, 500, 502, 503, 504} or secondary_limit
+            if retryable and attempt < attempts - 1:
                 retry_after = e.headers.get("Retry-After") if e.headers else None
                 try:
-                    delay = min(20.0, float(retry_after)) if retry_after else min(6.0, 1.5 * (attempt + 1))
+                    if retry_after:
+                        delay = min(60.0, float(retry_after))
+                    elif secondary_limit:
+                        delay = min(60.0, 15.0 * (attempt + 1))
+                    else:
+                        delay = min(6.0, 1.5 * (attempt + 1))
                 except ValueError:
                     delay = min(6.0, 1.5 * (attempt + 1))
                 print(
@@ -291,7 +303,9 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
         }]
 
     entries: list[dict] = []
-    with ThreadPoolExecutor(max_workers=8) as ex:
+    # GitHub applies a secondary rate limit to bursty API clients. Two workers keep a useful
+    # speedup without turning a 15-file repo cap into a request spike.
+    with ThreadPoolExecutor(max_workers=2) as ex:
         texts = list(ex.map(lambda p: fetch_raw(repo_id, branch, p, token), paths))
     failed_paths = [path for path, text in zip(paths, texts) if text is None]
     if failed_paths:
