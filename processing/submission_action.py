@@ -320,10 +320,13 @@ def report_build_result(api: GitHubAPI, event: dict, succeeded: bool) -> int:
     repo_path = encoded_repo(event["repository"]["full_name"])
     owner = event["repository"]["owner"]["login"]
     pull = find_pull(api, repo_path, owner, branch)
+    preflight = assess_submission(repo_id, kind, api.get, existing_ids())
     assessment = Assessment(
         status="pass" if succeeded else "needs_review",
-        repo_id=repo_id, kind=kind, default_branch=None,
-        standard_skill_md=0, packaged_dot_skill=0, tree_truncated=False,
+        repo_id=repo_id, kind=kind, default_branch=preflight.default_branch,
+        standard_skill_md=preflight.standard_skill_md,
+        packaged_dot_skill=preflight.packaged_dot_skill,
+        tree_truncated=preflight.tree_truncated,
         reasons=(
             "the full deterministic build and generated-artifact verification passed"
             if succeeded

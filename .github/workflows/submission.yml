@@ -8,6 +8,7 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+  statuses: write
 
 concurrency:
   group: submission-${{ github.event.issue.number || github.run_id }}
@@ -50,9 +51,37 @@ jobs:
         if: success() && steps.submission.outputs.status == 'pass'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 processing/submission_action.py --build-success
+          GH_TOKEN: ${{ github.token }}
+          PROPOSAL_BRANCH: ${{ steps.submission.outputs.branch }}
+        run: |
+          sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$PROPOSAL_BRANCH" --jq .object.sha)"
+          for attempt in 1 2 3 4 5; do
+            gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$sha" \
+              -f state=success \
+              -f context=deterministic-validation \
+              -f description='Full deterministic assessment passed' \
+              -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+              && break
+            test "$attempt" -eq 5 && exit 1
+            sleep "$((attempt * 2))"
+          done
+          python3 processing/submission_action.py --build-success
       - name: Report deterministic build failure
         if: failure() && steps.submission.outputs.status == 'pass'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 processing/submission_action.py --build-failure
+          GH_TOKEN: ${{ github.token }}
+          PROPOSAL_BRANCH: ${{ steps.submission.outputs.branch }}
+        run: |
+          sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$PROPOSAL_BRANCH" --jq .object.sha)"
+          for attempt in 1 2 3 4 5; do
+            gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$sha" \
+              -f state=failure \
+              -f context=deterministic-validation \
+              -f description='Full deterministic assessment failed' \
+              -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+              && break
+            test "$attempt" -eq 5 && exit 1
+            sleep "$((attempt * 2))"
+          done
+          python3 processing/submission_action.py --build-failure
