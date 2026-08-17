@@ -26,7 +26,6 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,6 +38,7 @@ SOURCES = REPO_ROOT / "registry" / "sources.toml"
 BASE_OUT = REPO_ROOT / "registry" / "base-index.json"
 
 API = "https://api.github.com/repos/"
+GRAPHQL_API = "https://api.github.com/graphql"
 RAW = "https://raw.githubusercontent.com/"
 SCHEMA_VERSION = "0.3"  # 0.3 separates deterministic base data from enrichment
 MAX_SKILLS_PER_REPO = 15  # cap per repo; truncation is logged, never silent
@@ -206,6 +206,78 @@ def fetch_raw(repo_id: str, branch: str, path: str, token: str | None) -> str | 
     )
 
 
+def fetch_skill_contents(
+    repo_id: str, branch: str, paths: list[str], token: str | None,
+) -> list[str | None]:
+    """Fetch a repository's selected skill files with one authenticated GraphQL request.
+
+    The REST Contents endpoint is retained as the no-token fallback, but using it once per
+    file makes a full build prone to GitHub's secondary rate limit.
+    """
+    if not token or not paths:
+        return [fetch_raw(repo_id, branch, path, token) for path in paths]
+
+    owner, name = repo_id.split("/", 1)
+    definitions = ["$owner:String!", "$name:String!"]
+    selections: list[str] = []
+    variables: dict[str, str] = {"owner": owner, "name": name}
+    for index, path in enumerate(paths):
+        variable = f"expression{index}"
+        definitions.append(f"${variable}:String!")
+        selections.append(
+            f"file{index}:object(expression:${variable}){{... on Blob{{text}}}}"
+        )
+        variables[variable] = f"{branch}:{path}"
+    query = (
+        "query(" + ",".join(definitions) + ")"
+        + "{repository(owner:$owner,name:$name){" + "".join(selections) + "}}"
+    )
+    body = json.dumps({"query": query, "variables": variables}).encode("utf-8")
+    request = urllib.request.Request(GRAPHQL_API, data=body, method="POST")
+    request.add_header("Accept", "application/vnd.github+json")
+    request.add_header("Authorization", f"Bearer {token}")
+    request.add_header("Content-Type", "application/json")
+    request.add_header("User-Agent", "awesomeskills-build-index")
+
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            if payload.get("errors"):
+                print(f"  ! GraphQL blob fetch for {repo_id}: {payload['errors']}", file=sys.stderr)
+                return [None] * len(paths)
+            repository = payload.get("data", {}).get("repository") or {}
+            return [
+                (repository.get(f"file{index}") or {}).get("text")
+                for index in range(len(paths))
+            ]
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace")
+            retryable = error.code in {408, 429, 500, 502, 503, 504} or (
+                error.code == 403 and "rate limit" in detail.lower()
+            )
+            if retryable and attempt < 4:
+                retry_after = error.headers.get("Retry-After") if error.headers else None
+                try:
+                    delay = min(60.0, float(retry_after)) if retry_after else min(30.0, 3.0 * (attempt + 1))
+                except ValueError:
+                    delay = min(30.0, 3.0 * (attempt + 1))
+                print(
+                    f"  ! GraphQL blob fetch for {repo_id}: HTTP {error.code}; retrying in {delay:g}s",
+                    file=sys.stderr,
+                )
+                time.sleep(delay)
+                continue
+            print(f"  ! GraphQL blob fetch for {repo_id}: HTTP {error.code}", file=sys.stderr)
+            return [None] * len(paths)
+        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as error:
+            if attempt == 4:
+                print(f"  ! GraphQL blob fetch for {repo_id}: {error} (gave up)", file=sys.stderr)
+                return [None] * len(paths)
+            time.sleep(min(6.0, 1.5 * (attempt + 1)))
+    return [None] * len(paths)
+
+
 # ---------- signals ----------
 
 def _has_chinese(*texts: str | None) -> bool:
@@ -303,10 +375,7 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
         }]
 
     entries: list[dict] = []
-    # GitHub applies a secondary rate limit to bursty API clients. Two workers keep a useful
-    # speedup without turning a 15-file repo cap into a request spike.
-    with ThreadPoolExecutor(max_workers=2) as ex:
-        texts = list(ex.map(lambda p: fetch_raw(repo_id, branch, p, token), paths))
+    texts = fetch_skill_contents(repo_id, branch, paths, token)
     failed_paths = [path for path, text in zip(paths, texts) if text is None]
     if failed_paths:
         raise BuildError(f"failed to fetch {len(failed_paths)} SKILL.md file(s) for {repo_id}")

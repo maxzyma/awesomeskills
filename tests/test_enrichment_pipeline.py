@@ -3,6 +3,7 @@ from __future__ import annotations
 # ruff: noqa: E402
 
 import sys
+import json
 import unittest
 import urllib.error
 from io import BytesIO
@@ -13,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "processing"))
 
 from detect_enrichment_changes import build_manifest
-from build_index import _get, fetch_raw, fetch_skill_paths
+from build_index import _get, fetch_raw, fetch_skill_contents, fetch_skill_paths
 from enrichment_store import (
     EnrichmentError, apply_candidate, validate_candidate, validate_manifest_binding,
 )
@@ -134,6 +135,39 @@ class EnrichmentPipelineTest(unittest.TestCase):
             accept="application/vnd.github.raw+json",
             raw=True,
         )
+
+    def test_authenticated_skill_fetch_batches_files_through_graphql(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return json.dumps({
+                    "data": {"repository": {
+                        "file0": {"text": "first"},
+                        "file1": {"text": "second"},
+                    }},
+                }).encode()
+
+        with patch("build_index.urllib.request.urlopen", return_value=Response()) as urlopen:
+            contents = fetch_skill_contents(
+                "o/r", "feature/x", ["a/SKILL.md", "b/SKILL.md"], "token",
+            )
+        self.assertEqual(contents, ["first", "second"])
+        request = urlopen.call_args.args[0]
+        self.assertEqual(request.full_url, "https://api.github.com/graphql")
+        payload = json.loads(request.data)
+        self.assertEqual(payload["variables"]["expression0"], "feature/x:a/SKILL.md")
+        self.assertEqual(payload["variables"]["expression1"], "feature/x:b/SKILL.md")
+
+    def test_skill_fetch_without_token_keeps_rest_fallback(self):
+        with patch("build_index.fetch_raw", side_effect=["first", "second"]) as fetch:
+            contents = fetch_skill_contents("o/r", "main", ["a", "b"], None)
+        self.assertEqual(contents, ["first", "second"])
+        self.assertEqual(fetch.call_count, 2)
 
     def test_secondary_rate_limit_403_is_retried(self):
         class Response:
