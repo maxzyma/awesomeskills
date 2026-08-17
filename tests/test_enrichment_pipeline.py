@@ -5,6 +5,7 @@ from __future__ import annotations
 import sys
 import unittest
 import urllib.error
+from io import BytesIO
 from unittest.mock import patch
 from pathlib import Path
 
@@ -133,6 +134,28 @@ class EnrichmentPipelineTest(unittest.TestCase):
             accept="application/vnd.github.raw+json",
             raw=True,
         )
+
+    def test_secondary_rate_limit_403_is_retried(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"ok": true}'
+
+        limited = urllib.error.HTTPError(
+            "https://api.github.com/example", 403, "forbidden", {},
+            BytesIO(b'{"message":"You have exceeded a secondary rate limit."}'),
+        )
+        with (
+            patch("build_index.urllib.request.urlopen", side_effect=[limited, Response()]),
+            patch("build_index.time.sleep") as sleep,
+        ):
+            self.assertEqual(_get("https://api.github.com/example", "token"), {"ok": True})
+            sleep.assert_called_once_with(15.0)
 
     def test_changed_digest_is_pending_and_old_result_is_stale(self):
         cache = apply_candidate({"entries": {}, "repos": {}}, self.candidate)
