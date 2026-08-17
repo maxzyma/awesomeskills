@@ -4,9 +4,9 @@
   "title": "awesomeskills agent enrichment batch",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "generated_at", "agent", "model", "entries"],
+  "required": ["schema_version", "generated_at", "agent", "model", "entries", "repos"],
   "properties": {
-    "schema_version": {"const": "0.1"},
+    "schema_version": {"type": "string", "const": "0.1"},
     "generated_at": {"type": "string", "minLength": 10},
     "agent": {"type": "string", "minLength": 1},
     "model": {"type": "string", "minLength": 1},
@@ -27,16 +27,13 @@
     },
     "repos": {
       "type": "array",
+      "maxItems": 0,
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "community"],
-        "properties": {
-          "id": {"type": "string", "minLength": 3},
-          "community": {"type": "object"}
-        }
-      },
-      "default": []
+        "required": [],
+        "properties": {}
+      }
     }
   },
   "$defs": {
