@@ -1,19 +1,49 @@
 from __future__ import annotations
 
 import base64
+import json
 import sys
 import unittest
+import urllib.error
+from io import BytesIO
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "processing"))
 
 from submission_action import (  # noqa: E402
-    Assessment, assess_submission, ensure_draft_pull, parse_submission, report_body, source_block,
+    Assessment, GitHubAPI, assess_submission, ensure_draft_pull, parse_submission, report_body,
+    source_block,
 )
 
 
 class SubmissionActionTest(unittest.TestCase):
+    def test_idempotent_github_write_retries_transient_failure(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return json.dumps({"ok": True}).encode()
+
+        unavailable = urllib.error.HTTPError(
+            "https://api.github.com/example", 503, "unavailable", {},
+            BytesIO(b'{"message":"unavailable"}'),
+        )
+        with (
+            patch(
+                "submission_action.urllib.request.urlopen",
+                side_effect=[unavailable, Response()],
+            ),
+            patch("submission_action.time.sleep") as sleep,
+        ):
+            self.assertEqual(GitHubAPI("token").request("PUT", "/example", {}), {"ok": True})
+        sleep.assert_called_once_with(2.0)
+
     def test_issue_form_is_parsed_as_data_only(self):
         body = """### GitHub repo (owner/repo or URL)
 https://github.com/example/skills.git

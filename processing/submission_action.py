@@ -13,6 +13,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -178,15 +179,38 @@ class GitHubAPI:
                 "X-GitHub-Api-Version": "2022-11-28",
             },
         )
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                raw = response.read()
-                return json.loads(raw) if raw else None
-        except urllib.error.HTTPError as exc:
-            if allow_404 and exc.code == 404:
-                return None
-            detail = exc.read().decode("utf-8", errors="replace")[:1000]
-            raise ActionError(f"GitHub API {method} {path} returned {exc.code}: {detail}") from exc
+        idempotent = method in {"GET", "PUT", "PATCH", "DELETE"}
+        for attempt in range(5):
+            try:
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    raw = response.read()
+                    return json.loads(raw) if raw else None
+            except urllib.error.HTTPError as exc:
+                if allow_404 and exc.code == 404:
+                    return None
+                detail = exc.read().decode("utf-8", errors="replace")[:1000]
+                retryable = idempotent and exc.code in {408, 429, 500, 502, 503, 504}
+                if retryable and attempt < 4:
+                    retry_after = exc.headers.get("Retry-After") if exc.headers else None
+                    try:
+                        delay = min(30.0, float(retry_after)) if retry_after else 2.0 * (attempt + 1)
+                    except ValueError:
+                        delay = 2.0 * (attempt + 1)
+                    print(
+                        f"GitHub API {method} {path} returned {exc.code}; retrying in {delay:g}s",
+                        file=sys.stderr,
+                    )
+                    time.sleep(delay)
+                    continue
+                raise ActionError(
+                    f"GitHub API {method} {path} returned {exc.code}: {detail}"
+                ) from exc
+            except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+                if idempotent and attempt < 4:
+                    time.sleep(min(6.0, 1.5 * (attempt + 1)))
+                    continue
+                raise ActionError(f"GitHub API {method} {path} failed: {exc}") from exc
+        raise ActionError(f"GitHub API {method} {path} exhausted retries")
 
     def get(self, path: str):
         return self.request("GET", "/" + path.lstrip("/"))
