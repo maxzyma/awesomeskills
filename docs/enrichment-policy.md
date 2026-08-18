@@ -32,6 +32,13 @@ Missing enrichment is neutral. It is shown as `pending`, `stale`, or `legacy`; i
 raises trust scores. When enrichment fails, the deterministic index remains publishable and the
 last digest-matching successful cache entry is retained.
 
+Validated batches stop at `review_ready`. The private review controller binds the public repository
+HEAD, the complete generated diff hash, the exact changed IDs, and the allow-listed artifact paths
+into a conversational receipt. Approval expires if HEAD or any byte of the diff changes. Only after
+an explicit conversation decision may the controller run the public tests, commit and push the five
+generated artifacts, wait for main validation, and update the parent submodule. Rejection records the
+decision but does not destructively discard the local diff.
+
 ## Published index
 
 `processing/merge_index.py` combines base data and matching cache entries into

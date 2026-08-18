@@ -47,7 +47,9 @@ Know a good public skill we're missing?
 **[Open a submission request](https://github.com/maxzyma/awesomeskills/issues/new?template=submit-skill.yml)** —
 we review for real activity, security, and language coverage before indexing.
 The request is only a public repository pointer; all trust signals are recomputed by our pipeline.
-Passing submissions receive an automated draft PR; a maintainer still decides whether to merge it.
+Passing submissions receive an automated draft PR. The private conversational review gate binds a
+maintainer decision to the exact PR head SHA before it records a GitHub review and attempts merge;
+the submission workflow itself never auto-merges.
 Maintainer workflow: [`docs/submission-workflow.md`](docs/submission-workflow.md).
 
 ## Layout
