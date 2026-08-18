@@ -65,6 +65,8 @@ Action 不接受 issue 中的信任字段，不把提交者声明映射为评分
 留下原因。机器人 PR 由只读的 `submission-pr.yml` 在 `pull_request_target` 上复算；它只接受同仓
 `automation/submission-*` 分支，检出精确 head SHA，不持久化凭据，也不使用 secrets。这个只读
 check 使用独立名称，避免与 Issue pipeline 写入的 required status `deterministic-validation` 冲突。
+通用 `validate.yml` 也会跳过该机器人分支并使用独立的 shadow 名称；它不会制造一个需要在
+GitHub 页面手工批准的同名检查。
 分支保护和 SHA 绑定的 maintainer receipt 仍是合并条件；私有对话原文不公开，只在 GitHub Review
 记录 decision receipt 哈希。
 

@@ -11,6 +11,12 @@ permissions:
 
 jobs:
   deterministic-validation:
+    name: >-
+      ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'automation/submission-')
+          && 'automated-submission-shadow-validation' || 'deterministic-validation' }}
+    if: >-
+      github.event_name != 'pull_request' ||
+      !startsWith(github.head_ref, 'automation/submission-')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
