@@ -33,10 +33,14 @@ community grounding；这些信任信号全部由同一条 pipeline 从公开证
 7. **草稿 PR 与对话闸门**：Action 把指针与确定性生成物提交到草稿 PR，并更新同一条机器人
    Issue 评论。私有控制器把仓库范围、可信分、security 汇总、pipeline diff 和精确 head SHA 写成
    review receipt；maintainer 可在受信任对话中批准、拒绝或暂缓，不需要打开 GitHub 页面。
-8. **批准后的受控执行**：批准必须携带 receipt 中的完整 token。执行器重新确认 PR 仍为 open、head
+8. **批准前双关卡**：当前 Codex agent 先做结构化对抗式自审，主动检查来源/许可、收录覆盖、未扫描
+   脚本、prompt injection、非目标生成漂移、复现性、影响面与回滚；再生成完整待审包，明确告诉
+   maintainer 看什么、确认什么、关注什么、避免把什么当成安全证明。`revise`/`block` 只允许展示
+   修复材料，不生成可批准状态。
+9. **批准后的受控执行**：批准必须携带 receipt 中的完整 token。执行器重新确认双关卡摘要、PR 仍为 open、head
    SHA 未变化、`deterministic-validation` 对该 SHA 为 success 且没有 security fail，随后才把私有
    对话决策转换为 GitHub Review 和 squash merge。SHA 或 diff 变化会使旧批准自动失效。
-9. **合并后自动收尾**：等待 main 的公开产物验证成功，再快进本地公开仓并只提交父仓的 submodule
+10. **合并后自动收尾**：等待 main 的公开产物验证成功，再快进本地公开仓并只提交父仓的 submodule
    引用。Issue 由 PR 的 `Closes #N` 自动关闭。Action 本身仍永不自动合并。
 
 人工闸门的最低检查可以运行：
