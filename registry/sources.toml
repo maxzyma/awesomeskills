@@ -144,3 +144,10 @@ note = "Browserbase official skills (browser automation) — surfaced via github
 id   = "addyosmani/agent-skills"
 kind = "skill-collection"
 note = "Addy Osmani agent skills — high-trust author; surfaced via github-trends"
+
+# Community submission #1; trust signals are pipeline-computed.
+[[source]]
+id   = "openai/skills"
+kind = "skill-collection"
+note = "Community submission via issue #1; trust signals are pipeline-computed"
+
