@@ -34,6 +34,8 @@ class SubmissionActionTest(unittest.TestCase):
                 raise AssertionError(path)
 
             def request(self, method, path, payload=None, allow_404=False):
+                if method == "GET" and "/readme?" in path:
+                    return None
                 if method == "GET" and "/pulls?" in path:
                     return [{"html_url": "https://github.com/maxzyma/awesomeskills/pull/1"}]
                 if method == "GET" and "/comments?" in path:
@@ -164,7 +166,8 @@ skill-collection; run something
 
     def test_report_never_claims_issue_supplied_trust(self):
         assessment = Assessment(
-            "pass", "example/skills", "skill", "main", 1, 0, False, ("passed",),
+            "pass", "example/skills", "skill", "main", 1, 0, False, False, False,
+            ("passed",),
         )
         body = report_body(assessment, "https://github.com/example/index/pull/1")
         self.assertIn("pipeline computes it", body)
@@ -208,7 +211,8 @@ skill-collection; run something
             },
         }
         assessment = Assessment(
-            "pass", "example/skills", "skill-collection", "main", 2, 0, False, ("passed",),
+            "pass", "example/skills", "skill-collection", "main", 2, 0, False,
+            False, False, ("passed",),
         )
         api = FakeAPI()
         url = ensure_draft_pull(api, event, assessment)
@@ -255,7 +259,8 @@ skill-collection; run something
             },
         }
         assessment = Assessment(
-            "pass", "example/skills", "skill-collection", "main", 2, 0, False, ("passed",),
+            "pass", "example/skills", "skill-collection", "main", 2, 0, False,
+            False, False, ("passed",),
         )
         api = FakeAPI()
         self.assertEqual(
@@ -268,6 +273,48 @@ skill-collection; run something
         )
         self.assertEqual(reset[2], {"sha": "new-proposal", "force": True})
         self.assertFalse(any(call[0] == "POST" and call[1].endswith("/pulls") for call in api.calls))
+
+    def test_archived_repository_fails_automatic_preflight(self):
+        def get(path: str) -> dict:
+            if path == "repos/example/skills":
+                return {
+                    "visibility": "public", "private": False, "default_branch": "main",
+                    "archived": True,
+                }
+            return {"truncated": False, "tree": [{"type": "blob", "path": "SKILL.md"}]}
+
+        result = assess_submission("example/skills", "skill", get, set())
+        self.assertEqual(result.status, "fail")
+        self.assertTrue(any("archived" in reason for reason in result.reasons))
+
+    def test_deprecated_repository_requires_review(self):
+        def get(path: str) -> dict:
+            if path == "repos/example/skills":
+                return {"visibility": "public", "private": False, "default_branch": "main"}
+            return {"truncated": False, "tree": [{"type": "blob", "path": "SKILL.md"}]}
+
+        result = assess_submission(
+            "example/skills", "skill", get, set(),
+            "This repository has been deprecated. Use the successor instead.",
+        )
+        self.assertEqual(result.status, "needs_review")
+        self.assertTrue(result.deprecated)
+
+    def test_large_collection_requires_explicit_scope(self):
+        def get(path: str) -> dict:
+            if path == "repos/example/skills":
+                return {"visibility": "public", "private": False, "default_branch": "main"}
+            return {
+                "truncated": False,
+                "tree": [
+                    {"type": "blob", "path": f"skills/{index}/SKILL.md"}
+                    for index in range(16)
+                ],
+            }
+
+        result = assess_submission("example/skills", "skill-collection", get, set())
+        self.assertEqual(result.status, "needs_review")
+        self.assertIn("explicit deterministic scope", result.reasons[-1])
 
 
 if __name__ == "__main__":

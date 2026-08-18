@@ -34,6 +34,12 @@ ALLOWED_KINDS = {
 }
 REPO_LABEL = "GitHub repo (owner/repo or URL)"
 KIND_LABEL = "Kind"
+MAX_AUTOMATIC_SKILLS = 15
+_DEPRECATED = re.compile(
+    r"\b(repository|project|repo)\s+(?:(?:is|has been)\s+)?(?:now\s+)?deprecated\b|"
+    r"\bno longer maintained\b",
+    re.I,
+)
 
 
 class ActionError(RuntimeError):
@@ -49,6 +55,8 @@ class Assessment:
     standard_skill_md: int
     packaged_dot_skill: int
     tree_truncated: bool
+    archived: bool
+    deprecated: bool
     reasons: tuple[str, ...]
 
 
@@ -77,6 +85,7 @@ def assess_submission(
     kind: str,
     github_get: Callable[[str], dict],
     listed: set[str],
+    readme_text: str = "",
 ) -> Assessment:
     repo = github_get(f"repos/{repo_id}")
     branch = repo.get("default_branch") or "main"
@@ -89,12 +98,20 @@ def assess_submission(
     reasons: list[str] = []
     status = "pass"
     public = repo.get("visibility") == "public" and not repo.get("private", False)
+    archived = bool(repo.get("archived"))
+    deprecated = bool(_DEPRECATED.search(readme_text or ""))
     if not public:
         status = "fail"
         reasons.append("repository is not publicly visible")
     if repo_id.lower() in listed:
         status = "fail"
         reasons.append("repository is already listed")
+    if archived:
+        status = "fail"
+        reasons.append("repository is archived")
+    if deprecated and status != "fail":
+        status = "needs_review"
+        reasons.append("repository README explicitly marks the source as deprecated")
     if tree.get("truncated") and status != "fail":
         status = "needs_review"
         reasons.append("GitHub returned a truncated tree; manual shape review is required")
@@ -104,6 +121,12 @@ def assess_submission(
             reasons.append("only packaged .skill files were found; the builder does not unpack them")
         else:
             reasons.append("no standard SKILL.md was found on the default branch")
+    if kind == "skill-collection" and len(skills) > MAX_AUTOMATIC_SKILLS and status != "fail":
+        status = "needs_review"
+        reasons.append(
+            f"collection has {len(skills)} standard SKILL.md files, above the automatic "
+            f"limit of {MAX_AUTOMATIC_SKILLS}; an explicit deterministic scope is required"
+        )
     if not reasons:
         reasons.append("public pointer and repository shape passed automatic preflight")
     return Assessment(
@@ -114,6 +137,8 @@ def assess_submission(
         standard_skill_md=len(skills),
         packaged_dot_skill=len(packages),
         tree_truncated=bool(tree.get("truncated")),
+        archived=archived,
+        deprecated=deprecated,
         reasons=tuple(reasons),
     )
 
@@ -142,6 +167,8 @@ def report_body(assessment: Assessment, pr_url: str | None = None) -> str:
         f"- Standard `SKILL.md`: {assessment.standard_skill_md}",
         f"- Packaged `.skill`: {assessment.packaged_dot_skill}",
         f"- Tree truncated: `{str(assessment.tree_truncated).lower()}`",
+        f"- Archived: `{str(assessment.archived).lower()}`",
+        f"- README deprecated: `{str(assessment.deprecated).lower()}`",
         "- Trust score: not accepted from this issue; the pipeline computes it",
         "",
         "Result:",
@@ -220,6 +247,17 @@ class GitHubAPI:
 def encoded_repo(full_name: str) -> str:
     owner, name = full_name.split("/", 1)
     return f"{urllib.parse.quote(owner, safe='')}/{urllib.parse.quote(name, safe='')}"
+
+
+def fetch_readme_text(api: GitHubAPI, repo_id: str, branch: str) -> str:
+    path = f"/repos/{encoded_repo(repo_id)}/readme?ref={urllib.parse.quote(branch, safe='')}"
+    payload = api.request("GET", path, allow_404=True)
+    if not payload or not payload.get("content"):
+        return ""
+    try:
+        return base64.b64decode(payload["content"]).decode("utf-8", errors="replace")
+    except (ValueError, TypeError):
+        return ""
 
 
 def find_pull(api: GitHubAPI, repo_path: str, owner: str, branch: str) -> dict | None:
@@ -330,13 +368,18 @@ def report_build_result(api: GitHubAPI, event: dict, succeeded: bool) -> int:
     repo_path = encoded_repo(event["repository"]["full_name"])
     owner = event["repository"]["owner"]["login"]
     pull = find_pull(api, repo_path, owner, branch)
-    preflight = assess_submission(repo_id, kind, api.get, existing_ids())
+    repo = api.get(f"repos/{repo_id}")
+    branch = repo.get("default_branch") or "main"
+    preflight = assess_submission(
+        repo_id, kind, api.get, existing_ids(), fetch_readme_text(api, repo_id, branch),
+    )
     assessment = Assessment(
         status="pass" if succeeded else "needs_review",
         repo_id=repo_id, kind=kind, default_branch=preflight.default_branch,
         standard_skill_md=preflight.standard_skill_md,
         packaged_dot_skill=preflight.packaged_dot_skill,
         tree_truncated=preflight.tree_truncated,
+        archived=preflight.archived, deprecated=preflight.deprecated,
         reasons=(
             "the full deterministic build and generated-artifact verification passed"
             if succeeded
@@ -373,7 +416,12 @@ def main() -> int:
     branch = f"automation/submission-{issue_number}"
     try:
         repo_id, kind = parse_submission(event["issue"].get("body", ""))
-        assessment = assess_submission(repo_id, kind, api.get, existing_ids())
+        repo = api.get(f"repos/{repo_id}")
+        branch_name = repo.get("default_branch") or "main"
+        assessment = assess_submission(
+            repo_id, kind, api.get, existing_ids(),
+            fetch_readme_text(api, repo_id, branch_name),
+        )
         pr_url = ensure_draft_pull(api, event, assessment) if assessment.status == "pass" else None
         if assessment.status != "pass":
             close_stale_pull(api, event, branch)
@@ -385,6 +433,7 @@ def main() -> int:
         fallback = Assessment(
             status="fail", repo_id="invalid submission", kind="unknown", default_branch=None,
             standard_skill_md=0, packaged_dot_skill=0, tree_truncated=False,
+            archived=False, deprecated=False,
             reasons=("automatic processing failed safely; a maintainer should inspect the workflow log",),
         )
         try:

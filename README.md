@@ -50,6 +50,9 @@ The request is only a public repository pointer; all trust signals are recompute
 Passing submissions receive an automated draft PR. The private conversational review gate binds a
 maintainer decision to the exact PR head SHA before it records a GitHub review and attempts merge;
 the submission workflow itself never auto-merges.
+Archived repositories fail preflight; explicitly deprecated or oversized collections require a
+maintainer-defined scope before a PR. Collection coverage, executable-file scan completeness, and
+license discovery are published rather than implied.
 Maintainer workflow: [`docs/submission-workflow.md`](docs/submission-workflow.md).
 
 ## Layout

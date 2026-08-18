@@ -20,13 +20,17 @@ community grounding；这些信任信号全部由同一条 pipeline 从公开证
 2. **确认可评估内容**：查看默认分支是否存在标准命名的 `SKILL.md`。没有时记录真实形态：
    awesome-list / registry 可作为 repo-level 来源；只有 `.skill` 等归档包时，必须明确当前抓取器
    是否支持解包，不能把“包内存在”误报成“Git 树中存在”。
-3. **自动形态结论**：公开、未重复、Git 树完整且形态与所选 kind 一致时标记 `pass`；树截断、
-   skill 类仓缺少标准 `SKILL.md`、只有 `.skill` 包时标记 `needs_review`；私有或重复项标记 `fail`。
+3. **自动形态结论**：公开、未归档、未重复、Git 树完整且形态与所选 kind 一致时才可能标记
+   `pass`。归档仓直接 `fail`；README 明确声明 deprecated、树截断、skill 类仓缺少标准
+   `SKILL.md`、只有 `.skill` 包，或集合超过 15 个标准 skill 却没有显式确定性范围时标记
+   `needs_review`。系统不会静默取排序靠前的 15 个并称为完整收录。
 4. **添加指针**：`pass` 时在机器人专属分支仅把规范化后的 `id`、枚举 `kind` 和固定事实性 `note`
    加入 `registry/sources.toml`。Issue 自由文本不会进入命令或仓库。不要写 health、
    grade、security 或“可信”结论。
-5. **确定性重算**：运行 `build_index.py` 生成 `base-index.json`，确认全部 source 均存在且
-   health、security、frontmatter、digest 和 repo grade 完整。任何抓取失败都必须终止构建。
+5. **确定性重算**：机器人 PR 只重算本次提交的 source，并复用基线中其他 source 的评估，避免
+   健康度时间变化制造非目标 diff。每仓公开 `discovered/selected/omitted` 覆盖数据；安全扫描
+   `SKILL.md` 和技能目录内可执行文本文件，并公开扫描是否完整；许可从技能目录逐层向仓库根查找。
+   扫描不完整时不能得到 `security: pass`，许可未知会降低仓库可信分。任何抓取失败都必须终止构建。
 6. **可选增量 enrichment**：用 `detect_enrichment_changes.py` 生成待处理清单；Agent 结果必须通过
    `validate_enrichment.py` 并与当前 digest 匹配，再由 `merge_index.py` 生成公开 index。enrichment
    缺失或失败不改变可信分，也不阻止确定性 index 发布。
@@ -58,7 +62,7 @@ Action 当前会：
 1. 读取并规范化 issue 中的 repo 指针；
 2. 执行与本地相同的只读校验，把结果评论回 issue；
 3. 校验通过后创建一个草稿 PR，人工内容只修改 `sources.toml`；
-4. 在 GitHub runner 中运行无 LLM 的完整确定性 pipeline，把机器生成物和可信信号提交到该 PR；
+4. 在 GitHub runner 中运行无 LLM 的 source-scoped 确定性 pipeline，把机器生成物和可信信号提交到该 PR；
 5. 要求 maintainer 通过私有对话 receipt 审核；失败或证据不足时保留 issue，不自动收录。
 
 Action 不接受 issue 中的信任字段，不把提交者声明映射为评分，也不自动合并。它仅使用短期
