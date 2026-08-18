@@ -17,6 +17,7 @@ Standard library only. Honors HTTPS_PROXY. Optional GITHUB_TOKEN raises rate lim
 
 from __future__ import annotations
 
+import argparse
 import http.client
 import hashlib
 import json
@@ -31,7 +32,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from skill_parser import parse_skill_md
-from security_scan import scan_skill_md
+from security_scan import scan_skill_bundle
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCES = REPO_ROOT / "registry" / "sources.toml"
@@ -42,6 +43,12 @@ GRAPHQL_API = "https://api.github.com/graphql"
 RAW = "https://raw.githubusercontent.com/"
 SCHEMA_VERSION = "0.3"  # 0.3 separates deterministic base data from enrichment
 MAX_SKILLS_PER_REPO = 15  # cap per repo; truncation is logged, never silent
+MAX_EXECUTABLE_FILES_PER_SKILL = 50
+_EXECUTABLE_SUFFIXES = {
+    ".sh", ".bash", ".zsh", ".py", ".js", ".mjs", ".cjs", ".ts", ".tsx",
+    ".ps1", ".rb", ".pl", ".php", ".go", ".rs",
+}
+_LICENSE_NAMES = {"license", "license.md", "license.txt", "copying", "copying.md"}
 
 _GITHUB_ID = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 
@@ -186,6 +193,15 @@ def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]
 
     walk_node(root)
     return found
+
+
+def fetch_tree_inventory(repo_id: str, branch: str, token: str | None) -> tuple[list[dict], bool]:
+    """Return the complete recursive blob inventory, or an incomplete marker."""
+    tree = _get(f"{API}{repo_id}/git/trees/{branch}?recursive=1", token)
+    if not tree:
+        raise BuildError(f"failed to fetch Git tree inventory for {repo_id}")
+    blobs = [item for item in tree.get("tree", []) if item.get("type") == "blob"]
+    return blobs, not bool(tree.get("truncated"))
 
 
 def _eligible_skill_path(path: str) -> bool:
@@ -344,6 +360,48 @@ def _skill_dir(path: str) -> str:
     return d or "."
 
 
+def _is_executable_text(item: dict, skill_dir: str) -> bool:
+    path = item.get("path", "")
+    prefix = "" if skill_dir == "." else skill_dir + "/"
+    if prefix and not path.startswith(prefix):
+        return False
+    relative = path[len(prefix):] if prefix else path
+    if relative == "SKILL.md" or relative.lower() in _LICENSE_NAMES:
+        return False
+    suffix = Path(relative).suffix.lower()
+    return "/scripts/" in f"/{relative.lower()}" or suffix in _EXECUTABLE_SUFFIXES or item.get("mode") == "100755"
+
+
+def _owning_skill_dir(path: str, skill_dirs: list[str]) -> str | None:
+    owners = [
+        directory for directory in skill_dirs
+        if directory == "." or path.startswith(directory.rstrip("/") + "/")
+    ]
+    return max(owners, key=lambda directory: 0 if directory == "." else len(directory), default=None)
+
+
+def _license_path(blob_paths: set[str], skill_dir: str) -> str | None:
+    normalized = {path.lower(): path for path in blob_paths}
+    current = Path("" if skill_dir == "." else skill_dir)
+    candidates: list[str] = []
+    while True:
+        prefix = "" if str(current) in {"", "."} else str(current).rstrip("/") + "/"
+        candidates.extend(prefix + name for name in sorted(_LICENSE_NAMES))
+        if str(current) in {"", "."}:
+            break
+        current = current.parent
+    return next((normalized[path.lower()] for path in candidates if path.lower() in normalized), None)
+
+
+def merge_source_entries(existing: list[dict], repo_id: str, replacement: list[dict]) -> list[dict]:
+    """Replace one source while preserving every non-target assessment byte-for-byte."""
+    return [row for row in existing if row.get("source_repo") != repo_id] + replacement
+
+
+def merge_source_summaries(existing: dict[str, dict], repo_id: str, replacement: dict) -> dict:
+    return {**{key: value for key, value in existing.items() if key != repo_id}, repo_id: replacement}
+
+
 def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None) -> list[dict]:
     repo_id = src["id"]
     health, factors = compute_health(repo, now)
@@ -354,10 +412,23 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
         raise BuildError(f"failed to fetch Git tree for {repo_id}")
     # skip placeholder/non-skill SKILL.md (e.g. a README/ dir, or template/example dirs)
     paths = [path for path in paths if _eligible_skill_path(path)]
-    truncated = len(paths) > MAX_SKILLS_PER_REPO
-    if truncated:
+    discovered_count = len(paths)
+    selection_truncated = discovered_count > MAX_SKILLS_PER_REPO
+    if selection_truncated:
         print(f"  … {repo_id}: {len(paths)} SKILL.md found, capping at {MAX_SKILLS_PER_REPO}", file=sys.stderr)
         paths = paths[:MAX_SKILLS_PER_REPO]
+    inventory, inventory_complete = fetch_tree_inventory(repo_id, branch, token)
+    blob_paths = {item.get("path", "") for item in inventory}
+    coverage = {
+        "discovered_skill_count": discovered_count if inventory_complete else None,
+        "selected_skill_count": len(paths),
+        "omitted_skill_count": max(0, discovered_count - len(paths)) if inventory_complete else None,
+        "selection_limit": MAX_SKILLS_PER_REPO,
+        "complete": inventory_complete and not selection_truncated,
+        "reason": "complete" if inventory_complete and not selection_truncated else (
+            "selection limit" if inventory_complete else "GitHub tree inventory truncated"
+        ),
+    }
 
     # Repo-level fallback: no SKILL.md (awesome-list / hub / registry).
     if not paths:
@@ -370,11 +441,16 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
             "source_url": repo.get("html_url") or f"https://github.com/{repo_id}",
             "kind": src.get("kind", "skill"),
             "level": "repo",
-            "trust": {"health": health, "health_factors": factors, "security": "unrated", "zh": _has_chinese(desc)},
+            "trust": {
+                "health": health, "health_factors": factors, "security": "unrated",
+                "security_scope": "no standard SKILL.md", "security_complete": False,
+                "license": "unknown", "collection_coverage": coverage, "zh": _has_chinese(desc),
+            },
             "frontmatter": None,
         }]
 
     entries: list[dict] = []
+    skill_dirs = [_skill_dir(candidate) for candidate in paths]
     texts = fetch_skill_contents(repo_id, branch, paths, token)
     failed_paths = [path for path, text in zip(paths, texts) if text is None]
     if failed_paths:
@@ -383,7 +459,26 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
         skill_dir = _skill_dir(path)
         assert text is not None
         parsed = parse_skill_md(text)
-        scan = scan_skill_md(text)
+        executable_paths = sorted(
+            item["path"] for item in inventory
+            if _is_executable_text(item, skill_dir)
+            and _owning_skill_dir(item["path"], skill_dirs) == skill_dir
+        )
+        selected_executable_paths = executable_paths[:MAX_EXECUTABLE_FILES_PER_SKILL]
+        executable_texts = fetch_skill_contents(
+            repo_id, branch, selected_executable_paths, token,
+        )
+        executable_files = {
+            file_path: content for file_path, content in zip(selected_executable_paths, executable_texts)
+            if content is not None
+        }
+        security_complete = (
+            inventory_complete
+            and len(executable_paths) <= MAX_EXECUTABLE_FILES_PER_SKILL
+            and len(executable_files) == len(selected_executable_paths)
+        )
+        scan = scan_skill_bundle(text, executable_files, complete=security_complete)
+        license_path = _license_path(blob_paths, skill_dir) if inventory_complete else None
         name = parsed["name"] or (skill_dir.split("/")[-1] if skill_dir != "." else repo.get("name") or repo_id)
         entries.append({
             "id": f"{repo_id}/{skill_dir}" if skill_dir != "." else repo_id,
@@ -403,6 +498,12 @@ def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None)
                 "security": scan["rating"],
                 "security_findings": scan["findings"],
                 "security_scope": scan.get("scope"),
+                "security_complete": scan.get("complete", False),
+                "executable_files_discovered": len(executable_paths) if inventory_complete else None,
+                "executable_files_scanned": scan.get("executable_files_scanned", 0),
+                "license": "known" if license_path else "unknown",
+                "license_path": license_path,
+                "collection_coverage": coverage,
                 "zh": _has_chinese(parsed["description"], parsed["name"]),
             },
             "frontmatter": {
@@ -425,13 +526,20 @@ def build_repo_summaries(entries: list[dict]) -> dict[str, dict]:
         rows = [entry for entry in entries if entry["source_repo"] == repo_id]
         health = rows[0]["trust"]["health"]
         security = Counter(row["trust"]["security"] for row in rows)
+        licenses = Counter(row["trust"].get("license", "unknown") for row in rows)
+        coverage = rows[0]["trust"].get("collection_coverage", {})
         frontmatter = [row for row in rows if row.get("frontmatter")]
         fm_rate = (
             sum(1 for row in frontmatter if row["frontmatter"]["valid"]) / len(frontmatter)
             if frontmatter else None
         )
         total = sum(security.values()) or 1
-        score = health - security.get("fail", 0) / total * 40 - security.get("warn", 0) / total * 10
+        score = (
+            health
+            - security.get("fail", 0) / total * 40
+            - security.get("warn", 0) / total * 10
+            - licenses.get("unknown", 0) / total * 15
+        )
         if fm_rate is not None:
             score = score * 0.85 + fm_rate * 100 * 0.15
         score = max(0, min(100, round(score)))
@@ -439,6 +547,8 @@ def build_repo_summaries(entries: list[dict]) -> dict[str, dict]:
         repos[repo_id] = {
             "health": health,
             "security": dict(security),
+            "license": dict(licenses),
+            "collection_coverage": coverage,
             "frontmatter_pass_rate": round(fm_rate, 2) if fm_rate is not None else None,
             "skill_count": len(rows),
             "overall_score": score,
@@ -448,12 +558,12 @@ def build_repo_summaries(entries: list[dict]) -> dict[str, dict]:
     return repos
 
 
-def write_base(entries: list[dict], generated_at: str) -> None:
+def write_base(entries: list[dict], generated_at: str, repo_summaries: dict | None = None) -> None:
     entries.sort(key=lambda e: (e["trust"]["health"], e["name"]), reverse=True)
     payload = {
         "schema_version": SCHEMA_VERSION,
         "generated_at": generated_at,
-        "repos": build_repo_summaries(entries),
+        "repos": repo_summaries if repo_summaries is not None else build_repo_summaries(entries),
         "skills": entries,
     }
     blob = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
@@ -464,6 +574,11 @@ def write_base(entries: list[dict], generated_at: str) -> None:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--only-source", help="rebuild one source and preserve existing non-target assessments",
+    )
+    args = parser.parse_args()
     now = datetime.now(timezone.utc)
     generated_at = now.replace(microsecond=0).isoformat()
     token = os.environ.get("GITHUB_TOKEN")
@@ -471,8 +586,22 @@ def main() -> int:
         print("  (no GITHUB_TOKEN — unauthenticated rate limit)", file=sys.stderr)
 
     sources = load_sources(SOURCES)
+    if args.only_source:
+        sources = [src for src in sources if src.get("id", "").lower() == args.only_source.lower()]
+        if len(sources) != 1:
+            print(f"source not found exactly once: {args.only_source}", file=sys.stderr)
+            return 2
     print(f"building skill-level index from {len(sources)} sources...")
 
+    existing_entries: list[dict] = []
+    existing_repos: dict[str, dict] = {}
+    if args.only_source:
+        if not BASE_OUT.is_file():
+            print("source-scoped build requires an existing base index", file=sys.stderr)
+            return 2
+        existing_payload = json.loads(BASE_OUT.read_text(encoding="utf-8"))
+        existing_entries = existing_payload.get("skills", [])
+        existing_repos = existing_payload.get("repos", {})
     entries: list[dict] = []
     failures: list[str] = []
     repo_count = skill_level = repo_level = 0
@@ -507,7 +636,13 @@ def main() -> int:
         print("no complete source set produced — base index not updated", file=sys.stderr)
         return 1
 
-    write_base(entries, generated_at)
+    repo_summaries = None
+    if args.only_source:
+        repo_id = sources[0]["id"]
+        target_summary = build_repo_summaries(entries)
+        repo_summaries = merge_source_summaries(existing_repos, repo_id, target_summary[repo_id])
+        entries = merge_source_entries(existing_entries, repo_id, entries)
+    write_base(entries, generated_at, repo_summaries)
     print(f"done: {len(entries)} entries from {repo_count} repos "
           f"({skill_level} skill-level, {repo_level} repo-level fallbacks)")
     return 0

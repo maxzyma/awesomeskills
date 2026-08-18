@@ -1,9 +1,4 @@
-"""Static security scan of a SKILL.md (rule-based, no LLM).
-
-MVP scans SKILL.md text only (frontmatter `allowed-tools` + body). `scripts/` files are
-NOT fetched at index time, so this is a first-pass signal, not a full audit — the scope
-is recorded in the result. Ratings: pass (no hits) / warn (low-risk) / fail (high-risk).
-"""
+"""Deterministic static scan of a skill instruction and its executable text files."""
 
 from __future__ import annotations
 
@@ -33,21 +28,47 @@ LOW = [
 _ALLOWED_TOOLS = re.compile(r"^allowed-tools:\s*(.+)$", re.M | re.I)
 
 
-def scan_skill_md(text: str) -> dict:
-    """Return {rating, findings:[{sev,label}], scope}. `pass`/`warn`/`fail`."""
+def _scan_text(text: str, path: str) -> list[dict]:
     findings: list[dict] = []
-    high_hits = 0
     for pat, label in HIGH:
         if re.search(pat, text, re.I):
-            findings.append({"sev": "high", "label": label})
-            high_hits += 1
+            findings.append({"sev": "high", "label": label, "path": path})
     for pat, label in LOW:
         if re.search(pat, text, re.I):
-            findings.append({"sev": "low", "label": label})
+            findings.append({"sev": "low", "label": label, "path": path})
 
-    m = _ALLOWED_TOOLS.search(text)
+    return findings
+
+
+def scan_skill_bundle(skill_text: str, executable_files: dict[str, str], complete: bool = True) -> dict:
+    """Scan SKILL.md and fetched executable text; incomplete scans can never pass."""
+    findings = _scan_text(skill_text, "SKILL.md")
+
+    m = _ALLOWED_TOOLS.search(skill_text)
     if m and re.search(r"\bBash\b|\*|\ball\b", m.group(1), re.I):
-        findings.append({"sev": "low", "label": "broad allowed-tools: " + m.group(1).strip()[:60]})
+        findings.append({
+            "sev": "low", "label": "broad allowed-tools: " + m.group(1).strip()[:60],
+            "path": "SKILL.md",
+        })
 
-    rating = "fail" if high_hits else ("warn" if findings else "pass")
-    return {"rating": rating, "findings": findings, "scope": "SKILL.md only (scripts/ not scanned)"}
+    for path, text in sorted(executable_files.items()):
+        findings.extend(_scan_text(text, path))
+
+    if not complete:
+        findings.append({
+            "sev": "low", "label": "executable-file scan incomplete", "path": "skill bundle",
+        })
+
+    rating = "fail" if any(item["sev"] == "high" for item in findings) else ("warn" if findings else "pass")
+    return {
+        "rating": rating,
+        "findings": findings,
+        "scope": "SKILL.md + executable text files",
+        "complete": complete,
+        "executable_files_scanned": len(executable_files),
+    }
+
+
+def scan_skill_md(text: str) -> dict:
+    """Backward-compatible instruction-only scan; it deliberately cannot return pass."""
+    return scan_skill_bundle(text, {}, complete=False)

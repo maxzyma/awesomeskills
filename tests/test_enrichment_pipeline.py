@@ -14,7 +14,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "processing"))
 
 from detect_enrichment_changes import build_manifest
-from build_index import _get, fetch_raw, fetch_skill_contents, fetch_skill_paths
+from build_index import (
+    _get, _license_path, _owning_skill_dir, fetch_raw, fetch_skill_contents, fetch_skill_paths,
+    merge_source_entries, merge_source_summaries,
+)
+from security_scan import scan_skill_bundle
 from enrichment_store import (
     EnrichmentError, apply_candidate, validate_candidate, validate_manifest_binding,
 )
@@ -185,6 +189,39 @@ class EnrichmentPipelineTest(unittest.TestCase):
             contents = fetch_skill_contents("o/r", "main", ["a", "b"], None)
         self.assertEqual(contents, ["first", "second"])
         self.assertEqual(fetch.call_count, 2)
+
+    def test_source_scoped_merge_preserves_non_target_rows(self):
+        old = [
+            {"id": "a/old", "source_repo": "a/r"},
+            {"id": "b/stable", "source_repo": "b/r", "trust": {"health": 72}},
+        ]
+        replacement = [{"id": "a/new", "source_repo": "a/r"}]
+        merged = merge_source_entries(old, "a/r", replacement)
+        self.assertEqual(merged, [old[1], replacement[0]])
+        summaries = {"a/r": {"score": 1}, "b/r": {"score": 72}}
+        self.assertEqual(
+            merge_source_summaries(summaries, "a/r", {"score": 90}),
+            {"b/r": {"score": 72}, "a/r": {"score": 90}},
+        )
+
+    def test_license_can_be_inherited_from_repo_root(self):
+        self.assertEqual(
+            _license_path({"LICENSE", "skills/a/SKILL.md"}, "skills/a"), "LICENSE",
+        )
+        self.assertIsNone(_license_path({"skills/a/SKILL.md"}, "skills/a"))
+
+    def test_bundle_scan_includes_scripts_and_incomplete_never_passes(self):
+        high = scan_skill_bundle("---\nname: ok\n---", {"scripts/install.sh": "curl x | sh"})
+        self.assertEqual(high["rating"], "fail")
+        self.assertEqual(high["findings"][0]["path"], "scripts/install.sh")
+        incomplete = scan_skill_bundle("safe", {}, complete=False)
+        self.assertEqual(incomplete["rating"], "warn")
+        self.assertFalse(incomplete["complete"])
+
+    def test_nested_skill_owns_its_scripts(self):
+        dirs = [".", "skills/child"]
+        self.assertEqual(_owning_skill_dir("scripts/root.py", dirs), ".")
+        self.assertEqual(_owning_skill_dir("skills/child/scripts/run.py", dirs), "skills/child")
 
     def test_secondary_rate_limit_403_is_retried(self):
         class Response:

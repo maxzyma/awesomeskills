@@ -34,10 +34,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           PROPOSAL_BRANCH: ${{ steps.submission.outputs.branch }}
+          SOURCE_REPO: ${{ steps.submission.outputs.repo }}
         run: |
           git fetch origin "$PROPOSAL_BRANCH"
           git checkout --force -B "$PROPOSAL_BRANCH" "origin/$PROPOSAL_BRANCH"
-          python3 processing/build_index.py
+          python3 processing/build_index.py --only-source "$SOURCE_REPO"
           python3 processing/merge_index.py
           python3 -m unittest discover -s tests -v
           python3 -m py_compile processing/*.py

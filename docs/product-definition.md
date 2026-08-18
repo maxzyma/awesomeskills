@@ -41,7 +41,7 @@
 grounding = 我们对每个 skill 的**多层评估**（站内、非外链源仓）。当前只有一层的元数据（health/frontmatter），远不够。目标四层，每层标注「可全量自动」还是「需 LLM + 持续运营」：
 
 1. **健康度 health（可全量自动）**：真实活跃度综合分（recency + commit 频率 + issue 堆积/响应 + 去 vanity 的 star/关注比），**有解释、有区分度**——不是当前满屏 100 的裸 recency 分。数据源 GitHub API。
-2. **安全 security（可全量自动·规则）**：静态扫描 SKILL.md + scripts，检测危险命令、数据外泄、prompt-injection、供应链模式；`pass/warn/fail` + 命中项。当前全 `unrated`（未实现）。
+2. **安全 security（可全量自动·规则）**：静态扫描 SKILL.md + 可执行文本文件，检测危险命令、数据外泄、prompt-injection、供应链模式；`pass/warn/fail` + 命中项 + 扫描完整度。库存截断、文件抓取失败或超过扫描上限时不得给 `pass`；这仍是启发式信号，不是运行安全证明。
 3. **功能/场景分析（需 LLM）**：读 SKILL.md 正文提炼 用途 / 适用场景 / 输入输出 / 依赖 / 能力边界；替换当前照抄 description 的 summary。数据源 SKILL.md（已抓）。
 4. **社区 grounding（需 LLM + 持续运营，差异化最大）**：真实口碑——issue 质量与活跃、star 增长去 vanity、HN/Reddit/**中文社区**评价与核实。复用 `github-trends` grounding 内核为 skill 适配。数据源 GitHub issue/搜索 + 社区。
 
@@ -100,6 +100,12 @@ grounding = 我们对每个 skill 的**多层评估**（站内、非外链源仓
         "health": 0-100,                // 真实活跃度（非 star）；skill 继承所属 repo 的 health
         "health_factors": { "recency_days": N, "stars": N, "open_issues": N, "archived": bool },
         "security": "pass"|"warn"|"fail"|"unrated",
+        "security_complete": true|false,
+        "license": "known"|"unknown",
+        "collection_coverage": {
+          "discovered_skill_count": N|null, "selected_skill_count": N,
+          "omitted_skill_count": N|null, "complete": true|false
+        },
         "zh": true|false                // 是否覆盖中文场景（由 description/name 检测）
       },
       "frontmatter": {                  // skill 级才有；repo 级为 null
@@ -152,4 +158,4 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 - [x] `article-pivot` 适配成本：已评估（`docs/article-pivot-fit.md`）——借鉴范式 + 裁剪双语/归档组件，不直接复用，成本中等偏大；需自建 Markdown+frontmatter 入口与 skill 语义层。
 - [x] skill 级粒度（A）：已落地（v0.2，200 条 = 194 skill + 6 repo fallback）。`processing/skill_parser.py` 自建 frontmatter 解析 + 校验。
 - [ ] frontmatter 解析器局限：当前为极简单行解析，首跑 70/194 判 invalid（缺 name/description、过短/过长）；其中含对多行/非标 YAML 的**假阳性**，需换真实 YAML 解析器再回归 invalid 率。
-- [ ] 每仓 SKILL.md 上限 15：大集合（如 alirezarezvani 345）被截断，已 log 非静默；需分片或提高上限。
+- [ ] 每仓 SKILL.md 上限 15：公开 discovered/selected/omitted；Issue 自动流程拒绝无显式范围的大集合。后续需设计可审计的路径分片，而不是静默截断。
