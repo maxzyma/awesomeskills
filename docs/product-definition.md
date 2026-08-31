@@ -75,9 +75,12 @@ grounding = 我们对每个 skill 的**多层评估**（站内、非外链源仓
 
 **闭环（纯 skill + 静态 index，可跑通）**：
 1. agent 需要一个没有的能力 → 触发 `awesomeskills`
-2. skill `curl` 静态 `index.json` → 按 trust 筛 → 返回候选（带 health/security/zh）
+2. skill `curl` 静态 `index.json` → 按 trust 筛 → 返回候选（带 health/security/zh）。
+   **`security: fail` 默认不返回**，被挡住的候选以计数形式如实报出，不静默过滤
 3. agent 选定 → skill 指导/执行安装（目标 skill 多为 Agent Skills 标准：`git clone` / 复制到 `.claude/skills/`）
-4. index 带 `source_url` + 每文件 `sha256` → 拉完**校验 digest 再落地**（对齐 SEP-2640 精神），在 skill 脚本内完成
+4. index 带 `source_url` + **钉到 commit 的 `source_ref`** + 每文件 `sha256`（SKILL.md 与其可执行文件）
+   → 拉完**校验 digest 再落地**（对齐 SEP-2640 精神），由 `scripts/verify_skill.py` 执行。
+   校验不成立时（ref 是分支、无 digest 清单、清单已知不完整）**拒绝而不是放行**——"拒绝"不等于"通过"
 
 ## 6. 数据契约（静态 index，最小 schema）
 

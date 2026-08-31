@@ -18,28 +18,51 @@ back candidates plus install guidance. Execution/sandboxing is the host agent's 
 ## How it works
 
 1. Resolve the index URL:
-   - `AWSOMESKILLS_INDEX_URL` env var if set, else
-   - the hosted default (set once the index is published), else
-   - the local repo copy `registry/index.json` (for local testing).
+   - `--index-url` if given, else
+   - `AWESOMESKILLS_INDEX_URL` env var if set, else
+   - the hosted default; the local repo copy is used only if that fetch fails.
 2. Filter by the user's need; rank by `trust.health` (real activity, **not** stars).
 3. Present top candidates with `health`, `security`, `zh`, summary, and `source_url`.
-4. On install: prefer the source repo's own documented method (Agent Skills are portable —
+4. Before the user acts on a candidate, run `verify_skill.py` on it (see §Verify).
+5. On install: prefer the source repo's own documented method (Agent Skills are portable —
    usually `git clone` then copy the skill dir into `.claude/skills/`, or `claude plugin install`).
-   **Verify file digests against the index before trusting a pulled skill** (see §Security).
+   Pull the **pinned `source_ref`**, not the branch tip, so the digests apply.
 
 ## Run
 
 ```bash
 python3 scripts/find_skill.py --query "<capability the user needs>"
-# optional: --zh-only, --min-health 70, --limit 5
+# optional: --zh-only, --min-health 70, --limit 5, --security pass
 ```
 
 The script prints ranked candidates as JSON. Relay them to the user with the trust signals
 visible, and only proceed to install with the user's confirmation.
 
+`withheld_by_security_gate` in the output lists candidates that matched the query but were
+withheld. If it is non-empty, say so — do not present a filtered list as if it were complete.
+
+## Verify
+
+```bash
+python3 scripts/verify_skill.py --id "<candidate id from find_skill.py>"
+```
+
+Fetches every file in the entry's digest manifest at the pinned commit and compares SHA-256.
+Exit code is 0 only for `verified`.
+
+- `refused` is **not** a pass. It means the check could not be performed — the entry is
+  pinned to a branch rather than a commit, has no manifest, or has a manifest known to be
+  partial. Report the reason; do not describe the skill as verified.
+- `mismatch` means the upstream files no longer match what was assessed. Treat the trust
+  signals in the index as no longer applying to that content.
+
 ## Security (responsibility boundary)
 
 - awesomeskills provides **trust signals**, not a sandbox. A `security` rating of `unrated`
   means *not yet assessed* — say so; do not imply it is safe.
-- Third-party skills are code + prompts. After pulling, check the fetched files' SHA-256
-  against the index entry when digests are present, and let the user review before enabling.
+- Skills rated `fail` by the static scan are withheld by default. `--security fail` returns
+  them; the rating exists because the scan found things like `rm -rf` against `$HOME` in a
+  skill's scripts. Only widen the gate on an explicit request, and say what the finding was.
+- The manifest covers SKILL.md **and** the skill's executable files. Verifying only the
+  prompt file would check the least dangerous part of the bundle.
+- Third-party skills are code + prompts. Let the user review before enabling.

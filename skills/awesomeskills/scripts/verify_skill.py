@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+"""Verify a skill's files against the digests the index recorded, before anything is used.
+
+  python3 verify_skill.py --id "owner/repo/skill-dir" [--index-url ...] [--json]
+
+Fetches every file in the index entry's manifest at the pinned commit and compares SHA-256.
+This is the check the finder skill promises; it is a real check, not advice.
+
+It refuses rather than passes when it cannot actually prove anything:
+  - the entry is pinned to a branch instead of a commit (the revision can have moved)
+  - the entry carries no digest manifest (repo-level fallback entries have no skill bundle)
+  - the manifest is known to be partial (files_complete is false)
+
+A refusal is not a pass. Exit code is 0 only for "verified".
+
+Standard library only. Honors HTTPS_PROXY.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+
+from index_client import fetch_text, load_index, raw_file_url, resolve_index_url
+
+VERIFIED, REFUSED, MISMATCH = "verified", "refused", "mismatch"
+
+
+def find_entry(index: dict, skill_id: str) -> dict | None:
+    return next((e for e in index.get("skills", []) if e.get("id") == skill_id), None)
+
+
+def refusal_reason(entry: dict, allow_incomplete: bool) -> str | None:
+    """Why this entry cannot be verified, or None if it can."""
+    if entry.get("source_ref_kind") != "commit":
+        return (
+            f"entry is pinned to a {entry.get('source_ref_kind') or 'missing'} ref "
+            f"({entry.get('source_ref')!r}); a moving ref cannot be verified against a digest"
+        )
+    if not entry.get("files"):
+        return "entry carries no digest manifest (repo-level entry has no skill bundle)"
+    if not entry.get("files_complete") and not allow_incomplete:
+        return (
+            "digest manifest is known to be partial (files_complete is false); "
+            "re-run with --allow-incomplete to check only the files that were recorded"
+        )
+    return None
+
+
+def check_files(repo: str, ref: str, files: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Fetch each recorded file at the pinned ref. Returns (matched, problems)."""
+    matched: list[dict] = []
+    problems: list[dict] = []
+    for row in files:
+        path, expected = row.get("path", ""), row.get("sha256", "")
+        url = raw_file_url(repo, ref, path)
+        try:
+            actual = hashlib.sha256(fetch_text(url).encode("utf-8")).hexdigest()
+        except Exception as error:  # noqa: BLE001 — an unfetchable file is a failed check
+            problems.append({"path": path, "problem": "fetch failed", "detail": str(error)})
+            continue
+        if actual == expected:
+            matched.append({"path": path, "role": row.get("role")})
+        else:
+            problems.append({
+                "path": path, "problem": "digest mismatch",
+                "expected": expected, "actual": actual,
+            })
+    return matched, problems
+
+
+def verify(entry: dict, allow_incomplete: bool) -> dict:
+    reason = refusal_reason(entry, allow_incomplete)
+    if reason:
+        return {"verdict": REFUSED, "reason": reason, "checked": 0}
+
+    matched, problems = check_files(entry["source_repo"], entry["source_ref"], entry["files"])
+    return {
+        "verdict": VERIFIED if not problems else MISMATCH,
+        "reason": None if not problems else f"{len(problems)} file(s) failed the check",
+        "checked": len(matched) + len(problems),
+        "matched": [row["path"] for row in matched],
+        "problems": problems,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--id", required=True, help="skill id exactly as it appears in the index")
+    parser.add_argument("--index-url", default=None)
+    parser.add_argument(
+        "--allow-incomplete", action="store_true",
+        help="check the recorded files even when the manifest is known to be partial",
+    )
+    args = parser.parse_args()
+
+    url = resolve_index_url(args.index_url)
+    try:
+        index, used = load_index(url)
+    except Exception as error:  # noqa: BLE001 — surface any resolution failure to the agent
+        print(json.dumps({"error": f"failed to load index from {url}: {error}"}), file=sys.stderr)
+        return 2
+
+    entry = find_entry(index, args.id)
+    if entry is None:
+        print(json.dumps({"error": f"no index entry with id {args.id!r}"}), file=sys.stderr)
+        return 2
+
+    result = verify(entry, args.allow_incomplete)
+    print(json.dumps({
+        "id": args.id,
+        "index_source": used,
+        "source_repo": entry.get("source_repo"),
+        "source_ref": entry.get("source_ref"),
+        "source_ref_kind": entry.get("source_ref_kind"),
+        "security": entry.get("trust", {}).get("security"),
+        **result,
+    }, ensure_ascii=False, indent=2))
+    return 0 if result["verdict"] == VERIFIED else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

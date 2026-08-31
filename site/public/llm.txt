@@ -1,5 +1,5 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-08-31T03:16:08+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-08-31T03:55:52+00:00. Human + agent readable. Full data: /index.json
 # health/security/repo grade are deterministic; optional summaries are agent enrichment
 
 - work-status (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-status) — health 91, security pass, en
@@ -372,7 +372,7 @@
 - meeting-minutes-taker (daymade/claude-code-skills/daymade-audio/meeting-minutes-taker) — health 86, security pass, zh
   Transforms raw meeting transcripts into high-fidelity, structured meeting minutes (notes / summaries). Use when (1) a meeting transcript is provided and meeting minutes, notes, or a summary are requested; (2) multiple versions of minutes must be merged without losing content; (3) existing minutes need review against the original transcript for missing items; (4) the transcript has anonymous speakers like "Speaker 1/2/3" or "发言人1" that need identifying (optionally mapped via a context.md team directory). Triggers on 会议纪要 / 会议记录 / 整理纪要 / 妙记转纪要, "write meeting minutes", "summarize this meeting", "merge these minutes", "what's missing from these notes". For fixing ASR/STT recognition errors in the raw transcript first, use transcript-fixer; this skill structures clean transcripts into minutes.
   https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/meeting-minutes-taker
-- marketplace-dev (daymade/claude-code-skills/daymade-claude-code/marketplace-dev) — health 86, security warn, en
+- marketplace-dev (daymade/claude-code-skills/daymade-claude-code/marketplace-dev) — health 86, security pass, en
   Creates and maintains Claude Code plugin marketplaces, consolidates standalone skills into a new or existing suite, and moves skills between suites. Converts any Claude Code skills repository into an official plugin marketplace, generates spec-conforming .claude-plugin/marketplace.json, validates with `claude plugin validate`, tests real installation and cache boundaries, and PRs the upstream repo, encoding hard-won schema/version/description anti-patterns. Use when the user mentions marketplace, plugin support, one-click install, marketplace.json, plugin distribution, auto-update, suite-only migration, "put these skills in a suite", "move this skill into daymade-*", or wants a skills repo installable via `claude plugin install`.
   https://github.com/daymade/claude-code-skills/tree/main/daymade-claude-code/marketplace-dev
 - local-conversation-history (daymade/claude-code-skills/daymade-claude-code/local-conversation-history) — health 86, security pass, en
@@ -432,7 +432,7 @@
 - auto-repo-setup (daymade/claude-code-skills/auto-repo-setup) — health 86, security pass, en
   Diagnose, repair, and standardize repository setup and safe Git workflows for Claude Code or Codex. Use when a repository will not run, a collaborator is onboarding, dependencies or credentials are missing, the user wants startup sync, SessionStart output is duplicated, project instructions or hooks need auditing, or commit/push/conflict/history-cleanup needs a guarded workflow. Route ordinary startup behavior through project instructions or a natural language request; use lifecycle hooks only when behavior must occur before the first prompt and the target runtime has been verified.
   https://github.com/daymade/claude-code-skills/tree/main/auto-repo-setup
-- asr-transcribe-to-text (daymade/claude-code-skills/daymade-audio/asr-transcribe-to-text) — health 86, security warn, zh
+- asr-transcribe-to-text (daymade/claude-code-skills/daymade-audio/asr-transcribe-to-text) — health 86, security pass, zh
   Transcribe audio/video to speaker-labeled text — who-said-what by default, plain-text opt-out; MLX-local on Apple Silicon or remote; local files, media URLs. Use for transcribing recordings/podcasts/lectures/meetings, ASR, speech-to-text, 转录, 语音转文字, 录音转文字, speaker diarization/说话人分离/识别/谁在说话, timestamps 字幕/时间戳/音画对齐, CAM++ voiceprint ID. This skill ALSO owns audio PREPROCESSING for ASR as a first-class trigger, even without transcription: convert any audio/video into an ASR-ready file (转换成适合 ASR 的格式, 转格式, convert/prepare audio for ASR, 音频预处理), downsample to 16kHz mono 16-bit (降采样, 重采样, 单声道, 归一化), merge multi-segment recorder dumps (多段合并/拼接, DJI TX01/TX02), transcode to small M4A + pitch-preserved speedup to cut metered-ASR billed minutes (转 M4A, 压缩上传, 加速, 1.3x, 飞书妙记/Feishu Minutes). Trigger even when it looks like a trivial one-line ffmpeg — the skill owns sample-rate/bit-depth/channel, merge-order, speed-vs-WER, format choices + a blessed prepare_asr_input.py.
   https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/asr-transcribe-to-text
 - run-claude-osint (elementalsouls/Claude-OSINT/.claude/skills/run-claude-osint) — health 85, security pass, en
@@ -770,94 +770,94 @@
 - patent-disclosure-skill (handsomestWei/patent-disclosure-skill) — health 68, security warn, zh
   中国专利技能：专利点挖掘与交底书（发明/实用/外观）编写，通俗解读专利，嗅探政策动向，辅助审查答复。| China patents skill: mine patent points and draft disclosures (invention / utility model / design), plain-language reading, policy sniffing, assisted office-action response.
   https://github.com/handsomestWei/patent-disclosure-skill
-- kubernetes-specialist (Jeffallan/claude-skills/skills/kubernetes-specialist) — health 67, security pass, en
+- kubernetes-specialist (Jeffallan/claude-skills/skills/kubernetes-specialist) — health 68, security pass, en
   Use when deploying or managing Kubernetes workloads. Invoke to create deployment manifests, configure pod security policies, set up service accounts, define network isolation rules, debug pod crashes, analyze resource limits, inspect container logs, or right-size workloads. Use for Helm charts, RBAC policies, NetworkPolicies, storage configuration, performance optimization, GitOps pipelines, and multi-cluster management.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/kubernetes-specialist
-- kotlin-specialist (Jeffallan/claude-skills/skills/kotlin-specialist) — health 67, security pass, en
+- kotlin-specialist (Jeffallan/claude-skills/skills/kotlin-specialist) — health 68, security pass, en
   Provides idiomatic Kotlin implementation patterns including coroutine concurrency, Flow stream handling, multiplatform architecture, Compose UI construction, Ktor server setup, and type-safe DSL design. Use when building Kotlin applications requiring coroutines, multiplatform development, or Android with Compose. Invoke for Flow API, KMP projects, Ktor servers, DSL design, sealed classes, suspend function, Android Kotlin, Kotlin Multiplatform.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/kotlin-specialist
-- javascript-pro (Jeffallan/claude-skills/skills/javascript-pro) — health 67, security pass, en
+- javascript-pro (Jeffallan/claude-skills/skills/javascript-pro) — health 68, security pass, en
   Writes, debugs, and refactors JavaScript code using modern ES2023+ features, async/await patterns, ESM module systems, and Node.js APIs. Use when building vanilla JavaScript applications, implementing Promise-based async flows, optimising browser or Node.js performance, working with Web Workers or Fetch API, or reviewing .js/.mjs/.cjs files for correctness and best practices.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/javascript-pro
-- java-architect (Jeffallan/claude-skills/skills/java-architect) — health 67, security pass, en
+- java-architect (Jeffallan/claude-skills/skills/java-architect) — health 68, security pass, en
   Use when building, configuring, or debugging enterprise Java applications with Spring Boot 3.x, microservices, or reactive programming. Invoke to implement WebFlux endpoints, optimize JPA queries and database performance, configure Spring Security with OAuth2/JWT, or resolve authentication issues and async processing challenges in cloud-native Spring applications.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/java-architect
-- graphql-architect (Jeffallan/claude-skills/skills/graphql-architect) — health 67, security pass, en
+- graphql-architect (Jeffallan/claude-skills/skills/graphql-architect) — health 68, security pass, en
   Use when designing GraphQL schemas, implementing Apollo Federation, or building real-time subscriptions. Invoke for schema design, resolvers with DataLoader, query optimization, federation directives.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/graphql-architect
-- golang-pro (Jeffallan/claude-skills/skills/golang-pro) — health 67, security pass, en
+- golang-pro (Jeffallan/claude-skills/skills/golang-pro) — health 68, security pass, en
   Implements concurrent Go patterns using goroutines and channels, designs and builds microservices with gRPC or REST, optimizes Go application performance with pprof, and enforces idiomatic Go with generics, interfaces, and robust error handling. Use when building Go applications requiring concurrent programming, microservices architecture, or high-performance systems. Invoke for goroutines, channels, Go generics, gRPC integration, CLI tools, benchmarks, or table-driven testing.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/golang-pro
-- game-developer (Jeffallan/claude-skills/skills/game-developer) — health 67, security pass, en
+- game-developer (Jeffallan/claude-skills/skills/game-developer) — health 68, security pass, en
   Use when building game systems, implementing Unity/Unreal Engine features, or optimizing game performance. Invoke to implement ECS architecture, configure physics systems and colliders, set up multiplayer networking with lag compensation, optimize frame rates to 60+ FPS targets, develop shaders, or apply game design patterns such as object pooling and state machines. Trigger keywords: Unity, Unreal Engine, game development, ECS architecture, game physics, multiplayer networking, game optimization, shader programming, game AI.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/game-developer
-- fullstack-guardian (Jeffallan/claude-skills/skills/fullstack-guardian) — health 67, security pass, en
+- fullstack-guardian (Jeffallan/claude-skills/skills/fullstack-guardian) — health 68, security pass, en
   Builds security-focused full-stack web applications by implementing integrated frontend and backend components with layered security at every level. Covers the complete stack from database to UI, enforcing auth, input validation, output encoding, and parameterized queries across all layers. Use when implementing features across frontend and backend, building REST APIs with corresponding UI, connecting frontend components to backend endpoints, creating end-to-end data flows from database to UI, or implementing CRUD operations with UI forms. Distinct from frontend-only, backend-only, or API-only skills in that it simultaneously addresses all three perspectives—Frontend, Backend, and Security—within a single implementation workflow. Invoke for full-stack feature work, web app development, authenticated API routes with views, microservices, real-time features, monorepo architecture, or technology selection decisions.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/fullstack-guardian
-- flutter-expert (Jeffallan/claude-skills/skills/flutter-expert) — health 67, security pass, en
+- flutter-expert (Jeffallan/claude-skills/skills/flutter-expert) — health 68, security pass, en
   Use when building cross-platform applications with Flutter 3+ and Dart. Invoke for widget development, Riverpod/Bloc state management, GoRouter navigation, platform-specific implementations, performance optimization.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/flutter-expert
-- fine-tuning-expert (Jeffallan/claude-skills/skills/fine-tuning-expert) — health 67, security pass, en
+- fine-tuning-expert (Jeffallan/claude-skills/skills/fine-tuning-expert) — health 68, security pass, en
   Use when fine-tuning LLMs, training custom models, or adapting foundation models for specific tasks. Invoke for configuring LoRA/QLoRA adapters, preparing JSONL training datasets, setting hyperparameters for fine-tuning runs, adapter training, transfer learning, finetuning with Hugging Face PEFT, OpenAI fine-tuning, instruction tuning, RLHF, DPO, or quantizing and deploying fine-tuned models. Trigger terms include: LoRA, QLoRA, PEFT, finetuning, fine-tuning, adapter tuning, LLM training, model training, custom model.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/fine-tuning-expert
-- feature-forge (Jeffallan/claude-skills/skills/feature-forge) — health 67, security pass, en
+- feature-forge (Jeffallan/claude-skills/skills/feature-forge) — health 68, security pass, en
   Conducts structured requirements workshops to produce feature specifications, user stories, EARS-format functional requirements, acceptance criteria, and implementation checklists. Use when defining new features, gathering requirements, or writing specifications. Invoke for feature definition, requirements gathering, user stories, EARS format specs, PRDs, acceptance criteria, or requirement matrices.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/feature-forge
-- fastapi-expert (Jeffallan/claude-skills/skills/fastapi-expert) — health 67, security pass, en
+- fastapi-expert (Jeffallan/claude-skills/skills/fastapi-expert) — health 68, security pass, en
   Use when building high-performance async Python APIs with FastAPI and Pydantic V2. Invoke to create REST endpoints, define Pydantic models, implement authentication flows, set up async SQLAlchemy database operations, add JWT authentication, build WebSocket endpoints, or generate OpenAPI documentation. Trigger terms: FastAPI, Pydantic, async Python, Python API, REST API Python, SQLAlchemy async, JWT authentication, OpenAPI, Swagger Python.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/fastapi-expert
-- embedded-systems (Jeffallan/claude-skills/skills/embedded-systems) — health 67, security pass, en
+- embedded-systems (Jeffallan/claude-skills/skills/embedded-systems) — health 68, security pass, en
   Use when developing firmware for microcontrollers, implementing RTOS applications, or optimizing power consumption. Invoke for STM32, ESP32, FreeRTOS, bare-metal, power optimization, real-time systems, configure peripherals, write interrupt handlers, implement DMA transfers, debug timing issues.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/embedded-systems
-- dotnet-core-expert (Jeffallan/claude-skills/skills/dotnet-core-expert) — health 67, security pass, en
+- dotnet-core-expert (Jeffallan/claude-skills/skills/dotnet-core-expert) — health 68, security pass, en
   Use when building .NET 8 applications with minimal APIs, clean architecture, or cloud-native microservices. Invoke for Entity Framework Core, CQRS with MediatR, JWT authentication, AOT compilation.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/dotnet-core-expert
-- django-storages-s3 (Jeffallan/claude-skills/skills/django-storages-s3) — health 67, security pass, en
+- django-storages-s3 (Jeffallan/claude-skills/skills/django-storages-s3) — health 68, security pass, en
   Use when configuring Django to store static and media files on AWS S3 with django-storages. Invoke when working with the STORAGES setting, S3 buckets, presigned URLs, CloudFront, or boto3-backed file storage in settings.py. Configures the Django 4.2+ STORAGES dict, public/private custom backends, presigned GET/POST URLs, IAM policies, and S3 mocking for tests. Trigger terms: django-storages, S3, boto3, S3Boto3Storage, STORAGES, presigned URL, CloudFront, media files, collectstatic, AWS_STORAGE_BUCKET_NAME.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/django-storages-s3
-- django-expert (Jeffallan/claude-skills/skills/django-expert) — health 67, security pass, en
+- django-expert (Jeffallan/claude-skills/skills/django-expert) — health 68, security pass, en
   Use when building Django web applications or REST APIs with Django REST Framework. Invoke when working with settings.py, models.py, manage.py, or any Django project file. Creates Django models with proper indexes, optimizes ORM queries using select_related/prefetch_related, builds DRF serializers and viewsets, and configures JWT authentication. Trigger terms: Django, DRF, Django REST Framework, Django ORM, Django model, serializer, viewset, Python web.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/django-expert
-- devops-engineer (Jeffallan/claude-skills/skills/devops-engineer) — health 67, security pass, en
+- devops-engineer (Jeffallan/claude-skills/skills/devops-engineer) — health 68, security pass, en
   Creates Dockerfiles, configures CI/CD pipelines, writes Kubernetes manifests, and generates Terraform/Pulumi infrastructure templates. Handles deployment automation, GitOps configuration, incident response runbooks, and internal developer platform tooling. Use when setting up CI/CD pipelines, containerizing applications, managing infrastructure as code, deploying to Kubernetes clusters, configuring cloud platforms, automating releases, or responding to production incidents. Invoke for pipelines, Docker, Kubernetes, GitOps, Terraform, GitHub Actions, on-call, or platform engineering.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/devops-engineer
-- debugging-wizard (Jeffallan/claude-skills/skills/debugging-wizard) — health 67, security pass, en
+- debugging-wizard (Jeffallan/claude-skills/skills/debugging-wizard) — health 68, security pass, en
   Parses error messages, traces execution flow through stack traces, correlates log entries to identify failure points, and applies systematic hypothesis-driven methodology to isolate and resolve bugs. Use when investigating errors, analyzing stack traces, finding root causes of unexpected behavior, troubleshooting crashes, or performing log analysis, error investigation, or root cause analysis.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/debugging-wizard
-- database-optimizer (Jeffallan/claude-skills/skills/database-optimizer) — health 67, security pass, en
+- database-optimizer (Jeffallan/claude-skills/skills/database-optimizer) — health 68, security pass, en
   Optimizes database queries and improves performance across PostgreSQL and MySQL systems. Use when investigating slow queries, analyzing execution plans, or optimizing database performance. Invoke for index design, query rewrites, configuration tuning, partitioning strategies, lock contention resolution.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/database-optimizer
-- csharp-developer (Jeffallan/claude-skills/skills/csharp-developer) — health 67, security pass, en
+- csharp-developer (Jeffallan/claude-skills/skills/csharp-developer) — health 68, security pass, en
   Use when building C# applications with .NET 8+, ASP.NET Core APIs, or Blazor web apps. Builds REST APIs using minimal or controller-based routing, configures database access with Entity Framework Core, implements async patterns and cancellation, structures applications with CQRS via MediatR, and scaffolds Blazor components with state management. Invoke for C#, .NET, ASP.NET Core, Blazor, Entity Framework, EF Core, Minimal API, MAUI, SignalR.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/csharp-developer
-- cpp-pro (Jeffallan/claude-skills/skills/cpp-pro) — health 67, security pass, en
+- cpp-pro (Jeffallan/claude-skills/skills/cpp-pro) — health 68, security pass, en
   Writes, optimizes, and debugs C++ applications using modern C++20/23 features, template metaprogramming, and high-performance systems techniques. Use when building or refactoring C++ code requiring concepts, ranges, coroutines, SIMD optimization, or careful memory management — or when addressing performance bottlenecks, concurrency issues, and build system configuration with CMake.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/cpp-pro
-- code-reviewer (Jeffallan/claude-skills/skills/code-reviewer) — health 67, security pass, en
+- code-reviewer (Jeffallan/claude-skills/skills/code-reviewer) — health 68, security pass, en
   Analyzes code diffs and files to identify bugs, security vulnerabilities (SQL injection, XSS, insecure deserialization), code smells, N+1 queries, naming issues, and architectural concerns, then produces a structured review report with prioritized, actionable feedback. Use when reviewing pull requests, conducting code quality audits, identifying refactoring opportunities, or checking for security issues. Invoke for PR reviews, code quality checks, refactoring suggestions, review code, code quality. Complements specialized skills (security-reviewer, test-master) by providing broad-scope review across correctness, performance, maintainability, and test coverage in a single pass.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/code-reviewer
-- code-documenter (Jeffallan/claude-skills/skills/code-documenter) — health 67, security pass, en
+- code-documenter (Jeffallan/claude-skills/skills/code-documenter) — health 68, security pass, en
   Generates, formats, and validates technical documentation — including docstrings, OpenAPI/Swagger specs, JSDoc annotations, doc portals, and user guides. Use when adding docstrings to functions or classes, creating API documentation, building documentation sites, or writing tutorials and user guides. Invoke for OpenAPI/Swagger specs, JSDoc, doc portals, getting started guides.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/code-documenter
-- cloud-architect (Jeffallan/claude-skills/skills/cloud-architect) — health 67, security pass, en
+- cloud-architect (Jeffallan/claude-skills/skills/cloud-architect) — health 68, security pass, en
   Designs cloud architectures, creates migration plans, generates cost optimization recommendations, and produces disaster recovery strategies across AWS, Azure, and GCP. Use when designing cloud architectures, planning migrations, or optimizing multi-cloud deployments. Invoke for Well-Architected Framework, cost optimization, disaster recovery, landing zones, security architecture, serverless design.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/cloud-architect
-- cli-developer (Jeffallan/claude-skills/skills/cli-developer) — health 67, security pass, en
+- cli-developer (Jeffallan/claude-skills/skills/cli-developer) — health 68, security pass, en
   Use when building CLI tools, implementing argument parsing, or adding interactive prompts. Invoke for parsing flags and subcommands, displaying progress bars and spinners, generating bash/zsh/fish completion scripts, CLI design, shell completions, and cross-platform terminal applications using commander, click, typer, or cobra.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/cli-developer
-- chaos-engineer (Jeffallan/claude-skills/skills/chaos-engineer) — health 67, security pass, en
+- chaos-engineer (Jeffallan/claude-skills/skills/chaos-engineer) — health 68, security pass, en
   Designs chaos experiments, creates failure injection frameworks, and facilitates game day exercises for distributed systems — producing runbooks, experiment manifests, rollback procedures, and post-mortem templates. Use when designing chaos experiments, implementing failure injection frameworks, or conducting game day exercises. Invoke for chaos experiments, resilience testing, blast radius control, game days, antifragile systems, fault injection, Chaos Monkey, Litmus Chaos.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/chaos-engineer
-- atlassian-mcp (Jeffallan/claude-skills/skills/atlassian-mcp) — health 67, security pass, en
+- atlassian-mcp (Jeffallan/claude-skills/skills/atlassian-mcp) — health 68, security pass, en
   Integrates with Atlassian products to manage project tracking and documentation via MCP protocol. Use when querying Jira issues with JQL filters, creating and updating tickets with custom fields, searching or editing Confluence pages with CQL, managing sprints and backlogs, setting up MCP server authentication, syncing documentation, or debugging Atlassian API integrations.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/atlassian-mcp
-- architecture-designer (Jeffallan/claude-skills/skills/architecture-designer) — health 67, security pass, en
+- architecture-designer (Jeffallan/claude-skills/skills/architecture-designer) — health 68, security pass, en
   Use when designing new high-level system architecture, reviewing existing designs, or making architectural decisions. Invoke to create architecture diagrams, write Architecture Decision Records (ADRs), evaluate technology trade-offs, design component interactions, and plan for scalability. Use for system design, architecture review, microservices structuring, ADR authoring, scalability planning, and infrastructure pattern selection — distinct from code-level design patterns or database-only design tasks.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/architecture-designer
-- api-designer (Jeffallan/claude-skills/skills/api-designer) — health 67, security pass, en
+- api-designer (Jeffallan/claude-skills/skills/api-designer) — health 68, security pass, en
   Use when designing REST or GraphQL APIs, creating OpenAPI specifications, or planning API architecture. Invoke for resource modeling, versioning strategies, pagination patterns, error handling standards.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/api-designer
-- angular-architect (Jeffallan/claude-skills/skills/angular-architect) — health 67, security pass, en
+- angular-architect (Jeffallan/claude-skills/skills/angular-architect) — health 68, security pass, en
   Generates Angular 17+ standalone components, configures advanced routing with lazy loading and guards, implements NgRx state management, applies RxJS patterns, and optimizes bundle performance. Use when building Angular 17+ applications with standalone components or signals, setting up NgRx stores, establishing RxJS reactive patterns, performance tuning, or writing Angular tests for enterprise apps.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/angular-architect
 - writing-hookify-rules (anthropics/claude-plugins-official/plugins/hookify/skills/writing-rules) — health 61, security fail, en

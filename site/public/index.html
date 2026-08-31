@@ -19,9 +19,16 @@
   .tagline { font-weight: 600; color: var(--fg); font-size: 19px; }
   p.lede { color: var(--body); margin: 6px 0 0; font-size: 15px; max-width: 720px; }
   em { color: var(--accent); font-style: normal; font-weight: 600; }
-  .lang-switch { position: absolute; top: 30px; right: 24px; display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+  .header-actions { position: absolute; top: 30px; right: 24px; display: inline-flex; gap: 10px; align-items: center; }
+  .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
   .lang-switch button { border: none; background: none; cursor: pointer; color: var(--muted); font: inherit; font-size: 12px; padding: 4px 10px; }
   .lang-switch button.on { background: #eef0fb; color: var(--accent); font-weight: 600; }
+  /* Repo link, not a star widget: this site argues stars carry no signal, and an inline
+     SVG keeps the page at zero external requests. */
+  .gh-link { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 26px;
+             border: 1px solid var(--line); border-radius: 7px; color: var(--muted); }
+  .gh-link:hover { border-color: var(--accent); color: var(--accent); }
+  .gh-link svg { width: 16px; height: 16px; fill: currentColor; display: block; }
 
   .bar { max-width: 960px; margin: 18px auto 0; padding: 0 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
   input[type=search] { flex: 1; min-width: 200px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 7px; font: inherit; color: var(--fg); }
@@ -103,7 +110,10 @@
 </head>
 <body>
 <header>
-  <div class="lang-switch" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="zh">中</button></div>
+  <div class="header-actions">
+    <div class="lang-switch" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="zh">中</button></div>
+    <a class="gh-link" href="https://github.com/maxzyma/awesomeskills" target="_blank" rel="noopener" data-i18n-title="gh_title"><span class="visually-hidden" data-i18n="gh_label"></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a>
+  </div>
   <h1><span class="tag">awesomeskills</span><span class="tagline" data-i18n="tagline"></span></h1>
   <p class="lede" data-i18n="lede"></p>
 </header>
@@ -167,6 +177,7 @@
       pre_manual: 'git clone https://github.com/maxzyma/awesomeskills\n# all projects (recommended for a finder):\ncp -r awesomeskills/skills/awesomeskills ~/.claude/skills/\n# or this project only:\ncp -r awesomeskills/skills/awesomeskills .claude/skills/',
       other_body: 'A standard Agent Skill — install it the way your agent expects (most read .agents/skills/; see its docs). Read-only: awesomeskills.io/llm.txt',
       submit_q: 'Know a good skill we\'re missing?', submit_a: 'Submit it for inclusion →',
+      gh_title: 'Source on GitHub', gh_label: 'awesomeskills on GitHub',
       search_ph: 'Search a capability, e.g. pdf, browser, registry…', search_aria: 'Search skills',
       zh_only: 'Chinese only', health_ge: 'health ≥ 70',
       repo_all: 'All repos', sort_relevance: 'Sort: trust', sort_health: 'Sort: activity', sort_grade: 'Sort: repo grade', sort_name: 'Sort: name',
@@ -197,6 +208,7 @@
       pre_manual: 'git clone https://github.com/maxzyma/awesomeskills\n# 所有项目（finder 推荐）：\ncp -r awesomeskills/skills/awesomeskills ~/.claude/skills/\n# 或仅当前项目：\ncp -r awesomeskills/skills/awesomeskills .claude/skills/',
       other_body: '标准 Agent Skill——按你的 agent 方式安装（多数读 .agents/skills/，见其文档）。只读：awesomeskills.io/llm.txt',
       submit_q: '发现我们漏收的好 skill？', submit_a: '提交收录 →',
+      gh_title: '在 GitHub 上查看源码', gh_label: 'awesomeskills GitHub 仓库',
       search_ph: '搜索能力，如 pdf、browser、registry…', search_aria: '搜索 skill',
       zh_only: '仅中文', health_ge: 'health ≥ 70',
       repo_all: '全部仓库', sort_relevance: '排序：可信度', sort_health: '排序：活跃度', sort_grade: '排序：仓库评级', sort_name: '排序：名称',
@@ -283,6 +295,7 @@
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
     document.querySelectorAll('[data-i18n-pre]').forEach(el => { el.textContent = t('pre_' + el.dataset.i18nPre); });
+    document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
     document.querySelector('.chev').innerHTML = chevIcon;
     qEl.placeholder = t('search_ph');
     qEl.setAttribute('aria-label', t('search_aria'));

@@ -42,7 +42,10 @@ BASE_OUT = REPO_ROOT / "registry" / "base-index.json"
 API = "https://api.github.com/repos/"
 GRAPHQL_API = "https://api.github.com/graphql"
 RAW = "https://raw.githubusercontent.com/"
-SCHEMA_VERSION = "0.3"  # 0.3 separates deterministic base data from enrichment
+# 0.3 separated deterministic base data from enrichment.
+# 0.4 pins source_ref to a commit SHA and records a per-file digest manifest, so the
+#     verification the finder skill promises can actually be carried out.
+SCHEMA_VERSION = "0.4"
 # Cap per repo; truncation is logged, never silent. Raised 15 -> 30 on 2026-08-31: this
 # makes the mid-size collections complete instead of arbitrarily sampled, while keeping
 # registry/index.json small enough for the finder skill to fetch it on every invocation
@@ -152,6 +155,18 @@ def _get(url: str, token: str | None, accept: str = "application/vnd.github+json
 
 def fetch_repo(repo_id: str, token: str | None) -> dict | None:
     return _get(API + repo_id, token)
+
+
+def fetch_commit_sha(repo_id: str, branch: str, token: str | None) -> str | None:
+    """Resolve a branch to the commit it currently points at.
+
+    Everything downstream -- file fetches, digests, source_url -- is then pinned to that
+    commit. Recording a branch name instead makes the digests unverifiable in practice:
+    by the time anyone checks, the branch has moved and there is no way to ask for the
+    revision the digest was taken from.
+    """
+    head = _get(f"{API}{repo_id}/commits/{urllib.parse.quote(branch, safe='')}", token)
+    return head.get("sha") if isinstance(head, dict) else None
 
 
 def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str] | None:
@@ -359,6 +374,24 @@ def _has_chinese(*texts: str | None) -> bool:
 
 # ---------- entry builders ----------
 
+def _file_manifest(skill_path: str, skill_text: str, executable_files: dict[str, str]) -> list[dict]:
+    """Path + SHA-256 for every file this build actually read, SKILL.md first."""
+    rows = [{
+        "path": skill_path,
+        "sha256": hashlib.sha256(skill_text.encode("utf-8")).hexdigest(),
+        "role": "skill",
+    }]
+    rows.extend(
+        {
+            "path": file_path,
+            "sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
+            "role": "executable",
+        }
+        for file_path, content in sorted(executable_files.items())
+    )
+    return rows
+
+
 def _skill_dir(path: str) -> str:
     d = path[: -len("SKILL.md")].rstrip("/")
     return d or "."
@@ -412,8 +445,19 @@ def build_skill_entries(
     repo_id = src["id"]
     health, factors = compute_health(repo, now, capacity)
     branch = repo.get("default_branch") or "main"
+    commit_sha = fetch_commit_sha(repo_id, branch, token)
+    if commit_sha is None:
+        print(
+            f"  … {repo_id}: could not resolve {branch} to a commit; entries stay pinned to "
+            "the branch and are marked unverifiable",
+            file=sys.stderr,
+        )
+    # Read the whole repo at one immutable revision, so digests and content cannot drift
+    # apart mid-build.
+    ref = commit_sha or branch
+    ref_kind = "commit" if commit_sha else "branch"
 
-    paths = fetch_skill_paths(repo_id, branch, token)
+    paths = fetch_skill_paths(repo_id, ref, token)
     if paths is None:
         raise BuildError(f"failed to fetch Git tree for {repo_id}")
     # skip placeholder/non-skill SKILL.md (e.g. a README/ dir, or template/example dirs)
@@ -423,7 +467,7 @@ def build_skill_entries(
     if selection_truncated:
         print(f"  … {repo_id}: {len(paths)} SKILL.md found, capping at {MAX_SKILLS_PER_REPO}", file=sys.stderr)
         paths = paths[:MAX_SKILLS_PER_REPO]
-    inventory, inventory_complete = fetch_tree_inventory(repo_id, branch, token)
+    inventory, inventory_complete = fetch_tree_inventory(repo_id, ref, token)
     blob_paths = {item.get("path", "") for item in inventory}
     coverage = {
         "discovered_skill_count": discovered_count if inventory_complete else None,
@@ -447,6 +491,13 @@ def build_skill_entries(
             "source_url": repo.get("html_url") or f"https://github.com/{repo_id}",
             "kind": src.get("kind", "skill"),
             "level": "repo",
+            "source_ref": ref,
+            "source_ref_kind": ref_kind,
+            "source_branch": branch,
+            # No SKILL.md means there is no skill bundle to digest. Say so explicitly rather
+            # than omitting the field, so a verifier refuses instead of silently passing.
+            "files": [],
+            "files_complete": False,
             "trust": {
                 "health": health, "health_factors": factors, "security": "unrated",
                 "security_scope": "no standard SKILL.md", "security_complete": False,
@@ -457,7 +508,7 @@ def build_skill_entries(
 
     entries: list[dict] = []
     skill_dirs = [_skill_dir(candidate) for candidate in paths]
-    texts = fetch_skill_contents(repo_id, branch, paths, token)
+    texts = fetch_skill_contents(repo_id, ref, paths, token)
     failed_paths = [path for path, text in zip(paths, texts) if text is None]
     if failed_paths:
         raise BuildError(f"failed to fetch {len(failed_paths)} SKILL.md file(s) for {repo_id}")
@@ -472,7 +523,7 @@ def build_skill_entries(
         )
         selected_executable_paths = executable_paths[:MAX_EXECUTABLE_FILES_PER_SKILL]
         executable_texts = fetch_skill_contents(
-            repo_id, branch, selected_executable_paths, token,
+            repo_id, ref, selected_executable_paths, token,
         )
         executable_files = {
             file_path: content for file_path, content in zip(selected_executable_paths, executable_texts)
@@ -496,8 +547,15 @@ def build_skill_entries(
             "kind": "skill",
             "level": "skill",
             "path": path,
-            "source_ref": branch,
+            "source_ref": ref,
+            "source_ref_kind": ref_kind,   # "commit" = digests are verifiable; "branch" = not
+            "source_branch": branch,
             "content_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+            # Digest manifest for the whole bundle, not just SKILL.md. The executable files
+            # are the part that actually runs, so verifying only the prompt file would check
+            # the least dangerous thing in the skill.
+            "files": _file_manifest(path, text, executable_files),
+            "files_complete": security_complete,
             "trust": {
                 "health": health,  # inherited from repo
                 "health_factors": factors,
