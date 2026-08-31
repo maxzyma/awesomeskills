@@ -8,6 +8,9 @@ from __future__ import annotations
 
 import json
 import os
+import ssl
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -31,10 +34,25 @@ def resolve_index_url(cli_url: str | None) -> str:
     )
 
 
-def fetch_text(url: str, timeout: int = 30) -> str:
+def fetch_text(url: str, timeout: int = 30, attempts: int = 3) -> str:
+    """Fetch a URL as text, retrying transient transport failures.
+
+    Concurrent fetches against raw.githubusercontent.com draw occasional connection
+    resets. Without a retry those surface as verification failures, which is worse than
+    being slow: a transient reset would read as "this file does not match".
+    """
     request = urllib.request.Request(url, headers={"User-Agent": "awesomeskills"})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return response.read().decode("utf-8")
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                return response.read().decode("utf-8")
+        except urllib.error.HTTPError:
+            raise  # a real 404/403 is an answer, not a hiccup
+        except (urllib.error.URLError, TimeoutError, ConnectionError, ssl.SSLError, OSError):
+            if attempt == attempts - 1:
+                raise
+            time.sleep(0.5 * (attempt + 1))
+    raise OSError(f"exhausted retries for {url}")  # unreachable; keeps the return type honest
 
 
 def load_index(url: str, allow_local_fallback: bool = True) -> tuple[dict, str]:

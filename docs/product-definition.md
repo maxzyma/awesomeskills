@@ -169,3 +169,9 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 - [ ] 每仓 SKILL.md 上限 30（2026-08-31 由 15 提高）：公开 discovered/selected/omitted；Issue 自动流程拒绝无显式范围的大集合。
       提到 30 让中型集合从"任意抽样"变成"完整收录"，且 `index.json` 仍小到够 finder skill 每次调用拉取；
       但上万个 SKILL.md 的巨型集合在任何合理上限下都仍是截断。后续需设计可审计的路径分片，而不是静默截断。
+- [ ] **digest 清单不完整 → verify 被拒**：`files_complete: false` 的条目会被 `verify_skill.py` 拒绝
+      （这是设计如此：不完整的清单不能冒充校验通过）。2026-08-31 实测：可执行文件上限由 50 提到 200
+      （实测最大 134）后，该成因归零，不完整条目降到 33/408，**全部是 tree inventory 被 GitHub 截断
+      （30 条）与抓取失败（3 条）**。**主因是 tree inventory 截断**——
+      `fetch_tree_inventory` 遇到巨型仓直接返回不完整，不像 `fetch_skill_paths` 那样下钻子树。
+      要让这批可校验，得给库存抓取也做子树遍历。在此之前这些条目只能如实标为不可校验。

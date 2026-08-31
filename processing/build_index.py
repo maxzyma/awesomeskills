@@ -54,7 +54,13 @@ SCHEMA_VERSION = "0.4"
 # real fix and is still open.
 MAX_SKILLS_PER_REPO = 30
 MAX_CONTRIBUTOR_PAGE = 100  # single page; maintainer count saturates here, which is fine
-MAX_EXECUTABLE_FILES_PER_SKILL = 50
+# Per-skill cap on executable files scanned and digested. Raised 50 -> 200 on 2026-08-31.
+# The distribution is extremely skewed: median 0 executable files per skill, p90 = 4, and
+# only 7 of 408 skills exceeded 50. Since the cost is only paid by skills that actually
+# have the files, a cap well above the observed maximum (134) is close to free -- it takes
+# the whole index from 671 to ~949 digested files -- while still bounding a pathological
+# repo. Skills over the cap are marked incomplete and refused by verify_skill.py.
+MAX_EXECUTABLE_FILES_PER_SKILL = 200
 _EXECUTABLE_SUFFIXES = {
     ".sh", ".bash", ".zsh", ".py", ".js", ".mjs", ".cjs", ".ts", ".tsx",
     ".ps1", ".rb", ".pl", ".php", ".go", ".rs",
@@ -346,7 +352,7 @@ def fetch_skill_contents(
         variable = f"expression{index}"
         definitions.append(f"${variable}:String!")
         selections.append(
-            f"file{index}:object(expression:${variable}){{... on Blob{{text}}}}"
+            f"file{index}:object(expression:${variable}){{... on Blob{{text isTruncated}}}}"
         )
         variables[variable] = f"{branch}:{path}"
     query = (
@@ -357,10 +363,19 @@ def fetch_skill_contents(
     if data is None:
         return [None] * len(paths)
     repository = data.get("repository") or {}
-    return [
-        (repository.get(f"file{index}") or {}).get("text")
-        for index in range(len(paths))
-    ]
+
+    contents: list[str | None] = []
+    for index, path in enumerate(paths):
+        blob = repository.get(f"file{index}") or {}
+        # GraphQL caps Blob.text at ~512 KB and reports it via isTruncated. Digesting or
+        # scanning the truncated prefix would silently describe part of a file as if it
+        # were the whole one, so fall back to the Contents endpoint for the full bytes.
+        if blob.get("isTruncated"):
+            print(f"  … {repo_id}:{path}: GraphQL blob truncated; refetching in full", file=sys.stderr)
+            contents.append(fetch_raw(repo_id, branch, path, token))
+        else:
+            contents.append(blob.get("text"))
+    return contents
 
 
 # ---------- signals ----------

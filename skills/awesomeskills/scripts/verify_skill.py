@@ -22,10 +22,12 @@ import argparse
 import hashlib
 import json
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 from index_client import fetch_text, load_index, raw_file_url, resolve_index_url
 
 VERIFIED, REFUSED, MISMATCH = "verified", "refused", "mismatch"
+MAX_FETCH_WORKERS = 4  # raw.githubusercontent resets connections above this
 
 
 def find_entry(index: dict, skill_id: str) -> dict | None:
@@ -49,26 +51,31 @@ def refusal_reason(entry: dict, allow_incomplete: bool) -> str | None:
     return None
 
 
+def check_one(repo: str, ref: str, row: dict) -> dict:
+    """Fetch one recorded file at the pinned ref and compare its digest."""
+    path, expected = row.get("path", ""), row.get("sha256", "")
+    try:
+        actual = hashlib.sha256(fetch_text(raw_file_url(repo, ref, path)).encode("utf-8")).hexdigest()
+    except Exception as error:  # noqa: BLE001 — an unfetchable file is a failed check
+        return {"path": path, "problem": "fetch failed", "detail": str(error)}
+    if actual == expected:
+        return {"path": path, "role": row.get("role")}
+    return {"path": path, "problem": "digest mismatch", "expected": expected, "actual": actual}
+
+
 def check_files(repo: str, ref: str, files: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Fetch each recorded file at the pinned ref. Returns (matched, problems)."""
-    matched: list[dict] = []
-    problems: list[dict] = []
-    for row in files:
-        path, expected = row.get("path", ""), row.get("sha256", "")
-        url = raw_file_url(repo, ref, path)
-        try:
-            actual = hashlib.sha256(fetch_text(url).encode("utf-8")).hexdigest()
-        except Exception as error:  # noqa: BLE001 — an unfetchable file is a failed check
-            problems.append({"path": path, "problem": "fetch failed", "detail": str(error)})
-            continue
-        if actual == expected:
-            matched.append({"path": path, "role": row.get("role")})
-        else:
-            problems.append({
-                "path": path, "problem": "digest mismatch",
-                "expected": expected, "actual": actual,
-            })
-    return matched, problems
+    """Fetch every recorded file at the pinned ref. Returns (matched, problems).
+
+    Fetched concurrently: a bundle can run past a hundred files, and checking them one
+    round-trip at a time makes verification slow enough that it gets skipped.
+    """
+    workers = min(MAX_FETCH_WORKERS, max(1, len(files)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = list(pool.map(lambda row: check_one(repo, ref, row), files))
+    return (
+        [row for row in results if "problem" not in row],
+        [row for row in results if "problem" in row],
+    )
 
 
 def verify(entry: dict, allow_incomplete: bool) -> dict:
