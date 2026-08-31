@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "updated_at": "2026-08-17T15:35:02+00:00",
+  "updated_at": "2026-08-20T02:54:35+00:00",
   "entries": {
     "shareAI-lab/learn-claude-code/skills/pdf": {
       "content_sha256": "b143723126a9951c556063edbdf15fce252a505e11c85a3fdbaa221f1116d178",
@@ -943,871 +943,915 @@
       }
     },
     "daymade/claude-code-skills/daymade-audio/transcript-fixer": {
-      "content_sha256": "ceb2adcbb6216c71029e6b2c6d6bae2227f436ef811ac657b6985451d779a91c",
+      "content_sha256": "b051d15db83d7b6c0804238a04637d7e338c9c3a6de7e3f3bb2c2b82efb2c498",
       "status": "fresh",
-      "generated_at": "2026-08-17T15:23:25Z",
+      "generated_at": "2026-08-20T02:50:59Z",
       "agent": "codex-automation/v1",
-      "model": "configured-default",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Corrects recurring and context-dependent speech-to-text errors while accumulating confirmed, domain-scoped correction knowledge for future transcripts.",
+            "purpose": "Corrects speech-recognition transcripts through deterministic dictionary rules followed by contextual AI review, while retaining reusable corrections, domain context, people-name variants, and unresolved review items.",
             "scenarios": [
-              "Apply safe dictionary corrections and defer risky matches for review.",
-              "Perform a full-document native AI pass for names, homophones, terminology, and mixed Chinese/English ASR errors.",
-              "Maintain project dictionaries, person-name variants, and domain context cues.",
-              "Queue uncertain entities or wording for anchored human review, optionally with audio playback.",
-              "Audit false positives, numeric damage, timestamps, and final transcript diffs.",
-              "Process multiple related transcripts while preserving per-file scope and reusable corrections."
+              "Clean meeting, lecture, interview, or mixed Chinese/English ASR text.",
+              "Apply project-specific terminology and person-name corrections across recurring transcripts.",
+              "Review uncertain entities, homophones, numeric anomalies, and potentially unsafe dictionary matches."
             ],
-            "io": "Inputs include transcript text or Markdown, domain names, a SQLite correction database, optional people roster and context files, optional source audio, raw transcripts, and human review decisions. Outputs include corrected transcripts, Stage 1/2 and review sidecars, change and diff reports, persistent dictionary or review-queue records, and optional archived or renamed final files.",
+            "io": "Inputs are transcript files, optional domains/context files, correction rules, people rosters, and review decisions. Outputs include corrected Markdown/text, change and review reports, SQLite correction history, review-queue records, and optional diff artifacts.",
             "dependencies": [
-              "uv for running bundled Python scripts and resolving inline dependencies",
-              "Bundled correction, review-dashboard, audio-fetch, timestamp, numeric-scan, split, and diff scripts",
-              "SQLite correction database under the transcript-fixer configuration directory",
-              "Optional people roster and per-domain context Markdown files",
-              "Claude native language review for the documented default AI phase",
-              "Optional GLM or Anthropic API credentials for standalone API mode",
-              "Optional lark-cli, curl, and ffprobe for Feishu/Lark audio retrieval and timeline validation",
-              "Optional audio file and local review dashboard for human adjudication"
+              "Python scripts executed through uv",
+              "SQLite correction database",
+              "Claude native language review for the default AI phase",
+              "Optional GLM or Anthropic API credentials for unattended API mode",
+              "Optional jieba, ffmpeg/ffprobe, lark-cli, and local review dashboard features"
             ],
-            "boundary": "The evidence describes an extensive workflow rather than guaranteeing transcript accuracy. Dictionary replacements can create false positives; entity and numeric changes require evidence or human review, and uncertain text should remain unchanged. The workflow modifies local files and persistent SQLite state, may access external APIs in optional modes, and relies on many referenced scripts and documents whose implementations were not supplied here. Domain isolation, anchor integrity, raw-source preservation, and final diff review are essential limits stated by the source."
+            "boundary": "It corrects transcript content but does not itself perform initial ASR or create meeting minutes. Dictionary-only Stage 1 is explicitly incomplete unless the user limits scope or a later AI pass is evidenced. Ambiguous entities and numbers require evidence or human review; common-word and real-name substitutions must not be applied blindly."
           },
           "zh": {
-            "purpose": "纠正重复性和上下文相关的语音转文字错误，同时积累经确认、按领域隔离的纠正规则供未来转写复用。",
+            "purpose": "通过确定性词典规则和后续上下文 AI 审阅纠正语音识别转写，并持续保存可复用纠错、领域上下文、人名变体和待审项目。",
             "scenarios": [
-              "应用安全字典纠正，并将高风险匹配延后审查。",
-              "对全文执行原生 AI 复核，处理人名、同音词、术语及中英混合 ASR 错误。",
-              "维护项目字典、人名变体和领域上下文提示。",
-              "将不确定实体或措辞加入带锚点的人工审查队列，并可结合音频播放。",
-              "审计误修、数字损坏、时间戳和最终差异。",
-              "处理多份相关转写，同时保持逐文件范围并沉淀可复用纠正。"
+              "清理会议、讲座、访谈或中英混合的 ASR 文本。",
+              "跨多份转写复用项目术语和人名纠错。",
+              "审查不确定实体、同音词、数字异常及可能不安全的词典命中。"
             ],
-            "io": "输入包括转写文本或 Markdown、领域名称、SQLite 纠正数据库、可选人员名册与上下文文件、可选源音频、原始转写和人工审查决定；输出包括纠正后的转写、Stage 1/2 与审查旁文件、变更和差异报告、持久字典或审查队列记录，以及可选归档或重命名后的最终文件。",
+            "io": "输入为转写文件、可选领域/上下文文件、纠错规则、人员名册和审阅结论；输出包括修正后的 Markdown/文本、变更与待审报告、SQLite 纠错历史、审阅队列记录及可选差异文件。",
             "dependencies": [
-              "用于运行内置 Python 脚本并解析内联依赖的 uv",
-              "内置纠正、审查面板、音频获取、时间戳、数字扫描、拆分和差异脚本",
-              "transcript-fixer 配置目录下的 SQLite 纠正数据库",
-              "可选人员名册和逐领域上下文 Markdown 文件",
-              "文档默认 AI 阶段所需的 Claude 原生语言复核",
-              "独立 API 模式可选的 GLM 或 Anthropic 凭据",
-              "飞书/Lark 音频获取与时间线验证可选的 lark-cli、curl 和 ffprobe",
-              "用于人工判定的可选音频文件和本地审查面板"
+              "通过 uv 运行的 Python 脚本",
+              "SQLite 纠错数据库",
+              "默认 AI 阶段所需的 Claude 原生语言审阅",
+              "无人值守 API 模式可选的 GLM 或 Anthropic 凭据",
+              "部分功能可选依赖 jieba、ffmpeg/ffprobe、lark-cli 和本地审阅面板"
             ],
-            "boundary": "证据描述的是复杂工作流，不保证转写准确。字典替换可能误修；实体和数字变更需要证据或人工判断，不确定文本应保持原样。流程会修改本地文件和持久 SQLite 状态，可选模式可能访问外部 API，并依赖大量未随证据提供实现的脚本与参考文档。来源明确要求遵守领域隔离、锚点完整、原始来源保留和最终差异审查等边界。"
+            "boundary": "负责纠正转写内容，不负责初始语音识别或生成会议纪要。除非用户明确只要词典阶段或已有后续 AI 审阅证据，否则仅运行 Stage 1 不构成完整处理。不确定实体和数字必须有证据或人工判断，常用词及真实姓名替换不可盲目执行。"
           }
         },
-        "scope": "A multi-stage ASR transcript-correction system combining persistent dictionaries, native model review, optional API correction, domain context, person rosters, review queues, audio-assisted adjudication, and verification utilities.",
-        "model": "configured-default",
+        "scope": "ASR transcript correction and persistent correction management",
+        "model": "gpt-5",
         "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-audio/stepfun-tts": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "e7386835142bebacb4b3b811f0ef6ed2a32e2e8bd911a804661aa73a67b71169",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Synthesize Chinese and Japanese speech using StepFun's stepaudio-2.5-tts model with natural language prosody instructions and inline emotional controls.",
+            "purpose": "Generates Chinese or Japanese speech with StepFun stepaudio-2.5-tts using natural-language global instructions and inline parenthetical prosody directions.",
             "scenarios": [
-              "Generating game character voice lines with expressive emotions and mid-sentence prosody adjustments.",
-              "Batch-generating application audio assets with automatic handling for content censorship blocks.",
-              "Migrating legacy TTS pipelines from step-tts-2 to stepaudio-2.5-tts instruction-based schemas."
+              "Synthesize emotional or whispered speech with sentence-level prosody changes.",
+              "Batch-generate game or application voice lines.",
+              "Migrate integrations from step-tts-2 voice_label parameters to stepaudio-2.5-tts instructions."
             ],
-            "io": "Takes input text, natural language voice instructions, and optional batch files, and outputs generated MP3 audio files.",
+            "io": "Inputs are text up to the documented model limit, optional instruction text, batch JSONL, voice/model settings, and an output path. Outputs are synthesized audio files plus batch logs or skipped-line records.",
             "dependencies": [
-              "StepFun API",
-              "Python 3"
+              "StepFun audio API",
+              "STEPFUN_API_KEY or plugin config containing a Normal API key",
+              "Bundled Python generation scripts",
+              "Optional shell comparison tooling for A/B evaluation"
             ],
-            "boundary": "It does not handle audio speech-to-text transcription (which requires stepfun-asr) nor synthesize text segments exceeding the 1000-character hard cap."
+            "boundary": "Targets TTS, not transcription. The model rejects legacy voice_label, limits instruction and input length, and may block sensitive content. Pricing and service behavior are volatile and require external re-verification."
           },
           "zh": {
-            "purpose": "使用阶跃星辰的 stepaudio-2.5-tts 模型，通过自然语言提示词及句内控制标记生成带细粒度情感与韵律控制的中日语音。",
+            "purpose": "使用 StepFun 的 stepaudio-2.5-tts，通过自然语言全局指令和文本内括号韵律指令生成中文或日文语音。",
             "scenarios": [
-              "为游戏或应用角色生成带有复杂情感转折和句内停顿语气控制的配音。",
-              "批量生成应用语音文件并自动处理敏感词过滤与拦截回退。",
-              "将基于 step-tts-2 的旧版配音流程迁移升级至自然语言指令驱动的 2.5 架构。"
+              "合成带情绪、耳语或句内语气变化的语音。",
+              "批量生成游戏或应用配音台词。",
+              "将 step-tts-2 的 voice_label 集成迁移到 stepaudio-2.5-tts 的 instruction 方式。"
             ],
-            "io": "接收文本内容、自然语言控制指令及批量 JSONL 文件，输出生成的 MP3 音频文件。",
+            "io": "输入为受模型长度限制的文本、可选 instruction、批量 JSONL、音色/模型设置和输出路径；输出为合成音频，以及批处理日志或跳过记录。",
             "dependencies": [
-              "StepFun API",
-              "Python 3"
+              "StepFun 音频 API",
+              "STEPFUN_API_KEY 或插件配置中的 Normal API Key",
+              "内置 Python 生成脚本",
+              "A/B 对比可选的 Shell 工具"
             ],
-            "boundary": "该技能不提供语音识别与转写功能（需使用 stepfun-asr 技能），且单次文本合成不能超过 1000 字的硬性上限。"
+            "boundary": "仅用于语音合成，不用于转写。模型不接受旧版 voice_label，并限制 instruction 和输入长度，也可能拦截敏感内容。价格和服务行为具有时效性，引用前需重新核实。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "StepFun contextual text-to-speech generation",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-audio/stepfun-asr": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "f7dac6c93d54bf56b6974785d62231f20253a7ca4511394c179f6bf33c0dc53f",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Transcribes Chinese and English audio recordings up to 30 minutes in a single call using StepFun's stepaudio-2.5-asr SSE endpoint.",
+            "purpose": "Transcribes Chinese or English audio through StepFun stepaudio-2.5-asr using its JSON/base64 SSE endpoint and extracts authoritative final text and usage data.",
             "scenarios": [
-              "Transcribing Chinese or English audio recordings up to 30 minutes long in a single request without client-side chunking.",
-              "Extracting transcriptions along with token usage and billing data using the provided Python CLI script.",
-              "Fixing wrong API endpoint configuration errors when migrating to the stepaudio-2.5-asr model."
+              "Transcribe short or long recordings in one request when within service limits.",
+              "Migrate from older StepFun ASR models.",
+              "Diagnose wrong-endpoint, key-type, censorship-event, or repetitive-output failures."
             ],
-            "io": "Inputs an audio file (e.g., MP3, WAV, OGG, Opus) and optional language parameters, and outputs plain text transcription or JSON with detailed usage stats.",
+            "io": "Inputs are supported audio files, language/format options, and an API key. Outputs are plain transcript text or JSON containing text, usage, and timing information.",
             "dependencies": [
-              "python",
-              "ffmpeg"
+              "StepFun /v1/audio/asr/sse API",
+              "STEPFUN_API_KEY or plugin config with a Normal API key",
+              "Bundled Python client",
+              "ffmpeg for unsupported containers or files exceeding the single-call duration limit"
             ],
-            "boundary": "Does not support text-to-speech synthesis or directly processing audio files longer than 30 minutes without prior splitting."
+            "boundary": "Uses a StepFun-hosted service and does not provide speaker diarization or transcript cleanup. It must parse SSE error events and take final text from the done event. Audio beyond the stated ceiling must be split externally, and pricing/performance claims may change."
           },
           "zh": {
-            "purpose": "使用阶跃星辰 stepaudio-2.5-asr SSE 接口，单次请求即可转写长达 30 分钟的中英文音频。",
+            "purpose": "通过 StepFun stepaudio-2.5-asr 的 JSON/base64 SSE 接口转写中英文音频，并提取权威最终文本和用量数据。",
             "scenarios": [
-              "无需客户端切片，直接单次请求转写长达 30 分钟的中英文音频文件。",
-              "通过 Python CLI 脚本提取语音转写结果及 Token 计费使用量数据。",
-              "排查并修复因错误调到传统 ASR 接口而导致的模型不支持报错问题。"
+              "在服务限制内单次转写短音频或较长录音。",
+              "从旧版 StepFun ASR 模型迁移。",
+              "诊断错误端点、密钥类型、内容拦截事件或重复幻觉问题。"
             ],
-            "io": "输入音频文件（如 MP3、WAV、OGG、Opus）及可选语言参数，输出纯文本转写结果或包含使用量统计的 JSON。",
+            "io": "输入为受支持的音频文件、语言/格式选项和 API Key；输出为纯文本转写或包含文本、用量与耗时信息的 JSON。",
             "dependencies": [
-              "python",
-              "ffmpeg"
+              "StepFun /v1/audio/asr/sse API",
+              "STEPFUN_API_KEY 或插件配置中的 Normal API Key",
+              "内置 Python 客户端",
+              "处理不支持容器或超时长文件时所需的 ffmpeg"
             ],
-            "boundary": "不支持语音合成（TTS）功能，且无法在未预先使用工具切分的情况下直接处理超过 30 分钟的音频。"
+            "boundary": "依赖 StepFun 托管服务，不提供说话人分离或转写清理。必须处理 SSE error 事件，并以 done 事件的最终文本为准。超过单次时长限制的音频需外部分割，价格和性能数据可能变化。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "StepFun streaming speech-to-text transcription",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-audio/meeting-minutes-taker": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "ab6bb018326e2a7b6622053e76efd95d37ae3c44266908fd7a50ce00e535b35e",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Transforms raw meeting transcripts into high-fidelity, structured, and comprehensive meeting minutes through iterative analysis.",
+            "purpose": "Transforms meeting transcripts into structured, evidence-backed minutes through redundant complete passes, union merging, completeness review, and human validation.",
             "scenarios": [
-              "Generating structured meeting minutes from raw meeting transcripts",
-              "Merging multiple versions of meeting minutes or cross-AI outputs without content loss",
-              "Identifying anonymous speakers using transcript context and team directories",
-              "Auditing existing meeting notes against original transcripts for missing details"
+              "Create minutes with decisions, action items, discussion, open questions, and supporting quotes.",
+              "Merge several minutes drafts without losing unique content.",
+              "Audit existing notes against a transcript or identify anonymous speakers with user-confirmed mappings."
             ],
-            "io": "Accepts raw meeting transcripts, optional team context files, or existing notes, and outputs a structured Markdown meeting minutes document.",
+            "io": "Inputs are transcripts, optional project/team context, reference artifacts, and external draft minutes. Outputs are Markdown minutes, intermediate complete-pass drafts, diagrams, retrieval-test claims, and review statistics.",
             "dependencies": [
-              "transcript-fixer",
-              "doc-to-markdown"
+              "Readable transcript and optional context files",
+              "Multiple isolated agent passes for the specified full workflow",
+              "Markdown and Mermaid rendering support",
+              "Optional transcript-fixer and document conversion tools"
             ],
-            "boundary": "It does not correct raw speech-to-text (ASR/STT) recognition errors, delegating transcript pre-processing cleanup to tools like transcript-fixer."
+            "boundary": "Structures transcript evidence rather than correcting ASR. Speaker identity must not be silently inferred; source-side labeling or user confirmation is preferred. Drafts require human review, and claims from external drafts must be verified against the transcript."
           },
           "zh": {
-            "purpose": "通过多轮迭代分析，将原始会议逐字稿转换为高保真、结构化的完整会议纪要。",
+            "purpose": "通过多次独立完整生成、并集合并、完整性审查和人工确认，将会议转写整理为有证据支撑的结构化纪要。",
             "scenarios": [
-              "根据会议逐字稿生成结构化的会议纪要",
-              "合并多个版本的会议纪要或不同 AI 的输出以防内容遗漏",
-              "结合上下文与团队名册识别逐字稿中的匿名发言人",
-              "对照原始逐字稿审查现有纪要并补充遗漏事项"
+              "生成包含决策、行动项、讨论、开放问题和原文引述的会议纪要。",
+              "合并多份纪要版本并保留各版本独有内容。",
+              "对照原始转写审查现有纪要，或在用户确认下识别匿名说话人。"
             ],
-            "io": "输入原始会议逐字稿、可选的团队背景文件或已有纪要，输出结构化的 Markdown 格式会议纪要文档。",
+            "io": "输入为会议转写、可选项目/团队上下文、参考材料和外部纪要草稿；输出为 Markdown 纪要、多轮中间稿、图表、检索自测声明及审查统计。",
             "dependencies": [
-              "transcript-fixer",
-              "doc-to-markdown"
+              "可读取的转写和可选上下文文件",
+              "完整流程要求的多次隔离代理生成",
+              "Markdown 与 Mermaid 渲染能力",
+              "可选的 transcript-fixer 和文档转换工具"
             ],
-            "boundary": "该技能不直接修复语音识别（ASR/STT）的文本错别字，相关逐字稿预处理需交由 transcript-fixer 技能完成。"
+            "boundary": "用于组织转写证据，不负责纠正 ASR。不得静默猜测说话人身份，应优先使用源平台标注或用户确认。产物是需人工审阅的草稿，外部版本中的内容必须回到原转写核验。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Evidence-based meeting-minutes synthesis and review",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/competitors-analysis": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "d8fddd679e987058ce94bb8bf69448bf02c885189ae5bf31e9813cb71d067611",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Discovers, clones, updates, and analyzes competitor code repositories to deliver evidence-backed competitive intelligence and technical comparisons.",
+            "purpose": "Builds auditable competitor profiles and landscapes from locally inspected repository evidence, supplemented by sourced market facts and explicitly separated judgments.",
             "scenarios": [
-              "Searching and shortlisting relevant competitor repositories on GitHub",
-              "Analyzing competitor source code with file and line citations",
-              "Tracking code updates and changed commits across competitors over time",
-              "Synthesizing capability matrices and market landscape comparisons"
+              "Discover and shortlist relevant open-source competitors.",
+              "Profile a competitor's implementation, dependencies, capabilities, and direction.",
+              "Compare competitors and derive evidence-linked gaps or opportunities."
             ],
-            "io": "Accepts product context along with competitor URLs or search queries, and outputs locally cloned repositories alongside code-cited technical profiles and landscape comparisons.",
+            "io": "Inputs are a product scope, target segment, competitor repository URLs or search terms, local clones, and public market sources. Outputs are source registers, cited technical profiles, comparison tables, and qualified opportunity/risk analyses.",
             "dependencies": [
-              "git",
-              "gh"
+              "Git and local repository storage",
+              "GitHub CLI for discovery and repository metadata",
+              "Web access for official market, pricing, or activity sources",
+              "Line-numbered source inspection",
+              "Bundled update script and report templates"
             ],
-            "boundary": "Does not synthesize positioning or market opportunity claims without explicit product context and locally verified code evidence."
+            "boundary": "Technical conclusions require local code and file:line evidence; UI appearance alone is insufficient. Market facts need sources and retrieval dates. Missing evidence is marked for verification rather than guessed, and opportunity statements remain judgments rather than code facts."
           },
           "zh": {
-            "purpose": "通过发现、克隆、更新与分析竞品代码仓库，提供基于代码证据的技术剖析与竞品格局报告。",
+            "purpose": "基于本地检查的代码仓库证据构建可审计的竞品档案和竞争格局，并补充有来源的市场事实，同时明确区分事实与判断。",
             "scenarios": [
-              "在 GitHub 上搜索并筛选潜在的竞品代码仓库",
-              "深入阅读竞品源码并附带文件与行号引用进行技术剖析",
-              "跟踪竞品代码仓库的最新提交与变更日志",
-              "构建多竞品能力对比矩阵与市场图谱"
+              "发现并筛选相关开源竞品。",
+              "分析竞品的实现、依赖、能力和近期方向。",
+              "比较多个竞品并提炼有证据关联的差距与机会。"
             ],
-            "io": "接收产品背景信息及竞品 URL 或搜索关键词，输出本地克隆的代码仓库以及包含代码引用的技术画像与对比报告。",
+            "io": "输入为产品范围、目标客群、竞品仓库 URL 或搜索词、本地克隆和公开市场信源；输出为来源登记、带引用的技术档案、对比表及附条件的机会/风险分析。",
             "dependencies": [
-              "git",
-              "gh"
+              "Git 和本地仓库存储",
+              "用于发现与元数据查询的 GitHub CLI",
+              "查询官方市场、价格或活跃度信息所需的网络访问",
+              "带行号的源码检查",
+              "内置更新脚本和报告模板"
             ],
-            "boundary": "在缺乏明确的市场背景上下文或未经本地克隆代码验证前，不会凭空推断市场定位或技术结论。"
+            "boundary": "技术结论必须来自本地代码和 file:line 证据，不能仅凭界面推断。市场事实须附来源和获取日期。证据不足时应标为待验证，不得猜测；机会属于分析判断而非代码事实。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Repository-backed competitor intelligence",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/codex-image-gallery": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "57869932705016607c9c97c8392ee627f6ba2ae491d1d74cf1986c22453a95d7",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Starts or reuses a local web gallery server to allow users to visually browse Codex-generated images in a browser.",
+            "purpose": "Starts or reuses a local HTTP gallery for browsing image files produced by Codex.",
             "scenarios": [
-              "Browsing Codex-generated image outputs stored in ~/.codex/generated_images.",
-              "Launching a self-contained local web gallery on port 8765 or an available port.",
-              "Viewing image files from a custom folder by setting the GALLERY_ROOT environment variable."
+              "Browse the default Codex generated-images directory.",
+              "Inspect a custom image-output folder in a browser.",
+              "Verify or reuse an already-running gallery server."
             ],
-            "io": "Accepts gallery status check or start commands along with optional custom directory paths, returning the active web server URL and opening the gallery in a browser.",
+            "io": "Input is an optional image-root directory and local port availability. Output is a localhost gallery URL, an image-list JSON endpoint, and browser-served image content.",
             "dependencies": [
-              "node",
-              "browser"
+              "Node.js",
+              "Bundled server.mjs and index.html assets",
+              "Local filesystem image directory",
+              "Optional system browser opener"
             ],
-            "boundary": "This skill only serves and displays local image files for viewing, and does not generate, edit, or upload images."
+            "boundary": "Provides local browsing only; it does not generate, edit, upload, or publish images. A running server and served image paths must be verified before reporting success."
           },
           "zh": {
-            "purpose": "启动或复用本地 Web 图库服务，以便用户在浏览器中直观浏览 Codex 生成的图片。",
+            "purpose": "启动或复用本地 HTTP 图库，用于浏览 Codex 生成的图片文件。",
             "scenarios": [
-              "浏览存储在 ~/.codex/generated_images 目录下的 Codex 图片文件。",
-              "在本地 8765 或后续可用端口启动自包含的 Web 图库界面。",
-              "通过设置 GALLERY_ROOT 环境变量浏览指定自定义目录中的图片。"
+              "浏览默认的 Codex generated_images 目录。",
+              "在浏览器中查看自定义图片输出目录。",
+              "检查并复用已运行的图库服务。"
             ],
-            "io": "输入包括图库检测或启动指令以及可选的自定义图片路径，输出为运行中的服务 URL 并自动打开浏览器页面。",
+            "io": "输入为可选图片根目录和本地端口状态；输出为 localhost 图库地址、图片列表 JSON 接口及浏览器可访问的图片内容。",
             "dependencies": [
-              "node",
-              "browser"
+              "Node.js",
+              "内置 server.mjs 和 index.html 资源",
+              "本地图片目录",
+              "可选的系统浏览器打开命令"
             ],
-            "boundary": "本技能仅用于本地图片的 Web 预览展示，不提供图片生成、图片编辑或远程上传功能。"
+            "boundary": "仅提供本地浏览，不生成、编辑、上传或发布图片。报告成功前必须验证服务地址和图片访问路径。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Local browser gallery for generated images",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/cloudflare-troubleshooting": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "74075d05e00368d734b0e4b916ea74ea584641974c22f79736072c5a5944501b",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Diagnose and resolve Cloudflare domain and network configuration issues using an evidence-driven methodology powered by the Cloudflare API.",
+            "purpose": "Investigates Cloudflare delivery problems by querying actual zone configuration, checking related layers, applying narrowly scoped fixes, and verifying results.",
             "scenarios": [
-              "Fixing ERR_TOO_MANY_REDIRECTS by adjusting SSL/TLS modes and Page Rules via API.",
-              "Troubleshooting DNS resolution errors and DNSSEC misconfigurations.",
-              "Verifying edge settings and executing cache purges after applying configuration fixes."
+              "Diagnose redirect loops and SSL/TLS mode conflicts.",
+              "Investigate DNS, DNSSEC, certificate, firewall, load-balancer, or origin errors.",
+              "Inspect Cloudflare settings before changing configuration."
             ],
-            "io": "Inputs user Cloudflare credentials, domain, and error descriptions, and outputs API-based diagnostic results and configuration fix commands.",
+            "io": "Inputs are a domain, Cloudflare zone/account access, observed symptoms, and origin details. Outputs are configuration evidence, a root-cause assessment, optional API mutations, and post-change verification results.",
             "dependencies": [
-              "curl",
-              "jq",
-              "dig",
-              "cloudflare_api"
+              "Cloudflare API",
+              "Scoped API token or Global API key plus account email",
+              "curl and JSON parsing such as jq",
+              "dig and openssl for external DNS/TLS checks",
+              "Origin reachability where applicable"
             ],
-            "boundary": "This skill specifically addresses Cloudflare edge network and API configuration troubleshooting, and does not diagnose origin server hardware or application codebase bugs."
+            "boundary": "Requires authorized access to the affected Cloudflare account. Investigation should begin read-only; changes and cache purges modify live delivery state. Credentials must not be logged, and generic symptom patterns are not proof without configuration evidence."
           },
           "zh": {
-            "purpose": "通过 Cloudflare API 进行基于证据的排查，诊断并解决 Cloudflare 域名及网络配置问题。",
+            "purpose": "通过查询真实区域配置、检查相关网络层、实施小范围修复并验证结果，诊断 Cloudflare 交付问题。",
             "scenarios": [
-              "通过 API 调整 SSL/TLS 模式和页面规则，修复重定向循环（ERR_TOO_MANY_REDIRECTS）错误。",
-              "排查 DNS 解析记录缺失、代理状态异常或 DNSSEC 配置错误。",
-              "在应用配置修复后核验边缘节点设置并执行全局缓存清理。"
+              "诊断重定向循环和 SSL/TLS 模式冲突。",
+              "调查 DNS、DNSSEC、证书、防火墙、负载均衡或源站错误。",
+              "在修改 Cloudflare 配置前检查当前状态。"
             ],
-            "io": "输入 Cloudflare 凭据、域名和异常现象描述，输出基于 API 的诊断报告及配置修复指令或执行结果。",
+            "io": "输入为域名、Cloudflare 区域/账户访问权限、故障现象和源站信息；输出为配置证据、根因判断、可选 API 修改及修改后的验证结果。",
             "dependencies": [
-              "curl",
-              "jq",
-              "dig",
-              "cloudflare_api"
+              "Cloudflare API",
+              "具有适当权限的 API Token，或 Global API Key 加账户邮箱",
+              "curl 和 jq 等 JSON 解析工具",
+              "用于外部 DNS/TLS 检查的 dig 与 openssl",
+              "适用时的源站连通性"
             ],
-            "boundary": "该技能仅专注于 Cloudflare 边缘网络与 API 侧的配置排查，不涵盖源站服务器内部硬件运维或应用程序代码级调试。"
+            "boundary": "必须获得受影响 Cloudflare 账户的授权。调查应先保持只读；配置修改和缓存清除会影响线上交付。不得记录凭据，也不能仅凭常见症状断定根因。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Cloudflare DNS, TLS, redirect, and origin diagnostics",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/cli-demo-generator": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "b699d8ecc6980bfa3c9eedcb09b91e3faace090b530d358e8a75162b0c0f38a1",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Generates professional animated GIF terminal demos from CLI commands or interactive sessions using VHS.",
+            "purpose": "Creates repeatable animated CLI demonstrations as GIFs using VHS tapes, with optional hidden setup, output filtering, timing control, speed adjustment, and frame verification.",
             "scenarios": [
-              "Creating animated command-line GIF demos for project README documentation.",
-              "Generating reproducible, self-cleaning CLI showcase recordings with hidden setup steps.",
-              "Batch generating multiple feature demonstration GIFs from a YAML configuration file."
+              "Record installation, build, test, or usage commands for README documentation.",
+              "Batch-generate several terminal demos from configuration.",
+              "Create self-resetting demos or manually controlled VHS tapes."
             ],
-            "io": "Takes shell commands, CLI arguments, or YAML configs as input and outputs rendered GIF terminal animations or VHS tape files.",
+            "io": "Inputs are shell commands, optional bootstrap/filter settings, visual dimensions/theme/timing, or batch YAML. Outputs are VHS tape files and rendered GIF demonstrations.",
             "dependencies": [
-              "python",
-              "vhs",
-              "gifsicle",
-              "asciinema"
+              "VHS",
+              "Python 3 and bundled generation scripts",
+              "Optional gifsicle for speed changes",
+              "Optional asciinema for interactive capture",
+              "Optional ffmpeg for frame inspection",
+              "Optional PyYAML for batch configuration"
             ],
-            "boundary": "It strictly creates terminal-based GIF animations and does not record graphical user interfaces (GUI) or video formats other than GIFs."
+            "boundary": "Records commands in a terminal environment and may execute them; callers must ensure the demonstrated commands are safe. VHS string parsing restricts certain shell characters, and visual correctness requires frame-level inspection rather than trusting successful rendering alone."
           },
           "zh": {
-            "purpose": "利用 VHS 工具将 CLI 命令或交互式会话生成专业的动态终端 GIF 演示图。",
+            "purpose": "使用 VHS tape 创建可重复的 CLI 动画 GIF，并支持隐藏初始化、输出过滤、时序控制、加速和逐帧验证。",
             "scenarios": [
-              "为项目 README 文档制作动态命令行 GIF 演示图。",
-              "生成包含隐藏环境准备与自动清理的可复现命令行展示录屏。",
-              "通过 YAML 配置文件批量生成多个功能的演示 GIF 图。"
+              "为 README 录制安装、构建、测试或使用流程。",
+              "从配置批量生成多个终端演示。",
+              "制作可自清理演示或手工精确控制的 VHS tape。"
             ],
-            "io": "输入 Shell 命令、命令行参数或 YAML 配置文件，输出渲染好的动态终端 GIF 图片或 VHS tape 文件。",
+            "io": "输入为 Shell 命令、可选初始化/过滤设置、画面尺寸、主题、时序或批量 YAML；输出为 VHS tape 文件和渲染后的 GIF。",
             "dependencies": [
-              "python",
-              "vhs",
-              "gifsicle",
-              "asciinema"
+              "VHS",
+              "Python 3 和内置生成脚本",
+              "加速可选依赖 gifsicle",
+              "交互录制可选依赖 asciinema",
+              "逐帧检查可选依赖 ffmpeg",
+              "批量 YAML 可选依赖 PyYAML"
             ],
-            "boundary": "该工具仅专注于生成基于终端的 GIF 动画，不支持录制图形用户界面（GUI）或导出 GIF 以外的视频格式。"
+            "boundary": "会在终端环境中录制并可能执行命令，调用者必须确认命令安全。VHS 字符串解析对部分 Shell 特殊字符有限制；渲染成功不代表视觉正确，仍需检查关键帧。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Animated terminal demonstration production",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-claude-code/claude-code-hooks": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "88b6b35d3a8add3e15f22145c8d5253d007e789350481f8d1687c26b8e2adc50",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Provides end-to-end guidance for writing, testing, registering, and debugging Claude Code hooks to enforce hard structural guardrails on tool calls and model behavior.",
+            "purpose": "Guides creation, testing, registration, and diagnosis of Claude Code lifecycle hooks that enforce mechanically detectable rules at tool, session, or response boundaries.",
             "scenarios": [
-              "Blocking dangerous or irreversible shell commands using PreToolUse hooks.",
-              "Enforcing mandatory output verification or completion checks via Stop hooks.",
-              "Debugging misconfigured or misfiring hooks that disrupt Claude sessions.",
-              "Testing hook shell scripts end-to-end with real JSON payloads before registration."
+              "Block unsafe or repeatedly violated Bash/tool actions with PreToolUse guards.",
+              "Inject post-tool facts or check guard health at session start.",
+              "Build bounded Stop hooks and diagnose false blocks, bypasses, poisoned sessions, or registration drift."
             ],
-            "io": "Inputs natural language rule specifications or hook debugging requests and outputs validated shell hook scripts and JSON configurations.",
+            "io": "Inputs are a recurring rule, Claude Code hook-event JSON, target tool/event, profile settings, and test cases. Outputs are hook scripts, test harnesses, registrations, audit records, and verified allow/block behavior.",
             "dependencies": [
-              "bash"
+              "Claude Code hook runtime",
+              "Bash and Python 3 JSON/shlex processing",
+              "Claude settings files and hook directories",
+              "Bundled hook patterns and test harness",
+              "Optional macOS osascript for human confirmation gates"
             ],
-            "boundary": "It does not enforce subjective judgment rules without mechanical token patterns or pre-build guardrails for hypothetical, non-recurring errors."
+            "boundary": "Only mechanically recognizable behavior is suitable for hooks. Incorrect PreToolUse hooks can disrupt all matching calls, and blocking hooks require explicit failure-direction and termination design. Hooks must be syntax-tested, exercised with real JSON, replayed against real command shapes, and registered per profile; prose rules and hooks are not interchangeable."
           },
           "zh": {
-            "purpose": "提供撰写、测试、注册和调试 Claude Code 钩子的全流程指导，通过硬性 Shell 守卫强制约束工具调用和模型行为。",
+            "purpose": "指导创建、测试、注册和诊断 Claude Code 生命周期钩子，在工具、会话或回复边界强制执行可机械识别的规则。",
             "scenarios": [
-              "在工具执行前利用 PreToolUse 钩子拦截高危或不可逆的 Bash 命令。",
-              "通过 Stop 钩子对模型输出进行强校验，防止模型提前终止任务。",
-              "排查并修复导致会话中断或异常触发的误杀钩子。",
-              "在注册前对钩子脚本进行语法检查及真实 JSON 输入的端到端测试。"
+              "用 PreToolUse 守卫阻止不安全或反复违规的 Bash/工具操作。",
+              "在工具调用后注入事实，或在会话开始时检查守卫健康。",
+              "构建有界 Stop 钩子，并诊断误拦截、绕过、会话污染或配置漂移。"
             ],
-            "io": "输入用户的拦截规则需求或钩子调试请求，输出经测试验证的 Shell 脚本及 JSON 钩子配置。",
+            "io": "输入为反复出现的规则、Claude Code 钩子事件 JSON、目标工具/事件、配置文件和测试用例；输出为钩子脚本、测试工具、注册配置、审计记录及已验证的允许/拦截行为。",
             "dependencies": [
-              "bash"
+              "Claude Code 钩子运行时",
+              "Bash 与 Python 3 的 JSON/shlex 处理",
+              "Claude 设置文件和 hooks 目录",
+              "内置钩子模式与测试脚本",
+              "人工确认门可选依赖 macOS osascript"
             ],
-            "boundary": "无法针对缺乏明确机械特征的主观裁量规则建立拦截，也不会为未经复现的假设性问题预建钩子。"
+            "boundary": "仅适用于可机械识别的行为。错误的 PreToolUse 钩子可能破坏所有匹配调用；阻塞钩子必须明确失败方向和终止设计。注册前需完成语法检查、真实 JSON 端到端测试和真实命令语料回放，并在各配置档注册；文字规则与钩子不可互相替代。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Claude Code hook engineering and governance",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-claude-code/claude-code-history-files-finder": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "880f547414ae90eb4e55685df903b0a28a4e54f7c40322b9a2c5cb7f6dc91f8a",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Searches, analyzes, and recovers Claude Code session histories and lost file snapshots across active config homes and registered archives.",
+            "purpose": "Searches Claude Code histories across active configuration homes and registered archives, optionally searches Codex rollouts, and recovers captured file checkpoints when available.",
             "scenarios": [
-              "Recovering deleted files or exact byte snapshots from past Claude Code session file histories",
-              "Searching previous session messages, thinking logs, and tool operations using keywords or date boundaries",
-              "Investigating past file modifications and vanished artifacts across multiple projects or Codex rollouts"
+              "Find prior conversations by keyword, project, or internal date range.",
+              "Recover deleted or lost files from file-history snapshots or Write records.",
+              "Audit session endings, tool activity, file operations, or verbatim user-authored messages."
             ],
-            "io": "Accepts search flags such as keywords, project scopes, date bounds, or snapshot file paths, and outputs matching session logs, conversation context, or recovered file contents.",
+            "io": "Inputs are project paths or all-project scope, keywords, date bounds, session exclusions, history registries, and optional session files. Outputs are ranked session matches, provenance, statistics, triage classifications, recovered files, and fidelity reports.",
             "dependencies": [
-              "local file system"
+              "Python 3",
+              "Claude Code JSONL history stores",
+              "Registered archive configuration",
+              "Optional Claude file-history companion stores",
+              "Optional Codex session stores when --codex is selected",
+              "Bundled analysis and recovery scripts"
             ],
-            "boundary": "It does not provide a simple recent session inventory and cannot recover file checkpoints if companion file-history snapshot files are missing from the archive."
+            "boundary": "Coverage claims require both active homes and registered archives; diagnostic single-home scopes cannot prove absence. Exact recovery depends on available checkpoint payloads, while Write-only recovery may omit later edits. History may contain credentials and private data and must be sanitized before sharing."
           },
           "zh": {
-            "purpose": "在活跃配置目录及注册归档中搜索、分析并恢复 Claude Code 的历史会话记录与丢失的文件快照。",
+            "purpose": "搜索所有活动配置目录和已登记归档中的 Claude Code 历史，可选搜索 Codex rollout，并在存在快照时恢复被捕获的文件检查点。",
             "scenarios": [
-              "从历史会话的文件快照中恢复被删除或修改的文件内容",
-              "按关键字或日期范围搜索过往会话中的消息、思考过程及工具调用记录",
-              "跨多个项目或 Codex 记录排查过去的工具使用情况与文件变更轨迹"
+              "按关键词、项目或内部时间范围查找历史会话。",
+              "从 file-history 快照或 Write 记录恢复删除/丢失文件。",
+              "审计会话结束状态、工具活动、文件操作或用户原始输入。"
             ],
-            "io": "输入搜索关键字、日期范围、项目范围或文件路径等参数，输出匹配的会话日志、对话上下文或已恢复的文件内容。",
+            "io": "输入为项目路径或全项目范围、关键词、日期边界、排除会话、历史源登记和可选会话文件；输出为排序后的会话命中、来源信息、统计、结束状态分类、恢复文件和保真度报告。",
             "dependencies": [
-              "local file system"
+              "Python 3",
+              "Claude Code JSONL 历史存储",
+              "已登记的归档配置",
+              "可选的 Claude file-history 配套存储",
+              "使用 --codex 时的 Codex 会话存储",
+              "内置分析与恢复脚本"
             ],
-            "boundary": "本工具不用于简单的近期会话列表概览，且若归档中未保留对应的文件快照备份，则无法恢复精确的文件内容。"
+            "boundary": "完整性结论必须覆盖活动目录和已登记归档；单目录诊断范围不能证明不存在。精确恢复依赖可用快照数据，仅依靠 Write 的恢复可能缺少后续编辑。历史中可能包含凭据和隐私数据，分享前必须清理。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Claude Code and optional Codex conversation-history search and recovery",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/capture-screen": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "45cc3f210a853eda20edbf8524a0076c2ee119eb4001bf0de70b7940178ad339",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Provides a programmatic workflow on macOS to locate application window IDs using Swift, adjust window views via AppleScript, and capture targeted window screenshots.",
+            "purpose": "Finds macOS CoreGraphics window identifiers, optionally controls application views with AppleScript, and captures specified windows or regions as images.",
             "scenarios": [
-              "Automating window screenshots for software documentation and user guides.",
-              "Adjusting Excel views like scrolling and selecting cells before taking snapshots.",
-              "Building multi-shot visual workflows for UI testing or automated reporting."
+              "Capture application windows for documentation.",
+              "Automate several screenshots across Excel sheets or scroll positions.",
+              "Diagnose macOS screen-capture permission and process-identity issues."
             ],
-            "io": "Takes window search keywords and view control actions as input, and outputs captured PNG or JPEG image files.",
+            "io": "Inputs are an application/window keyword, optional AppleScript view actions, capture options, and an output path. Outputs are window metadata and PNG or JPEG screenshots.",
             "dependencies": [
-              "swift",
-              "osascript",
+              "macOS",
+              "Swift with CoreGraphics",
               "screencapture",
-              "macOS"
+              "AppleScript/osascript for view control",
+              "Screen Recording and optional Accessibility permissions",
+              "Optional sips for resizing"
             ],
-            "boundary": "It is strictly limited to macOS operating systems and does not support screen video recording or cross-platform image capture."
+            "boundary": "macOS-only and limited by application-specific automation support. Window IDs must be refreshed after window/app recreation. It captures visible UI but does not interpret or edit the underlying document, and permissions may require direct user action in System Settings."
           },
           "zh": {
-            "purpose": "提供在 macOS 上通过 Swift 查找应用窗口 ID、利用 AppleScript 调整视图并进行精准窗口截图的自动化流程。",
+            "purpose": "查找 macOS CoreGraphics 窗口 ID，可选通过 AppleScript 控制应用视图，并将指定窗口或区域截图为图片。",
             "scenarios": [
-              "自动截取指定应用窗口以生成软件文档和用户指南。",
-              "在截图前自动调整 Excel 等应用的视图（如设置缩放、滚动页面或选中单元格）。",
-              "构建多步骤的 UI 自动化测试或可视化报告工作流。"
+              "为文档捕获应用窗口。",
+              "跨 Excel 工作表或滚动位置自动生成多张截图。",
+              "诊断 macOS 屏幕录制权限和进程身份问题。"
             ],
-            "io": "输入为窗口搜索关键字和视图控制指令，输出为保存的 PNG 或 JPEG 图像文件。",
+            "io": "输入为应用/窗口关键词、可选 AppleScript 视图操作、截图选项和输出路径；输出为窗口元数据及 PNG 或 JPEG 截图。",
             "dependencies": [
-              "swift",
-              "osascript",
+              "macOS",
+              "带 CoreGraphics 的 Swift",
               "screencapture",
-              "macOS"
+              "用于视图控制的 AppleScript/osascript",
+              "屏幕录制及可选辅助功能权限",
+              "调整尺寸可选依赖 sips"
             ],
-            "boundary": "仅适用于 macOS 系统，不支持 Linux 或 Windows 平台，且不具备全屏视频录制功能。"
+            "boundary": "仅适用于 macOS，自动控制能力取决于目标应用。应用重启或窗口重建后必须重新获取窗口 ID。它只捕获可见界面，不理解或编辑底层文档；权限问题可能需要用户在系统设置中操作。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Programmatic macOS window screenshot capture",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/bilibili-source": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "1c4b42552875fdb5f032ce4f1ee480ac4c9b31fd26c8fcc6bf425d82dd76b202",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Fetch comprehensive login-free metadata, live engagement statistics, and danmaku text for Bilibili videos.",
+            "purpose": "Fetches current, citable Bilibili video metadata, creator information, per-part identifiers, engagement metrics, and danmaku, with an authenticated path for subtitles.",
             "scenarios": [
-              "Ingesting accurate Bilibili video metadata and engagement metrics into a knowledge base",
-              "Analyzing video performance drivers using live engagement stats and audience danmaku comments",
-              "Verifying creator-claimed metrics for case studies and analytical reports"
+              "Ingest a Bilibili video into a knowledge base with verified metadata.",
+              "Analyze performance using live view, like, coin, favorite, share, reply, and danmaku counts.",
+              "Retrieve part-specific danmaku or logged-in subtitle tracks."
             ],
-            "io": "Accepts Bilibili identifiers (BVID, av number, short link, or URL) and outputs structured JSON containing video metadata, interaction statistics, danmaku transcripts, or subtitles.",
+            "io": "Input is a BVID, av number, short link, full URL, and optional part/browser selection. Output is structured JSON metadata and metrics, danmaku text, or subtitle files.",
             "dependencies": [
-              "bash",
-              "curl",
-              "bilibili_api"
+              "Bilibili public APIs",
+              "Bundled shell scripts",
+              "curl and JSON/XML processing",
+              "Network access with suitable headers",
+              "Browser cookies and yt-dlp for subtitles"
             ],
-            "boundary": "It does not download video or audio media files, and it cannot fetch subtitles without a logged-in Bilibili session."
+            "boundary": "Metrics are time-varying and must include fetched_at. Public metadata and danmaku need no login, but subtitles require the user's authenticated session and prior consent to read browser cookies. Missing data must not be estimated, and API behavior may drift."
           },
           "zh": {
-            "purpose": "获取 Bilibili 视频的元数据、实时互动数据及弹幕文本，为知识库与数据分析提供可核实的权威数据。",
+            "purpose": "获取可引用的 Bilibili 视频实时元数据、UP 主信息、分 P 标识、互动指标和弹幕，并提供需登录的字幕获取路径。",
             "scenarios": [
-              "将准确的 B 站视频元数据与互动指标导入知识库",
-              "结合实时互动数据与弹幕文本分析视频受热捧的原因与互动节点",
-              "核实创作者展示的各项数据指标以构建案例研究"
+              "将 B 站视频以已核实元数据录入知识库。",
+              "利用播放、点赞、投币、收藏、分享、评论和弹幕数据分析表现。",
+              "获取指定分 P 的弹幕或登录态字幕轨道。"
             ],
-            "io": "输入 B 站视频标识（BVID、av号、b23.tv短链接或完整URL），输出包含视频元数据、实时统计指标、弹幕全文或字幕的结构化数据。",
+            "io": "输入为 BVID、av 号、短链接、完整 URL，以及可选分 P/浏览器选择；输出为结构化元数据与指标 JSON、弹幕文本或字幕文件。",
             "dependencies": [
-              "bash",
-              "curl",
-              "bilibili_api"
+              "Bilibili 公共 API",
+              "内置 Shell 脚本",
+              "curl 与 JSON/XML 处理工具",
+              "带适当请求头的网络访问",
+              "字幕所需的浏览器 Cookie 和 yt-dlp"
             ],
-            "boundary": "本技能不包含视频或音频源文件的下载功能，且在无登录 Cookie 的情况下无法提取字幕。"
+            "boundary": "指标会持续变化，必须附 fetched_at。公开元数据和弹幕无需登录，但字幕需要用户登录会话，读取浏览器 Cookie 前应取得同意。获取失败的数据不得估算，第三方 API 行为也可能变化。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Bilibili video metadata, metrics, danmaku, and subtitle retrieval",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/benchmark-due-diligence": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "b4e58ad49d077a58c951d14f3901b1f54aef2a60cd8a60d04a2f008685adc75b",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Conducts adversarial due diligence on high-profile competitors or benchmarks to separate PR hype from verified signal and map actionable playbooks onto the user's specific context.",
+            "purpose": "Tests a founder, company, product, or influencer's success narrative against independent evidence, separates replicable methods from timing or marketing inflation, and maps supported lessons to the commissioner's real resources.",
             "scenarios": [
-              "Debunking viral traction or inflated funding claims of a competitor",
-              "Dissecting a founder or KOL's growth playbook to distinguish luck from replicable methods",
-              "Analyzing a benchmark product launch to translate its validated tactics into personalized strategic moves"
+              "Verify headline user, ranking, funding, valuation, or growth claims.",
+              "Distinguish genuine operating strengths from luck, timing, and promotional framing.",
+              "Translate an evidenced playbook into actions available to the commissioner."
             ],
-            "io": "Inputs a target benchmark, entity, or claim alongside optional user context, and outputs an adversarial teardown report with a tailored execution plan.",
+            "io": "Inputs are the benchmark subject, public claims and sources, verified public facts, and separately held private commissioner context. Outputs are evidence-graded claim verdicts, relationship and attribution maps, replicability analysis, resource mapping, actions, and open questions.",
             "dependencies": [
-              "websearch",
-              "deep-research",
-              "osint-investigate",
-              "qcc",
-              "workflow"
+              "Web research and authoritative public sources",
+              "Parallel collection and adversarial verification agents for the described workflow",
+              "Optional OSINT, corporate-registry, social-platform, and deep-research capabilities",
+              "Evidence grading and orchestration reference templates"
             ],
-            "boundary": "It does not provide neutral, broad market research briefings, nor does it conduct formal legal, financial, or non-public corporate due diligence."
+            "boundary": "Private commissioner context must be withheld from externally searching collection agents and used only in final mapping. Relationships and ownership cannot be inferred from names or domains. Unverified claims remain gaps; percentage attribution is analytical judgment and must state its evidence and uncertainty."
           },
           "zh": {
-            "purpose": "对竞争对手或行业标杆进行批判性拆解与深度尽调，剔除营销泡沫，并将验证有效的战术复刻映射至用户自身的实际资源中。",
+            "purpose": "用独立证据检验创始人、公司、产品或 KOL 的成功叙事，区分可复制方法、时机运气和营销水分，并把有效经验映射到委托方真实可控资源。",
             "scenarios": [
-              "拆解竞品的宣传水分或夸大的融资与增长数据（如 Product Hunt 榜首、虚高估值）",
-              "剖析知名 KOL 或创业者的成功路径，区分运气/时机与可复制的底层套路",
-              "对标行业标杆产品，将其验证有效的打法转化为适合用户自身资源的落地动作"
+              "核验用户量、榜单、融资、估值或增长等核心宣传主张。",
+              "区分真实经营能力、运气时机和宣传包装。",
+              "将有证据支撑的打法转化为委托方可执行动作。"
             ],
-            "io": "输入目标标杆对象、宣传主张及用户自身的资源背景，输出一份去泡沫化的竞品拆解报告与定制化复刻方案。",
+            "io": "输入为对标对象、公开主张与信源、已核实公开事实，以及独立保存的委托方私密背景；输出为分级证据结论、关系与归因图、可复制性分析、资源映射、行动项和开放问题。",
             "dependencies": [
-              "websearch",
-              "deep-research",
-              "osint-investigate",
-              "qcc",
-              "workflow"
+              "网络研究和权威公开信源",
+              "所述流程需要的并行采集与对抗验证代理",
+              "可选的 OSINT、工商、社交平台和深度研究能力",
+              "证据分级与编排模板"
             ],
-            "boundary": "它不提供中立客观的广义行业综述报告，也不进行涉及未公开数据的合规法务或审计级财务尽调。"
+            "boundary": "委托方私密背景不得进入会对外搜索的采集代理，只能用于最终映射。不得根据名称或域名推断关系与所有权。未核实主张必须保留为缺口；比例归因属于分析判断，需说明证据和不确定性。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Adversarial benchmark and success-claim due diligence",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/auto-repo-setup": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "00a4c58d1d8d388687ddab50a900935bc378c7e92a949a3f25033f2e0f83c72d",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Diagnose, repair, and standardize project environment setups, startup hooks, and safe Git workflows for AI coding agents.",
+            "purpose": "Diagnoses and repairs repository setup, standardizes repeatable onboarding and startup behavior, and provides guarded Git workflows based on the repository's actual instructions and manifests.",
             "scenarios": [
-              "Troubleshooting broken project runtimes or missing dependencies on fresh clone environments.",
-              "Safely executing Git operations such as commits, pushes, conflict resolutions, and history cleanup.",
-              "Auditing and repairing duplicated or failing agent startup hooks and onboarding documentation."
+              "Repair a repository that does not build or run on a new machine.",
+              "Define a routine remote-sync or collaborator handoff.",
+              "Diagnose duplicate startup-hook output or perform guarded commit, push, conflict, or history-cleanup work."
             ],
-            "io": "Takes an optional repository path or user directive as input and produces diagnostic reports, environment repairs, or safe Git action results.",
+            "io": "Inputs are a repository path, project instructions, manifests, lockfiles, observed command failures, and the requested setup or Git outcome. Outputs are diagnostic evidence, minimal repairs, onboarding or agent instructions, optional hook configuration, and verification results.",
             "dependencies": [
-              "git",
-              "python",
-              "claude-code",
-              "codex"
+              "Repository-declared toolchain",
+              "Python 3.10+ for the optional environment inventory",
+              "Git for repository workflows",
+              "Claude Code settings only for Claude-specific startup hooks",
+              "Bundled setup, hook, and history-scan scripts"
             ],
-            "boundary": "It does not perform destructive Git actions like unapproved stashes or force pushes, nor does it enforce unneeded dependencies on clean repositories."
+            "boundary": "Diagnosis remains read-only until the cause and authorization are established. It must preserve local changes and must not auto-stash, merge, rebase, force, or overwrite work. Hooks are reserved for verified pre-prompt requirements; public pushes, force pushes, history rewrites, and destructive conflict choices require explicit approval."
           },
           "zh": {
-            "purpose": "自动诊断、修复并规范 AI 编程 Agent 的项目环境配置、启动钩子与安全的 Git 工作流。",
+            "purpose": "依据仓库真实说明和清单诊断并修复开发环境，标准化可重复的交接与启动行为，并提供受约束的 Git 工作流。",
             "scenarios": [
-              "排查并修复新克隆仓库中运行失败的环境或缺失的依赖。",
-              "安全地执行提交、推送、冲突解决及敏感历史清理等 Git 操作。",
-              "审计并修复重复或异常的 Agent 启动钩子与团队入职文档。"
+              "修复在新机器上无法构建或运行的仓库。",
+              "定义日常远程同步或协作者交接流程。",
+              "诊断重复启动钩子输出，或安全处理提交、推送、冲突及历史清理。"
             ],
-            "io": "输入可选的仓库路径或自然语言指令，输出诊断报告、修复后的环境或安全的 Git 执行结果。",
+            "io": "输入为仓库路径、项目说明、清单与锁文件、实际命令错误和目标设置/Git 结果；输出为诊断证据、最小修复、上手文档或代理说明、可选钩子配置及验证结果。",
             "dependencies": [
-              "git",
-              "python",
-              "claude-code",
-              "codex"
+              "仓库声明的工具链",
+              "可选环境检查所需的 Python 3.10+",
+              "仓库操作所需的 Git",
+              "仅 Claude 启动钩子所需的 Claude Code 配置",
+              "内置环境、钩子和历史扫描脚本"
             ],
-            "boundary": "它不会在未经明确许可的情况下执行暂存或强推等破坏性 Git 操作，也不会为未声明的项目强加无关依赖。"
+            "boundary": "在明确原因和授权前保持只读。必须保护本地修改，不得自动 stash、merge、rebase、force 或覆盖工作。仅在确认必须首个提示前执行时使用钩子；公开推送、强推、历史重写及破坏性冲突处理需要明确批准。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Repository environment setup, onboarding, hooks, and Git safety",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "daymade/claude-code-skills/daymade-audio/asr-transcribe-to-text": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "45b6fac8704acd60c9c84edcba5758d4de2c84bf0382bd4d84fcba1f838c6e4a",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Transcribes audio and video files or URLs into speaker-labeled text and handles audio preprocessing for optimal ASR input.",
+            "purpose": "Prepares audio or video for ASR and produces plain or speaker-labeled transcripts using a local Apple-Silicon pipeline, a remote API, or an optional Feishu Minutes upload path.",
             "scenarios": [
-              "Transcribing meetings, podcasts, or lectures with speaker diarization and word-level timestamps.",
-              "Preprocessing and downsampling raw multi-segment audio files into standard 16kHz mono ASR format.",
-              "Compressing and speeding up audio files with pitch preservation to reduce metered ASR service costs."
+              "Transcribe recordings, meetings, podcasts, lectures, or media URLs.",
+              "Merge recorder segments, normalize to 16 kHz mono, and optionally apply pitch-preserving speedup.",
+              "Generate speaker labels, word timestamps, voiceprint mappings, or an HTML transcript-audit page."
             ],
-            "io": "Inputs local audio/video file paths or media URLs with optional transcription options, and outputs speaker-diarized text transcripts (with CSV/timestamps) or preprocessed audio files.",
+            "io": "Inputs are local media files or URLs, preprocessing options, local/remote configuration, optional Hugging Face credentials, and output directories. Outputs include prepared audio, text/CSV transcripts, diarization and alignment JSON, word timing, manifests, audit HTML, or a Feishu minute URL.",
             "dependencies": [
-              "ffmpeg",
-              "python",
-              "mlx-whisper",
-              "pyannote",
-              "Qwen3-ASR"
+              "ffmpeg and ffprobe",
+              "Python/uv and bundled scripts",
+              "Apple Silicon plus MLX models for the local path",
+              "pyannote and a Hugging Face token for diarization",
+              "Optional remote ASR endpoint and network access",
+              "Optional lark-cli for Feishu Minutes",
+              "Optional CAM++ and mlx-whisper components"
             ],
-            "boundary": "This skill does not handle real-time streaming speech recognition or directly generate meeting summaries from the transcript."
+            "boundary": "Local diarization/timing is platform- and credential-dependent; without it, output may be plain text. Remote services have format, size, duration, and timeout limits. Transcripts require truncation/alignment verification and may still contain recognition errors; transcript correction is a separate downstream function. Uploading to Feishu ends this workflow rather than also running local ASR."
           },
           "zh": {
-            "purpose": "将音视频文件或 URL 转录为带说话人标签的文本，并提供用于优化 ASR 输入的音频预处理功能。",
+            "purpose": "为 ASR 预处理音频/视频，并通过 Apple Silicon 本地流水线、远程 API 或可选飞书妙记上传路径生成纯文本或带说话人标签的转写。",
             "scenarios": [
-              "转录包含说话人分离和字级别时间戳的会议、播客或讲座录音。",
-              "将多段原始录音进行降采样、单声道化与合并，预处理为适合 ASR 的标准格式。",
-              "对音频进行保频倍速压缩和格式转换，以降低按量计费的 ASR 服务的转录成本。"
+              "转写录音、会议、播客、讲座或媒体 URL。",
+              "合并录音机分段、统一为 16 kHz 单声道，并可选保音高加速。",
+              "生成说话人标签、词级时间戳、声纹映射或 HTML 转写审阅页。"
             ],
-            "io": "输入本地音视频文件路径或媒体 URL 及转录参数，输出带说话人标识与时间戳的文本/CSV 记录或预处理后的音频文件。",
+            "io": "输入为本地媒体文件或 URL、预处理选项、本地/远程配置、可选 Hugging Face 凭据和输出目录；输出包括预处理音频、文本/CSV 转写、说话人及对齐 JSON、词级时间、清单、审阅 HTML 或飞书妙记链接。",
             "dependencies": [
-              "ffmpeg",
-              "python",
-              "mlx-whisper",
-              "pyannote",
-              "Qwen3-ASR"
+              "ffmpeg 和 ffprobe",
+              "Python/uv 与内置脚本",
+              "本地模式所需的 Apple Silicon 和 MLX 模型",
+              "说话人分离所需的 pyannote 与 Hugging Face Token",
+              "可选远程 ASR 端点和网络访问",
+              "上传飞书妙记可选依赖 lark-cli",
+              "可选 CAM++ 与 mlx-whisper 组件"
             ],
-            "boundary": "该技能不提供实时流式语音识别，也不直接对转录后的文本进行摘要或文档生成。"
+            "boundary": "本地说话人分离和时间对齐受平台及凭据限制，缺失时可能只能输出纯文本。远程服务存在格式、大小、时长和超时限制。转写需检查截断与对齐，仍可能含识别错误；纠错属于独立下游功能。选择上传飞书妙记后流程即结束，不再同时运行本地 ASR。"
           }
         },
-        "community_repo": "daymade/claude-code-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Audio preprocessing, ASR transcription, diarization, alignment, and review",
+        "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/scaffold": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "42105434979c6fc8585ca06b6cb813ab98abbd1e21a8a42076ea7c2909adf0cf",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Initializes or refreshes the `.hyperflow/` project analysis cache and seeds memory skeletons for AI agent workflows.",
+            "purpose": "Initializes or refreshes a project's Hyperflow analysis cache, memory skeleton, checksums, and optional AI-tool detection shims without starting feature planning or implementation.",
             "scenarios": [
-              "Initializing Hyperflow in a new project to establish codebase context",
-              "Refreshing stale analysis cache files after technical stack or configuration updates",
-              "Installing multi-tool detection shims and baseline memory directory structures"
+              "Set up Hyperflow in a new project.",
+              "Refresh stale project analysis after configuration changes.",
+              "Install AGENTS.md, CLAUDE.md, or provider-specific detection shims."
             ],
-            "io": "Accepts command options like `--tools`, `--force`, or `--dry-run`, and generates structured analysis files and memory folders inside `.hyperflow/`.",
+            "io": "Inputs are a project repository and optional tool, force, or dry-run flags. Outputs are .hyperflow analysis and memory files, checksums/version markers, a gitignore entry, optional shims, and a creation/skip/migration summary.",
             "dependencies": [
-              "bash",
-              "file_system",
-              "agent"
+              "Repository read/write access",
+              "Parallel analysis agents for the described fresh-project workflow",
+              "SHA-256 utilities and bundled scripts",
+              "Optional Git metadata",
+              "Optional legacy Hyperflow memory file"
             ],
-            "boundary": "This skill performs static setup and analysis only, without triggering the spec, planning, or task dispatch execution chain."
+            "boundary": "Performs setup only and does not start the plan-to-dispatch chain. Existing learned memory should not be overwritten. Some derived memory files are owned by session-start scripts rather than scaffold, and missing Git or shim scripts causes documented degradation rather than inferred content."
           },
           "zh": {
-            "purpose": "通过分析代码库初始化或刷新 `.hyperflow/` 项目分析缓存，并创建 AI 协作所需的内存骨架。",
+            "purpose": "初始化或刷新项目的 Hyperflow 分析缓存、记忆骨架、校验和及可选 AI 工具检测垫片，不启动功能规划或实现。",
             "scenarios": [
-              "在新项目中首次初始化 Hyperflow 并建立代码库上下文",
-              "在技术栈或配置文件更新后刷新过期的分析缓存",
-              "安装跨工具兼容的检测 Shim 以及基础内存目录结构"
+              "在新项目中初始化 Hyperflow。",
+              "配置变化后刷新过期的项目分析。",
+              "安装 AGENTS.md、CLAUDE.md 或特定提供商的检测垫片。"
             ],
-            "io": "接收 `--tools`、`--force` 或 `--dry-run` 等配置参数，并在 `.hyperflow/` 目录下生成结构化的分析文件与内存文件夹。",
+            "io": "输入为项目仓库及可选工具、force 或 dry-run 参数；输出为 .hyperflow 分析/记忆文件、校验和与版本标记、gitignore 条目、可选垫片及创建/跳过/迁移摘要。",
             "dependencies": [
-              "bash",
-              "file_system",
-              "agent"
+              "仓库读写权限",
+              "新项目流程所述的并行分析代理",
+              "SHA-256 工具和内置脚本",
+              "可选 Git 元数据",
+              "可选旧版 Hyperflow 记忆文件"
             ],
-            "boundary": "该技能仅负责环境分析与基础搭建，不会启动后续的规划、拆解或任务派发等执行工作流。"
+            "boundary": "仅执行初始化，不启动 plan→dispatch 链。不得覆盖已有学习记录。部分派生记忆文件由会话启动脚本维护而非 scaffold；缺少 Git 或垫片脚本时应按文档降级，不得臆造内容。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Hyperflow project initialization and cache refresh",
+        "model": "gpt-5",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/pr": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "12b30897c699939e5077bd1ab60a758b3eac71c773aee7510eaeb980bfa9ab63",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Audits incoming GitHub pull requests using multi-level static analysis and posts batched review comments or handles optional merges under maintainer control.",
+            "purpose": "Fetches an incoming GitHub pull request, statically audits its real code range at a selected review depth, and optionally posts one gated review, prepares fixes, or merges after approval.",
             "scenarios": [
-              "Safely reviewing external contributor PRs using static analysis without executing untrusted code",
-              "Automatically selecting audit levels (L1-L5) based on diff scope, author trust, and security impact to post inline review comments",
-              "Performing local-only auditing of PR code when offline or without GitHub CLI write permissions"
+              "Review a PR URL or number with file-context-aware findings.",
+              "Perform deeper review for external or security-sensitive contributions.",
+              "Post batched inline or summary feedback and optionally merge a passing PR."
             ],
-            "io": "Inputs a GitHub PR URL or number with optional audit parameters, and outputs a batched GitHub PR review (inline or summary) along with a local audit report file.",
+            "io": "Inputs are a PR URL/number, review level, comment/merge preferences, repository state, and GitHub authentication. Outputs are a local audit report, PASS or NEEDS_FIX findings, optional GitHub review, optional patch/fix branch updates, and optional merge result.",
             "dependencies": [
-              "gh CLI",
-              "git",
-              "/hyperflow:audit"
+              "Git repository and remote",
+              "GitHub CLI and optional authentication",
+              "Hyperflow audit workflow",
+              "Agent-based domain reviewers",
+              "Interactive approval gates for posting, fixes, execution, and merge"
             ],
-            "boundary": "It performs static analysis only and does not build, run, or test contributor code without explicit user authorization."
+            "boundary": "PR code, title, body, and comments are untrusted data. Review is static by default; running contributor code requires an explicit risk gate. Posting, modifying contributor branches, and merging are separate gated actions, and force-pushing contributor branches is excluded."
           },
           "zh": {
-            "purpose": "通过多层级静态分析评估 GitHub 提起的 PR，并在维护者授权下批量发布审查意见或执行合并。",
+            "purpose": "获取 GitHub 入站 PR，基于真实代码范围按指定深度进行静态审计，并在批准后可选发布一次审阅、准备修复或合并。",
             "scenarios": [
-              "在不执行不可信代码的前提下对外部贡献者的 PR 进行安全的静态审查",
-              "根据 Diff 范围、作者信任度及安全敏感度自动匹配审计层级（L1-L5）并批量发表行内批注",
-              "在离线或无 GitHub 写权限的情况下对 PR 进行仅本地的审计评估"
+              "按 PR URL 或编号进行具备完整文件上下文的审查。",
+              "对外部贡献者或安全敏感变更执行更深审查。",
+              "批量发布行内/摘要反馈，并可选合并通过的 PR。"
             ],
-            "io": "输入 GitHub PR 的 URL 或编号及可选审查参数，输出 GitHub 上的批量 PR 审查意见（行内批注或总结）及本地审计报告文件。",
+            "io": "输入为 PR URL/编号、审查级别、评论/合并偏好、仓库状态和 GitHub 认证；输出为本地审计报告、PASS 或 NEEDS_FIX 发现、可选 GitHub review、可选修复更新及合并结果。",
             "dependencies": [
-              "gh CLI",
-              "git",
-              "/hyperflow:audit"
+              "Git 仓库和远程地址",
+              "GitHub CLI 及可选认证",
+              "Hyperflow audit 工作流",
+              "基于代理的领域审阅者",
+              "发布、修复、执行代码和合并所需的交互式确认门"
             ],
-            "boundary": "该技能仅进行静态分析，在未经用户显式授权前绝不编译、构建或运行任何贡献者提交的代码。"
+            "boundary": "PR 代码、标题、正文和评论均是不可信数据。默认仅静态分析；运行贡献者代码必须经过明确风险确认。发布评论、修改贡献者分支和合并是相互独立的受控操作，禁止强推贡献者分支。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Maintainer-side GitHub pull-request review orchestration",
+        "model": "gpt-5",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/plan": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "06355295fe4e039269bdee719ce517d6458f596d8aeac365a4caba73ac95371c",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Refines vague prompts, designs technical approaches, and decomposes tasks into structured execution files before any code is written.",
+            "purpose": "Turns an idea or engineering request into persisted Hyperflow prompts, specifications, task graphs, and implementation briefs, then stops at a mandatory build-location decision.",
             "scenarios": [
-              "Sharpening a rough idea or ambiguous prompt into a detailed feature spec.",
-              "Decomposing a complex task into batched sub-tasks with implementation briefs.",
-              "Brainstorming and structuring technical design before execution."
+              "Sharpen a vague prompt before engineering work.",
+              "Design a multi-subsystem feature and compare approaches.",
+              "Decompose a clear task into ordered batches and build-ready worker briefs."
             ],
-            "io": "Inputs a task description, rough prompt, or idea; outputs specs, briefs, and task files written to `.hyperflow/` disk locations, followed by a build-location selection prompt.",
+            "io": "Inputs are an idea, prompt, task, project cache/memory, optional depth and brief flags, and clarification answers. Outputs are files under .hyperflow/specs, .hyperflow/tasks, .hyperflow/features, and memory, plus an optional committed cross-session handoff package.",
             "dependencies": [
-              "Read",
-              "Write",
-              "Edit",
-              "Bash",
-              "Glob",
-              "Grep",
-              "Agent",
-              "AskUserQuestion",
-              "Skill"
+              "Hyperflow project cache",
+              "Read/write access to .hyperflow directories",
+              "Agent workers and reviewers for the described workflow",
+              "Interactive question mechanism",
+              "Optional Git for committed handoffs"
             ],
-            "boundary": "Plan strictly performs prompt amplification, design, and task decomposition, and never implements source code or automatically triggers execution."
+            "boundary": "Planning never implements source code and never silently starts dispatch. It must persist the plan artifacts and always ask whether to build in the current session, another session, or later. Material ambiguity requires user input; headless execution stops rather than selecting a build path automatically."
           },
           "zh": {
-            "purpose": "在编写任何代码前对需求进行提示词优化、技术方案设计与任务拆解，并生成落盘的任务文件。",
+            "purpose": "将想法或工程请求转化为落盘的 Hyperflow 提示词、规格、任务图和实现简报，并在强制的构建位置选择处停止。",
             "scenarios": [
-              "将模糊或粗糙的想法提炼为明确的功能规范与设计方案。",
-              "将复杂任务拆解为包含独立简报的批处理子任务文件。",
-              "在正式开发前评估技术路径并完成高层级的任务规划。"
+              "在工程实施前强化模糊需求。",
+              "设计跨多个子系统的功能并比较方案。",
+              "把清晰任务拆分为有顺序的批次和可直接实施的工作简报。"
             ],
-            "io": "输入想法、提示词或任务描述；输出写入至 `.hyperflow/` 目录下的规范文件与任务文件，并向用户确认构建位置。",
+            "io": "输入为想法、提示或任务、项目缓存/记忆、可选深度与简报参数及澄清答案；输出为 .hyperflow/specs、.hyperflow/tasks、.hyperflow/features 和记忆文件，以及可选的已提交跨会话交接包。",
             "dependencies": [
-              "Read",
-              "Write",
-              "Edit",
-              "Bash",
-              "Glob",
-              "Grep",
-              "Agent",
-              "AskUserQuestion",
-              "Skill"
+              "Hyperflow 项目缓存",
+              "对 .hyperflow 目录的读写权限",
+              "所述流程需要的工作代理和审阅代理",
+              "交互式提问机制",
+              "提交交接包可选依赖 Git"
             ],
-            "boundary": "该 Skill 仅专注于规划、设计与任务拆解，绝不编写任何源代码或自动触发任务执行。"
+            "boundary": "plan 不实现源码，也不得静默启动 dispatch。必须将规划产物写入磁盘，并始终询问在当前会话、另一会话还是以后构建。实质性歧义需要用户输入；无交互环境应停止，不能自动选择构建路径。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Hyperflow request shaping, design, and task decomposition",
+        "model": "gpt-5",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/issue": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "0f7fea844d69b6273d1b93785d364e706b2e88b2d59fe53cc8e8b39499268935",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Automatically triages a GitHub issue, synthesizes a specification, and runs an end-to-end agent workflow to produce a reviewed pull request or response.",
+            "purpose": "Turns a GitHub issue into a classified and traceable workflow: bug diagnosis, feature planning, question response, or invalid/already-solved closure, with an optional reviewed pull-request exit.",
             "scenarios": [
-              "Fixing a bug reported via a GitHub issue number or URL",
-              "Implementing a feature request directly from issue acceptance criteria",
-              "Triaging an issue thread to classify it, check if already solved, or draft a reply"
+              "Implement or fix work described by an issue URL or number.",
+              "Check whether an issue is already solved on the current main branch.",
+              "Draft a response for question, discussion, invalid, or stale issues."
             ],
-            "io": "Inputs a GitHub issue URL or issue number with optional workflow flags, and outputs a synthesized spec file alongside a generated Pull Request or issue comment draft.",
+            "io": "Inputs are an issue URL/number, its body/comments/labels, repository state, GitHub authentication, and PR/comment preferences. Outputs are a triage result, issue-derived spec, optional Hyperflow plan/dispatch artifacts, drafted comments, and an optional PR.",
             "dependencies": [
-              "gh",
-              "git",
-              "github"
+              "GitHub remote",
+              "GitHub CLI and optional authentication",
+              "Git repository",
+              "Hyperflow triage, plan, dispatch, and bug-trace workflows",
+              "Interactive gates for ambiguity and outbound actions"
             ],
-            "boundary": "Does not execute embedded instructions or untrusted prompt injections found within issue descriptions, nor does it create PRs for pure questions or invalid issues."
+            "boundary": "Issue text is untrusted data and cannot authorize scripts, secrets, CI changes, or unrelated edits. Questions and invalid/already-fixed issues do not enter a code chain. Comments and PR creation are gated or explicitly pre-elected; unauthenticated mode remains local-only."
           },
           "zh": {
-            "purpose": "自动分类并解析 GitHub Issue，提取需求规格书并运行 Agent 工作流以生成经过评审的 Pull Request 或回复。",
+            "purpose": "将 GitHub Issue 转化为可追溯的分类流程：Bug 根因诊断、功能规划、问题回复或无效/已解决关闭，并可选以审阅后的 PR 收尾。",
             "scenarios": [
-              "根据 GitHub Issue 编号或 URL 修复 Bug",
-              "根据 Issue 里的验收标准规划并实现新功能",
-              "分类 Issue 讨论内容、检查问题是否已解决或草拟回复文本"
+              "实现或修复 Issue URL/编号描述的工作。",
+              "检查 Issue 是否已在当前 main 分支解决。",
+              "为问题、讨论、无效或过期 Issue 起草回复。"
             ],
-            "io": "输入 GitHub Issue URL 或编号（及可选参数），输出需求规格说明文件以及自动生成的 Pull Request 或 Issue 回复草稿。",
+            "io": "输入为 Issue URL/编号、正文/评论/标签、仓库状态、GitHub 认证及 PR/评论偏好；输出为分类结果、由 Issue 派生的规格、可选 Hyperflow plan/dispatch 产物、回复草稿和可选 PR。",
             "dependencies": [
-              "gh",
-              "git",
-              "github"
+              "GitHub 远程仓库",
+              "GitHub CLI 及可选认证",
+              "Git 仓库",
+              "Hyperflow triage、plan、dispatch 和 bug trace 工作流",
+              "处理歧义和外部动作所需的交互确认门"
             ],
-            "boundary": "不会执行 Issue 文本中潜在的非授权注入指令，也不会针对纯提问或无效问题创建 Pull Request。"
+            "boundary": "Issue 文本是不可信数据，不能授权执行脚本、使用密钥、修改 CI 或进行无关编辑。问题类及无效/已解决 Issue 不进入代码链。评论和 PR 创建必须经过确认或预先明确选择；未认证时仅在本地工作。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "GitHub issue ingestion, triage, planning-chain entry, and PR exit",
+        "model": "gpt-5",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/flush": {
@@ -8462,6 +8506,54 @@
         "scope": "Backend-neutral operating rules for recalling and recording durable agent memory while preserving history and uncertainty.",
         "model": "configured-default",
         "community_repo": "davepoon/buildwithclaude"
+      }
+    },
+    "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/hyperflow": {
+      "content_sha256": "fa9efca886ce447b96ed7cca6937ca60be17157a0d5c4ed140eb159e7330ac73",
+      "status": "fresh",
+      "generated_at": "2026-08-20T02:50:59Z",
+      "agent": "codex-automation/v1",
+      "model": "gpt-5",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Adapts Hyperflow's planning, execution, review, debugging, and deployment doctrine to Codex and other agent hosts, using native subagents when available and inline worker/reviewer phases otherwise.",
+            "scenarios": [
+              "Route plan, dispatch, workflow, trace, audit, deploy, or scaffold requests on non-Claude hosts.",
+              "Apply structured decomposition and review to non-trivial engineering work.",
+              "Continue Hyperflow chains when native Skill or structured-question tools are unavailable."
+            ],
+            "io": "Input is a task-shaped engineering request or a Hyperflow function alias plus project rules and runtime capabilities. Output is the corresponding workflow's artifacts, implementation/review results, interaction gates, commits, or deployment actions as selected.",
+            "dependencies": [
+              "A host capable of loading skills",
+              "Project AGENTS.md/CLAUDE.md and Hyperflow doctrine files",
+              "Optional native subagent API",
+              "Filesystem and task-specific tools",
+              "Git/GitHub/package tooling when required by the routed workflow"
+            ],
+            "boundary": "This is an orchestration layer, not a substitute for each routed workflow's detailed instructions. Required gates must not be skipped when structured UI is absent; they are rendered in chat instead. It must respect project rules, security blocks, no-attribution constraints, and outbound-action approvals."
+          },
+          "zh": {
+            "purpose": "将 Hyperflow 的规划、执行、审查、调试和部署准则适配到 Codex 等代理宿主；有原生子代理时使用子代理，否则以内联工作者/审阅者阶段执行。",
+            "scenarios": [
+              "在非 Claude 宿主上路由 plan、dispatch、workflow、trace、audit、deploy 或 scaffold 请求。",
+              "对非简单工程任务应用结构化拆解和审阅。",
+              "在缺少原生 Skill 或结构化提问工具时继续 Hyperflow 链。"
+            ],
+            "io": "输入为任务型工程请求或 Hyperflow 功能别名，以及项目规则和运行时能力；输出为对应工作流产物、实现/审查结果、交互确认门、提交或用户选择的部署动作。",
+            "dependencies": [
+              "可加载技能的代理宿主",
+              "项目 AGENTS.md/CLAUDE.md 和 Hyperflow doctrine 文件",
+              "可选原生子代理 API",
+              "文件系统及任务所需工具",
+              "路由流程需要时的 Git、GitHub 或包管理工具"
+            ],
+            "boundary": "这是编排层，不能替代各被路由工作流的详细规则。缺少结构化 UI 时仍必须在聊天中呈现必要确认门，不能跳过。必须遵守项目规则、安全阻断、无 AI 署名约束和对外动作审批。"
+          }
+        },
+        "scope": "Portable Hyperflow orchestration doctrine for agent runtimes",
+        "model": "gpt-5",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     }
   },
