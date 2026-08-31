@@ -15,6 +15,9 @@ from __future__ import annotations
 # Kept because the site renders them. Everything not listed here is dropped.
 SKILL_FIELDS = (
     "id", "name", "summary", "source_repo", "source_url", "kind", "level", "grounding",
+    # Kept because the page discloses it: a `legacy` assessment predates digest binding,
+    # so the revision it was written from is unrecorded.
+    "enrichment_status",
 )
 TRUST_FIELDS = (
     "health", "security", "zh", "health_factors", "security_findings", "security_scope",

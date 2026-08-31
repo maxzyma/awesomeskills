@@ -1180,52 +1180,6 @@
         "community_repo": "daymade/claude-code-skills"
       }
     },
-    "daymade/claude-code-skills/codex-image-gallery": {
-      "content_sha256": "57869932705016607c9c97c8392ee627f6ba2ae491d1d74cf1986c22453a95d7",
-      "status": "fresh",
-      "generated_at": "2026-08-20T02:50:59Z",
-      "agent": "codex-automation/v1",
-      "model": "gpt-5",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Starts or reuses a local HTTP gallery for browsing image files produced by Codex.",
-            "scenarios": [
-              "Browse the default Codex generated-images directory.",
-              "Inspect a custom image-output folder in a browser.",
-              "Verify or reuse an already-running gallery server."
-            ],
-            "io": "Input is an optional image-root directory and local port availability. Output is a localhost gallery URL, an image-list JSON endpoint, and browser-served image content.",
-            "dependencies": [
-              "Node.js",
-              "Bundled server.mjs and index.html assets",
-              "Local filesystem image directory",
-              "Optional system browser opener"
-            ],
-            "boundary": "Provides local browsing only; it does not generate, edit, upload, or publish images. A running server and served image paths must be verified before reporting success."
-          },
-          "zh": {
-            "purpose": "启动或复用本地 HTTP 图库，用于浏览 Codex 生成的图片文件。",
-            "scenarios": [
-              "浏览默认的 Codex generated_images 目录。",
-              "在浏览器中查看自定义图片输出目录。",
-              "检查并复用已运行的图库服务。"
-            ],
-            "io": "输入为可选图片根目录和本地端口状态；输出为 localhost 图库地址、图片列表 JSON 接口及浏览器可访问的图片内容。",
-            "dependencies": [
-              "Node.js",
-              "内置 server.mjs 和 index.html 资源",
-              "本地图片目录",
-              "可选的系统浏览器打开命令"
-            ],
-            "boundary": "仅提供本地浏览，不生成、编辑、上传或发布图片。报告成功前必须验证服务地址和图片访问路径。"
-          }
-        },
-        "scope": "Local browser gallery for generated images",
-        "model": "gpt-5",
-        "community_repo": "daymade/claude-code-skills"
-      }
-    },
     "daymade/claude-code-skills/cloudflare-troubleshooting": {
       "content_sha256": "74075d05e00368d734b0e4b916ea74ea584641974c22f79736072c5a5944501b",
       "status": "fresh",
@@ -1372,106 +1326,6 @@
         "community_repo": "daymade/claude-code-skills"
       }
     },
-    "daymade/claude-code-skills/daymade-claude-code/claude-code-history-files-finder": {
-      "content_sha256": "880f547414ae90eb4e55685df903b0a28a4e54f7c40322b9a2c5cb7f6dc91f8a",
-      "status": "fresh",
-      "generated_at": "2026-08-20T02:50:59Z",
-      "agent": "codex-automation/v1",
-      "model": "gpt-5",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Searches Claude Code histories across active configuration homes and registered archives, optionally searches Codex rollouts, and recovers captured file checkpoints when available.",
-            "scenarios": [
-              "Find prior conversations by keyword, project, or internal date range.",
-              "Recover deleted or lost files from file-history snapshots or Write records.",
-              "Audit session endings, tool activity, file operations, or verbatim user-authored messages."
-            ],
-            "io": "Inputs are project paths or all-project scope, keywords, date bounds, session exclusions, history registries, and optional session files. Outputs are ranked session matches, provenance, statistics, triage classifications, recovered files, and fidelity reports.",
-            "dependencies": [
-              "Python 3",
-              "Claude Code JSONL history stores",
-              "Registered archive configuration",
-              "Optional Claude file-history companion stores",
-              "Optional Codex session stores when --codex is selected",
-              "Bundled analysis and recovery scripts"
-            ],
-            "boundary": "Coverage claims require both active homes and registered archives; diagnostic single-home scopes cannot prove absence. Exact recovery depends on available checkpoint payloads, while Write-only recovery may omit later edits. History may contain credentials and private data and must be sanitized before sharing."
-          },
-          "zh": {
-            "purpose": "搜索所有活动配置目录和已登记归档中的 Claude Code 历史，可选搜索 Codex rollout，并在存在快照时恢复被捕获的文件检查点。",
-            "scenarios": [
-              "按关键词、项目或内部时间范围查找历史会话。",
-              "从 file-history 快照或 Write 记录恢复删除/丢失文件。",
-              "审计会话结束状态、工具活动、文件操作或用户原始输入。"
-            ],
-            "io": "输入为项目路径或全项目范围、关键词、日期边界、排除会话、历史源登记和可选会话文件；输出为排序后的会话命中、来源信息、统计、结束状态分类、恢复文件和保真度报告。",
-            "dependencies": [
-              "Python 3",
-              "Claude Code JSONL 历史存储",
-              "已登记的归档配置",
-              "可选的 Claude file-history 配套存储",
-              "使用 --codex 时的 Codex 会话存储",
-              "内置分析与恢复脚本"
-            ],
-            "boundary": "完整性结论必须覆盖活动目录和已登记归档；单目录诊断范围不能证明不存在。精确恢复依赖可用快照数据，仅依靠 Write 的恢复可能缺少后续编辑。历史中可能包含凭据和隐私数据，分享前必须清理。"
-          }
-        },
-        "scope": "Claude Code and optional Codex conversation-history search and recovery",
-        "model": "gpt-5",
-        "community_repo": "daymade/claude-code-skills"
-      }
-    },
-    "daymade/claude-code-skills/capture-screen": {
-      "content_sha256": "45cc3f210a853eda20edbf8524a0076c2ee119eb4001bf0de70b7940178ad339",
-      "status": "fresh",
-      "generated_at": "2026-08-20T02:50:59Z",
-      "agent": "codex-automation/v1",
-      "model": "gpt-5",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Finds macOS CoreGraphics window identifiers, optionally controls application views with AppleScript, and captures specified windows or regions as images.",
-            "scenarios": [
-              "Capture application windows for documentation.",
-              "Automate several screenshots across Excel sheets or scroll positions.",
-              "Diagnose macOS screen-capture permission and process-identity issues."
-            ],
-            "io": "Inputs are an application/window keyword, optional AppleScript view actions, capture options, and an output path. Outputs are window metadata and PNG or JPEG screenshots.",
-            "dependencies": [
-              "macOS",
-              "Swift with CoreGraphics",
-              "screencapture",
-              "AppleScript/osascript for view control",
-              "Screen Recording and optional Accessibility permissions",
-              "Optional sips for resizing"
-            ],
-            "boundary": "macOS-only and limited by application-specific automation support. Window IDs must be refreshed after window/app recreation. It captures visible UI but does not interpret or edit the underlying document, and permissions may require direct user action in System Settings."
-          },
-          "zh": {
-            "purpose": "查找 macOS CoreGraphics 窗口 ID，可选通过 AppleScript 控制应用视图，并将指定窗口或区域截图为图片。",
-            "scenarios": [
-              "为文档捕获应用窗口。",
-              "跨 Excel 工作表或滚动位置自动生成多张截图。",
-              "诊断 macOS 屏幕录制权限和进程身份问题。"
-            ],
-            "io": "输入为应用/窗口关键词、可选 AppleScript 视图操作、截图选项和输出路径；输出为窗口元数据及 PNG 或 JPEG 截图。",
-            "dependencies": [
-              "macOS",
-              "带 CoreGraphics 的 Swift",
-              "screencapture",
-              "用于视图控制的 AppleScript/osascript",
-              "屏幕录制及可选辅助功能权限",
-              "调整尺寸可选依赖 sips"
-            ],
-            "boundary": "仅适用于 macOS，自动控制能力取决于目标应用。应用重启或窗口重建后必须重新获取窗口 ID。它只捕获可见界面，不理解或编辑底层文档；权限问题可能需要用户在系统设置中操作。"
-          }
-        },
-        "scope": "Programmatic macOS window screenshot capture",
-        "model": "gpt-5",
-        "community_repo": "daymade/claude-code-skills"
-      }
-    },
     "daymade/claude-code-skills/bilibili-source": {
       "content_sha256": "1c4b42552875fdb5f032ce4f1ee480ac4c9b31fd26c8fcc6bf425d82dd76b202",
       "status": "fresh",
@@ -1516,52 +1370,6 @@
           }
         },
         "scope": "Bilibili video metadata, metrics, danmaku, and subtitle retrieval",
-        "model": "gpt-5",
-        "community_repo": "daymade/claude-code-skills"
-      }
-    },
-    "daymade/claude-code-skills/benchmark-due-diligence": {
-      "content_sha256": "b4e58ad49d077a58c951d14f3901b1f54aef2a60cd8a60d04a2f008685adc75b",
-      "status": "fresh",
-      "generated_at": "2026-08-20T02:50:59Z",
-      "agent": "codex-automation/v1",
-      "model": "gpt-5",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Tests a founder, company, product, or influencer's success narrative against independent evidence, separates replicable methods from timing or marketing inflation, and maps supported lessons to the commissioner's real resources.",
-            "scenarios": [
-              "Verify headline user, ranking, funding, valuation, or growth claims.",
-              "Distinguish genuine operating strengths from luck, timing, and promotional framing.",
-              "Translate an evidenced playbook into actions available to the commissioner."
-            ],
-            "io": "Inputs are the benchmark subject, public claims and sources, verified public facts, and separately held private commissioner context. Outputs are evidence-graded claim verdicts, relationship and attribution maps, replicability analysis, resource mapping, actions, and open questions.",
-            "dependencies": [
-              "Web research and authoritative public sources",
-              "Parallel collection and adversarial verification agents for the described workflow",
-              "Optional OSINT, corporate-registry, social-platform, and deep-research capabilities",
-              "Evidence grading and orchestration reference templates"
-            ],
-            "boundary": "Private commissioner context must be withheld from externally searching collection agents and used only in final mapping. Relationships and ownership cannot be inferred from names or domains. Unverified claims remain gaps; percentage attribution is analytical judgment and must state its evidence and uncertainty."
-          },
-          "zh": {
-            "purpose": "用独立证据检验创始人、公司、产品或 KOL 的成功叙事，区分可复制方法、时机运气和营销水分，并把有效经验映射到委托方真实可控资源。",
-            "scenarios": [
-              "核验用户量、榜单、融资、估值或增长等核心宣传主张。",
-              "区分真实经营能力、运气时机和宣传包装。",
-              "将有证据支撑的打法转化为委托方可执行动作。"
-            ],
-            "io": "输入为对标对象、公开主张与信源、已核实公开事实，以及独立保存的委托方私密背景；输出为分级证据结论、关系与归因图、可复制性分析、资源映射、行动项和开放问题。",
-            "dependencies": [
-              "网络研究和权威公开信源",
-              "所述流程需要的并行采集与对抗验证代理",
-              "可选的 OSINT、工商、社交平台和深度研究能力",
-              "证据分级与编排模板"
-            ],
-            "boundary": "委托方私密背景不得进入会对外搜索的采集代理，只能用于最终映射。不得根据名称或域名推断关系与所有权。未核实主张必须保留为缺口；比例归因属于分析判断，需说明证据和不确定性。"
-          }
-        },
-        "scope": "Adversarial benchmark and success-claim due diligence",
         "model": "gpt-5",
         "community_repo": "daymade/claude-code-skills"
       }
@@ -1898,7 +1706,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "7a2a74cd6a694596640030b9b8dde5eeb8cfffca64c27f8d399eadbe0b6655fd"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/dispatch": {
       "content_sha256": null,
@@ -1946,7 +1755,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "5aab2c0b03b9cc8261a592077e7fa536f27b40a411ec143999bd51a19a9d04ac"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/deploy": {
       "content_sha256": null,
@@ -1992,7 +1802,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "881feb162af16f0603d74336f74c8e67788b74cdab1cf9b753ad7cf7f83e4c72"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/cache": {
       "content_sha256": null,
@@ -2036,7 +1847,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1e1147ffc5ca852371c05a95baae049539b3fc838e59ed2ddec5a89d774b4def"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/bridge": {
       "content_sha256": null,
@@ -2082,7 +1894,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "e2b64f42fd2aa9a5bb1cbb100c075a499641386a0937008cd241c9fb385bd725"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/background": {
       "content_sha256": null,
@@ -2126,7 +1939,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8aec2ec9190f3ee56b920e92814e50e4dacce768a15a3b25dc3f4f24cda05a25"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/audit": {
       "content_sha256": null,
@@ -2170,413 +1984,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/aims-audit": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Audits AI Management System (AIMS) policies, controls, and documentation against standards like ISO/IEC 42001.",
-            "scenarios": [
-              "Evaluating organizational AI governance policies for ISO/IEC 42001 compliance",
-              "Generating audit reports and gap analysis for AI risk management controls",
-              "Reviewing data governance and model safety documentation before external audits"
-            ],
-            "io": "Takes AI governance documents, system architecture specs, and risk assessment logs as input, and outputs structured audit reports with remediation recommendations.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Provides AI compliance and process assessment but does not automatically execute technical fixes or replace official certified third-party auditors."
-          },
-          "zh": {
-            "purpose": "根据 ISO/IEC 42001 等标准，对人工智能管理体系（AIMS）的政策、控制措施及文档进行审计评估。",
-            "scenarios": [
-              "评估企业 AI 治理政策是否符合 ISO/IEC 42001 合规标准",
-              "生成 AI 风险管理与安全控制的审计报告及差距分析",
-              "在进行外部认证审计前对数据治理和模型安全文档进行自查"
-            ],
-            "io": "输入 AI 治理政策文档、系统架构说明及风险评估日志，输出结构化的审计报告与整改建议。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "仅提供 AI 合规性与流程评估建议，不能自动修复技术漏洞或替代官方第三方认证审计。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/ai-security": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Evaluates, audits, and secures AI models, prompt engineering pipelines, and LLM application architectures against vulnerabilities like prompt injection and data leakage.",
-            "scenarios": [
-              "Auditing system prompts and LLM pipelines for direct and indirect prompt injection vulnerabilities.",
-              "Reviewing AI application architectures for secure data handling, access controls, and privacy compliance.",
-              "Conducting threat modeling and adversarial risk assessments for autonomous LLM agents."
-            ],
-            "io": "Accepts system prompts, model configurations, or application architecture documentation as input, and outputs security risk assessments, threat models, and actionable mitigation guidelines.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Does not perform active automated penetration testing on live infrastructure or guarantee absolute immunity against novel zero-day AI attack vectors."
-          },
-          "zh": {
-            "purpose": "评估、审计和保护 AI 模型、提示词工程流水线及 LLM 应用架构，抵御提示词注入和数据泄露等安全漏洞。",
-            "scenarios": [
-              "审计系统提示词和 LLM 流水线中的直接与间接提示词注入漏洞。",
-              "审查 AI 应用架构的数据处理安全性、访问控制与隐私合规性。",
-              "对自主 LLM 智能体进行威胁建模和对抗性风险评估。"
-            ],
-            "io": "接受系统提示词、模型配置或应用架构文档作为输入，输出安全风险评估报告、威胁模型及可操作的修复建议。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "不针对线上基础设施执行自动化渗透测试，也不保证绝对防御未知的 AI 零日攻击手段。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/ai-act-readiness": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Evaluates AI models, applications, and workflows against EU AI Act requirements to assess risk categories and compliance readiness.",
-            "scenarios": [
-              "Classifying AI systems into EU AI Act risk tiers (e.g., Prohibited, High-Risk, GPAI).",
-              "Identifying compliance gaps and documentation needs prior to EU market deployment.",
-              "Generating AI governance readiness checklists and risk mitigation roadmaps."
-            ],
-            "io": "Inputs AI system descriptions, data usage, and deployment context; outputs an EU AI Act compliance readiness report with risk classifications and recommendations.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Does not provide legally binding legal advice or substitute for official regulatory audits and certifications by notified bodies."
-          },
-          "zh": {
-            "purpose": "根据欧盟《人工智能法案》（EU AI Act）评估 AI 模型、应用和工作流的风险等级与合规准备度。",
-            "scenarios": [
-              "对 AI 系统进行欧盟 AI 法案下的风险等级划分（如禁止类、高风险类、通用 AI 等）。",
-              "在进入欧盟市场前识别合规差距及所需的文档规范。",
-              "生成 AI 治理准备度检查清单与风险缓解路线图。"
-            ],
-            "io": "输入 AI 系统的架构描述、数据使用及部署场景；输出包含风险分类与改进建议的欧盟 AI 法案合规评估报告。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "不提供具有法律约束力的法律咨询，也不能替代监管机构或公告机构的正式合规认证。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agile-product-owner": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Helps product and engineering teams translate business goals into actionable agile backlogs, user stories, and acceptance criteria.",
-            "scenarios": [
-              "Writing detailed user stories using the Given-When-Then format and INVEST principles",
-              "Prioritizing product backlogs based on business value, effort, and strategic goals",
-              "Breaking down large product epics into manageable, sprint-ready features",
-              "Facilitating backlog refinement by clarifying functional requirements and edge cases"
-            ],
-            "io": "Inputs high-level business ideas or requirements; outputs prioritized user stories, acceptance criteria, and feature roadmaps.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Does not write production code, design software architecture, or manage daily Scrum Master operations like standup facilitation."
-          },
-          "zh": {
-            "purpose": "帮助产品与工程团队将业务目标转化为可执行的敏捷 Backlog、用户故事与验收标准。",
-            "scenarios": [
-              "使用 Given-When-Then 格式和 INVEST 原则编写详细的用户故事",
-              "根据业务价值、开发成本和战略目标对产品 Backlog 进行优先级排序",
-              "将大型 Epic 拆解为可在 Sprint 内交付的具体功能项",
-              "在需求精炼会中澄清业务规则与边界情况"
-            ],
-            "io": "输入高层业务想法或原始需求，输出结构化的用户故事、验收标准及优先级需求列表。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "不负责编写技术实现代码、设计系统架构，也不承担 Scrum Master 的日常站会主持与团队敏捷流程管理工作。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agenthub": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "AgentHub serves as a centralized management platform for discovering, registering, and orchestrating specialized AI agents and skills.",
-            "scenarios": [
-              "Querying and listing available AI agents and their capabilities",
-              "Registering or updating agent configurations and skill definitions",
-              "Routing user requests to appropriate specialized agents for task execution"
-            ],
-            "io": "Accepts agent management commands or task routing queries as input, and outputs agent metadata, status, or routed execution results.",
-            "dependencies": [
-              "agent registry",
-              "agenthub service"
-            ],
-            "boundary": "It handles agent lifecycle management and task routing but does not execute domain-specific task logic directly."
-          },
-          "zh": {
-            "purpose": "AgentHub 是一个用于发现、注册和编排专业化 AI 智能体与技能的集中式管理平台。",
-            "scenarios": [
-              "查询并列出可用的 AI 智能体及其功能技能",
-              "注册或更新智能体配置与技能定义",
-              "将用户请求路由至适当的专用智能体以执行任务"
-            ],
-            "io": "输入为智能体管理指令或任务路由查询，输出为智能体元信息、状态或已路由任务的执行结果。",
-            "dependencies": [
-              "agent registry",
-              "agenthub service"
-            ],
-            "boundary": "它仅负责智能体生命周期管理与任务路由，本身不直接执行具体的领域业务逻辑。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agent-workflow-designer": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Design, architect, and optimize multi-agent workflows, state machines, and task orchestration pipelines for complex AI systems.",
-            "scenarios": [
-              "Architecting complex multi-agent collaborative workflows or directed acyclic graphs (DAGs).",
-              "Designing state transitions, human-in-the-loop checkpoints, and fallback mechanisms for AI agent tasks.",
-              "Defining optimal prompt chaining structures and tool routing logic for autonomous agent execution."
-            ],
-            "io": "Inputs high-level system requirements and agent roles, and outputs structured workflow specifications, state diagrams, or step-by-step orchestration plans.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "This skill focuses on designing workflow architecture and specifications, but does not execute agents at runtime, manage live database state, or deploy infrastructure."
-          },
-          "zh": {
-            "purpose": "设计、构建和优化用于复杂 AI 系统的多 Agent 工作流、状态机及任务编排管线。",
-            "scenarios": [
-              "架构复杂的多 Agent 协作工作流或有向无环图 (DAG)。",
-              "为 Agent 任务设计状态迁移、人工干预检查点及容错回退机制。",
-              "定义自主 Agent 系统的最佳提示词链结构与工具路由逻辑。"
-            ],
-            "io": "输入系统需求与 Agent 角色定义，输出结构化的工作流规范、状态图或分步编排计划。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "该 Skill 仅专注于设计工作流架构与规范，不负责运行时执行 Agent、管理实时数据库状态或部署基础设施。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agent-protocol": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Provides a standardized protocol and interaction specification for task execution, step tracking, and communication between AI agents.",
-            "scenarios": [
-              "Standardizing API endpoints for multi-agent task delegation and status tracking.",
-              "Interfacing heterogeneous agent frameworks using a common communication layer.",
-              "Logging and monitoring step-by-step agent execution histories."
-            ],
-            "io": "Inputs task requests, step payloads, and agent configuration data; outputs standardized execution status, step responses, and task artifacts.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Defines interface specifications and data schemas for agent communication, but does not implement domain-specific business logic or host agent execution runtimes."
-          },
-          "zh": {
-            "purpose": "为 AI Agent 之间的任务执行、步骤跟踪和通信提供标准化的协议与交互规范。",
-            "scenarios": [
-              "标准化多 Agent 任务分发与状态跟踪的 API 接口。",
-              "通过统一的通信层连接异构 Agent 框架。",
-              "记录和监控 Agent 的分步执行历史与中间状态。"
-            ],
-            "io": "输入任务请求、步骤载荷与 Agent 配置数据；输出标准化的执行状态、步骤响应与任务产物。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "仅定义 Agent 通信的接口规范与数据结构，不实现具体的业务领域逻辑，也不托管 Agent 的底层运行环境。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agent-harness": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Provides a standardized execution framework and test harness for running, evaluating, and debugging LLM agents.",
-            "scenarios": [
-              "Running automated benchmarks and test suites for agents",
-              "Simulating execution environments and tool interactions during agent development",
-              "Debugging step-by-step agent reasoning traces and tool invocations"
-            ],
-            "io": "Takes agent configurations, task prompts, and test suites as input, and outputs execution logs, evaluation metrics, and diagnostic reports.",
-            "dependencies": [
-              "command_line",
-              "python"
-            ],
-            "boundary": "It manages agent execution environments and evaluations, but does not build LLM models or automatically author agent prompts."
-          },
-          "zh": {
-            "purpose": "提供一个用于运行、评估和调试 LLM Agent 的标准化执行框架与测试套件。",
-            "scenarios": [
-              "为 Agent 运行自动化基准测试与评估集",
-              "在开发过程中模拟 Agent 的执行环境与工具交互",
-              "调试 Agent 的分步推理轨迹与工具调用过程"
-            ],
-            "io": "输入 Agent 配置、任务 Prompt 及测试用例，输出执行日志、评估指标和诊断报告。",
-            "dependencies": [
-              "command_line",
-              "python"
-            ],
-            "boundary": "它仅负责管理 Agent 的执行与测试环境，不负责构建 LLM 模型或自动撰写 Agent 提示词。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agent-designer": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Designs and scaffolds custom AI agents and agent skills by defining their architecture, system prompts, and tool configurations.",
-            "scenarios": [
-              "Scaffolding a new agent configuration for a specific task domain",
-              "Drafting SKILL.md specifications and prompt guidelines for custom skills",
-              "Structuring agent workflows and interaction patterns"
-            ],
-            "io": "Input is target requirements or domain specs for an agent; output is a structured agent design blueprint or SKILL.md definition.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Does not execute or deploy the designed agents into live production environments."
-          },
-          "zh": {
-            "purpose": "通过定义架构、系统提示词和工具配置，设计并构建自定义 AI Agent 及其 Skill 规范。",
-            "scenarios": [
-              "针对特定任务领域搭建全新的 Agent 配置",
-              "为自定义技能编写 SKILL.md 规范与提示词指南",
-              "规划 Agent 的工作流与交互模式"
-            ],
-            "io": "输入为 Agent 的需求描述或领域规范，输出为结构化的 Agent 设计蓝图或 SKILL.md 定义文件。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "不负责将设计好的 Agent 部署或运行到实际的生产环境中。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/agent-decision-receipts": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Generates structured, traceable audit receipts for AI agent decisions to ensure accountability and transparency in automated workflows.",
-            "scenarios": [
-              "Recording audit logs for compliance in automated financial or legal agent actions.",
-              "Tracking decision rationales and metadata across multi-agent execution pipelines.",
-              "Verifying agent policy compliance during post-execution system audits."
-            ],
-            "io": "Takes agent execution states, decision contexts, and metadata as input, and outputs standardized, immutable decision receipt records.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "It does not execute business logic or make autonomous decisions, focusing exclusively on capturing and formatting decision receipts."
-          },
-          "zh": {
-            "purpose": "为AI Agent的决策过程生成结构化且可追溯的审计回执，确保自动化工作流的透明度与可追责性。",
-            "scenarios": [
-              "记录自动化金融或法律Agent操作的合规审计日志。",
-              "在多Agent协同流程中追踪决策依据与上下文元数据。",
-              "在事后系统审计期间核实Agent对既定策略的执行合规性。"
-            ],
-            "io": "输入Agent的执行状态、决策依据及元数据，输出标准化的决策回执记录。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "该技能不直接执行业务逻辑或做出自主决策，仅专注于捕获和格式化已发生的决策回执。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "d8bc0bf29b7c14a857af68ba6e870ce1077f49274f4e043e7a0c55bb0906a04c"
     },
     "majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser": {
       "content_sha256": null,
@@ -2620,7 +2029,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "2c7dab0e789873ae237207d5ff0d24f74579d088d878f0cd7e9982940f9f6ae9"
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/agency-os/skills/agency-os": {
       "content_sha256": null,
@@ -2666,209 +2076,8 @@
         "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/aeo": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Optimizes website content and brand messaging for AI answer engines and generative search platforms (Answer Engine Optimization).",
-            "scenarios": [
-              "Auditing brand visibility and citation rates across conversational AI engines.",
-              "Structuring web content and schema markup to increase direct citations in AI responses.",
-              "Benchmarking competitor presence and share of voice in AI-generated answer engines."
-            ],
-            "io": "Inputs target brand content, keywords, or website URLs; outputs an AEO evaluation report with structural optimization recommendations and citation strategies.",
-            "dependencies": [
-              "browser"
-            ],
-            "boundary": "Does not perform traditional SEO off-page link building or guarantee fixed ranking positions within third-party proprietary AI models."
-          },
-          "zh": {
-            "purpose": "针对 AI 问答引擎与生成式搜索平台进行内容及品牌信息的答案引擎优化（AEO）。",
-            "scenarios": [
-              "审计品牌在对话式 AI 引擎中的可见度与引用频率。",
-              "优化网页结构与 Schema 标记以提升被 AI 直接引用的概率。",
-              "对标竞品在 AI 生成回答中的曝光率与声量占比。"
-            ],
-            "io": "输入目标品牌内容、关键词或网站 URL；输出包含结构化优化建议与引用策略的 AEO 评估报告。",
-            "dependencies": [
-              "browser"
-            ],
-            "boundary": "不执行传统 SEO 外链建设，也不保证在第三方私有 AI 模型中的固定排名。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/adversarial-reviewer": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Critically evaluates code, designs, or proposals by acting as an adversarial reviewer to uncover security vulnerabilities, edge cases, hidden assumptions, and failure modes.",
-            "scenarios": [
-              "Reviewing pull requests for subtle security risks and unhandled edge cases",
-              "Stress-testing architectural designs to identify single points of failure before implementation",
-              "Auditing refactoring proposals to detect potential regression risks and breaking changes"
-            ],
-            "io": "Accepts code diffs, architecture specs, or pull requests as input, and outputs a structured adversarial assessment detailing identified risks and potential failure scenarios.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "It focuses strictly on identifying flaws and risks, and does not automatically generate code fixes or approve pull requests."
-          },
-          "zh": {
-            "purpose": "作为对抗性审查员对代码、设计方案或技术提议进行批判性评估，以发现安全漏洞、边缘情况、隐性假设及潜在故障模式。",
-            "scenarios": [
-              "审查 Pull Request 中的微妙安全风险和未处理的边缘情况",
-              "在实施前对架构设计进行压力测试，识别单点故障",
-              "审计代码重构方案，检测潜在的回归风险和破坏性变更"
-            ],
-            "io": "输入为代码 Diff、架构规范或 PR 内容，输出为详细列出已知风险和潜在失败场景的结构化对抗审查报告。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "仅专注于发现缺陷与潜在风险，不会自动编写修复代码或合并批准代码库变更。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/ad-creative": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Generates compelling ad copy, visual concepts, and creative variations tailored for multi-platform digital advertising campaigns.",
-            "scenarios": [
-              "Drafting platform-specific ad copy for Facebook, TikTok, or Google Ads.",
-              "Generating A/B testing copy variations based on different emotional hooks and value propositions.",
-              "Creating visual imagery prompts and storyboard concepts for video ads."
-            ],
-            "io": "Input includes product info, target audience, and channel specs; output provides ad copy options, hooks, visual ideas, and CTAs.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "It does not render actual media files, execute live ad campaign publishing, or track real-time performance analytics."
-          },
-          "zh": {
-            "purpose": "为多平台数字广告活动生成高转化率的广告文案、视觉创意概念及多版本变体。",
-            "scenarios": [
-              "针对 Facebook、TikTok 或 Google 广告撰写特定平台的广告文案。",
-              "根据不同的卖点与情感切入点生成用于 A/B 测试的文案变体。",
-              "为视频广告构思视觉画面提示词与分镜脚本概念。"
-            ],
-            "io": "输入包含产品详情、目标受众与渠道规范；输出提供广告标题、正文、行动号召（CTA）及视觉概念建议。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "该技能不负责渲染生成最终的图片或视频媒体文件，也不直接发布广告系列或跟踪实时广告投放效果数据。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/ab-test-setup": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Guides the design and configuration of A/B test experiments, including hypothesis definition, sample size calculation, and metric tracking.",
-            "scenarios": [
-              "Designing a feature flag experiment with baseline and target conversion rates.",
-              "Calculating required sample size and run duration to achieve statistical significance.",
-              "Defining primary KPIs and guardrail metrics for a product experiment."
-            ],
-            "io": "Inputs experiment goals, traffic stats, and target metrics; outputs a structured A/B test plan and configuration guide.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "Does not directly deploy code or execute real-time traffic splitting in production systems."
-          },
-          "zh": {
-            "purpose": "指导 A/B 测试实验的设计与配置，包括假设制定、样本量计算及指标追踪。",
-            "scenarios": [
-              "根据基线与目标转化率设计新功能实验方案",
-              "计算达到统计显著性所需的样本量及测试时长",
-              "为产品实验定义核心 KPI 与护栏指标"
-            ],
-            "io": "输入实验目标、流量数据与目标指标，输出结构化的 A/B 测试方案及配置指南。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "不负责直接部署代码或在生产环境中执行实时流量分发。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
-    },
-    "alirezarezvani/claude-skills/.gemini/skills/a11y-audit": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
-      "grounding": {
-        "function": {
-          "en": {
-            "purpose": "Audits web applications and UI source code to identify and report accessibility (a11y) violations based on standards like WCAG.",
-            "scenarios": [
-              "Scanning web pages or live UI components for WCAG compliance issues.",
-              "Analyzing HTML or JSX source code for missing ARIA attributes, semantic flaws, and contrast issues.",
-              "Generating structured accessibility audit reports with actionable remediation advice."
-            ],
-            "io": "Input: Web page URLs or frontend source code (HTML/JSX/TSX); Output: Accessibility audit report detailing violations, severity levels, and code fix suggestions.",
-            "dependencies": [
-              "browser",
-              "axe-core"
-            ],
-            "boundary": "Does not automatically rewrite or refactor full application codebases nor guarantee legal compliance without manual validation."
-          },
-          "zh": {
-            "purpose": "审计 Web 应用程序和前端源代码，依据 WCAG 等无障碍标准识别并报告无障碍性 (a11y) 违规问题。",
-            "scenarios": [
-              "扫描网页或实时 UI 组件以检测 WCAG 合规性问题。",
-              "分析 HTML 或 JSX 源代码中缺失的 ARIA 属性、语义缺陷及对比度问题。",
-              "生成包含可操作修复建议的结构化无障碍审计报告。"
-            ],
-            "io": "输入：网页 URL 或前端源代码（HTML/JSX/TSX）；输出：详细列出违规项、严重程度和代码修复建议的无障碍审计报告。",
-            "dependencies": [
-              "browser",
-              "axe-core"
-            ],
-            "boundary": "不会自动重构整个应用程序代码库，也不能在未经人工验证的情况下保证法律层面的合规。"
-          }
-        },
-        "community_repo": "alirezarezvani/claude-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b6b0736b67a459fa2cad22fd70dd2a30da9782ae58d555a739e29569ebbb7d07"
     },
     "majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work": {
       "content_sha256": null,
@@ -2908,7 +2117,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1459194a98757929a407e45c4729775bd5dd71e362e96f2cc3f8a3cb83fa9545"
     },
     "majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration": {
       "content_sha256": null,
@@ -2956,7 +2166,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "27106c0b4f91061faee0e0ea13128a82b237d5e842a012d59fd9a2aed8a37dcb"
     },
     "majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory": {
       "content_sha256": null,
@@ -3000,7 +2211,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "2f1537566b9c9f60a01ae32c140026d2f26eb8c8a7633d4018971f15c1770578"
     },
     "majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution": {
       "content_sha256": null,
@@ -3044,7 +2256,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "0a56a80568d1db9b6b5fc53bf283c175d4159f29592915c891f9c49fc91d3741"
     },
     "majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development": {
       "content_sha256": null,
@@ -3088,7 +2301,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8c42ec9a987793fe0413aeccef211600c814d8fb516d8784149ffb0d9bae7d01"
     },
     "majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents": {
       "content_sha256": null,
@@ -3130,7 +2344,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "964c9bac9aaf0e02e527426eaf727a5ec161e31eec1e590717454e92451e26f1"
     },
     "majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147": {
       "content_sha256": null,
@@ -3174,7 +2389,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c8e4fb6bba4fdcc5d0979d029761c01714c3108735382862cb8bda1dacf2b58f"
     },
     "majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk": {
       "content_sha256": null,
@@ -3218,7 +2434,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c8e4fb6bba4fdcc5d0979d029761c01714c3108735382862cb8bda1dacf2b58f"
     },
     "majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework": {
       "content_sha256": null,
@@ -3262,7 +2479,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8cec4fb81e44885b142baf6975a592e00d29340955593a74bdfac443ed6ec462"
     },
     "majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf": {
       "content_sha256": null,
@@ -3306,7 +2524,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8cec4fb81e44885b142baf6975a592e00d29340955593a74bdfac443ed6ec462"
     },
     "majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent": {
       "content_sha256": null,
@@ -3348,7 +2567,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "ae04b91e0630dcf96a212f5d6bf8726ed3e9aa03aa620316d6a87be14357c44c"
     },
     "majiayu000/claude-skill-registry/skills/agent/200-agents-md": {
       "content_sha256": null,
@@ -3388,7 +2608,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "4b8b9a9176ab21f53b3035269606fabbb5e13b3e0656a70443ebe930b0835a0e"
     },
     "majiayu000/claude-skill-registry/skills/agent/003-agents-installation": {
       "content_sha256": null,
@@ -3428,7 +2649,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "bd7a35a2133991ee4b4c2e0227628840a172909b01fcbfbcb159b311a8b94b0d"
     },
     "majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436": {
       "content_sha256": null,
@@ -3468,7 +2690,8 @@
         "community_repo": "majiayu000/claude-skill-registry",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "6d4003332d0430b05e63759945e274342f9dea41813f0f3a8bbe0113cb9f8893"
     },
     "anthropics/skills/skills/web-artifacts-builder": {
       "content_sha256": null,
@@ -3518,7 +2741,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "81c5002c6643b0de7b8710b00e7a9038daa6fb9b68d59870ee6adb12da8d10f8"
     },
     "anthropics/skills/skills/theme-factory": {
       "content_sha256": null,
@@ -3558,7 +2782,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c35893e221e28895c52143cc11bf30e41a44817796b39d4b15727dadc9796552"
     },
     "anthropics/skills/skills/slack-gif-creator": {
       "content_sha256": null,
@@ -3600,7 +2825,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "2efca615ce55a3edd8fc05c779068a8085816617991987e446606403cd3abb22"
     },
     "anthropics/skills/skills/skill-creator": {
       "content_sha256": null,
@@ -3644,7 +2870,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf"
     },
     "anthropics/skills/skills/pptx": {
       "content_sha256": null,
@@ -3694,7 +2921,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a7ff03e2c85b636f55232a6b1555f5dd90216b7a1a359ab289d8364e6acbc6a0"
     },
     "anthropics/skills/skills/pdf": {
       "content_sha256": null,
@@ -3742,7 +2970,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "9f78b8359fbd4943ad260a7a1e436e5a96503406d6c34e99f69223d647d85b9c"
     },
     "anthropics/skills/skills/mcp-builder": {
       "content_sha256": null,
@@ -3782,7 +3011,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "0f4592dcb53cf2b5d6b7febee6b4152018b565551a1c29e3c612f57b218ab295"
     },
     "anthropics/skills/skills/internal-comms": {
       "content_sha256": null,
@@ -3822,7 +3052,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475"
     },
     "anthropics/skills/skills/frontend-design": {
       "content_sha256": null,
@@ -3862,7 +3093,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd"
     },
     "anthropics/skills/skills/docx": {
       "content_sha256": null,
@@ -3914,7 +3146,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8017469ea95fb7d28225c62daf8e2f3492a7b516fc64c18c28977cbf8980b7fe"
     },
     "anthropics/skills/skills/doc-coauthoring": {
       "content_sha256": null,
@@ -3956,7 +3189,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "2e47d78846faeea4a56e9809c52700087a15a2155a3f293a3efbaded81398ef4"
     },
     "anthropics/skills/skills/claude-api": {
       "content_sha256": null,
@@ -3998,7 +3232,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "0d39c546929947c09c5ec01489d183558cb7402c6b95f7a6f686f56402ee6f17"
     },
     "anthropics/skills/skills/canvas-design": {
       "content_sha256": null,
@@ -4042,7 +3277,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b"
     },
     "anthropics/skills/skills/brand-guidelines": {
       "content_sha256": null,
@@ -4082,7 +3318,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe"
     },
     "anthropics/skills/skills/algorithmic-art": {
       "content_sha256": null,
@@ -4124,7 +3361,8 @@
         "community_repo": "anthropics/skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "3bc4092c09804853186524c826bc0621b940bb6122c05b84496dff95388e6eef"
     },
     "elementalsouls/Claude-OSINT/.claude/skills/run-claude-osint": {
       "content_sha256": null,
@@ -4170,7 +3408,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "0b30d03ae84cef6c36646502d2a636d91eccb3a3dad163c139a37b0de93e6c38"
     },
     "elementalsouls/Claude-OSINT/skills/osint-methodology": {
       "content_sha256": null,
@@ -4210,7 +3449,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "4bdb54d71f53ed75ab2dd3dd4db83fd75744ca8dcba84a8e82520cf7a87e603f"
     },
     "elementalsouls/Claude-OSINT/skills/osint-autopilot": {
       "content_sha256": null,
@@ -4264,7 +3504,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "40dc5be46ae7ee2b230b2e3a569e3a543d2ff036b9068167e5b0223c736207e8"
     },
     "elementalsouls/Claude-OSINT/skills/org-attack-surface": {
       "content_sha256": null,
@@ -4316,7 +3557,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c42d2b490ec0f5136c6abf0a080fe09798bce9bdd6edb4d3520361a771a81965"
     },
     "elementalsouls/Claude-OSINT/skills/offensive-osint": {
       "content_sha256": null,
@@ -4366,7 +3608,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "ebe3ef6583a4529bd83e1e2deebe2160edbfea5d88a85b989b26cc45a6d33573"
     },
     "elementalsouls/Claude-OSINT/skills/identity-provider-recon": {
       "content_sha256": null,
@@ -4408,7 +3651,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "82c16353ecdb9fd4d9d8a1daa06e8887acdffdc83034034dbf446a7e7a989b96"
     },
     "elementalsouls/Claude-OSINT/skills/exposure-risk-quantification": {
       "content_sha256": null,
@@ -4450,7 +3694,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b8084039a5fe3dbe6688ff1da145047e9a7882e7df1b7af4c8ebef570e196203"
     },
     "elementalsouls/Claude-OSINT/skills/email-domain-security": {
       "content_sha256": null,
@@ -4492,7 +3737,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "47dfa12c7dff999930789222a6efc7bfbcf01a4adc66210892fadb50582e47ba"
     },
     "elementalsouls/Claude-OSINT/skills/continuous-exposure-monitoring": {
       "content_sha256": null,
@@ -4544,7 +3790,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "fbf370d7c5fc907830c8bf0f68fa9e27059394b5430738338d1b67d4622f62ee"
     },
     "elementalsouls/Claude-OSINT/skills/cloud-saas-exposure": {
       "content_sha256": null,
@@ -4586,7 +3833,8 @@
         "community_repo": "elementalsouls/Claude-OSINT",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "487e949cd74ef72cdd219b894175b27ec9104eb5c4cadbb1a567b38db5d92547"
     },
     "Jeffallan/claude-skills/skills/django-expert": {
       "content_sha256": null,
@@ -4626,7 +3874,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "f4fd19b89f762e3845a32f8b37f57bc6973902d50fa55c0a279c5c591e6ccb56"
     },
     "Jeffallan/claude-skills/skills/devops-engineer": {
       "content_sha256": null,
@@ -4676,7 +3925,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "078f8e80c432f1cbaa7aaa70391a8d61c2b87cc71f2f64f361da61b13c19d9cf"
     },
     "Jeffallan/claude-skills/skills/debugging-wizard": {
       "content_sha256": null,
@@ -4718,7 +3968,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "82c442c0a4f87785adc0a5ad9f9968d7ceb83e03f937151f19f362c76267e2e7"
     },
     "Jeffallan/claude-skills/skills/database-optimizer": {
       "content_sha256": null,
@@ -4762,7 +4013,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b581ed9eadeced125c26fee4ca204a48c5b183da00448fb2eeb1362e5741ccab"
     },
     "Jeffallan/claude-skills/skills/csharp-developer": {
       "content_sha256": null,
@@ -4804,7 +4056,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a0fd3be38f9c374f214163fd1b586998147815c0060ccd1917bd49035589b7a0"
     },
     "Jeffallan/claude-skills/skills/cpp-pro": {
       "content_sha256": null,
@@ -4850,7 +4103,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a08e1b284deb806b9912730c7e1902592f7c8c5b19e729ce09a8153eb85120d6"
     },
     "Jeffallan/claude-skills/skills/code-reviewer": {
       "content_sha256": null,
@@ -4896,7 +4150,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8f0ddb7d90178b6986f8d597ab0bc93ec01adb044bd27b75e1682b06902dae93"
     },
     "Jeffallan/claude-skills/skills/code-documenter": {
       "content_sha256": null,
@@ -4936,7 +4191,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "9db40547fcaf27844d3b2ca80737bd7e5b94da99094d7f7ca2b27b540b2686f2"
     },
     "Jeffallan/claude-skills/skills/cloud-architect": {
       "content_sha256": null,
@@ -4984,7 +4240,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "ddf5e3ca3d9092f869df140696856ccf3a555e0d01550d1f0fef9c3f935a8f3e"
     },
     "Jeffallan/claude-skills/skills/cli-developer": {
       "content_sha256": null,
@@ -5024,7 +4281,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "562117ef72de629311794ae401cc9a627cef7aacfa05bb7e239ff5cee1dca87f"
     },
     "Jeffallan/claude-skills/skills/chaos-engineer": {
       "content_sha256": null,
@@ -5070,7 +4328,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "80619e93302d1697c631409911f3c4412918db3998d3c0b19cf8ab4a1c61dbe4"
     },
     "Jeffallan/claude-skills/skills/atlassian-mcp": {
       "content_sha256": null,
@@ -5114,7 +4373,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a2531f7027ceca8c79b638ccd246ff96e3adaf1f2a7d7bbf3da20f5deccf5592"
     },
     "Jeffallan/claude-skills/skills/architecture-designer": {
       "content_sha256": null,
@@ -5154,7 +4414,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "5235b031e8fadacf01f39ad9db7b8d5ec9d6f83460ebcef78da95d31c9f36276"
     },
     "Jeffallan/claude-skills/skills/api-designer": {
       "content_sha256": null,
@@ -5198,7 +4459,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "75a1d0df12641ef02803a1c8dba1e079f0b4cd7b238dd53ab4c257fad5b49e93"
     },
     "Jeffallan/claude-skills/skills/angular-architect": {
       "content_sha256": null,
@@ -5246,7 +4508,8 @@
         "community_repo": "Jeffallan/claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "0679809aad404eb5ebe00ef1fc3764e400c2c14b8dc30c2cbb1a00d9dd3d7a91"
     },
     "ComposioHQ/awesome-claude-skills/competitive-ads-extractor": {
       "content_sha256": null,
@@ -5286,7 +4549,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c9bc0f711936ee058858c938c14ac2b52fc0241cde766eff7aca020e9874f157"
     },
     "ComposioHQ/awesome-claude-skills/changelog-generator": {
       "content_sha256": null,
@@ -5326,7 +4590,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "0fdde1fc7ed062a82fd7ba98057f5d471c5d1905bfe2ddc4eeb213450cb00c18"
     },
     "ComposioHQ/awesome-claude-skills/canvas-design": {
       "content_sha256": null,
@@ -5366,7 +4631,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b"
     },
     "ComposioHQ/awesome-claude-skills/brand-guidelines": {
       "content_sha256": null,
@@ -5408,7 +4674,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe"
     },
     "ComposioHQ/awesome-claude-skills/artifacts-builder": {
       "content_sha256": null,
@@ -5456,7 +4723,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8455a64e627d203fd7b43df64c83d8870cb98907aae21edce4ec8eeef651d850"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/active-campaign-automation": {
       "content_sha256": null,
@@ -5500,7 +4768,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "3b380fd5647324ef1f38ba0291c1caf9211515411f479b7d71bda56811b39a7f"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/acculynx-automation": {
       "content_sha256": null,
@@ -5542,7 +4811,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "fe1aa711aecc092d7630719d7ade9b27109ee54362aa32be63d089829cee0656"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/accredible-certificates-automation": {
       "content_sha256": null,
@@ -5586,7 +4856,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "fb4e9268f8f285b6aa60fc3ea8227b9509e2cb0407a2de515416b7781dff54aa"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/accelo-automation": {
       "content_sha256": null,
@@ -5630,7 +4901,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8fbe90e17c3ed8877faf1d954e13df4513ac2b434418b584b2a9afaba7fe39e2"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/abyssale-automation": {
       "content_sha256": null,
@@ -5672,7 +4944,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b3518bd67cfe438a15ac0a3e0ba0311e261ee57b225749acac49e0a5132201bc"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/abuselpdb-automation": {
       "content_sha256": null,
@@ -5716,7 +4989,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "9880765523be1bc037b50a85d828841e7f90b19572ebec1558db6ff211f6ca2a"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/abstract-automation": {
       "content_sha256": null,
@@ -5758,7 +5032,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "df50052f4cdf387822dd97c349882a94c7c7323eae7ea7919ea27cd9f8a18ee9"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/ably-automation": {
       "content_sha256": null,
@@ -5800,7 +5075,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "d969544a1e9c145c480c67746c7e45fb1ffee8065122ddfedafafb454972d20b"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/-2chat-automation": {
       "content_sha256": null,
@@ -5840,7 +5116,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "fe4900885006f2332b54ae9fb7b50c3eba10f7a4adb92ad25d2d0bc0f542808d"
     },
     "ComposioHQ/awesome-claude-skills/composio-skills/-21risk-automation": {
       "content_sha256": null,
@@ -5882,7 +5159,8 @@
         "community_repo": "ComposioHQ/awesome-claude-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "eeacdabb1e844f3f52d66d3899e22c648052f0ff2ff5a16c07d3afca16bd3730"
     },
     "anthropics/claude-plugins-official/plugins/hookify/skills/writing-rules": {
       "content_sha256": null,
@@ -5922,7 +5200,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "2994b5d3152243b1a1cbf8358e9d7c18f290f31a23920647f31053c3efdf990d"
     },
     "anthropics/claude-plugins-official/plugins/cwc-makers/skills/m5-onboard": {
       "content_sha256": null,
@@ -5968,7 +5247,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c6ba88fd06f59a3e902fead2bb863b6834f189672cfcc75248941c23ae39bd2d"
     },
     "mvanhorn/last30days-skill/skills/last30days": {
       "content_sha256": null,
@@ -6020,7 +5300,8 @@
         "community_repo": "mvanhorn/last30days-skill",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "95ca4651854f98a189035a1f6d4316026f5106a0789723e786d03a82a622d4ec"
     },
     "anthropics/claude-plugins-official/plugins/frontend-design/skills/frontend-design": {
       "content_sha256": null,
@@ -6060,7 +5341,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd"
     },
     "anthropics/claude-plugins-official/plugins/example-plugin/skills/example-skill": {
       "content_sha256": null,
@@ -6100,7 +5382,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "87d90442621ace039aa3379805f99c3f95bf500e9f7b96f9e7876ac2dcf804f5"
     },
     "anthropics/claude-plugins-official/plugins/example-plugin/skills/example-command": {
       "content_sha256": null,
@@ -6140,7 +5423,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "d561981660827f3818b0daec456ae5b31894f68c22407d8c495a77b3105ba96d"
     },
     "anthropics/claude-plugins-official/external_plugins/discord/skills/configure": {
       "content_sha256": null,
@@ -6184,7 +5468,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "9364d7895d6f38b917a711128e7b391884fb8b8d69a62c7d72a81e95b6e2b948"
     },
     "anthropics/claude-plugins-official/external_plugins/imessage/skills/configure": {
       "content_sha256": null,
@@ -6226,7 +5511,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "3afdc7e9faa36aa0ba9813dce68509c45014a75b316d366ba44c46ebd8b098aa"
     },
     "anthropics/claude-plugins-official/external_plugins/telegram/skills/configure": {
       "content_sha256": null,
@@ -6270,7 +5556,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "16b06bf2ac5ede250d0c620ce4e6cf3878c9704246b8f52390fde5f280a17f73"
     },
     "anthropics/claude-plugins-official/plugins/claude-security/skills/claude-security": {
       "content_sha256": null,
@@ -6314,7 +5601,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "866561e1de52f27eaad7073cf29ce2f4f5a30143ab00da04c8d3f594a2a3f4d5"
     },
     "anthropics/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver": {
       "content_sha256": null,
@@ -6362,7 +5650,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b06c7420be08ca1c7f6d75f7f4709fdb787624a2d363e2f8052216d8c780f85b"
     },
     "anthropics/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender": {
       "content_sha256": null,
@@ -6408,7 +5697,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "441c57e26f0931b64dd085deaad9213c4e3efea27d916dd7443cd33c7e338227"
     },
     "anthropics/claude-plugins-official/plugins/cwc-makers/skills/cardputer-buddy": {
       "content_sha256": null,
@@ -6456,7 +5746,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "dae31d1459c8ee7b4a03d04bf55485f4ece04bdd4f5a2650ad39eb3d07d9be10"
     },
     "anthropics/claude-plugins-official/external_plugins/discord/skills/access": {
       "content_sha256": null,
@@ -6496,7 +5787,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "4fc3da872e033c37576a904b15a1bcac6b1ce6c7bc43f1f96abd7cad4855ac7a"
     },
     "anthropics/claude-plugins-official/external_plugins/imessage/skills/access": {
       "content_sha256": null,
@@ -6536,7 +5828,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "ac994a86aab3a2724651a13a62ee9deae985196c8687a33bb79c4b7898aa5be7"
     },
     "anthropics/claude-plugins-official/external_plugins/telegram/skills/access": {
       "content_sha256": null,
@@ -6578,7 +5871,8 @@
         "community_repo": "anthropics/claude-plugins-official",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "6c87f59841c55a4a4f1b732c7427959581e47234f1b8c6fd633e4a5256ce6a3c"
     },
     "SawyerHood/dev-browser/skills/dev-browser": {
       "content_sha256": null,
@@ -6622,7 +5916,8 @@
         "community_repo": "SawyerHood/dev-browser",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "01a5137fdefa883d0b9dbc9f4683f53106f199228aaaeac1ad8d43ea7cdcfc09"
     },
     "kepano/obsidian-skills/skills/obsidian-markdown": {
       "content_sha256": null,
@@ -6662,7 +5957,8 @@
         "community_repo": "kepano/obsidian-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "7ad72e1f0a9081ed325e76b6402ad5de50a00e63e2341fd403a92f147234a007"
     },
     "kepano/obsidian-skills/skills/obsidian-cli": {
       "content_sha256": null,
@@ -6706,7 +6002,8 @@
         "community_repo": "kepano/obsidian-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b54257cdc0e5d04488b35b0c797bfe427b24359f0848d3c73924dcacf8da6358"
     },
     "kepano/obsidian-skills/skills/obsidian-bases": {
       "content_sha256": null,
@@ -6748,7 +6045,8 @@
         "community_repo": "kepano/obsidian-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c0037f20926c7d8591cdd040365e4c0e4c0c4146386a506f28f241faee9a27d9"
     },
     "kepano/obsidian-skills/skills/json-canvas": {
       "content_sha256": null,
@@ -6788,7 +6086,8 @@
         "community_repo": "kepano/obsidian-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "97d1ae0728955c4203922753d5656890e5e4dd371b8306ea11884f9b510f1b85"
     },
     "kepano/obsidian-skills/skills/defuddle": {
       "content_sha256": null,
@@ -6832,7 +6131,8 @@
         "community_repo": "kepano/obsidian-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "10673a4dc70a0a057612d443243ab7a5aa4abdd4a0fadc3f6eec5fd71ad5a971"
     },
     "huangserva/skill-prompt-generator/.claude/skills/universal-learner": {
       "content_sha256": null,
@@ -6872,7 +6172,8 @@
         "community_repo": "huangserva/skill-prompt-generator",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a671f2d69d3b94d7b5f9675865c640f9b77e72e6227f06e8ee5eb7fe87028aec"
     },
     "huangserva/skill-prompt-generator/.codex/skills/universal-learner": {
       "content_sha256": null,
@@ -6912,7 +6213,8 @@
         "community_repo": "huangserva/skill-prompt-generator",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a671f2d69d3b94d7b5f9675865c640f9b77e72e6227f06e8ee5eb7fe87028aec"
     },
     "huangserva/skill-prompt-generator/.claude/skills/prompt-analyzer": {
       "content_sha256": null,
@@ -6952,7 +6254,8 @@
         "community_repo": "huangserva/skill-prompt-generator",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "f8dce825ec2a5a8ea9818bfb79da5cb978b34a8cf7554c0c1b9fe4240eb49f3a"
     },
     "huangserva/skill-prompt-generator/.codex/skills/prompt-analyzer": {
       "content_sha256": null,
@@ -6994,7 +6297,8 @@
         "community_repo": "huangserva/skill-prompt-generator",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "f8dce825ec2a5a8ea9818bfb79da5cb978b34a8cf7554c0c1b9fe4240eb49f3a"
     },
     "SnailSploit/Claude-Red/Skills/fuzzing/offensive-vuln-classes": {
       "content_sha256": null,
@@ -7034,7 +6338,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "85b7eeeded746de0962b27ed14984f483cb21d1444843e21bc531aba221985e0"
     },
     "SnailSploit/Claude-Red/Skills/exploit-dev/offensive-toctou": {
       "content_sha256": null,
@@ -7074,7 +6379,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "8c7fb9790b1853ecf5dfa23fe85b8fa0d1967c20a7ffe04752a6ac4c2253636f"
     },
     "SnailSploit/Claude-Red/Skills/auth/offensive-oauth": {
       "content_sha256": null,
@@ -7114,7 +6420,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1202b700fac05d63cc78c959c084cbcf9c8cb4f3b00be6cec52c7ebc98f0ec52"
     },
     "SnailSploit/Claude-Red/Skills/exploit-dev/offensive-mitigations": {
       "content_sha256": null,
@@ -7154,7 +6461,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "cbd789c1bf8fd8110c511150169fc5b98e097a9419aa41647e35ced477b3a388"
     },
     "SnailSploit/Claude-Red/Skills/auth/offensive-jwt": {
       "content_sha256": null,
@@ -7198,7 +6506,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "f4062ca66c1241fbeb772e1671d0d86d3683e27f33744fee6723b13a934a3fb9"
     },
     "SnailSploit/Claude-Red/Skills/fuzzing/offensive-fuzzing-course": {
       "content_sha256": null,
@@ -7246,7 +6555,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "1094410fb2a89843e9f8d8447d1d28602fc5fd36b29481cdd45b47b5c768acdd"
     },
     "SnailSploit/Claude-Red/Skills/fuzzing/offensive-fuzzing": {
       "content_sha256": null,
@@ -7294,7 +6604,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "fcd129b42cdf383cacd7852db336dc51e3e540d872ead9931c7acec30b4088c4"
     },
     "SnailSploit/Claude-Red/Skills/exploit-dev/offensive-exploit-development": {
       "content_sha256": null,
@@ -7338,7 +6649,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "22ae77955883399b00bfd4b10909f403869efc4c4b49e81ba065f1e477b83cce"
     },
     "SnailSploit/Claude-Red/Skills/exploit-dev/offensive-exploit-dev-course": {
       "content_sha256": null,
@@ -7386,7 +6698,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b3b87666645d63b80a5ba071dc1d7136b677073a40f5cabfd2fb578d2b0b7fa0"
     },
     "SnailSploit/Claude-Red/Skills/exploit-dev/offensive-crash-analysis": {
       "content_sha256": null,
@@ -7436,7 +6749,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "43212963900033f563cb23ad323d5a56d507142d2caeebba55b8c50605681a32"
     },
     "SnailSploit/Claude-Red/Skills/cloud/offensive-cloud": {
       "content_sha256": null,
@@ -7486,7 +6800,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "5dd13c1cac582a03db3e1ab8c9c0c147a93c2121e4cb275b8d39763cb9a144cb"
     },
     "SnailSploit/Claude-Red/Skills/fuzzing/offensive-bug-identification": {
       "content_sha256": null,
@@ -7526,7 +6841,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b80715679fc455a96585cbe25005b107963daa0c10e08df743b2ddbc017bc272"
     },
     "SnailSploit/Claude-Red/Skills/exploit-dev/offensive-basic-exploitation": {
       "content_sha256": null,
@@ -7574,7 +6890,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "92508b7739895c04e4cdb9b671d6c06f678f9d490b2a1bb23fd1ee5dc14ad028"
     },
     "SnailSploit/Claude-Red/Skills/ai/offensive-ai-security": {
       "content_sha256": null,
@@ -7616,7 +6933,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "345b920695dabd22392ee623512df78a8862dd30cde507a02c2d31f9139f2595"
     },
     "SnailSploit/Claude-Red/Skills/active-directory/offensive-active-directory": {
       "content_sha256": null,
@@ -7668,7 +6986,8 @@
         "community_repo": "SnailSploit/Claude-Red",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "00e5b7cea50d450daf515cd0e541d3eb659347bb39f04caf0d88a470ca9a4c19"
     },
     "huangserva/skill-prompt-generator/.claude/skills/intelligent-prompt-generator": {
       "content_sha256": null,
@@ -7710,7 +7029,8 @@
         "community_repo": "huangserva/skill-prompt-generator",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "734d3ca3750a6ca1967a5589d0ad91491e50d35ec209b96d9aa13814324d092d"
     },
     "huangserva/skill-prompt-generator/.codex/skills/intelligent-prompt-generator": {
       "content_sha256": null,
@@ -7752,7 +7072,8 @@
         "community_repo": "huangserva/skill-prompt-generator",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "734d3ca3750a6ca1967a5589d0ad91491e50d35ec209b96d9aa13814324d092d"
     },
     "forrestchang/andrej-karpathy-skills/skills/karpathy-guidelines": {
       "content_sha256": null,
@@ -7794,7 +7115,8 @@
         "community_repo": "forrestchang/andrej-karpathy-skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7"
     },
     "dgreenheck/webgpu-claude-skill/skills/webgpu-threejs-tsl": {
       "content_sha256": null,
@@ -7840,7 +7162,8 @@
         "community_repo": "dgreenheck/webgpu-claude-skill",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "734ac9724c9dae2a2c9ad1e59f96d37498a87871eaddb6e8a7fd903d36b2cb90"
     },
     "Dimillian/Skills/swiftui-ui-patterns": {
       "content_sha256": null,
@@ -7880,7 +7203,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "adbc12e85a56643b41ee3649d24db37f00fd8163c70727f5947b38f3cb5760f2"
     },
     "Dimillian/Skills/swiftui-performance-audit": {
       "content_sha256": null,
@@ -7920,7 +7244,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "6cfb3f9f3e1938aca3eb1cf3ac9f265cca15559b0c9b3dcd3ab2e580be3cea2f"
     },
     "Dimillian/Skills/swiftui-liquid-glass": {
       "content_sha256": null,
@@ -7960,7 +7285,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "53dfbe810cf2044b9c9fff5b2b9d9888053ac24b7d72e63258df8859571bc599"
     },
     "Dimillian/Skills/swift-concurrency-expert": {
       "content_sha256": null,
@@ -8000,7 +7326,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "6444fa364371e70cc52d9810457e132bba8d258c54b2a6464751e294433171bd"
     },
     "Dimillian/Skills/review-swarm": {
       "content_sha256": null,
@@ -8040,7 +7367,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "da643e5339396e007e37ec2d793b24bcec55f200cbb0d097c99be9f41c7399c8"
     },
     "Dimillian/Skills/review-and-simplify-changes": {
       "content_sha256": null,
@@ -8080,7 +7408,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "4e90a5d3a70fbd3b8fea1d755e8090de6abb13c0fc7c7640e932b7233ccd7cce"
     },
     "Dimillian/Skills/react-component-performance": {
       "content_sha256": null,
@@ -8120,7 +7449,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "4d563bd4beca0c67ac85984fc5e05178532307d167c2accfdfc724d7548669de"
     },
     "Dimillian/Skills/project-skill-audit": {
       "content_sha256": null,
@@ -8162,7 +7492,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "c510076579706cee86f763e5532dbaf9e05dcbeb4283d6fd95d5c5ad68352854"
     },
     "Dimillian/Skills/orchestrate-batch-refactor": {
       "content_sha256": null,
@@ -8202,7 +7533,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "b7bd20ed6cdb93a89c4c7c70c21554d838189d310904ca516144036c9cf8d506"
     },
     "Dimillian/Skills/macos-spm-app-packaging": {
       "content_sha256": null,
@@ -8248,7 +7580,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a20c790a7153ff519262e04c8d95861ce752d7850f703ae762ee8a477763dd9a"
     },
     "Dimillian/Skills/macos-menubar-tuist-app": {
       "content_sha256": null,
@@ -8294,7 +7627,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "a9eb12f37a31410ae3e353c8aa34d4e5e9ea421e612541dad5edd774f08c490e"
     },
     "Dimillian/Skills/ios-debugger-agent": {
       "content_sha256": null,
@@ -8338,7 +7672,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "07000b6744b8cf21bfa76db3bf76c6d158f9ef16a4a33eee9ce15508a7aa8b2e"
     },
     "Dimillian/Skills/github": {
       "content_sha256": null,
@@ -8380,7 +7715,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "be99dc6f9fd194f18712e1342e847f4f52db81e18dee6fd049566f402cd9e75a"
     },
     "Dimillian/Skills/bug-hunt-swarm": {
       "content_sha256": null,
@@ -8422,7 +7758,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "eac37efd6a304de4aee75b2d0f0f7565ba32e132f2c234f39106ceeafc0a536e"
     },
     "Dimillian/Skills/app-store-changelog": {
       "content_sha256": null,
@@ -8464,7 +7801,8 @@
         "community_repo": "Dimillian/Skills",
         "model": "gemini-flash-latest",
         "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
-      }
+      },
+      "bound_sha256": "3c86eb572b2a67a3f79b4d2eb76ec20683d54bc7fecfac55a7259b0f6fe66723"
     },
     "davepoon/buildwithclaude/plugins/all-skills/skills/agent-memory-discipline": {
       "content_sha256": "c01ed4b91ccbc8a88214ab685d591bf8cad8a89c0c18bae0b433c9216ad5e180",

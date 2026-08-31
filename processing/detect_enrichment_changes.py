@@ -19,6 +19,12 @@ def build_manifest(base: dict, cache: dict) -> dict:
         item = cached.get(entry["id"], {})
         if item.get("status") == "fresh" and item.get("content_sha256") == entry.get("content_sha256"):
             continue
+        # Legacy entries predate digest binding, so their provenance is unknown and their
+        # status stays `legacy` -- but text we already hold is not worth an agent call.
+        # reconcile_cache.py records the digest observed when we stopped re-queuing them;
+        # while it still matches, the content has not moved and the entry waits.
+        if item.get("status") == "legacy" and item.get("bound_sha256") == entry.get("content_sha256"):
+            continue
         pending.append({
             key: entry.get(key)
             for key in ("id", "name", "summary", "source_repo", "source_url", "path", "content_sha256")

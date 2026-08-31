@@ -188,6 +188,7 @@
       meta: (m, n, d) => `${m} of ${n} skills · index generated ${d}`,
       no_match: 'No matching skills.', loading: 'Loading index…', load_failed: 'Failed to load the index',
       upstream: 'upstream', upstream_tip: 'The author\u2019s own description. We have not written our own assessment for this skill yet.',
+      legacy_note: 'Assessed before content digests were recorded \u2014 the revision it was written from is unknown.',
       grounding: 'grounding', grounding_show: 'Show grounding', grounding_hide: 'Hide grounding', copied: 'Copied', copy: 'Copy',
       l_health: 'Health', l_security: 'Security', l_coverage: 'Coverage', l_func: 'Function / scenarios', l_community: 'Community',
       security: 'security', chinese: 'Chinese', yes: 'yes', no: 'no', level: 'level', frontmatter: 'frontmatter', valid: 'valid', invalid: 'invalid',
@@ -220,6 +221,7 @@
       meta: (m, n, d) => `${n} 个 skill 中 ${m} 个匹配 · 索引生成于 ${d}`,
       no_match: '没有匹配的 skill。', loading: '加载索引中…', load_failed: '索引加载失败',
       upstream: '未译', upstream_tip: '这是上游作者自己写的原文描述。我们还没有为这个 skill 写出中文评估。',
+      legacy_note: '该评估先于内容摘要绑定 \u2014 所依据的版本已无法确认。',
       grounding: 'grounding 依据', grounding_show: '展开 grounding 依据', grounding_hide: '收起 grounding 依据', copied: '已复制', copy: '复制',
       l_health: '健康度', l_security: '安全', l_coverage: '覆盖', l_func: '功能 / 场景', l_community: '社区',
       security: '安全', chinese: '中文', yes: '是', no: '否', level: '层级', frontmatter: 'frontmatter', valid: '合规', invalid: '不合规',
@@ -338,7 +340,11 @@
     ]));
     const g = e.grounding, fn = g && g.function && g.function[lang];
     if (fn && fn.purpose) {
-      out.push(layer(t('l_func'), [
+      // A `legacy` assessment carries text but no record of which revision it was written
+      // from. Serving it silently would present unverified provenance as if it were checked.
+      const provenance = e.enrichment_status === 'legacy'
+        ? `<div class="g-sub bad">${t('legacy_note')}</div>` : '';
+      out.push(layer(t('l_func') + provenance, [
         `<div>${esc(fn.purpose)}</div>`,
         Array.isArray(fn.scenarios) && fn.scenarios.length ? `<div class="g-sub">${t('scenarios')}: ${fn.scenarios.map(esc).join(' · ')}</div>` : '',
         Array.isArray(fn.dependencies) ? `<div class="g-sub">${t('deps')}: ${fn.dependencies.map(esc).join(', ')}${fn.boundary ? ' · ' + esc(fn.boundary) : ''}</div>` : '',
