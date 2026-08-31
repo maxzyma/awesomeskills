@@ -134,3 +134,52 @@ def test_ancestor_dirs_enumerates_every_level():
     assert build_index._ancestor_dirs("a/b/c") == ["a", "a/b"]
     assert build_index._ancestor_dirs("a") == []
     assert build_index._ancestor_dirs(".") == []
+
+
+# --- symlinks ----------------------------------------------------------------------------
+
+def symlink(path):
+    return {"path": path, "type": "blob", "mode": build_index.SYMLINK_MODE}
+
+
+def test_symlinked_skill_md_is_not_indexed(monkeypatch):
+    """Git stores a symlink as a blob holding the target path. GraphQL hands back that path
+    string while REST follows the link, so a symlinked SKILL.md was indexed as a 64-byte
+    path: empty summary, invalid frontmatter, and a security rating of `pass` awarded to
+    content nothing had read."""
+    monkeypatch.setattr(build_index, "_get", fake_get({
+        tree_url(recursive=True): {"truncated": False, "tree": [
+            blob("real/SKILL.md"),
+            symlink("alias/SKILL.md"),
+        ]},
+    }))
+    assert build_index.fetch_skill_paths("o/r", REF, TOKEN) == ["real/SKILL.md"]
+
+
+def test_symlinked_skill_md_is_skipped_in_the_subtree_walk(monkeypatch):
+    """fetch_skill_paths descends by tree object SHA, so the symlink filter has to hold on
+    that path too, not only on the flat recursive listing."""
+    subtree_sha = "e" * 40
+    monkeypatch.setattr(build_index, "_get", fake_get({
+        tree_url(recursive=True): {"truncated": True, "tree": []},
+        tree_url(): {"truncated": False, "tree": [{**tree("a"), "sha": subtree_sha}]},
+        f"{build_index.API}o/r/git/trees/{subtree_sha}?recursive=1": {
+            "truncated": False, "tree": [blob("SKILL.md"), symlink("link/SKILL.md")],
+        },
+    }))
+    found = build_index.fetch_skill_paths("o/r", REF, TOKEN)
+    assert found == ["a/SKILL.md"], found
+
+
+def test_symlinked_script_is_not_treated_as_executable_text():
+    """Same failure mode one level down: the digest would cover the link target's path
+    rather than the code that runs."""
+    assert build_index._is_executable_text(blob("s/scripts/run.py", "100755"), "s")
+    assert not build_index._is_executable_text(symlink("s/scripts/run.py"), "s")
+
+
+def test_regular_blob_is_still_a_real_blob():
+    assert build_index._is_real_blob(blob("a.py"))
+    assert build_index._is_real_blob(blob("a.py", "100755"))
+    assert not build_index._is_real_blob(symlink("a.py"))
+    assert not build_index._is_real_blob(tree("a"))

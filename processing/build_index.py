@@ -180,10 +180,12 @@ def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]
     if not tree:
         return None
     if not tree.get("truncated"):
-        return sorted(
-            item["path"] for item in tree.get("tree", [])
-            if item.get("type") == "blob" and item.get("path", "").endswith("SKILL.md")
-        )
+        candidates = [i for i in tree.get("tree", []) if i.get("path", "").endswith("SKILL.md")]
+        real = [i for i in candidates if _is_real_blob(i)]
+        skipped = len(candidates) - len(real)
+        if skipped:
+            print(f"  … {repo_id}: skipping {skipped} symlinked SKILL.md (alias, not a skill)", file=sys.stderr)
+        return sorted(item["path"] for item in real)
 
     # GitHub truncates very large recursive trees. Walk subtrees in path order and stop only
     # after enough eligible paths are known for the public per-repo cap.
@@ -198,7 +200,7 @@ def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]
             if len(found) > MAX_SKILLS_PER_REPO:
                 return
             path = f"{prefix}/{item['path']}" if prefix else item["path"]
-            if item.get("type") == "blob" and path.endswith("SKILL.md") and _eligible_skill_path(path):
+            if _is_real_blob(item) and path.endswith("SKILL.md") and _eligible_skill_path(path):
                 found.append(path)
             elif item.get("type") == "tree":
                 walk_sha(item["sha"], path)
@@ -217,7 +219,7 @@ def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]
             if len(found) > MAX_SKILLS_PER_REPO:
                 return
             path = f"{prefix}/{item['path']}"
-            if item.get("type") == "blob" and path.endswith("SKILL.md") and _eligible_skill_path(path):
+            if _is_real_blob(item) and path.endswith("SKILL.md") and _eligible_skill_path(path):
                 found.append(path)
 
     walk_node(root)
@@ -307,6 +309,22 @@ def fetch_tree_inventory(
         bundle_complete = bundle_complete and ok
 
     return list(by_path.values()), bundle_complete, False
+
+
+SYMLINK_MODE = "120000"
+
+
+def _is_real_blob(item: dict) -> bool:
+    """A regular file, not a symlink.
+
+    Git stores a symlink as a blob whose content is the target path. GitHub's GraphQL
+    Blob.text hands back that path string, while the REST Contents endpoint follows the
+    link and returns the target's content -- so a symlinked SKILL.md was being indexed as
+    a 64-byte path: empty summary, invalid frontmatter, and a security rating of `pass`
+    awarded to content nothing had read. A symlinked skill is an alias anyway; the target
+    is indexed under its own path.
+    """
+    return item.get("type") == "blob" and item.get("mode") != SYMLINK_MODE
 
 
 def _eligible_skill_path(path: str) -> bool:
@@ -568,6 +586,8 @@ def _skill_dir(path: str) -> str:
 
 
 def _is_executable_text(item: dict, skill_dir: str) -> bool:
+    if not _is_real_blob(item):
+        return False  # a symlinked script would be digested as its target path, not its code
     path = item.get("path", "")
     prefix = "" if skill_dir == "." else skill_dir + "/"
     if prefix and not path.startswith(prefix):
