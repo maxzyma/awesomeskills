@@ -153,9 +153,16 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 - [ ] 安全评级路线：从 `unrated` 升级到真实扫描，用现成扫描器 vs 自建，深度多少算 MVP 够。
 - [ ] 冷启动收录清单：种子源筛选标准与扩充节奏。
 - [ ] 静态托管选型：GitHub raw vs Pages vs CF Pages；awesomeskills.io 接入与 `llm.txt` 路由。
-- [ ] health 公式校准：当前为启发式 v0，需用真实样本回归（首跑 12 源多在 99-100，区分度不足）。
+- [ ] health 公式校准：已修两处（2026-08-31）——maintenance 分母由 star 数改为**人类维护者数**（原阈值是
+      star 的 10%，任何 >5k★ 的仓那 25 分都是白送），分子由 `open_issues_count` 改为**真实 open issue**
+      （REST 该字段含 open PR，会误伤以 PR 为投稿通道的 awesome-list）。回归样本见
+      `tests/test_health_formula.py`（同日 trending 的四仓对照组，维护者数从 2 到 98）。**仍未解决**：
+      health 只测活跃度，不测可持续性——单人高产仓与多人维护仓在 bus factor 上的差异不进分数，
+      是否拆成不合并的两维待定。
 - [ ] zh 检测增强：当前仅看 GitHub description/language，首跑 zh 命中 0（含中文社区仓，因其 description 为英文）；应扩展到 README/topics/owner 语言。
 - [x] `article-pivot` 适配成本：已评估（`docs/article-pivot-fit.md`）——借鉴范式 + 裁剪双语/归档组件，不直接复用，成本中等偏大；需自建 Markdown+frontmatter 入口与 skill 语义层。
 - [x] skill 级粒度（A）：已落地（v0.2，200 条 = 194 skill + 6 repo fallback）。`processing/skill_parser.py` 自建 frontmatter 解析 + 校验。
 - [ ] frontmatter 解析器局限：当前为极简单行解析，首跑 70/194 判 invalid（缺 name/description、过短/过长）；其中含对多行/非标 YAML 的**假阳性**，需换真实 YAML 解析器再回归 invalid 率。
-- [ ] 每仓 SKILL.md 上限 15：公开 discovered/selected/omitted；Issue 自动流程拒绝无显式范围的大集合。后续需设计可审计的路径分片，而不是静默截断。
+- [ ] 每仓 SKILL.md 上限 30（2026-08-31 由 15 提高）：公开 discovered/selected/omitted；Issue 自动流程拒绝无显式范围的大集合。
+      提到 30 让中型集合从"任意抽样"变成"完整收录"，且 `index.json` 仍小到够 finder skill 每次调用拉取；
+      但上万个 SKILL.md 的巨型集合在任何合理上限下都仍是截断。后续需设计可审计的路径分片，而不是静默截断。

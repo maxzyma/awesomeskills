@@ -144,3 +144,30 @@ note = "Browserbase official skills (browser automation) — surfaced via github
 id   = "addyosmani/agent-skills"
 kind = "skill-collection"
 note = "Addy Osmani agent skills — high-trust author; surfaced via github-trends"
+
+# --- Batch 4 (2026-08-31): GitHub trending, vetted against real maintainer signals rather
+# than the star counts the trending list ranks by. Stars carry no signal in this ecosystem
+# (watcher/star ratios sit at 0.004-0.012 across every source, popular and obscure alike).
+[[source]]
+id   = "K-Dense-AI/scientific-agent-skills"
+kind = "skill-collection"
+note = """Scientific domain skills (biology/chemistry/medicine) — widens coverage beyond \
+the dev-tooling skew of batches 1-3. Only org-backed candidate of the batch: 47 \
+contributors, 315-day history. 165 SKILL.md exceeds the per-repo cap, so collection \
+coverage stays incomplete and says so. Repo description carries marketing claims \
+("#1", "190,000+ scientists") — not treated as signal."""
+
+[[source]]
+id   = "tt-a1i/archify"
+kind = "skill"
+note = """Architecture/sequence/data-flow diagram skill — single well-scoped capability. \
+Single-point-of-dependency risk: 13 contributors, top author holds ~80% of commits, repo \
+is 4.5 months old."""
+
+[[source]]
+id   = "handsomestWei/patent-disclosure-skill"
+kind = "skill"
+note = """Chinese patent drafting/disclosure skill — Chinese repo description, so it is a \
+positive sample for zh detection, which first-run scored 0 because Chinese community \
+repos describe themselves in English. Single-point-of-dependency risk: 2 contributors, \
+the second with 1 commit, 30 commits total."""

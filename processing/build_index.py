@@ -31,6 +31,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+from health import compute_health
 from skill_parser import parse_skill_md
 from security_scan import scan_skill_bundle
 
@@ -42,7 +43,14 @@ API = "https://api.github.com/repos/"
 GRAPHQL_API = "https://api.github.com/graphql"
 RAW = "https://raw.githubusercontent.com/"
 SCHEMA_VERSION = "0.3"  # 0.3 separates deterministic base data from enrichment
-MAX_SKILLS_PER_REPO = 15  # cap per repo; truncation is logged, never silent
+# Cap per repo; truncation is logged, never silent. Raised 15 -> 30 on 2026-08-31: this
+# makes the mid-size collections complete instead of arbitrarily sampled, while keeping
+# registry/index.json small enough for the finder skill to fetch it on every invocation
+# (the artifact is pulled per call, see product-definition.md section 5). The mega-
+# collections (thousands of SKILL.md) stay truncated at any sane cap; sharding is the
+# real fix and is still open.
+MAX_SKILLS_PER_REPO = 30
+MAX_CONTRIBUTOR_PAGE = 100  # single page; maintainer count saturates here, which is fine
 MAX_EXECUTABLE_FILES_PER_SKILL = 50
 _EXECUTABLE_SUFFIXES = {
     ".sh", ".bash", ".zsh", ".py", ".js", ".mjs", ".cjs", ".ts", ".tsx",
@@ -222,6 +230,88 @@ def fetch_raw(repo_id: str, branch: str, path: str, token: str | None) -> str | 
     )
 
 
+def post_graphql(query: str, variables: dict, token: str, label: str) -> dict | None:
+    """POST one GraphQL query, retrying transient failures. Returns `data`, or None."""
+    body = json.dumps({"query": query, "variables": variables}).encode("utf-8")
+    request = urllib.request.Request(GRAPHQL_API, data=body, method="POST")
+    request.add_header("Accept", "application/vnd.github+json")
+    request.add_header("Authorization", f"Bearer {token}")
+    request.add_header("Content-Type", "application/json")
+    request.add_header("User-Agent", "awesomeskills-build-index")
+
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            if payload.get("errors"):
+                print(f"  ! GraphQL {label}: {payload['errors']}", file=sys.stderr)
+                return None
+            return payload.get("data") or {}
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace")
+            retryable = error.code in {408, 429, 500, 502, 503, 504} or (
+                error.code == 403 and "rate limit" in detail.lower()
+            )
+            if retryable and attempt < 4:
+                retry_after = error.headers.get("Retry-After") if error.headers else None
+                try:
+                    delay = min(60.0, float(retry_after)) if retry_after else min(30.0, 3.0 * (attempt + 1))
+                except ValueError:
+                    delay = min(30.0, 3.0 * (attempt + 1))
+                print(f"  ! GraphQL {label}: HTTP {error.code}; retrying in {delay:g}s", file=sys.stderr)
+                time.sleep(delay)
+                continue
+            print(f"  ! GraphQL {label}: HTTP {error.code}", file=sys.stderr)
+            return None
+        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as error:
+            if attempt == 4:
+                print(f"  ! GraphQL {label}: {error} (gave up)", file=sys.stderr)
+                return None
+            time.sleep(min(6.0, 1.5 * (attempt + 1)))
+    return None
+
+
+def fetch_repo_capacity(repo_id: str, token: str | None) -> dict:
+    """Signals the plain repo endpoint cannot supply, for the maintenance score.
+
+    Two gaps are being closed here. `open_issues_count` bundles open pull requests, so it
+    overstates backlog for submission-driven lists; GraphQL reports the two separately.
+    And the repo payload says nothing about how many people actually maintain the thing,
+    which is the only sensible denominator for a backlog. Every field degrades to None
+    independently -- compute_health labels which basis it ended up using.
+    """
+    maintainers = top_commits = None
+    contributors = _get(
+        f"{API}{repo_id}/contributors?per_page={MAX_CONTRIBUTOR_PAGE}&anon=0", token
+    )
+    if isinstance(contributors, list):
+        humans = [row for row in contributors if row.get("type") != "Bot"]
+        maintainers = len(humans)
+        top_commits = max((row.get("contributions") or 0 for row in humans), default=0)
+
+    open_issues = open_prs = None
+    if token:
+        owner, name = repo_id.split("/", 1)
+        data = post_graphql(
+            "query($owner:String!,$name:String!){repository(owner:$owner,name:$name){"
+            "issues(states:OPEN){totalCount} pullRequests(states:OPEN){totalCount}}}",
+            {"owner": owner, "name": name},
+            token,
+            f"issue counts for {repo_id}",
+        )
+        repository = (data or {}).get("repository") or {}
+        if repository:
+            open_issues = (repository.get("issues") or {}).get("totalCount")
+            open_prs = (repository.get("pullRequests") or {}).get("totalCount")
+
+    return {
+        "maintainers": maintainers,
+        "top_contributor_commits": top_commits,
+        "open_issues": open_issues,
+        "open_prs": open_prs,
+    }
+
+
 def fetch_skill_contents(
     repo_id: str, branch: str, paths: list[str], token: str | None,
 ) -> list[str | None]:
@@ -248,50 +338,14 @@ def fetch_skill_contents(
         "query(" + ",".join(definitions) + ")"
         + "{repository(owner:$owner,name:$name){" + "".join(selections) + "}}"
     )
-    body = json.dumps({"query": query, "variables": variables}).encode("utf-8")
-    request = urllib.request.Request(GRAPHQL_API, data=body, method="POST")
-    request.add_header("Accept", "application/vnd.github+json")
-    request.add_header("Authorization", f"Bearer {token}")
-    request.add_header("Content-Type", "application/json")
-    request.add_header("User-Agent", "awesomeskills-build-index")
-
-    for attempt in range(5):
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                payload = json.loads(response.read().decode("utf-8"))
-            if payload.get("errors"):
-                print(f"  ! GraphQL blob fetch for {repo_id}: {payload['errors']}", file=sys.stderr)
-                return [None] * len(paths)
-            repository = payload.get("data", {}).get("repository") or {}
-            return [
-                (repository.get(f"file{index}") or {}).get("text")
-                for index in range(len(paths))
-            ]
-        except urllib.error.HTTPError as error:
-            detail = error.read().decode("utf-8", errors="replace")
-            retryable = error.code in {408, 429, 500, 502, 503, 504} or (
-                error.code == 403 and "rate limit" in detail.lower()
-            )
-            if retryable and attempt < 4:
-                retry_after = error.headers.get("Retry-After") if error.headers else None
-                try:
-                    delay = min(60.0, float(retry_after)) if retry_after else min(30.0, 3.0 * (attempt + 1))
-                except ValueError:
-                    delay = min(30.0, 3.0 * (attempt + 1))
-                print(
-                    f"  ! GraphQL blob fetch for {repo_id}: HTTP {error.code}; retrying in {delay:g}s",
-                    file=sys.stderr,
-                )
-                time.sleep(delay)
-                continue
-            print(f"  ! GraphQL blob fetch for {repo_id}: HTTP {error.code}", file=sys.stderr)
-            return [None] * len(paths)
-        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as error:
-            if attempt == 4:
-                print(f"  ! GraphQL blob fetch for {repo_id}: {error} (gave up)", file=sys.stderr)
-                return [None] * len(paths)
-            time.sleep(min(6.0, 1.5 * (attempt + 1)))
-    return [None] * len(paths)
+    data = post_graphql(query, variables, token, f"blob fetch for {repo_id}")
+    if data is None:
+        return [None] * len(paths)
+    repository = data.get("repository") or {}
+    return [
+        (repository.get(f"file{index}") or {}).get("text")
+        for index in range(len(paths))
+    ]
 
 
 # ---------- signals ----------
@@ -301,56 +355,6 @@ def _has_chinese(*texts: str | None) -> bool:
         if t and any("一" <= ch <= "鿿" for ch in t):
             return True
     return False
-
-
-def compute_health(repo: dict, now: datetime) -> tuple[int, dict]:
-    """Multi-factor activity/maintenance score (0-100), deliberately de-emphasizing raw stars.
-
-    recency (40) + maintenance/issue-load (25) + real engagement watch+fork ratio (20)
-    + maturity (15); archived heavily penalized. Still heuristic, but spreads across repos
-    instead of the old naive-recency version that pinned everything to ~100.
-    """
-    stars = repo.get("stargazers_count") or 0
-    open_issues = repo.get("open_issues_count") or 0
-    forks = repo.get("forks_count") or 0
-    watchers = repo.get("subscribers_count") or 0
-
-    def _days(key):
-        v = repo.get(key)
-        return (now - datetime.fromisoformat(v.replace("Z", "+00:00"))).days if v else None
-
-    recency_days = _days("pushed_at")
-    age_days = _days("created_at")
-
-    # recency: 40 fresh → ~0 by ~80 days stale (steeper, so "recently touched" isn't near-free)
-    recency = 0.0 if recency_days is None else max(0.0, 40.0 - recency_days * 0.5)
-    # maintenance: open-issue backlog relative to size; stricter threshold
-    backlog = open_issues / max(stars, 30)
-    maintenance = 25.0 * max(0.0, 1.0 - min(backlog, 0.10) / 0.10)
-    # engagement (anti-vanity): watched + forked vs merely starred; harder to max out
-    eng_ratio = (watchers + forks) / max(stars, 30)
-    engagement = 20.0 * min(1.0, eng_ratio / 0.25)
-    # maturity: real history (>~1yr) that is still recently active
-    maturity = 0.0
-    if age_days is not None and recency_days is not None:
-        maturity = 15.0 * min(1.0, age_days / 365.0) * (1.0 if recency_days < 120 else 0.4)
-
-    score = recency + maintenance + engagement + maturity
-    if repo.get("archived"):
-        score *= 0.3
-
-    factors = {
-        "recency_days": recency_days,
-        "stars": stars,
-        "open_issues": open_issues,
-        "forks": forks,
-        "watchers": watchers,
-        "age_days": age_days,
-        "archived": bool(repo.get("archived")),
-        "parts": {"recency": round(recency), "maintenance": round(maintenance),
-                  "engagement": round(engagement), "maturity": round(maturity)},
-    }
-    return round(min(100.0, score)), factors
 
 
 # ---------- entry builders ----------
@@ -402,9 +406,11 @@ def merge_source_summaries(existing: dict[str, dict], repo_id: str, replacement:
     return {**{key: value for key, value in existing.items() if key != repo_id}, repo_id: replacement}
 
 
-def build_skill_entries(src: dict, repo: dict, now: datetime, token: str | None) -> list[dict]:
+def build_skill_entries(
+    src: dict, repo: dict, now: datetime, token: str | None, capacity: dict | None = None,
+) -> list[dict]:
     repo_id = src["id"]
-    health, factors = compute_health(repo, now)
+    health, factors = compute_health(repo, now, capacity)
     branch = repo.get("default_branch") or "main"
 
     paths = fetch_skill_paths(repo_id, branch, token)
@@ -614,8 +620,16 @@ def main() -> int:
             failures.append(f"failed to fetch repository metadata for {src['id']}")
             continue
         repo_count += 1
+        capacity = fetch_repo_capacity(src["id"], token)
+        if capacity["maintainers"] is None or capacity["open_issues"] is None:
+            print(
+                f"  … {src['id']}: partial maintenance capacity "
+                f"(maintainers={capacity['maintainers']}, open_issues={capacity['open_issues']}); "
+                "health records the degraded basis",
+                file=sys.stderr,
+            )
         try:
-            got = build_skill_entries(src, repo, now, token)
+            got = build_skill_entries(src, repo, now, token, capacity)
         except BuildError as exc:
             failures.append(str(exc))
             continue
