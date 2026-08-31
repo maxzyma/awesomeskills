@@ -51,6 +51,9 @@
   .repo { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--muted); margin-left: 8px; font-weight: 500; }
   .kind { color: var(--muted); font-size: 12px; margin-left: 8px; }
   .summary { color: var(--body); font-size: 14px; margin-top: 3px; }
+  .untranslated { display: inline-block; margin-left: 6px; padding: 0 5px; border: 1px solid var(--line);
+                  border-radius: 4px; font-size: 11px; color: var(--muted); vertical-align: 1px;
+                  white-space: nowrap; cursor: default; }
 
   .signals { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
   .pill { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 6px; border: none; line-height: 1.5; font-variant-numeric: tabular-nums; }
@@ -184,6 +187,7 @@
       prev: '‹ Prev', next: 'Next ›', page_of: (p, n) => `page ${p} / ${n}`,
       meta: (m, n, d) => `${m} of ${n} skills · index generated ${d}`,
       no_match: 'No matching skills.', loading: 'Loading index…', load_failed: 'Failed to load the index',
+      upstream: 'upstream', upstream_tip: 'The author\u2019s own description. We have not written our own assessment for this skill yet.',
       grounding: 'grounding', grounding_show: 'Show grounding', grounding_hide: 'Hide grounding', copied: 'Copied', copy: 'Copy',
       l_health: 'Health', l_security: 'Security', l_coverage: 'Coverage', l_func: 'Function / scenarios', l_community: 'Community',
       security: 'security', chinese: 'Chinese', yes: 'yes', no: 'no', level: 'level', frontmatter: 'frontmatter', valid: 'valid', invalid: 'invalid',
@@ -215,6 +219,7 @@
       prev: '‹ 上一页', next: '下一页 ›', page_of: (p, n) => `第 ${p} / ${n} 页`,
       meta: (m, n, d) => `${n} 个 skill 中 ${m} 个匹配 · 索引生成于 ${d}`,
       no_match: '没有匹配的 skill。', loading: '加载索引中…', load_failed: '索引加载失败',
+      upstream: '未译', upstream_tip: '这是上游作者自己写的原文描述。我们还没有为这个 skill 写出中文评估。',
       grounding: 'grounding 依据', grounding_show: '展开 grounding 依据', grounding_hide: '收起 grounding 依据', copied: '已复制', copy: '复制',
       l_health: '健康度', l_security: '安全', l_coverage: '覆盖', l_func: '功能 / 场景', l_community: '社区',
       security: '安全', chinese: '中文', yes: '是', no: '否', level: '层级', frontmatter: 'frontmatter', valid: '合规', invalid: '不合规',
@@ -288,7 +293,17 @@
   const secLabel = r => t('sec_' + r);
   const verdictLabel = v => t('v_' + v);
   const riskLabel = x => t('risk_' + x);
-  const skillSummary = e => { const fn = e.grounding && e.grounding.function && e.grounding.function[lang]; return (fn && fn.purpose) || e.summary; };
+  const purposeIn = (e, code) => {
+    const fn = e.grounding && e.grounding.function && e.grounding.function[code];
+    return (fn && fn.purpose) || '';
+  };
+  // What the row shows: our assessed purpose in the current language, else the upstream
+  // author's description verbatim.
+  const skillSummary = e => purposeIn(e, lang) || e.summary;
+  // True when the row is showing the upstream description because we have no assessment in
+  // this language. Marked in the UI: otherwise an untranslated row is indistinguishable
+  // from a skill whose author simply wrote in English.
+  const isUpstreamText = e => !purposeIn(e, lang);
   function fmtDate(iso) { return iso ? iso.slice(0, 16).replace('T', ' ') : '—'; }
 
   function applyStatic() {
@@ -348,7 +363,11 @@
   function render() {
     const terms = qEl.value.toLowerCase().split(/\s+/).filter(Boolean);
     let rows = skills.filter(e => {
-      const hay = `${e.id} ${e.name} ${e.summary} ${e.kind}`.toLowerCase();
+      // Search every text the entry has, in both languages -- not just the upstream
+      // description. Matching only that made visible Chinese text unsearchable: a row
+      // could display a translated purpose and still not match a word copied out of it.
+      // Both languages, so results do not shift when the display language is flipped.
+      const hay = `${e.id} ${e.name} ${e.summary} ${e.kind} ${purposeIn(e, 'en')} ${purposeIn(e, 'zh')}`.toLowerCase();
       if (!terms.every(x => hay.includes(x))) return false;
       if (zhEl.checked && !e.trust.zh) return false;
       if (activeEl.checked && (e.trust.health || 0) < 70) return false;
@@ -382,7 +401,7 @@
             <button class="gbtn tip" type="button" aria-expanded="${open}" aria-controls="${gid}" aria-label="${esc(open ? t('grounding_hide') : t('grounding_show'))}" data-tip="${esc(t('grounding'))}">${chevronDownIcon}</button>
           </div>
         </div>
-        ${(sm => sm ? `<div class="summary">${esc(sm)}</div>` : '')(skillSummary(e))}
+        ${(sm => sm ? `<div class="summary">${esc(sm)}${isUpstreamText(e) ? `<span class="untranslated tip" tabindex="0" data-tip="${esc(t('upstream_tip'))}">${t('upstream')}</span>` : ''}</div>` : '')(skillSummary(e))}
         <div class="ground-body" id="${gid}" role="region" aria-label="${esc(t('grounding'))}"${open ? '' : ' hidden'}>${groundHtml(e)}</div>
       </li>`;
     }).join('');
