@@ -57,8 +57,8 @@ MAX_CONTRIBUTOR_PAGE = 100  # single page; maintainer count saturates here, whic
 # Per-skill cap on executable files scanned and digested. Raised 50 -> 200 on 2026-08-31.
 # The distribution is extremely skewed: median 0 executable files per skill, p90 = 4, and
 # only 7 of 408 skills exceeded 50. Since the cost is only paid by skills that actually
-# have the files, a cap well above the observed maximum (134) is close to free -- it takes
-# the whole index from 671 to ~949 digested files -- while still bounding a pathological
+# have the files, a cap well above the observed maximum (134) is close to free -- it took
+# the whole index from 671 to 1354 digested files -- while still bounding a pathological
 # repo. Skills over the cap are marked incomplete and refused by verify_skill.py.
 MAX_EXECUTABLE_FILES_PER_SKILL = 200
 _EXECUTABLE_SUFFIXES = {
@@ -224,13 +224,89 @@ def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]
     return found
 
 
-def fetch_tree_inventory(repo_id: str, branch: str, token: str | None) -> tuple[list[dict], bool]:
-    """Return the complete recursive blob inventory, or an incomplete marker."""
-    tree = _get(f"{API}{repo_id}/git/trees/{branch}?recursive=1", token)
+def _subtree_blobs(
+    repo_id: str, ref: str, directory: str, token: str | None, recursive: bool,
+) -> tuple[list[dict], bool]:
+    """Blobs of one directory, re-prefixed back to repo-root-relative paths.
+
+    The Git trees endpoint accepts a path-qualified tree-ish (`<ref>:<dir>`) and returns
+    paths relative to that directory, so they have to be prefixed to line up with the rest
+    of the inventory.
+    """
+    suffix = "?recursive=1" if recursive else ""
+    quoted = f"{urllib.parse.quote(ref, safe='')}:{urllib.parse.quote(directory, safe='/')}"
+    node = _get(f"{API}{repo_id}/git/trees/{quoted}{suffix}", token)
+    if not node:
+        return [], False
+    prefix = directory.rstrip("/") + "/"
+    blobs = [
+        {**item, "path": prefix + item.get("path", "")}
+        for item in node.get("tree", [])
+        if item.get("type") == "blob"
+    ]
+    return blobs, not bool(node.get("truncated"))
+
+
+def _ancestor_dirs(directory: str) -> list[str]:
+    parts = [part for part in directory.split("/") if part and part != "."]
+    return ["/".join(parts[:depth]) for depth in range(1, len(parts))]
+
+
+def fetch_tree_inventory(
+    repo_id: str, ref: str, token: str | None, skill_dirs: list[str] | None = None,
+) -> tuple[list[dict], bool, bool]:
+    """Blob inventory for the skills being indexed.
+
+    Returns (blobs, bundle_complete, repo_tree_complete). The two completeness flags mean
+    different things and must not be conflated:
+
+      bundle_complete    -- every file belonging to the selected skill directories is
+                            accounted for. This is what the security scan and the digest
+                            manifest depend on.
+      repo_tree_complete -- the whole repository tree was enumerated. Only this can back a
+                            claim about how many SKILL.md the repo contains in total.
+
+    GitHub truncates the recursive tree of very large repos. Previously that ended the
+    attempt, and every skill in such a repo was marked unverifiable -- even though the
+    skills themselves are small and their files are perfectly reachable. Walking the
+    selected directories as subtrees gets the bundle in full without enumerating a
+    repository that may hold hundreds of thousands of files.
+    """
+    tree = _get(f"{API}{repo_id}/git/trees/{urllib.parse.quote(ref, safe='')}?recursive=1", token)
     if not tree:
         raise BuildError(f"failed to fetch Git tree inventory for {repo_id}")
-    blobs = [item for item in tree.get("tree", []) if item.get("type") == "blob"]
-    return blobs, not bool(tree.get("truncated"))
+    if not tree.get("truncated"):
+        blobs = [item for item in tree.get("tree", []) if item.get("type") == "blob"]
+        return blobs, True, True
+
+    targets = sorted({d for d in (skill_dirs or []) if d and d != "."})
+    print(
+        f"  … {repo_id}: tree inventory truncated; walking {len(targets)} skill dir(s) as subtrees",
+        file=sys.stderr,
+    )
+
+    # Root level, non-recursive: enough for a repo-root LICENSE without pulling the world.
+    root = _get(f"{API}{repo_id}/git/trees/{urllib.parse.quote(ref, safe='')}", token)
+    if not root:
+        raise BuildError(f"failed to fetch root Git tree for {repo_id}")
+    by_path = {
+        item["path"]: item for item in root.get("tree", []) if item.get("type") == "blob"
+    }
+    bundle_complete = bool(targets)
+
+    # Intermediate directories, non-recursive: the license lookup walks up from the skill
+    # directory, so it needs the files sitting directly in each ancestor.
+    for ancestor in sorted({a for target in targets for a in _ancestor_dirs(target)}):
+        blobs, ok = _subtree_blobs(repo_id, ref, ancestor, token, recursive=False)
+        by_path.update({item["path"]: item for item in blobs})
+        bundle_complete = bundle_complete and ok
+
+    for target in targets:
+        blobs, ok = _subtree_blobs(repo_id, ref, target, token, recursive=True)
+        by_path.update({item["path"]: item for item in blobs})
+        bundle_complete = bundle_complete and ok
+
+    return list(by_path.values()), bundle_complete, False
 
 
 def _eligible_skill_path(path: str) -> bool:
@@ -482,16 +558,21 @@ def build_skill_entries(
     if selection_truncated:
         print(f"  … {repo_id}: {len(paths)} SKILL.md found, capping at {MAX_SKILLS_PER_REPO}", file=sys.stderr)
         paths = paths[:MAX_SKILLS_PER_REPO]
-    inventory, inventory_complete = fetch_tree_inventory(repo_id, ref, token)
+    skill_dirs = [_skill_dir(candidate) for candidate in paths]
+    inventory, bundle_complete, repo_tree_complete = fetch_tree_inventory(
+        repo_id, ref, token, skill_dirs,
+    )
     blob_paths = {item.get("path", "") for item in inventory}
+    # Only a full tree walk can back a count of what the repo holds. The scoped walk gets
+    # every file of the selected skills, which is a different claim.
     coverage = {
-        "discovered_skill_count": discovered_count if inventory_complete else None,
+        "discovered_skill_count": discovered_count if repo_tree_complete else None,
         "selected_skill_count": len(paths),
-        "omitted_skill_count": max(0, discovered_count - len(paths)) if inventory_complete else None,
+        "omitted_skill_count": max(0, discovered_count - len(paths)) if repo_tree_complete else None,
         "selection_limit": MAX_SKILLS_PER_REPO,
-        "complete": inventory_complete and not selection_truncated,
-        "reason": "complete" if inventory_complete and not selection_truncated else (
-            "selection limit" if inventory_complete else "GitHub tree inventory truncated"
+        "complete": repo_tree_complete and not selection_truncated,
+        "reason": "complete" if repo_tree_complete and not selection_truncated else (
+            "selection limit" if repo_tree_complete else "GitHub tree inventory truncated"
         ),
     }
 
@@ -522,7 +603,6 @@ def build_skill_entries(
         }]
 
     entries: list[dict] = []
-    skill_dirs = [_skill_dir(candidate) for candidate in paths]
     texts = fetch_skill_contents(repo_id, ref, paths, token)
     failed_paths = [path for path, text in zip(paths, texts) if text is None]
     if failed_paths:
@@ -545,12 +625,12 @@ def build_skill_entries(
             if content is not None
         }
         security_complete = (
-            inventory_complete
+            bundle_complete
             and len(executable_paths) <= MAX_EXECUTABLE_FILES_PER_SKILL
             and len(executable_files) == len(selected_executable_paths)
         )
         scan = scan_skill_bundle(text, executable_files, complete=security_complete)
-        license_path = _license_path(blob_paths, skill_dir) if inventory_complete else None
+        license_path = _license_path(blob_paths, skill_dir) if bundle_complete else None
         name = parsed["name"] or (skill_dir.split("/")[-1] if skill_dir != "." else repo.get("name") or repo_id)
         entries.append({
             "id": f"{repo_id}/{skill_dir}" if skill_dir != "." else repo_id,
@@ -578,7 +658,7 @@ def build_skill_entries(
                 "security_findings": scan["findings"],
                 "security_scope": scan.get("scope"),
                 "security_complete": scan.get("complete", False),
-                "executable_files_discovered": len(executable_paths) if inventory_complete else None,
+                "executable_files_discovered": len(executable_paths) if bundle_complete else None,
                 "executable_files_scanned": scan.get("executable_files_scanned", 0),
                 "license": "known" if license_path else "unknown",
                 "license_path": license_path,

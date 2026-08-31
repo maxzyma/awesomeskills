@@ -1,6 +1,6 @@
 {
   "schema_version": "0.4",
-  "generated_at": "2026-08-31T05:09:37+00:00",
+  "generated_at": "2026-08-31T05:39:12+00:00",
   "repos": {
     "BehiSecc/awesome-claude-skills": {
       "health": 76,
@@ -322,7 +322,7 @@
       "score_policy": "deterministic-v1"
     },
     "davepoon/buildwithclaude": {
-      "health": 91,
+      "health": 92,
       "security": {
         "pass": 26,
         "warn": 4
@@ -340,7 +340,7 @@
       },
       "frontmatter_pass_rate": 0.97,
       "skill_count": 30,
-      "overall_score": 91,
+      "overall_score": 92,
       "overall_grade": "A",
       "score_policy": "deterministic-v1"
     },
@@ -549,10 +549,11 @@
     "majiayu000/claude-skill-registry": {
       "health": 88,
       "security": {
-        "warn": 30
+        "pass": 29,
+        "warn": 1
       },
       "license": {
-        "unknown": 30
+        "known": 30
       },
       "collection_coverage": {
         "discovered_skill_count": null,
@@ -564,8 +565,8 @@
       },
       "frontmatter_pass_rate": 0.63,
       "skill_count": 30,
-      "overall_score": 63,
-      "overall_grade": "C",
+      "overall_score": 84,
+      "overall_grade": "B",
       "score_policy": "deterministic-v1"
     },
     "mvanhorn/last30days-skill": {
@@ -690,7 +691,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agents-uc-taskmanager/skills/work-status/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "d8f159a8c7e88be403a59c3baab357f5f0c744918fab9627a0bba0b4676fc737",
@@ -703,9 +704,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -715,7 +716,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -758,7 +759,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agents-uc-taskmanager/skills/work-pipeline/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "a78f30f3f3a82770e676874e817408fa0f7249ece4ee0e62ee1b01218295bdd9",
@@ -771,9 +772,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -783,7 +784,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -826,7 +827,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agents-uc-taskmanager/skills/init/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "80dda3fa8ed227660829f6c21ed7d01faf62944c36f75e0d77e5497c5532063a",
@@ -839,9 +840,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -851,7 +852,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -894,7 +895,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agent-triforce/skills/security-audit/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "c0e4dc0b0e0a9cde948e7b9ea1651fd491c0704a4fb79686b5b35b4485955bad",
@@ -907,9 +908,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -919,7 +920,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -962,7 +963,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agents-uc-taskmanager/skills/sdd-pipeline/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "d6a62112aaecbb08b4594412482d996f2b56052c31159b9892084c717cbf39f7",
@@ -975,9 +976,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -987,7 +988,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1033,7 +1034,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agent-triforce/skills/review-findings/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "4c3825a14287a7397261caa91b7591b5f32f8f97abdb3312ec98c66dceed38d3",
@@ -1046,9 +1047,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1058,7 +1059,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1101,7 +1102,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agent-triforce/skills/release-check/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "2ab6e5383b1197c4e444c0472bf3f079c97d1444cf498f939b4f9f915f2ae6ba",
@@ -1114,9 +1115,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1126,7 +1127,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1169,7 +1170,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/aigent-os/skills/open/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "bb1bd39c6d37196a10c129288aeb26271999d6663809d74ef5bd1e2e6fb9d554",
@@ -1182,9 +1183,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1194,7 +1195,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1243,7 +1244,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agent-triforce/skills/implement-feature/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "843bf4b5799a9521d05091555e6658a2d2db19166f4178725375f3facda0df17",
@@ -1256,9 +1257,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1268,7 +1269,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1311,7 +1312,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agent-triforce/skills/feature-spec/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "c433a18101c9e1fc8717fbc6b7cd6d48707ecc14f558bd3a95c870dc527affe9",
@@ -1324,9 +1325,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1336,7 +1337,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1379,7 +1380,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/agent-triforce/skills/code-health/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "0572aa328df8db20558264ed0e1b8287ccd50f4efce2756ac94f9dadc2837736",
@@ -1392,9 +1393,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1404,7 +1405,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1447,7 +1448,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/aigent-os/skills/close/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "7e1eb4884157c66bd73272dc08be42956de212a2d295f368b5c166a78a964acb",
@@ -1460,9 +1461,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1472,7 +1473,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1521,7 +1522,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/brevo-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "03c9499df1db33fa4b9e19f4d54d976c46246e59b798f22f3368f24ccf0b829d",
@@ -1534,9 +1535,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1546,7 +1547,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1589,7 +1590,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/brand-guidelines/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "22578877407714f1642b4b49a86387fff87cca1ab68bf815d74533388b788ff6",
@@ -1602,9 +1603,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1614,7 +1615,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1657,7 +1658,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/box-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "27e6aabeed79a94a2a724a5f253da2fc8e0136026d7fb29bf4af15d45a4402e1",
@@ -1670,9 +1671,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1682,7 +1683,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1725,7 +1726,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/bitbucket-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "5afeae3329f4a78d816a43002b6946532b8c71115aec91ff31c7eb0d8fd2d155",
@@ -1738,9 +1739,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1750,7 +1751,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1793,7 +1794,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/basecamp-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "3a2c452cecb417a972db0946272c5f92b01efbb9e184d56c655a612cc69f1c5b",
@@ -1806,9 +1807,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1818,7 +1819,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1861,7 +1862,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/bamboohr-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "067782357b711cf025f0b3d8948749bdd450751cea7944dc620fb16638cc43c6",
@@ -1874,9 +1875,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1886,7 +1887,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1929,7 +1930,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/aurakit/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "a36e7b0d1b250c5a3d01c8a74c4e0517adef3c947800089cc87dd04e4d881922",
@@ -1942,9 +1943,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -1954,7 +1955,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -1997,7 +1998,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/atlas-cloud-media/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "2a62920e48b1788c54c84a74f0a5b4eff9054b01a486cb58186eac791963d62e",
@@ -2020,9 +2021,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2032,7 +2033,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2081,7 +2082,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/asana-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "d9fb4aa0bb5140de0d3100b83b34174623e6cfdf086d99b77bb4087a239c5d82",
@@ -2094,9 +2095,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2106,7 +2107,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2149,7 +2150,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/artifacts-builder/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "017f29afa95e7165bac8330d062d2c6890dde6ef8551c7d8926826e019d53b29",
@@ -2172,9 +2173,9 @@
       ],
       "files_complete": false,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2184,7 +2185,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2233,7 +2234,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/anti-ui-slop/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "cc2c6b4746b7bda7629042225fbe193e17e7c90c2c115523fdebc34fd762c0e9",
@@ -2246,9 +2247,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2258,7 +2259,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2301,7 +2302,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/amplitude-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "2784d9f46553076e33f66ef9fee5f320ad79bcd469a348bb1361935d497da741",
@@ -2314,9 +2315,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2326,7 +2327,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2369,7 +2370,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/airtable-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "e1a5290cbb755dd70992f1a7c35874effff89218353dfafea5c037625bb0ea9e",
@@ -2382,9 +2383,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2394,7 +2395,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2437,7 +2438,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/ai-search-visibility-audit/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "b6221d2897998b484ea6345e20d5677d5be48a8c4f12bb8966f03e9c6631324b",
@@ -2450,9 +2451,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2462,7 +2463,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2505,7 +2506,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/agenttrace-session-audit/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "45cf3aee92775d42f9317a2eae3ab41e138df1ecfe19e1695542121afb5bbce1",
@@ -2518,9 +2519,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2530,7 +2531,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2573,7 +2574,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/agent-memory-discipline/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "c01ed4b91ccbc8a88214ab685d591bf8cad8a89c0c18bae0b433c9216ad5e180",
@@ -2586,9 +2587,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2598,7 +2599,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2641,7 +2642,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/agent-analytics/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "1fc22970247285419a67afcd19220f71348da427de58b285d99eb04705ab8ea9",
@@ -2654,9 +2655,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2666,7 +2667,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2709,7 +2710,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "plugins/all-skills/skills/activecampaign-automation/SKILL.md",
-      "source_ref": "13333c22defc0c62be5b0427ca6ee42461d41c1d",
+      "source_ref": "87d0fbfb9d0e037958d275c93637095015817845",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "ffe7c05cd73da528915661d2cb1e91723d589fd1de4de482e74d3df71459010e",
@@ -2722,9 +2723,9 @@
       ],
       "files_complete": true,
       "trust": {
-        "health": 91,
+        "health": 92,
         "health_factors": {
-          "recency_days": 1,
+          "recency_days": 0,
           "stars": 3388,
           "forks": 484,
           "watchers": 36,
@@ -2734,7 +2735,7 @@
           "open_issues": 12,
           "maintainers": 99,
           "issues_per_maintainer": 0.12,
-          "open_prs": 2,
+          "open_prs": 0,
           "top_contributor_commits": 313,
           "parts": {
             "recency": 40,
@@ -2794,7 +2795,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -2865,7 +2866,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -2936,7 +2937,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3007,7 +3008,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3078,7 +3079,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3149,7 +3150,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3220,7 +3221,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3291,7 +3292,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3362,7 +3363,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3433,7 +3434,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3504,7 +3505,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3575,7 +3576,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3646,7 +3647,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3717,7 +3718,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3788,7 +3789,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3859,7 +3860,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -3930,7 +3931,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4001,7 +4002,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4072,7 +4073,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4143,7 +4144,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4214,7 +4215,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4285,7 +4286,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4356,7 +4357,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4427,7 +4428,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4498,7 +4499,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4569,7 +4570,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4640,7 +4641,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4711,7 +4712,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4782,7 +4783,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -4853,7 +4854,7 @@
         "health_factors": {
           "recency_days": 0,
           "stars": 25277,
-          "forks": 3591,
+          "forks": 3592,
           "watchers": 228,
           "age_days": 316,
           "archived": false,
@@ -7076,7 +7077,7 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75695,
+          "stars": 75698,
           "forks": 12206,
           "watchers": 300,
           "age_days": 427,
@@ -7144,7 +7145,7 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75695,
+          "stars": 75698,
           "forks": 12206,
           "watchers": 300,
           "age_days": 427,
@@ -7196,7 +7197,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/a-evolve/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "6477f6efbbf3541ce3dfccf6665f5cdf6f241e47dcc3b32787e3e49b90223dbc",
@@ -7207,11 +7208,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7230,20 +7231,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7286,7 +7281,7 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75695,
+          "stars": 75698,
           "forks": 12206,
           "watchers": 300,
           "age_days": 427,
@@ -7374,7 +7369,7 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75695,
+          "stars": 75698,
           "forks": 12206,
           "watchers": 300,
           "age_days": 427,
@@ -7447,7 +7442,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/3rd-agent-browser/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "2c7dab0e789873ae237207d5ff0d24f74579d088d878f0cd7e9982940f9f6ae9",
@@ -7458,11 +7453,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7487,19 +7482,14 @@
             "sev": "low",
             "label": "broad allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)",
             "path": "SKILL.md"
-          },
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
           }
         ],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7526,7 +7516,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-master-controller-adaptationio-skrillz-3/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "655013b4a6d65ebabbe858df0aa934a70eaba5c77c12445eaf7ed9a9f3185555",
@@ -7537,11 +7527,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7560,20 +7550,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7600,7 +7584,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-lock/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "4aacff1a01cdbd9bd47f4d33d209c52123201c55f2cd1627cd375e62433a5641",
@@ -7611,11 +7595,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7634,20 +7618,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7674,7 +7652,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-knowledge-graph-adaptationio-skrillz/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "0e49c046aa01e37320f3f5c7c6f72fec96a30ccd26fa7869b4320e5c8fc86cfb",
@@ -7685,11 +7663,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7708,20 +7686,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7748,7 +7720,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-knowledge-graph/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "0e49c046aa01e37320f3f5c7c6f72fec96a30ccd26fa7869b4320e5c8fc86cfb",
@@ -7759,11 +7731,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7782,20 +7754,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7822,7 +7788,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-handoff-creator-adaptationio-skrillz-3/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "114c2051d9c51ce7849e0c324382ed763e63c5c4b06b7fad35be5a3df8288168",
@@ -7833,11 +7799,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7856,20 +7822,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7896,7 +7856,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-handoff-creator-adaptationio-skrillz-4/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "114c2051d9c51ce7849e0c324382ed763e63c5c4b06b7fad35be5a3df8288168",
@@ -7907,11 +7867,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -7930,20 +7890,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -7970,7 +7924,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-handoff-creator/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "114c2051d9c51ce7849e0c324382ed763e63c5c4b06b7fad35be5a3df8288168",
@@ -7981,11 +7935,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8004,20 +7958,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8044,7 +7992,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-criteria-validator/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "43e92f491d56e62ca41447af4523f22207519a8c4759a8d999ac80cb473a2dcc",
@@ -8055,11 +8003,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8078,20 +8026,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8118,7 +8060,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-commit-manager/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "84a27c632d1ff943ac3b4a785144498a11efe90f34ef8ce7939f44c74a4e9271",
@@ -8129,11 +8071,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8152,20 +8094,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8192,7 +8128,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-checkpoint-manager/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "55d21b72f57bc44b51dc62f1a4c132ae00876ba3ec9a853f8d5f8f40cf90f0ad",
@@ -8203,11 +8139,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8226,20 +8162,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8266,7 +8196,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/ac-autonomous-orchestrator/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "37062f9ac986761d83036a070474307aad7023f88104f569f491bbb1413ac160",
@@ -8277,11 +8207,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8300,20 +8230,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8340,7 +8264,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/81-pipecat/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "dffb469b6f8de8848c362434c4c2ce748eca930dd74c21016e8f2cbc565a207e",
@@ -8351,11 +8275,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8374,20 +8298,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8416,7 +8334,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/80-livekit-agents-panaversity-agentfactory-1f8ecf89/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "a8c69db7d4d85f9c055381100f4b0e6176675037f189ab730af36e08ea4e6eca",
@@ -8427,11 +8345,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8450,20 +8368,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8492,7 +8404,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/80-livekit-agents-majiayu000-claude-skill-registr/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "a8c69db7d4d85f9c055381100f4b0e6176675037f189ab730af36e08ea4e6eca",
@@ -8503,11 +8415,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8526,20 +8438,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8568,7 +8474,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/80-01-autonomous-work/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "1459194a98757929a407e45c4729775bd5dd71e362e96f2cc3f8a3cb83fa9545",
@@ -8579,11 +8485,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8602,20 +8508,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8642,7 +8542,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/71-agent-framework-integration/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "27106c0b4f91061faee0e0ea13128a82b237d5e842a012d59fd9a2aed8a37dcb",
@@ -8653,11 +8553,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8676,20 +8576,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8718,7 +8612,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "2f1537566b9c9f60a01ae32c140026d2f26eb8c8a7633d4018971f15c1770578",
@@ -8729,11 +8623,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8752,20 +8646,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8794,7 +8682,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/39-agent-skills-mcp-code-execution/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "0a56a80568d1db9b6b5fc53bf283c175d4159f29592915c891f9c49fc91d3741",
@@ -8805,11 +8693,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8828,20 +8716,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8870,7 +8752,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/36-anthropic-agents-kit-development/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "8c42ec9a987793fe0413aeccef211600c814d8fb516d8784149ffb0d9bae7d01",
@@ -8881,11 +8763,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8904,20 +8786,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -8946,7 +8822,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/35-google-adk-reliable-agents/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "964c9bac9aaf0e02e527426eaf727a5ec161e31eec1e590717454e92451e26f1",
@@ -8957,11 +8833,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -8980,20 +8856,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9022,7 +8892,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "c8e4fb6bba4fdcc5d0979d029761c01714c3108735382862cb8bda1dacf2b58f",
@@ -9033,11 +8903,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9056,20 +8926,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9098,7 +8962,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/34-openai-agents-sdk/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "c8e4fb6bba4fdcc5d0979d029761c01714c3108735382862cb8bda1dacf2b58f",
@@ -9109,11 +8973,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9132,20 +8996,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9174,7 +9032,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "8cec4fb81e44885b142baf6975a592e00d29340955593a74bdfac443ed6ec462",
@@ -9185,11 +9043,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9208,20 +9066,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9248,7 +9100,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "8cec4fb81e44885b142baf6975a592e00d29340955593a74bdfac443ed6ec462",
@@ -9259,11 +9111,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9282,20 +9134,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9322,7 +9168,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/2026-legal-research-agent/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "ae04b91e0630dcf96a212f5d6bf8726ed3e9aa03aa620316d6a87be14357c44c",
@@ -9333,11 +9179,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9356,20 +9202,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9396,7 +9236,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/200-agents-md/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "4b8b9a9176ab21f53b3035269606fabbb5e13b3e0656a70443ebe930b0835a0e",
@@ -9407,11 +9247,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9430,20 +9270,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9470,7 +9304,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/003-agents-installation/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "bd7a35a2133991ee4b4c2e0227628840a172909b01fcbfbcb159b311a8b94b0d",
@@ -9481,11 +9315,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9504,20 +9338,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -9544,7 +9372,7 @@
       "kind": "skill",
       "level": "skill",
       "path": "skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436/SKILL.md",
-      "source_ref": "c3f612718e790b63a843f49d40086426869f2f2a",
+      "source_ref": "b2fb5f555f4285b8f35a58f3179a04dbdce9f170",
       "source_ref_kind": "commit",
       "source_branch": "main",
       "content_sha256": "6d4003332d0430b05e63759945e274342f9dea41813f0f3a8bbe0113cb9f8893",
@@ -9555,11 +9383,11 @@
           "role": "skill"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": 0,
+          "recency_days": -1,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -9578,20 +9406,14 @@
             "maturity": 10
           }
         },
-        "security": "warn",
-        "security_findings": [
-          {
-            "sev": "low",
-            "label": "executable-file scan incomplete",
-            "path": "skill bundle"
-          }
-        ],
+        "security": "pass",
+        "security_findings": [],
         "security_scope": "SKILL.md + executable text files",
-        "security_complete": false,
-        "executable_files_discovered": null,
+        "security_complete": true,
+        "executable_files_discovered": 0,
         "executable_files_scanned": 0,
-        "license": "unknown",
-        "license_path": null,
+        "license": "known",
+        "license_path": "LICENSE",
         "collection_coverage": {
           "discovered_skill_count": null,
           "selected_skill_count": 30,
@@ -12507,7 +12329,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 1,
-          "stars": 33411,
+          "stars": 33413,
           "forks": 3535,
           "watchers": 234,
           "age_days": 306,
@@ -13603,8 +13425,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -13677,8 +13499,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -13745,8 +13567,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -13823,8 +13645,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -13897,8 +13719,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -13986,8 +13808,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14060,8 +13882,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14134,8 +13956,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14208,8 +14030,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14282,8 +14104,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14350,8 +14172,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14469,8 +14291,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14577,8 +14399,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14736,8 +14558,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14810,8 +14632,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14884,8 +14706,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -14968,8 +14790,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15056,8 +14878,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15130,8 +14952,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15209,8 +15031,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15277,8 +15099,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15345,8 +15167,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15469,8 +15291,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15548,8 +15370,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15621,8 +15443,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15694,8 +15516,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15768,8 +15590,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15882,8 +15704,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -15956,8 +15778,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -16030,8 +15852,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39655,
-          "forks": 3688,
+          "stars": 39715,
+          "forks": 3694,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19828,7 +19650,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -19896,7 +19718,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -19964,7 +19786,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -20032,7 +19854,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -20106,7 +19928,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -20174,7 +19996,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -20242,7 +20064,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -20310,7 +20132,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -20378,7 +20200,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21046,7 +20868,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 0,
-          "stars": 60609,
+          "stars": 60620,
           "forks": 5302,
           "watchers": 218,
           "age_days": 219,
@@ -21165,7 +20987,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21233,7 +21055,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21306,7 +21128,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21374,7 +21196,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21442,7 +21264,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21510,7 +21332,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21578,7 +21400,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21646,7 +21468,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21714,7 +21536,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21782,7 +21604,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21850,7 +21672,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21918,7 +21740,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -21986,7 +21808,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -22054,7 +21876,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -22122,7 +21944,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -22247,7 +22069,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90977,
+          "stars": 90981,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -22910,8 +22732,8 @@
         "health": 68,
         "health_factors": {
           "recency_days": 0,
-          "stars": 5843,
-          "forks": 709,
+          "stars": 5860,
+          "forks": 710,
           "watchers": 17,
           "age_days": 145,
           "archived": false,
@@ -25024,7 +24846,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25103,7 +24925,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25176,7 +24998,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25249,7 +25071,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25328,7 +25150,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25396,7 +25218,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25479,7 +25301,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25553,7 +25375,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25621,7 +25443,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25699,7 +25521,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25769,7 +25591,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25878,7 +25700,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -25952,7 +25774,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26020,7 +25842,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26088,7 +25910,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26162,7 +25984,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26230,7 +26052,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26298,7 +26120,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26366,7 +26188,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26440,7 +26262,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26508,7 +26330,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26576,7 +26398,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26644,7 +26466,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26712,7 +26534,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26780,7 +26602,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -26848,7 +26670,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -27586,10 +27408,10 @@
         "health": 61,
         "health_factors": {
           "recency_days": 0,
-          "stars": 35575,
-          "forks": 2280,
+          "stars": 35677,
+          "forks": 2288,
           "watchers": 127,
-          "age_days": 137,
+          "age_days": 138,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 39,
@@ -27659,7 +27481,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -27727,7 +27549,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -27795,7 +27617,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -27863,7 +27685,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35639,
+          "stars": 35640,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -28186,8 +28008,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -28274,8 +28096,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -28352,8 +28174,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -28426,8 +28248,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -28514,8 +28336,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -28632,8 +28454,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -28970,8 +28792,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29078,8 +28900,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29166,8 +28988,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29234,8 +29056,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29302,8 +29124,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29665,8 +29487,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29733,8 +29555,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29801,8 +29623,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29869,8 +29691,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -29939,8 +29761,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -30007,8 +29829,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -30080,8 +29902,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -30148,8 +29970,8 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172679,
-          "forks": 20509,
+          "stars": 172681,
+          "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
           "archived": false,
@@ -30216,7 +30038,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30284,7 +30106,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30352,7 +30174,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30420,7 +30242,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30498,7 +30320,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30572,7 +30394,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30640,7 +30462,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30708,7 +30530,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30776,7 +30598,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30844,7 +30666,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30912,7 +30734,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -30980,7 +30802,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31048,7 +30870,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31116,7 +30938,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31184,7 +31006,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31252,7 +31074,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31320,7 +31142,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31388,7 +31210,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31456,7 +31278,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31524,7 +31346,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31592,7 +31414,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31660,7 +31482,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31728,7 +31550,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31796,7 +31618,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31864,7 +31686,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -31932,7 +31754,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -32000,7 +31822,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -32068,7 +31890,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -32138,7 +31960,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -32208,7 +32030,7 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74083,
+          "stars": 74085,
           "forks": 8485,
           "watchers": 459,
           "age_days": 317,
@@ -32669,9 +32491,9 @@
         "health": 37,
         "health_factors": {
           "recency_days": 132,
-          "stars": 208938,
+          "stars": 208940,
           "forks": 21275,
-          "watchers": 1212,
+          "watchers": 1213,
           "age_days": 216,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
@@ -32924,7 +32746,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47553,
+          "stars": 47554,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -32992,7 +32814,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47553,
+          "stars": 47554,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -33060,7 +32882,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47553,
+          "stars": 47554,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -33128,7 +32950,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47553,
+          "stars": 47554,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -33196,7 +33018,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47553,
+          "stars": 47554,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,

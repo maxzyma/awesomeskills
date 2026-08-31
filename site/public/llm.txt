@@ -1,94 +1,94 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-08-31T05:09:37+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-08-31T05:39:12+00:00. Human + agent readable. Full data: /index.json
 # health/security/repo grade are deterministic; optional summaries are agent enrichment
 
-- work-status (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-status) — health 91, security pass, en
+- work-status (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-status) — health 92, security pass, en
   Shows WORK progress and TASK status. Use when the user asks about WORK list, WORK progress, TASK status, or pipeline status (e.g., "WORK list", "WORK-01 progress", "show status").
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/work-status
-- work-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-pipeline) — health 91, security pass, en
+- work-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/work-pipeline) — health 92, security pass, en
   Triggers the WORK-PIPELINE when a user request starts with a [] tag (e.g., [new-feature], [bugfix], [WORK start]). Use this skill whenever you detect a [] tag at the beginning of a user message.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/work-pipeline
-- uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 91, security pass, en
+- uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 92, security pass, en
   Initialize uc-taskmanager for the current project. Creates works/ directory and configures Bash permissions in .claude/settings.local.json. Use when the user says "uctm init", "initialize uctm", "uctm 초기화", or "초기화".
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/init
-- security-audit (davepoon/buildwithclaude/plugins/agent-triforce/skills/security-audit) — health 91, security pass, en
+- security-audit (davepoon/buildwithclaude/plugins/agent-triforce/skills/security-audit) — health 92, security pass, en
   Deep security audit covering OWASP Top 10, authentication, authorization, data protection, dependency vulnerabilities, and secrets scanning. Delegates to the Centinela (QA) agent.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/security-audit
-- sdd-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline) — health 91, security pass, en [frontmatter:invalid]
+- sdd-pipeline (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline) — health 92, security pass, en [frontmatter:invalid]
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agents-uc-taskmanager/skills/sdd-pipeline
-- review-findings (davepoon/buildwithclaude/plugins/agent-triforce/skills/review-findings) — health 91, security pass, en
+- review-findings (davepoon/buildwithclaude/plugins/agent-triforce/skills/review-findings) — health 92, security pass, en
   Addresses and fixes findings from a QA code review. Reads the review report, fixes critical and warning issues, and prepares for re-verification. Delegates to the Forja (Dev) agent.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/review-findings
-- release-check (davepoon/buildwithclaude/plugins/agent-triforce/skills/release-check) — health 91, security pass, en
+- release-check (davepoon/buildwithclaude/plugins/agent-triforce/skills/release-check) — health 92, security pass, en
   Pre-release verification checklist. Validates features, tests, docs, security, and quality gates before shipping. Delegates to the Centinela (QA) agent.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/release-check
-- open (davepoon/buildwithclaude/plugins/aigent-os/skills/open) — health 91, security warn, en
+- open (davepoon/buildwithclaude/plugins/aigent-os/skills/open) — health 92, security warn, en
   Boot the session, load context from the vault, and surface what matters
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/aigent-os/skills/open
-- implement-feature (davepoon/buildwithclaude/plugins/agent-triforce/skills/implement-feature) — health 91, security pass, en
+- implement-feature (davepoon/buildwithclaude/plugins/agent-triforce/skills/implement-feature) — health 92, security pass, en
   Implements a feature from its specification. Reads the spec, designs architecture, writes code and tests. Delegates to the Forja (Dev) agent.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/implement-feature
-- feature-spec (davepoon/buildwithclaude/plugins/agent-triforce/skills/feature-spec) — health 91, security pass, en
+- feature-spec (davepoon/buildwithclaude/plugins/agent-triforce/skills/feature-spec) — health 92, security pass, en
   Creates a complete product feature specification with acceptance criteria, scope, dependencies, and risks. Delegates to the Prometeo (PM) agent.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/feature-spec
-- code-health (davepoon/buildwithclaude/plugins/agent-triforce/skills/code-health) — health 91, security pass, en
+- code-health (davepoon/buildwithclaude/plugins/agent-triforce/skills/code-health) — health 92, security pass, en
   Scans the codebase for dead code, tech debt, outdated dependencies, and code quality issues. Delegates to the Centinela (QA) agent.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/agent-triforce/skills/code-health
-- close (davepoon/buildwithclaude/plugins/aigent-os/skills/close) — health 91, security warn, en
+- close (davepoon/buildwithclaude/plugins/aigent-os/skills/close) — health 92, security warn, en
   Commit the session to durable vault memory and prepare a clean resume point
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/aigent-os/skills/close
-- brevo-automation (davepoon/buildwithclaude/plugins/all-skills/skills/brevo-automation) — health 91, security pass, en
+- brevo-automation (davepoon/buildwithclaude/plugins/all-skills/skills/brevo-automation) — health 92, security pass, en
   Automate Brevo (Sendinblue) tasks via Rube MCP (Composio): manage email campaigns, create/edit templates, track senders, and monitor campaign performance. Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/brevo-automation
-- brand-guidelines (davepoon/buildwithclaude/plugins/all-skills/skills/brand-guidelines) — health 91, security pass, en
+- brand-guidelines (davepoon/buildwithclaude/plugins/all-skills/skills/brand-guidelines) — health 92, security pass, en
   Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/brand-guidelines
-- box-automation (davepoon/buildwithclaude/plugins/all-skills/skills/box-automation) — health 91, security pass, en
+- box-automation (davepoon/buildwithclaude/plugins/all-skills/skills/box-automation) — health 92, security pass, en
   Automate Box cloud storage operations including file upload/download, search, folder management, sharing, collaborations, and metadata queries via Rube MCP (Composio). Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/box-automation
-- bitbucket-automation (davepoon/buildwithclaude/plugins/all-skills/skills/bitbucket-automation) — health 91, security pass, en
+- bitbucket-automation (davepoon/buildwithclaude/plugins/all-skills/skills/bitbucket-automation) — health 92, security pass, en
   Automate Bitbucket repositories, pull requests, branches, issues, and workspace management via Rube MCP (Composio). Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/bitbucket-automation
-- basecamp-automation (davepoon/buildwithclaude/plugins/all-skills/skills/basecamp-automation) — health 91, security pass, en
+- basecamp-automation (davepoon/buildwithclaude/plugins/all-skills/skills/basecamp-automation) — health 92, security pass, en
   Automate Basecamp project management, to-dos, messages, people, and to-do list organization via Rube MCP (Composio). Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/basecamp-automation
-- bamboohr-automation (davepoon/buildwithclaude/plugins/all-skills/skills/bamboohr-automation) — health 91, security pass, en
+- bamboohr-automation (davepoon/buildwithclaude/plugins/all-skills/skills/bamboohr-automation) — health 92, security pass, en
   Automate BambooHR tasks via Rube MCP (Composio): employees, time-off, benefits, dependents, employee updates. Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/bamboohr-automation
-- aurakit (davepoon/buildwithclaude/plugins/all-skills/skills/aurakit) — health 91, security pass, en
+- aurakit (davepoon/buildwithclaude/plugins/all-skills/skills/aurakit) — health 92, security pass, en
   Sonnet Amplified fullstack engine. 34 modes, SEC-01~15 OWASP security, 13 runtime hooks, 75% token reduction. Install: npx @smorky85/aurakit
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/aurakit
-- atlas-cloud-media (davepoon/buildwithclaude/plugins/all-skills/skills/atlas-cloud-media) — health 91, security warn, en
+- atlas-cloud-media (davepoon/buildwithclaude/plugins/all-skills/skills/atlas-cloud-media) — health 92, security warn, en
   Discover Atlas Cloud image and video models, inspect their live schemas, and submit one confirmed media generation request with bounded GET polling. Use when integrating Atlas Cloud media APIs or generating images and videos without hard-coding stale model parameters.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/atlas-cloud-media
-- asana-automation (davepoon/buildwithclaude/plugins/all-skills/skills/asana-automation) — health 91, security pass, en
+- asana-automation (davepoon/buildwithclaude/plugins/all-skills/skills/asana-automation) — health 92, security pass, en
   Automate Asana tasks via Rube MCP (Composio): tasks, projects, sections, teams, workspaces. Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/asana-automation
-- artifacts-builder (davepoon/buildwithclaude/plugins/all-skills/skills/artifacts-builder) — health 91, security warn, en
+- artifacts-builder (davepoon/buildwithclaude/plugins/all-skills/skills/artifacts-builder) — health 92, security warn, en
   Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/artifacts-builder
-- anti-ui-slop (davepoon/buildwithclaude/plugins/all-skills/skills/anti-ui-slop) — health 91, security pass, en
+- anti-ui-slop (davepoon/buildwithclaude/plugins/all-skills/skills/anti-ui-slop) — health 92, security pass, en
   Stop coding agents from shipping generic UI. Use UIZZE's 800,000+ real web and iOS screens to build product-specific interfaces, define a design contract, cover required states, and run a hard finish gate. Use for web or iOS UI design, implementation, redesign, critique, and pre-ship review in Codex, Claude Code, Cursor, Copilot, and other coding agents.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/anti-ui-slop
-- amplitude-automation (davepoon/buildwithclaude/plugins/all-skills/skills/amplitude-automation) — health 91, security pass, en
+- amplitude-automation (davepoon/buildwithclaude/plugins/all-skills/skills/amplitude-automation) — health 92, security pass, en
   Automate Amplitude tasks via Rube MCP (Composio): events, user activity, cohorts, user identification. Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/amplitude-automation
-- airtable-automation (davepoon/buildwithclaude/plugins/all-skills/skills/airtable-automation) — health 91, security pass, en
+- airtable-automation (davepoon/buildwithclaude/plugins/all-skills/skills/airtable-automation) — health 92, security pass, en
   Automate Airtable tasks via Rube MCP (Composio): records, bases, tables, fields, views. Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/airtable-automation
-- ai-search-visibility-audit (davepoon/buildwithclaude/plugins/all-skills/skills/ai-search-visibility-audit) — health 91, security pass, en
+- ai-search-visibility-audit (davepoon/buildwithclaude/plugins/all-skills/skills/ai-search-visibility-audit) — health 92, security pass, en
   Audit whether a website can be found, crawled, and cited by AI answer engines such as ChatGPT Search, Perplexity, Google AI Overviews, and Microsoft Copilot. Use when someone asks why their brand is missing from AI answers, whether AI crawlers can read their site, how to get cited by ChatGPT or Perplexity, or asks for a GEO or AEO (generative / answer engine optimization) review. Produces a citation baseline across buyer-intent prompts, a crawler-access check, a citability review of named pages, and a ranked fix list. Not for keyword rank tracking, paid search, or pages behind a login.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/ai-search-visibility-audit
-- agenttrace-session-audit (davepoon/buildwithclaude/plugins/all-skills/skills/agenttrace-session-audit) — health 91, security pass, en
+- agenttrace-session-audit (davepoon/buildwithclaude/plugins/all-skills/skills/agenttrace-session-audit) — health 92, security pass, en
   Audit local AI coding-agent sessions with agenttrace for cost, tokens, tool failures, latency, anomalies, health, diffs, and CI gates.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/agenttrace-session-audit
-- agent-memory-discipline (davepoon/buildwithclaude/plugins/all-skills/skills/agent-memory-discipline) — health 91, security pass, en
+- agent-memory-discipline (davepoon/buildwithclaude/plugins/all-skills/skills/agent-memory-discipline) — health 92, security pass, en
   Teaches when to recall from long-term memory before acting and when to save durable decisions, corrections and failures afterwards. Use when a memory tool or MCP memory server is connected but the agent is not using it consistently, when the user complains that the assistant forgets preferences, conventions or past decisions between sessions, or when setting up persistent memory for a project. Works with any memory backend: a folder of Markdown files, a local MCP server, or a managed service.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/agent-memory-discipline
-- agent-analytics (davepoon/buildwithclaude/plugins/all-skills/skills/agent-analytics) — health 91, security pass, en
+- agent-analytics (davepoon/buildwithclaude/plugins/all-skills/skills/agent-analytics) — health 92, security pass, en
   Analytics your AI agent can actually use. Track, analyze, run A/B experiments, and optimize across all your projects via CLI. Includes a growth playbook so your agent knows HOW to grow, not just what to track.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/agent-analytics
-- activecampaign-automation (davepoon/buildwithclaude/plugins/all-skills/skills/activecampaign-automation) — health 91, security pass, en
+- activecampaign-automation (davepoon/buildwithclaude/plugins/all-skills/skills/activecampaign-automation) — health 92, security pass, en
   Automate ActiveCampaign tasks via Rube MCP (Composio): manage contacts, tags, list subscriptions, automation enrollment, and tasks. Always search tools first for current schemas.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/activecampaign-automation
 - aws-solution-architect (alirezarezvani/claude-skills/.gemini/skills/aws-solution-architect) — health 90, security pass, en [frontmatter:invalid]
@@ -247,7 +247,7 @@
 - mcp-builder (shareAI-lab/learn-claude-code/skills/mcp-builder) — health 88, security pass, en
   Build MCP (Model Context Protocol) servers that give Claude new capabilities. Use when user wants to create an MCP server, add tools to Claude, or integrate external services.
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/mcp-builder
-- evolving-ai-agents (majiayu000/claude-skill-registry/skills/agent/a-evolve) — health 88, security warn, en
+- evolving-ai-agents (majiayu000/claude-skill-registry/skills/agent/a-evolve) — health 88, security pass, en
   Provides guidance for automatically evolving and optimizing AI agents across any domain using LLM-driven evolution algorithms. Use when building self-improving agents, optimizing agent prompts and skills against benchmarks, or implementing automated agent evaluation loops.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/a-evolve
 - code-review (shareAI-lab/learn-claude-code/skills/code-review) — health 88, security pass, en
@@ -259,88 +259,88 @@
 - agent-browser (majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser) — health 88, security warn, en
   Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/3rd-agent-browser
-- ac-master-controller (majiayu000/claude-skill-registry/skills/agent/ac-master-controller-adaptationio-skrillz-3) — health 88, security warn, en
+- ac-master-controller (majiayu000/claude-skill-registry/skills/agent/ac-master-controller-adaptationio-skrillz-3) — health 88, security pass, en
   Master controller for complete autonomous operation. Use when starting full autonomous projects, managing end-to-end workflow, controlling autonomous lifecycle, or running complete implementations.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-master-controller-adaptationio-skrillz-3
-- ac-lock (majiayu000/claude-skill-registry/skills/agent/ac-lock) — health 88, security warn, en
+- ac-lock (majiayu000/claude-skill-registry/skills/agent/ac-lock) — health 88, security pass, en
   Phase 4.0 — Acceptance Criteria lock checkpoint before implementation. Consolidates all ACs from PRD, TechSpec, and Tasks, presents to user for confirmation, and saves the locked AC list to accepted-criteria.md. Implementation only starts after explicit user confirmation.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-lock
-- ac-knowledge-graph (majiayu000/claude-skill-registry/skills/agent/ac-knowledge-graph-adaptationio-skrillz) — health 88, security warn, en
+- ac-knowledge-graph (majiayu000/claude-skill-registry/skills/agent/ac-knowledge-graph-adaptationio-skrillz) — health 88, security pass, en
   Manage knowledge graph for autonomous coding. Use when storing relationships, querying connected knowledge, building project understanding, or maintaining semantic memory.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-knowledge-graph-adaptationio-skrillz
-- ac-knowledge-graph (majiayu000/claude-skill-registry/skills/agent/ac-knowledge-graph) — health 88, security warn, en
+- ac-knowledge-graph (majiayu000/claude-skill-registry/skills/agent/ac-knowledge-graph) — health 88, security pass, en
   Manage knowledge graph for autonomous coding. Use when storing relationships, querying connected knowledge, building project understanding, or maintaining semantic memory.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-knowledge-graph
-- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator-adaptationio-skrillz-3) — health 88, security warn, en
+- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator-adaptationio-skrillz-3) — health 88, security pass, en
   Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-handoff-creator-adaptationio-skrillz-3
-- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator-adaptationio-skrillz-4) — health 88, security warn, en
+- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator-adaptationio-skrillz-4) — health 88, security pass, en
   Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-handoff-creator-adaptationio-skrillz-4
-- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator) — health 88, security warn, en
+- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator) — health 88, security pass, en
   Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-handoff-creator
-- ac-criteria-validator (majiayu000/claude-skill-registry/skills/agent/ac-criteria-validator) — health 88, security warn, en
+- ac-criteria-validator (majiayu000/claude-skill-registry/skills/agent/ac-criteria-validator) — health 88, security pass, en
   Validate acceptance criteria and feature completion. Use when checking if features pass, validating test results, verifying acceptance criteria, or determining feature completion status.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-criteria-validator
-- ac-commit-manager (majiayu000/claude-skill-registry/skills/agent/ac-commit-manager) — health 88, security warn, en
+- ac-commit-manager (majiayu000/claude-skill-registry/skills/agent/ac-commit-manager) — health 88, security pass, en
   Manage git commits for autonomous coding. Use when committing feature implementations, creating descriptive commits, managing git workflow, or handling version control.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-commit-manager
-- ac-checkpoint-manager (majiayu000/claude-skill-registry/skills/agent/ac-checkpoint-manager) — health 88, security warn, en
+- ac-checkpoint-manager (majiayu000/claude-skill-registry/skills/agent/ac-checkpoint-manager) — health 88, security pass, en
   Manage checkpoints for rollback capability. Use when creating save points, rolling back changes, managing recovery points, or restoring previous states.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-checkpoint-manager
-- ac-autonomous-orchestrator (majiayu000/claude-skill-registry/skills/agent/ac-autonomous-orchestrator) — health 88, security warn, en
+- ac-autonomous-orchestrator (majiayu000/claude-skill-registry/skills/agent/ac-autonomous-orchestrator) — health 88, security pass, en
   Main orchestrator for autonomous coding operations. Use when running autonomous sessions, coordinating components, managing the full lifecycle, or orchestrating implementations.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-autonomous-orchestrator
-- 81-pipecat (majiayu000/claude-skill-registry/skills/agent/81-pipecat) — health 88, security warn, en [frontmatter:invalid]
+- 81-pipecat (majiayu000/claude-skill-registry/skills/agent/81-pipecat) — health 88, security pass, en [frontmatter:invalid]
   Create your Pipecat skill from official documentation, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/81-pipecat
-- 80-livekit-agents-panaversity-agentfactory-1f8ecf89 (majiayu000/claude-skill-registry/skills/agent/80-livekit-agents-panaversity-agentfactory-1f8ecf89) — health 88, security warn, en [frontmatter:invalid]
+- 80-livekit-agents-panaversity-agentfactory-1f8ecf89 (majiayu000/claude-skill-registry/skills/agent/80-livekit-agents-panaversity-agentfactory-1f8ecf89) — health 88, security pass, en [frontmatter:invalid]
   Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-livekit-agents-panaversity-agentfactory-1f8ecf89
-- 80-livekit-agents-majiayu000-claude-skill-registr (majiayu000/claude-skill-registry/skills/agent/80-livekit-agents-majiayu000-claude-skill-registr) — health 88, security warn, en [frontmatter:invalid]
+- 80-livekit-agents-majiayu000-claude-skill-registr (majiayu000/claude-skill-registry/skills/agent/80-livekit-agents-majiayu000-claude-skill-registr) — health 88, security pass, en [frontmatter:invalid]
   Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-livekit-agents-majiayu000-claude-skill-registr
-- 80-01-autonomous-work (majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work) — health 88, security warn, en
+- 80-01-autonomous-work (majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work) — health 88, security pass, en
   Work autonomously without waiting for hand-holding — complete tasks end-to-end without asking for permission at every step.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-01-autonomous-work
-- 71-agent-framework-integration (majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration) — health 88, security warn, en [frontmatter:invalid]
+- 71-agent-framework-integration (majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration) — health 88, security pass, en [frontmatter:invalid]
   Create your agent-integration skill from OpenAI SDK and LiteLLM documentation before learning framework integration
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/71-agent-framework-integration
-- 39-agent-skills-mcp-code-execution-panaversity-agentfactory (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory) — health 88, security warn, en [frontmatter:invalid]
+- 39-agent-skills-mcp-code-execution-panaversity-agentfactory (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory) — health 88, security pass, en [frontmatter:invalid]
   Build a specification-first Digital FTE that orchestrates accumulated intelligence from Lessons 1-7. Learn to compose execution skills into production-ready agents, validate against specifications, and position for monetization.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory
-- 39-agent-skills-mcp-code-execution (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution) — health 88, security warn, en [frontmatter:invalid]
+- 39-agent-skills-mcp-code-execution (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution) — health 88, security pass, en [frontmatter:invalid]
   Create a skill that orchestrates the write-execute-analyze loop to autonomously process data. Learn to implement error recovery, iterate toward robust solutions, and test your skill across diverse input scenarios. This is where specification-driven development meets real problem-solving.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution
-- 36-anthropic-agents-kit-development (majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development) — health 88, security warn, en [frontmatter:invalid]
+- 36-anthropic-agents-kit-development (majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development) — health 88, security pass, en [frontmatter:invalid]
   Create your Claude Agent SDK skill in one prompt, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/36-anthropic-agents-kit-development
-- 35-google-adk-reliable-agents (majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents) — health 88, security warn, en [frontmatter:invalid]
+- 35-google-adk-reliable-agents (majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents) — health 88, security pass, en [frontmatter:invalid]
   Create your Google Agent Development Kit skill in one prompt, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/35-google-adk-reliable-agents
-- 34-openai-agents-sdk-panaversity-agentfactory-8f59f147 (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147) — health 88, security warn, en [frontmatter:invalid]
+- 34-openai-agents-sdk-panaversity-agentfactory-8f59f147 (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147) — health 88, security pass, en [frontmatter:invalid]
   Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147
-- 34-openai-agents-sdk (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk) — health 88, security warn, en [frontmatter:invalid]
+- 34-openai-agents-sdk (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk) — health 88, security pass, en [frontmatter:invalid]
   Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk
-- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework) — health 88, security warn, en
+- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework) — health 88, security pass, en
   Generated by Gremlin Forge Meta-Agent 🍆👾⚡
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework
-- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf) — health 88, security warn, en
+- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf) — health 88, security pass, en
   Generated by Gremlin Forge Meta-Agent 🍆👾⚡
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf
-- 2026-legal-research-agent (majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent) — health 88, security warn, en
+- 2026-legal-research-agent (majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent) — health 88, security pass, en
   Expert legal research agent for finding and scraping expungement data state by state. Knows authoritative sources, URL patterns, Firecrawl configuration, and 2026 legal landscape. Activate on "find expungement data", "scrape state laws", "legal research", "court URLs", "statute sources", "Clean Slate laws", "automatic expungement research". NOT for interpreting laws (use national-expungement-expert), building UI, or legal advice.
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/2026-legal-research-agent
-- 200-agents-md (majiayu000/claude-skill-registry/skills/agent/200-agents-md) — health 88, security warn, en
+- 200-agents-md (majiayu000/claude-skill-registry/skills/agent/200-agents-md) — health 88, security pass, en
   Use when you need to generate an AGENTS.md file for a Java repository — covering project conventions, tech stack, file structure, commands, Git workflow, and contributor boundaries — through a modular, step-based interactive process that adapts to your specific project needs. This should trigger for requests such as Create AGENTS.md; Update AGENTS.md file; Add agent instructions. Part of cursor-rules-java project
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/200-agents-md
-- 003-agents-installation (majiayu000/claude-skill-registry/skills/agent/003-agents-installation) — health 88, security warn, en
+- 003-agents-installation (majiayu000/claude-skill-registry/skills/agent/003-agents-installation) — health 88, security pass, en
   Use when you need to install the embedded robot agents into either .cursor/agents or .claude/agents, selecting the destination interactively and copying the embedded agent definitions from project assets. This should trigger for requests such as Install embedded agents; Bootstrap .cursor/agents; Bootstrap .claude/agents; Copy robot agents. Part of cursor-rules-java project
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/003-agents-installation
-- 0000-dorgonman-kano-agent-backlog-s-59370436 (majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436) — health 88, security warn, en [frontmatter:invalid]
+- 0000-dorgonman-kano-agent-backlog-s-59370436 (majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436) — health 88, security pass, en [frontmatter:invalid]
   https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436
 - transcript-fixer (daymade/claude-code-skills/daymade-audio/transcript-fixer) — health 86, security fail, en
   Corrects speech-to-text transcription errors with dictionary rules and Claude's built-in AI (no external API key required); Native AI Correction is the default, Stage 1 alone is incomplete, and Stage 3 API is only for automation without Claude Code. Builds personalized correction databases, loads person-name ASR variants from the configured global people roster, and reads per-domain contexts for homophones. Before correcting a person name, the agent must consult both the global roster and the owning project's identity roster; project rosters are not auto-loaded, and occurrence frequency is never identity evidence. Use for ASR/STT output with recognition errors, homophones, garbled technical terms, person-name errors, or mixed Chinese/English, and for cleaning meeting notes, lecture transcripts, interviews, or any speech-recognition text—even when the user only says “fix this transcript,” “clean up these meeting notes,” or mentions a garbled name.
