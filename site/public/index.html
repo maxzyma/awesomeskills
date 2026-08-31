@@ -183,7 +183,7 @@
       repo_all: 'All repos', sort_relevance: 'Sort: trust', sort_health: 'Sort: activity', sort_grade: 'Sort: repo grade', sort_name: 'Sort: name',
       prev: '‹ Prev', next: 'Next ›', page_of: (p, n) => `page ${p} / ${n}`,
       meta: (m, n, d) => `${m} of ${n} skills · index generated ${d}`,
-      no_match: 'No matching skills.', loading: 'Loading index…',
+      no_match: 'No matching skills.', loading: 'Loading index…', load_failed: 'Failed to load the index',
       grounding: 'grounding', grounding_show: 'Show grounding', grounding_hide: 'Hide grounding', copied: 'Copied', copy: 'Copy',
       l_health: 'Health', l_security: 'Security', l_coverage: 'Coverage', l_func: 'Function / scenarios', l_community: 'Community',
       security: 'security', chinese: 'Chinese', yes: 'yes', no: 'no', level: 'level', frontmatter: 'frontmatter', valid: 'valid', invalid: 'invalid',
@@ -214,7 +214,7 @@
       repo_all: '全部仓库', sort_relevance: '排序：可信度', sort_health: '排序：活跃度', sort_grade: '排序：仓库评级', sort_name: '排序：名称',
       prev: '‹ 上一页', next: '下一页 ›', page_of: (p, n) => `第 ${p} / ${n} 页`,
       meta: (m, n, d) => `${n} 个 skill 中 ${m} 个匹配 · 索引生成于 ${d}`,
-      no_match: '没有匹配的 skill。', loading: '加载索引中…',
+      no_match: '没有匹配的 skill。', loading: '加载索引中…', load_failed: '索引加载失败',
       grounding: 'grounding 依据', grounding_show: '展开 grounding 依据', grounding_hide: '收起 grounding 依据', copied: '已复制', copy: '复制',
       l_health: '健康度', l_security: '安全', l_coverage: '覆盖', l_func: '功能 / 场景', l_community: '社区',
       security: '安全', chinese: '中文', yes: '是', no: '否', level: '层级', frontmatter: 'frontmatter', valid: '合规', invalid: '不合规',
@@ -391,14 +391,48 @@
 
   function setLang(l) { lang = l; localStorage.setItem('lang', l); applyStatic(); render(); }
 
+  // Fetches the display-only projection, not index.json: the full artifact carries the
+  // pinned refs and per-file digest manifest that only agents and verify_skill.py need,
+  // and the manifest alone is its single largest field.
+  const SITE_INDEX = './site-index.json';
+
+  // Report bytes as they arrive rather than sitting on a static "loading" line. No
+  // percentage: with gzip on the wire, Content-Length is the compressed size while the
+  // reader yields decompressed bytes, so any ratio between them would be made up.
+  async function readWithProgress(response, onProgress) {
+    if (!response.body || !window.TextDecoder) return response.text();
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let text = '', received = 0;
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      received += value.length;
+      text += decoder.decode(value, { stream: true });
+      onProgress(received);
+    }
+    return text + decoder.decode();
+  }
+
   applyStatic();
-  fetch('./index.json?t=' + Date.now()).then(r => r.json()).then(data => {
-    skills = data.skills || [];
-    repos = data.repos || {};
-    generatedAt = data.generated_at || '—';
-    populateControls();
-    render();
-  }).catch(e => { listEl.innerHTML = `<li class="empty">Failed to load index.json: ${esc(String(e))}</li>`; });
+  (async () => {
+    try {
+      const response = await fetch(SITE_INDEX + '?t=' + Date.now());
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const loadingEl = listEl.querySelector('.empty');
+      const body = await readWithProgress(response, received => {
+        if (loadingEl) loadingEl.textContent = `${t('loading')} ${Math.round(received / 1024)} KB`;
+      });
+      const data = JSON.parse(body);
+      skills = data.skills || [];
+      repos = data.repos || {};
+      generatedAt = data.generated_at || '—';
+      populateControls();
+      render();
+    } catch (e) {
+      listEl.innerHTML = `<li class="empty">${t('load_failed')}: ${esc(String(e))}</li>`;
+    }
+  })();
 
   [qEl, zhEl, activeEl].forEach(el => el.addEventListener('input', () => { page = 1; render(); }));
   [repoEl, sortEl].forEach(el => el.addEventListener('change', () => { page = 1; render(); }));

@@ -101,10 +101,10 @@ def fake_remote(monkeypatch):
     def fetch(url, timeout=30):
         for path, body in files.items():
             if url.endswith(path):
-                return body
+                return body.encode("utf-8")
         raise OSError(f"404 {url}")
 
-    monkeypatch.setattr(verify_skill, "fetch_text", fetch)
+    monkeypatch.setattr(verify_skill, "fetch_bytes", fetch)
     return files
 
 

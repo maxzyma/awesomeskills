@@ -1,6 +1,6 @@
 {
   "schema_version": "0.4",
-  "generated_at": "2026-08-31T05:39:12+00:00",
+  "generated_at": "2026-08-31T06:11:11+00:00",
   "repos": {
     "BehiSecc/awesome-claude-skills": {
       "health": 76,
@@ -3582,9 +3582,14 @@
           "path": "plugins/all-skills/skills/artifacts-builder/scripts/init-artifact.sh",
           "sha256": "355e5dd4382aaaee91f01f1627eaeab30b2676ffa8d9b3ec328a1ae450ebccaa",
           "role": "executable"
+        },
+        {
+          "path": "plugins/all-skills/skills/artifacts-builder/scripts/shadcn-components.tar.gz",
+          "sha256": "1296f069e825de7933de7e8ac63672495cacce3f88f2dc45554dbcddbcbca60f",
+          "role": "binary-unscanned"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 92,
         "health_factors": {
@@ -3609,6 +3614,11 @@
         },
         "security": "warn",
         "security_findings": [
+          {
+            "sev": "low",
+            "label": "binary bundle file, not text-scanned",
+            "path": "plugins/all-skills/skills/artifacts-builder/scripts/shadcn-components.tar.gz"
+          },
           {
             "sev": "low",
             "label": "executable-file scan incomplete",
@@ -4380,7 +4390,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4452,7 +4462,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4524,7 +4534,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4596,7 +4606,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4668,7 +4678,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4740,7 +4750,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4812,7 +4822,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4884,7 +4894,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -4956,7 +4966,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5028,7 +5038,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5100,7 +5110,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5172,7 +5182,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5244,7 +5254,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5316,7 +5326,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5421,7 +5431,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5526,7 +5536,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5631,7 +5641,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5738,7 +5748,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5845,7 +5855,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -5950,7 +5960,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6055,7 +6065,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6127,7 +6137,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6199,7 +6209,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6306,7 +6316,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6411,7 +6421,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6516,7 +6526,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6621,7 +6631,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6726,7 +6736,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6831,7 +6841,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -6936,7 +6946,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25277,
+          "stars": 25278,
           "forks": 3592,
           "watchers": 228,
           "age_days": 316,
@@ -9735,8 +9745,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75698,
-          "forks": 12206,
+          "stars": 75705,
+          "forks": 12208,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -9849,8 +9859,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75698,
-          "forks": 12206,
+          "stars": 75705,
+          "forks": 12208,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -9966,7 +9976,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10036,8 +10046,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75698,
-          "forks": 12206,
+          "stars": 75705,
+          "forks": 12208,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -10166,8 +10176,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75698,
-          "forks": 12206,
+          "stars": 75705,
+          "forks": 12208,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -10294,7 +10304,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10406,7 +10416,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10475,7 +10485,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10544,7 +10554,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10613,7 +10623,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10682,7 +10692,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10751,7 +10761,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10820,7 +10830,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10889,7 +10899,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -10958,7 +10968,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11027,7 +11037,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11096,7 +11106,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11165,7 +11175,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11236,7 +11246,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11307,7 +11317,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11378,7 +11388,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11480,7 +11490,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11592,7 +11602,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11700,7 +11710,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11808,7 +11818,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -11916,7 +11926,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12022,7 +12032,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12130,7 +12140,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12238,7 +12248,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12344,7 +12354,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12450,7 +12460,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12554,7 +12564,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12656,7 +12666,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -12758,7 +12768,7 @@
       "trust": {
         "health": 88,
         "health_factors": {
-          "recency_days": -1,
+          "recency_days": 0,
           "stars": 580,
           "forks": 88,
           "watchers": 4,
@@ -16004,7 +16014,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 1,
-          "stars": 33413,
+          "stars": 33415,
           "forks": 3535,
           "watchers": 234,
           "age_days": 306,
@@ -17545,8 +17555,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -17620,8 +17630,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -17689,8 +17699,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -17768,8 +17778,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -17843,8 +17853,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -17933,8 +17943,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18008,8 +18018,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18083,8 +18093,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18158,8 +18168,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18233,8 +18243,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18302,8 +18312,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18422,8 +18432,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18531,8 +18541,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18691,8 +18701,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18766,8 +18776,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18841,8 +18851,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -18926,8 +18936,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19015,8 +19025,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19090,8 +19100,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19170,8 +19180,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19239,8 +19249,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19308,8 +19318,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19433,8 +19443,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19513,8 +19523,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19587,8 +19597,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19661,8 +19671,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19736,8 +19746,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19851,8 +19861,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -19926,8 +19936,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -20001,8 +20011,8 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39715,
-          "forks": 3694,
+          "stars": 39773,
+          "forks": 3701,
           "watchers": 179,
           "age_days": 315,
           "archived": false,
@@ -20073,7 +20083,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20178,7 +20188,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20280,7 +20290,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20351,7 +20361,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20420,7 +20430,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20525,7 +20535,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20630,7 +20640,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20702,7 +20712,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20779,7 +20789,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20885,7 +20895,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -20968,7 +20978,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21092,7 +21102,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21202,7 +21212,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21317,7 +21327,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21446,7 +21456,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21518,7 +21528,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21589,7 +21599,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21710,7 +21720,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21779,7 +21789,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21899,7 +21909,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -21981,7 +21991,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22063,7 +22073,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22134,7 +22144,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22239,7 +22249,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22358,7 +22368,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22433,7 +22443,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22510,7 +22520,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22587,7 +22597,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22700,7 +22710,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -22775,7 +22785,7 @@
           "stars": 3001,
           "forks": 488,
           "watchers": 29,
-          "age_days": 179,
+          "age_days": 180,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 3,
@@ -24416,7 +24426,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24485,7 +24495,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24554,7 +24564,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24623,7 +24633,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24698,7 +24708,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24767,7 +24777,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24836,7 +24846,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24905,7 +24915,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -24974,7 +24984,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -25643,8 +25653,8 @@
         "health": 76,
         "health_factors": {
           "recency_days": 0,
-          "stars": 60620,
-          "forks": 5302,
+          "stars": 60637,
+          "forks": 5304,
           "watchers": 218,
           "age_days": 219,
           "archived": false,
@@ -25808,7 +25818,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -25877,7 +25887,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -25951,7 +25961,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26020,7 +26030,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26089,7 +26099,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26158,7 +26168,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26227,7 +26237,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26296,7 +26306,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26365,7 +26375,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26434,7 +26444,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26503,7 +26513,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26572,7 +26582,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26641,7 +26651,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26710,7 +26720,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26779,7 +26789,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -26846,7 +26856,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 28,
-          "stars": 10074,
+          "stars": 10075,
           "forks": 1485,
           "watchers": 80,
           "age_days": 317,
@@ -26905,7 +26915,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90981,
+          "stars": 90987,
           "forks": 9724,
           "watchers": 479,
           "age_days": 196,
@@ -27569,8 +27579,8 @@
         "health": 68,
         "health_factors": {
           "recency_days": 0,
-          "stars": 5860,
-          "forks": 710,
+          "stars": 5893,
+          "forks": 711,
           "watchers": 17,
           "age_days": 145,
           "archived": false,
@@ -30269,7 +30279,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30382,7 +30392,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30456,7 +30466,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30530,7 +30540,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30610,7 +30620,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30679,7 +30689,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30763,7 +30773,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30838,7 +30848,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30907,7 +30917,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -30986,7 +30996,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31057,7 +31067,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31206,7 +31216,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31281,7 +31291,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31383,7 +31393,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31485,7 +31495,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31593,7 +31603,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31699,7 +31709,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31803,7 +31813,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31909,7 +31919,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -31984,7 +31994,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -32090,7 +32100,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -32200,7 +32210,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -32308,7 +32318,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -32418,7 +32428,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -32487,7 +32497,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -32556,7 +32566,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -33295,8 +33305,8 @@
         "health": 61,
         "health_factors": {
           "recency_days": 0,
-          "stars": 35677,
-          "forks": 2288,
+          "stars": 35780,
+          "forks": 2299,
           "watchers": 127,
           "age_days": 138,
           "archived": false,
@@ -33369,7 +33379,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -33438,7 +33448,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -33540,7 +33550,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -33642,7 +33652,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35640,
+          "stars": 35642,
           "forks": 3974,
           "watchers": 222,
           "age_days": 283,
@@ -34001,7 +34011,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34010,7 +34020,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -34090,7 +34100,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34099,7 +34109,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -34162,14 +34172,19 @@
           "path": "skills/web-artifacts-builder/scripts/init-artifact.sh",
           "sha256": "355e5dd4382aaaee91f01f1627eaeab30b2676ffa8d9b3ec328a1ae450ebccaa",
           "role": "executable"
+        },
+        {
+          "path": "skills/web-artifacts-builder/scripts/shadcn-components.tar.gz",
+          "sha256": "1296f069e825de7933de7e8ac63672495cacce3f88f2dc45554dbcddbcbca60f",
+          "role": "binary-unscanned"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34178,7 +34193,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -34189,6 +34204,11 @@
         },
         "security": "warn",
         "security_findings": [
+          {
+            "sev": "low",
+            "label": "binary bundle file, not text-scanned",
+            "path": "skills/web-artifacts-builder/scripts/shadcn-components.tar.gz"
+          },
           {
             "sev": "low",
             "label": "executable-file scan incomplete",
@@ -34287,7 +34307,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34296,7 +34316,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -34409,7 +34429,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34418,7 +34438,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -34563,7 +34583,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34572,7 +34592,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -34939,7 +34959,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34948,7 +34968,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -35091,7 +35111,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35100,7 +35120,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -35221,7 +35241,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35230,7 +35250,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -35323,7 +35343,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35332,7 +35352,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -35425,7 +35445,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35434,7 +35454,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -35822,7 +35842,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35831,7 +35851,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -35936,7 +35956,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35945,7 +35965,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36040,7 +36060,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36049,7 +36069,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36109,7 +36129,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36118,7 +36138,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36215,7 +36235,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36224,7 +36244,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36321,7 +36341,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36330,7 +36350,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36428,7 +36448,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36437,7 +36457,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36532,7 +36552,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172681,
+          "stars": 172683,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36541,7 +36561,7 @@
           "open_issues": 332,
           "maintainers": 15,
           "issues_per_maintainer": 22.13,
-          "open_prs": 859,
+          "open_prs": 858,
           "top_contributor_commits": 14,
           "parts": {
             "recency": 36,
@@ -36601,20 +36621,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -36703,20 +36723,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -36805,20 +36825,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -36907,20 +36927,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37014,33 +37034,43 @@
           "path": "artifacts-builder/scripts/init-artifact.sh",
           "sha256": "355e5dd4382aaaee91f01f1627eaeab30b2676ffa8d9b3ec328a1ae450ebccaa",
           "role": "executable"
+        },
+        {
+          "path": "artifacts-builder/scripts/shadcn-components.tar.gz",
+          "sha256": "1296f069e825de7933de7e8ac63672495cacce3f88f2dc45554dbcddbcbca60f",
+          "role": "binary-unscanned"
         }
       ],
-      "files_complete": false,
+      "files_complete": true,
       "trust": {
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
         },
         "security": "warn",
         "security_findings": [
+          {
+            "sev": "low",
+            "label": "binary bundle file, not text-scanned",
+            "path": "artifacts-builder/scripts/shadcn-components.tar.gz"
+          },
           {
             "sev": "low",
             "label": "executable-file scan incomplete",
@@ -37137,20 +37167,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37206,20 +37236,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37275,20 +37305,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37344,20 +37374,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37413,20 +37443,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37482,20 +37512,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37551,20 +37581,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37620,20 +37650,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37689,20 +37719,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37758,20 +37788,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37827,20 +37857,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37896,20 +37926,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -37965,20 +37995,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38034,20 +38064,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38103,20 +38133,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38209,20 +38239,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38313,20 +38343,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38419,20 +38449,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38525,20 +38555,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38629,20 +38659,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38735,20 +38765,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38839,20 +38869,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -38943,20 +38973,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -39014,20 +39044,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -39118,20 +39148,20 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74085,
-          "forks": 8485,
+          "stars": 74087,
+          "forks": 8487,
           "watchers": 459,
           "age_days": 317,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
-          "open_issues": 137,
+          "open_issues": 138,
           "maintainers": 28,
-          "issues_per_maintainer": 4.89,
-          "open_prs": 1222,
+          "issues_per_maintainer": 4.93,
+          "open_prs": 1223,
           "top_contributor_commits": 38,
           "parts": {
             "recency": 30,
-            "maintenance": 1,
+            "maintenance": 0,
             "engagement": 10,
             "maturity": 13
           }
@@ -39791,8 +39821,8 @@
         "health": 37,
         "health_factors": {
           "recency_days": 132,
-          "stars": 208940,
-          "forks": 21275,
+          "stars": 208942,
+          "forks": 21276,
           "watchers": 1213,
           "age_days": 216,
           "archived": false,
@@ -40154,7 +40184,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47554,
+          "stars": 47556,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -40256,7 +40286,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47554,
+          "stars": 47556,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -40362,7 +40392,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47554,
+          "stars": 47556,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -40466,7 +40496,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47554,
+          "stars": 47556,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -40568,7 +40598,7 @@
         "health": 32,
         "health_factors": {
           "recency_days": 83,
-          "stars": 47554,
+          "stars": 47556,
           "forks": 3416,
           "watchers": 246,
           "age_days": 240,
@@ -40709,7 +40739,7 @@
         "health": 29,
         "health_factors": {
           "recency_days": 142,
-          "stars": 1177,
+          "stars": 1178,
           "forks": 107,
           "watchers": 9,
           "age_days": 220,

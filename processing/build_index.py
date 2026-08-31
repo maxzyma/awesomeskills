@@ -409,16 +409,81 @@ def fetch_repo_capacity(repo_id: str, token: str | None) -> dict:
     }
 
 
-def fetch_skill_contents(
+def fetch_blob_bytes(repo_id: str, ref: str, path: str, token: str | None) -> bytes | None:
+    """Raw bytes of one file. Used for blobs GraphQL will not return as text."""
+    url = (
+        f"{API}{repo_id}/contents/{urllib.parse.quote(path, safe='/')}"
+        f"?ref={urllib.parse.quote(ref, safe='')}"
+    )
+    request = urllib.request.Request(url)
+    request.add_header("Accept", "application/vnd.github.raw+json")
+    request.add_header("User-Agent", "awesomeskills-build-index")
+    if token:
+        request.add_header("Authorization", f"Bearer {token}")
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                return response.read()
+        except urllib.error.HTTPError as error:
+            print(f"  ! {url}: HTTP {error.code}", file=sys.stderr)
+            return None
+        except (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead) as error:
+            if attempt == 2:
+                print(f"  ! {url}: {error} (gave up)", file=sys.stderr)
+                return None
+            time.sleep(1.5 * (attempt + 1))
+    return None
+
+
+def fetch_bundle_files(
+    repo_id: str, ref: str, paths: list[str], token: str | None,
+) -> list[dict]:
+    """Resolve each bundle file to text (scannable) or to a byte digest (binary).
+
+    A skill can ship a binary next to its scripts -- a vendored tarball, for instance.
+    GraphQL returns no text for those, which previously made them indistinguishable from a
+    failed fetch, so the whole entry was marked incomplete and refused. A binary cannot be
+    text-scanned, but it can and should be digested: it is part of what gets installed.
+    """
+    records = fetch_blob_records(repo_id, ref, paths, token)
+    resolved: list[dict] = []
+    for path, record in zip(paths, records):
+        if record.get("text") is not None:
+            resolved.append({
+                "path": path, "kind": "text", "text": record["text"],
+                "sha256": hashlib.sha256(record["text"].encode("utf-8")).hexdigest(),
+            })
+            continue
+        if not record.get("binary"):
+            resolved.append({"path": path, "kind": "failed", "text": None, "sha256": None})
+            continue
+        payload = fetch_blob_bytes(repo_id, ref, path, token)
+        resolved.append({
+            "path": path,
+            "kind": "binary" if payload is not None else "failed",
+            "text": None,
+            "sha256": hashlib.sha256(payload).hexdigest() if payload is not None else None,
+        })
+    return resolved
+
+
+def fetch_blob_records(
     repo_id: str, branch: str, paths: list[str], token: str | None,
-) -> list[str | None]:
-    """Fetch a repository's selected skill files with one authenticated GraphQL request.
+) -> list[dict]:
+    """Fetch selected files in one authenticated GraphQL request.
+
+    Each record is {"text": str|None, "binary": bool}. Separating "no text because the blob
+    is binary" from "no text because the fetch failed" is what lets a binary asset be
+    digested instead of sinking the whole entry.
 
     The REST Contents endpoint is retained as the no-token fallback, but using it once per
     file makes a full build prone to GitHub's secondary rate limit.
     """
     if not token or not paths:
-        return [fetch_raw(repo_id, branch, path, token) for path in paths]
+        return [
+            {"text": fetch_raw(repo_id, branch, path, token), "binary": False}
+            for path in paths
+        ]
 
     owner, name = repo_id.split("/", 1)
     definitions = ["$owner:String!", "$name:String!"]
@@ -428,7 +493,8 @@ def fetch_skill_contents(
         variable = f"expression{index}"
         definitions.append(f"${variable}:String!")
         selections.append(
-            f"file{index}:object(expression:${variable}){{... on Blob{{text isTruncated}}}}"
+            f"file{index}:object(expression:${variable})"
+            "{... on Blob{text isTruncated isBinary}}"
         )
         variables[variable] = f"{branch}:{path}"
     query = (
@@ -437,10 +503,10 @@ def fetch_skill_contents(
     )
     data = post_graphql(query, variables, token, f"blob fetch for {repo_id}")
     if data is None:
-        return [None] * len(paths)
+        return [{"text": None, "binary": False} for _ in paths]
     repository = data.get("repository") or {}
 
-    contents: list[str | None] = []
+    records: list[dict] = []
     for index, path in enumerate(paths):
         blob = repository.get(f"file{index}") or {}
         # GraphQL caps Blob.text at ~512 KB and reports it via isTruncated. Digesting or
@@ -448,10 +514,17 @@ def fetch_skill_contents(
         # were the whole one, so fall back to the Contents endpoint for the full bytes.
         if blob.get("isTruncated"):
             print(f"  … {repo_id}:{path}: GraphQL blob truncated; refetching in full", file=sys.stderr)
-            contents.append(fetch_raw(repo_id, branch, path, token))
+            records.append({"text": fetch_raw(repo_id, branch, path, token), "binary": False})
         else:
-            contents.append(blob.get("text"))
-    return contents
+            records.append({"text": blob.get("text"), "binary": bool(blob.get("isBinary"))})
+    return records
+
+
+def fetch_skill_contents(
+    repo_id: str, branch: str, paths: list[str], token: str | None,
+) -> list[str | None]:
+    """Text of each path, or None. Thin view over fetch_blob_records for SKILL.md itself."""
+    return [record["text"] for record in fetch_blob_records(repo_id, branch, paths, token)]
 
 
 # ---------- signals ----------
@@ -465,8 +538,13 @@ def _has_chinese(*texts: str | None) -> bool:
 
 # ---------- entry builders ----------
 
-def _file_manifest(skill_path: str, skill_text: str, executable_files: dict[str, str]) -> list[dict]:
-    """Path + SHA-256 for every file this build actually read, SKILL.md first."""
+def _file_manifest(skill_path: str, skill_text: str, bundle: list[dict]) -> list[dict]:
+    """Path + SHA-256 for every bundle file this build resolved, SKILL.md first.
+
+    Binary files carry the digest of their bytes and a role that says they were never
+    text-scanned. Text files digest the UTF-8 encoding of their content, which is the same
+    bytes -- so a verifier can hash raw bytes uniformly regardless of role.
+    """
     rows = [{
         "path": skill_path,
         "sha256": hashlib.sha256(skill_text.encode("utf-8")).hexdigest(),
@@ -474,11 +552,12 @@ def _file_manifest(skill_path: str, skill_text: str, executable_files: dict[str,
     }]
     rows.extend(
         {
-            "path": file_path,
-            "sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
-            "role": "executable",
+            "path": row["path"],
+            "sha256": row["sha256"],
+            "role": "executable" if row["kind"] == "text" else "binary-unscanned",
         }
-        for file_path, content in sorted(executable_files.items())
+        for row in sorted(bundle, key=lambda item: item["path"])
+        if row["kind"] in {"text", "binary"}
     )
     return rows
 
@@ -617,19 +696,20 @@ def build_skill_entries(
             and _owning_skill_dir(item["path"], skill_dirs) == skill_dir
         )
         selected_executable_paths = executable_paths[:MAX_EXECUTABLE_FILES_PER_SKILL]
-        executable_texts = fetch_skill_contents(
-            repo_id, ref, selected_executable_paths, token,
-        )
+        bundle = fetch_bundle_files(repo_id, ref, selected_executable_paths, token)
         executable_files = {
-            file_path: content for file_path, content in zip(selected_executable_paths, executable_texts)
-            if content is not None
+            row["path"]: row["text"] for row in bundle if row["kind"] == "text"
         }
-        security_complete = (
-            bundle_complete
-            and len(executable_paths) <= MAX_EXECUTABLE_FILES_PER_SKILL
-            and len(executable_files) == len(selected_executable_paths)
+        binary_files = [row["path"] for row in bundle if row["kind"] == "binary"]
+        unresolved = [row["path"] for row in bundle if row["kind"] == "failed"]
+        # Digests can cover a binary; the text scan cannot read one. Keeping the two facts
+        # apart is what lets a skill shipping a vendored tarball stay verifiable while its
+        # rating still says the tarball was never scanned.
+        files_resolved = not unresolved and len(executable_paths) <= MAX_EXECUTABLE_FILES_PER_SKILL
+        security_complete = bundle_complete and files_resolved and not binary_files
+        scan = scan_skill_bundle(
+            text, executable_files, complete=security_complete, binary_files=binary_files,
         )
-        scan = scan_skill_bundle(text, executable_files, complete=security_complete)
         license_path = _license_path(blob_paths, skill_dir) if bundle_complete else None
         name = parsed["name"] or (skill_dir.split("/")[-1] if skill_dir != "." else repo.get("name") or repo_id)
         entries.append({
@@ -649,8 +729,8 @@ def build_skill_entries(
             # Digest manifest for the whole bundle, not just SKILL.md. The executable files
             # are the part that actually runs, so verifying only the prompt file would check
             # the least dangerous thing in the skill.
-            "files": _file_manifest(path, text, executable_files),
-            "files_complete": security_complete,
+            "files": _file_manifest(path, text, bundle),
+            "files_complete": bundle_complete and files_resolved,
             "trust": {
                 "health": health,  # inherited from repo
                 "health_factors": factors,

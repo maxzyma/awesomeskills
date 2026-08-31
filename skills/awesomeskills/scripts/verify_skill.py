@@ -24,7 +24,7 @@ import json
 import sys
 from concurrent.futures import ThreadPoolExecutor
 
-from index_client import fetch_text, load_index, raw_file_url, resolve_index_url
+from index_client import fetch_bytes, load_index, raw_file_url, resolve_index_url
 
 VERIFIED, REFUSED, MISMATCH = "verified", "refused", "mismatch"
 MAX_FETCH_WORKERS = 4  # raw.githubusercontent resets connections above this
@@ -55,7 +55,9 @@ def check_one(repo: str, ref: str, row: dict) -> dict:
     """Fetch one recorded file at the pinned ref and compare its digest."""
     path, expected = row.get("path", ""), row.get("sha256", "")
     try:
-        actual = hashlib.sha256(fetch_text(raw_file_url(repo, ref, path)).encode("utf-8")).hexdigest()
+        # Hash raw bytes: a bundle can contain binaries, and for text files the UTF-8
+        # encoding the build hashed is the same byte sequence.
+        actual = hashlib.sha256(fetch_bytes(raw_file_url(repo, ref, path))).hexdigest()
     except Exception as error:  # noqa: BLE001 — an unfetchable file is a failed check
         return {"path": path, "problem": "fetch failed", "detail": str(error)}
     if actual == expected:

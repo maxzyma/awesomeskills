@@ -40,8 +40,18 @@ def _scan_text(text: str, path: str) -> list[dict]:
     return findings
 
 
-def scan_skill_bundle(skill_text: str, executable_files: dict[str, str], complete: bool = True) -> dict:
-    """Scan SKILL.md and fetched executable text; incomplete scans can never pass."""
+def scan_skill_bundle(
+    skill_text: str,
+    executable_files: dict[str, str],
+    complete: bool = True,
+    binary_files: list[str] | None = None,
+) -> dict:
+    """Scan SKILL.md and fetched executable text; incomplete scans can never pass.
+
+    `binary_files` are bundle files that ship with the skill but cannot be read as text --
+    a vendored tarball, for instance. They are digested elsewhere, but nothing here has
+    inspected them, so each is disclosed by path and the rating can never come out `pass`.
+    """
     findings = _scan_text(skill_text, "SKILL.md")
 
     m = _ALLOWED_TOOLS.search(skill_text)
@@ -53,6 +63,11 @@ def scan_skill_bundle(skill_text: str, executable_files: dict[str, str], complet
 
     for path, text in sorted(executable_files.items()):
         findings.extend(_scan_text(text, path))
+
+    for path in sorted(binary_files or []):
+        findings.append({
+            "sev": "low", "label": "binary bundle file, not text-scanned", "path": path,
+        })
 
     if not complete:
         findings.append({

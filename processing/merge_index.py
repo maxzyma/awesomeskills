@@ -10,9 +10,11 @@ from copy import deepcopy
 from pathlib import Path
 
 from enrichment_store import BASE, CACHE, ROOT, read_json
+from site_index import slim_index
 
 INDEX = ROOT / "registry" / "index.json"
 SITE = ROOT / "site" / "public" / "index.json"
+SITE_SLIM = ROOT / "site" / "public" / "site-index.json"
 LLM = ROOT / "site" / "public" / "llm.txt"
 
 
@@ -84,6 +86,7 @@ def main() -> int:
     parser.add_argument("--cache", type=Path, default=CACHE)
     parser.add_argument("--index", type=Path, default=INDEX)
     parser.add_argument("--site", type=Path, default=SITE)
+    parser.add_argument("--site-slim", type=Path, default=SITE_SLIM)
     parser.add_argument("--llm", type=Path, default=LLM)
     args = parser.parse_args()
     data = merge(read_json(args.base), read_json(args.cache))
@@ -93,12 +96,20 @@ def main() -> int:
         temporary = path.with_suffix(path.suffix + ".tmp")
         temporary.write_text(blob, encoding="utf-8")
         os.replace(temporary, path)
+    # Display-only projection the browser fetches. The full artifact stays published at
+    # index.json for agents and verify_skill.py.
+    slim_blob = json.dumps(slim_index(data), ensure_ascii=False) + "\n"
+    slim_temporary = args.site_slim.with_suffix(args.site_slim.suffix + ".tmp")
+    slim_temporary.write_text(slim_blob, encoding="utf-8")
+    os.replace(slim_temporary, args.site_slim)
+
     args.llm.parent.mkdir(parents=True, exist_ok=True)
     llm_temporary = args.llm.with_suffix(args.llm.suffix + ".tmp")
     llm_temporary.write_text(llm_text(data), encoding="utf-8")
     os.replace(llm_temporary, args.llm)
     coverage = data["enrichment_coverage"]
     print(f"merged {len(data['skills'])} entries; enrichment {coverage}")
+    print(f"  site slim: {len(slim_blob)/1024:.0f} KB vs full {len(blob)/1024:.0f} KB")
     return 0
 
 

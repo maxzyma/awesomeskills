@@ -7,6 +7,7 @@ never fully read. They are pinned because neither is visible from the artifact a
 
 from __future__ import annotations
 
+import hashlib
 import sys
 import urllib.error
 from pathlib import Path
@@ -19,6 +20,7 @@ sys.path.insert(0, str(ROOT / "skills" / "awesomeskills" / "scripts"))
 
 import build_index  # noqa: E402
 import index_client  # noqa: E402
+import security_scan  # noqa: E402
 
 TOKEN = "t"
 
@@ -113,3 +115,64 @@ def test_retries_are_exhausted_and_then_raise(monkeypatch):
     monkeypatch.setattr(index_client.time, "sleep", lambda _: None)
     with pytest.raises(urllib.error.URLError):
         index_client.fetch_text("https://example.test/a", attempts=2)
+
+
+# --- binary bundle files ----------------------------------------------------------------
+
+def test_binary_blob_is_digested_rather_than_counted_as_a_failure(monkeypatch):
+    """GraphQL returns no text for a binary. Treating that as a failed fetch sank the whole
+    entry, even though a vendored tarball is exactly the kind of thing worth digesting."""
+    monkeypatch.setattr(
+        build_index, "post_graphql",
+        graphql_returning([{"text": None, "isTruncated": False, "isBinary": True}]),
+    )
+    monkeypatch.setattr(build_index, "fetch_blob_bytes", lambda *a, **k: b"\x00\x01binary")
+
+    rows = build_index.fetch_bundle_files("o/r", "sha", ["scripts/vendor.tar.gz"], TOKEN)
+    assert rows[0]["kind"] == "binary"
+    assert rows[0]["text"] is None
+    assert rows[0]["sha256"] == hashlib.sha256(b"\x00\x01binary").hexdigest()
+
+
+def test_binary_whose_bytes_cannot_be_fetched_still_counts_as_failed(monkeypatch):
+    monkeypatch.setattr(
+        build_index, "post_graphql",
+        graphql_returning([{"text": None, "isTruncated": False, "isBinary": True}]),
+    )
+    monkeypatch.setattr(build_index, "fetch_blob_bytes", lambda *a, **k: None)
+
+    assert build_index.fetch_bundle_files("o/r", "sha", ["a.bin"], TOKEN)[0]["kind"] == "failed"
+
+
+def test_missing_text_without_binary_flag_is_a_failure(monkeypatch):
+    monkeypatch.setattr(
+        build_index, "post_graphql",
+        graphql_returning([{"text": None, "isTruncated": False, "isBinary": False}]),
+    )
+    monkeypatch.setattr(build_index, "fetch_blob_bytes", lambda *a, **k: pytest.fail("not binary"))
+
+    assert build_index.fetch_bundle_files("o/r", "sha", ["a.py"], TOKEN)[0]["kind"] == "failed"
+
+
+def test_manifest_marks_binaries_as_unscanned_and_keeps_their_digest():
+    bundle = [
+        {"path": "scripts/run.py", "kind": "text", "text": "x", "sha256": "aa"},
+        {"path": "scripts/v.tar.gz", "kind": "binary", "text": None, "sha256": "bb"},
+        {"path": "scripts/gone.py", "kind": "failed", "text": None, "sha256": None},
+    ]
+    rows = build_index._file_manifest("SKILL.md", "body", bundle)
+    roles = {row["path"]: row["role"] for row in rows}
+
+    assert roles["scripts/v.tar.gz"] == "binary-unscanned"
+    assert roles["scripts/run.py"] == "executable"
+    assert "scripts/gone.py" not in roles, "a file with no digest must not enter the manifest"
+
+
+def test_binary_presence_is_disclosed_and_blocks_a_pass():
+    scan = security_scan.scan_skill_bundle(
+        "harmless", {}, complete=False, binary_files=["scripts/v.tar.gz"],
+    )
+    labels = {finding["path"]: finding["label"] for finding in scan["findings"]}
+    assert "scripts/v.tar.gz" in labels
+    assert "not text-scanned" in labels["scripts/v.tar.gz"]
+    assert scan["rating"] != "pass"

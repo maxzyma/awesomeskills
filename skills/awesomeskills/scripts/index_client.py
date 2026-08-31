@@ -34,8 +34,11 @@ def resolve_index_url(cli_url: str | None) -> str:
     )
 
 
-def fetch_text(url: str, timeout: int = 30, attempts: int = 3) -> str:
-    """Fetch a URL as text, retrying transient transport failures.
+def fetch_bytes(url: str, timeout: int = 30, attempts: int = 3) -> bytes:
+    """Fetch a URL as raw bytes, retrying transient transport failures.
+
+    Bytes rather than decoded text: a skill bundle can contain binaries, and decoding is
+    both lossy for them and unnecessary for hashing.
 
     Concurrent fetches against raw.githubusercontent.com draw occasional connection
     resets. Without a retry those surface as verification failures, which is worse than
@@ -45,7 +48,7 @@ def fetch_text(url: str, timeout: int = 30, attempts: int = 3) -> str:
     for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                return response.read().decode("utf-8")
+                return response.read()
         except urllib.error.HTTPError:
             raise  # a real 404/403 is an answer, not a hiccup
         except (urllib.error.URLError, TimeoutError, ConnectionError, ssl.SSLError, OSError):
@@ -53,6 +56,10 @@ def fetch_text(url: str, timeout: int = 30, attempts: int = 3) -> str:
                 raise
             time.sleep(0.5 * (attempt + 1))
     raise OSError(f"exhausted retries for {url}")  # unreachable; keeps the return type honest
+
+
+def fetch_text(url: str, timeout: int = 30, attempts: int = 3) -> str:
+    return fetch_bytes(url, timeout, attempts).decode("utf-8")
 
 
 def load_index(url: str, allow_local_fallback: bool = True) -> tuple[dict, str]:
