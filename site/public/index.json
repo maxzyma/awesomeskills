@@ -1,6 +1,6 @@
 {
   "schema_version": "0.4",
-  "generated_at": "2026-08-31T07:03:29+00:00",
+  "generated_at": "2026-08-31T07:20:42+00:00",
   "repos": {
     "BehiSecc/awesome-claude-skills": {
       "health": 76,
@@ -2985,7 +2985,48 @@
         "headings": 14,
         "code_blocks": 2
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Provides documented workflows for inspecting and updating Brevo email campaigns, managing templates, listing verified senders, and configuring A/B tests.",
+            "scenarios": [
+              "List or filter email campaigns and inspect campaign statistics.",
+              "Update campaign subjects, content, recipients, senders, or scheduling.",
+              "Create, update, list, or delete email templates.",
+              "List verified sender identities before using them.",
+              "Configure classic-campaign A/B subject testing."
+            ],
+            "io": "Inputs include campaign or template IDs, filters, ISO 8601 dates, HTML content or URLs, sender and recipient objects, pagination values, and A/B settings. Outputs are Brevo campaign, template, sender, and statistics records or mutation results returned through Rube.",
+            "dependencies": [
+              "Rube MCP with RUBE_SEARCH_TOOLS and RUBE_MANAGE_CONNECTIONS",
+              "Active authenticated Brevo connection in Composio",
+              "Brevo account permissions and verified senders"
+            ],
+            "boundary": "The evidence documents listing and mutation workflows but no direct campaign-send action; sender verification occurs in Brevo's web interface. Tool schemas, limits, response nesting, and account capabilities may vary and must be discovered at runtime. Deletes and updates affect remote Brevo data."
+          },
+          "zh": {
+            "purpose": "提供通过 Composio 的 Rube MCP 检查和更新 Brevo 邮件活动、管理模板、列出已验证发件人及配置 A/B 测试的流程。",
+            "scenarios": [
+              "列出或筛选邮件活动并查看活动统计。",
+              "更新活动主题、内容、收件人、发件人或计划发送时间。",
+              "创建、更新、列出或删除邮件模板。",
+              "使用发件人前列出已验证的发件身份。",
+              "为经典类型活动配置主题 A/B 测试。"
+            ],
+            "io": "输入包括活动或模板 ID、筛选条件、ISO 8601 日期、HTML 内容或 URL、发件人和收件人对象、分页参数及 A/B 设置。输出为 Rube 返回的 Brevo 活动、模板、发件人和统计记录或变更结果。",
+            "dependencies": [
+              "提供 RUBE_SEARCH_TOOLS 和 RUBE_MANAGE_CONNECTIONS 的 Rube MCP",
+              "Composio 中处于活动状态的 Brevo 已认证连接",
+              "Brevo 账户权限和已验证发件人"
+            ],
+            "boundary": "证据描述了查询和修改流程，但未提供直接发送活动的操作；发件人验证需在 Brevo 网页界面完成。工具模式、限制、响应嵌套和账户能力可能变化，需在运行时查询。删除和更新会修改远程 Brevo 数据。"
+          }
+        },
+        "scope": "Brevo email-marketing automation through Composio's Rube MCP toolkit.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/brand-guidelines",
@@ -3054,7 +3095,44 @@
         "headings": 12,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Defines a documented Anthropic color palette and typography rules for applying a consistent look to visual artifacts.",
+            "scenarios": [
+              "Style headings and body text with the specified font families and fallbacks.",
+              "Apply dark, light, gray, and accent colors to text, backgrounds, and shapes.",
+              "Post-process presentation elements using the documented hierarchy and palette."
+            ],
+            "io": "Inputs are an existing visual artifact and its text, shapes, backgrounds, and font sizes. Output is a restyled artifact using the documented colors, Poppins/Lora typography, and Arial/Georgia fallbacks.",
+            "dependencies": [
+              "An artifact-editing environment",
+              "System-installed Poppins and Lora for preferred rendering, or Arial and Georgia fallbacks",
+              "python-pptx RGBColor when applying the described presentation implementation"
+            ],
+            "boundary": "The evidence supplies styling values and behavior, not logo assets, a complete corporate identity system, or implementation scripts. Font fidelity depends on installed fonts, and the referenced license terms are not included in the attached evidence."
+          },
+          "zh": {
+            "purpose": "定义一套文档所述的 Anthropic 配色和字体规则，用于统一视觉产物的外观。",
+            "scenarios": [
+              "按指定字体及回退字体设置标题和正文。",
+              "将深色、浅色、灰色及强调色应用到文本、背景和形状。",
+              "依据所述层级与色板对演示文稿元素进行后处理。"
+            ],
+            "io": "输入为已有视觉产物及其中的文本、形状、背景和字号。输出为使用指定颜色、Poppins/Lora 字体以及 Arial/Georgia 回退字体重新排版的产物。",
+            "dependencies": [
+              "可编辑视觉产物的环境",
+              "为获得首选效果而安装的 Poppins 和 Lora，或 Arial 和 Georgia 回退字体",
+              "实施所述演示文稿配色时使用的 python-pptx RGBColor"
+            ],
+            "boundary": "证据只提供样式数值和行为，不包含标志资产、完整企业视觉识别系统或实现脚本。字体效果取决于系统安装情况，且所引用的完整许可条款未包含在附加证据中。"
+          }
+        },
+        "scope": "Anthropic-branded visual styling for presentation-like artifacts.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/box-automation",
@@ -3123,7 +3201,50 @@
         "headings": 19,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents Box workflows for file transfer, content discovery, folder operations, sharing and collaboration management, metadata queries, and selected Box Sign operations.",
+            "scenarios": [
+              "Upload or download files and create ZIP downloads.",
+              "Search content, browse folders, inspect metadata, and list recent items.",
+              "Create, rename, move, copy, trash, or permanently remove folders.",
+              "Inspect and update file collaborations, shared links, locks, and permissions.",
+              "List, inspect, or cancel Box Sign requests."
+            ],
+            "io": "Inputs include Box file, folder, collaboration, collection, and sign-request IDs; upload objects; queries and metadata filters; pagination markers; names; roles; sharing settings; and update fields. Outputs are Box records, file downloads, ZIP task information, or remote mutation results.",
+            "dependencies": [
+              "Rube MCP with current-tool discovery",
+              "Active Box OAuth connection through Composio",
+              "Box permissions for targeted content and collaboration operations",
+              "Box Sign enabled for signature-request workflows"
+            ],
+            "boundary": "Standard upload tooling is described as unsuitable for files over 50 MB. Permanent deletion and some repository mutations are irreversible or permission-sensitive. The evidence does not describe creating Box Sign requests. Enterprise settings can restrict sharing, collaboration expiry, and Sign availability."
+          },
+          "zh": {
+            "purpose": "描述通过 Rube MCP 执行 Box 文件传输、内容发现、文件夹操作、共享协作、元数据查询及部分 Box Sign 操作的流程。",
+            "scenarios": [
+              "上传或下载文件并创建 ZIP 下载。",
+              "搜索内容、浏览文件夹、检查元数据和列出最近项目。",
+              "创建、重命名、移动、复制、移入回收站或永久删除文件夹。",
+              "检查和更新文件协作、共享链接、锁及权限。",
+              "列出、查看或取消 Box Sign 请求。"
+            ],
+            "io": "输入包括 Box 文件、文件夹、协作、集合和签名请求 ID，上传对象，查询与元数据筛选器，分页标记，名称、角色、共享设置及更新字段。输出为 Box 记录、文件下载、ZIP 任务信息或远程变更结果。",
+            "dependencies": [
+              "支持当前工具发现的 Rube MCP",
+              "通过 Composio 建立的有效 Box OAuth 连接",
+              "对目标内容和协作操作具备相应 Box 权限",
+              "签名请求流程需启用 Box Sign"
+            ],
+            "boundary": "证据指出标准上传工具不适用于超过 50 MB 的文件。永久删除和部分资源修改不可逆或受权限约束。证据未描述创建 Box Sign 请求。企业设置可能限制共享、协作过期和 Sign 功能。"
+          }
+        },
+        "scope": "Box storage, sharing, metadata, collaboration, and Sign automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/bitbucket-automation",
@@ -3192,7 +3313,50 @@
         "headings": 19,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents workflows for discovering Bitbucket workspaces and repositories, creating and reviewing pull requests, managing branches and issues, and administering selected repository resources.",
+            "scenarios": [
+              "Create, list, inspect, diff, or comment on pull requests.",
+              "List, create, or permanently delete repositories.",
+              "List branches and create a branch from a full commit hash.",
+              "Create, update, comment on, list, or delete repository issues.",
+              "Resolve workspace members and assign reviewers by UUID."
+            ],
+            "io": "Inputs include workspace and repository slugs, PR or issue IDs, branch names and commit hashes, BBQL filters, reviewer UUIDs, markdown comments, pagination values, and repository settings. Outputs are Bitbucket workspace, repository, branch, PR, diff, issue, and membership records or mutation results.",
+            "dependencies": [
+              "Rube MCP and runtime schema discovery",
+              "Active Bitbucket OAuth connection through Composio",
+              "Bitbucket Cloud repository and workspace permissions",
+              "Enabled repository issue tracker for issue workflows"
+            ],
+            "boundary": "Repository and issue deletion are documented as permanent. Branch creation requires an existing full SHA-1 hash. Identifier types vary between tools, and large diffs may be truncated. The evidence does not describe merging or declining pull requests."
+          },
+          "zh": {
+            "purpose": "描述发现 Bitbucket 工作区和仓库、创建与审查拉取请求、管理分支和议题以及管理部分仓库资源的流程。",
+            "scenarios": [
+              "创建、列出、查看、获取差异或评论拉取请求。",
+              "列出、创建或永久删除仓库。",
+              "列出分支并从完整提交哈希创建分支。",
+              "创建、更新、评论、列出或删除仓库议题。",
+              "解析工作区成员并通过 UUID 指派审查者。"
+            ],
+            "io": "输入包括工作区和仓库 slug、拉取请求或议题 ID、分支名与提交哈希、BBQL 筛选器、审查者 UUID、Markdown 评论、分页参数及仓库设置。输出为 Bitbucket 工作区、仓库、分支、拉取请求、差异、议题和成员记录或变更结果。",
+            "dependencies": [
+              "Rube MCP 和运行时模式发现",
+              "通过 Composio 建立的有效 Bitbucket OAuth 连接",
+              "相应 Bitbucket Cloud 仓库和工作区权限",
+              "议题流程需启用仓库 issue tracker"
+            ],
+            "boundary": "证据明确仓库和议题删除为永久操作。创建分支需要已存在的完整 SHA-1 哈希。不同工具的标识符类型不一致，大型差异可能被截断。证据未描述合并或拒绝拉取请求。"
+          }
+        },
+        "scope": "Bitbucket Cloud repository, pull-request, branch, issue, and workspace automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/basecamp-automation",
@@ -3261,7 +3425,48 @@
         "headings": 20,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents Basecamp workflows for browsing projects, creating and organizing to-dos, publishing messages, and managing project membership.",
+            "scenarios": [
+              "Discover project structures and their to-do sets or message boards.",
+              "Create to-do lists, tasks, dates, assignees, and notifications.",
+              "Publish or replace the full content of project-board messages.",
+              "List people and grant, revoke, or create project access.",
+              "Create color-coded groups within to-do lists."
+            ],
+            "io": "Inputs include integer project, tool, list, message, and person IDs; HTML content; dates; assignee arrays; access-change arrays; names; colors; and status filters. Outputs are Basecamp project, task, message, group, and person records or remote mutation results, often including app_url links.",
+            "dependencies": [
+              "Rube MCP with runtime tool lookup",
+              "Active Basecamp OAuth connection through Composio",
+              "Basecamp project permissions"
+            ],
+            "boundary": "Rich-text inputs are documented as HTML rather than Markdown. Message updates replace the entire body. Duplicate tools are presented as alternatives without guaranteed equivalence, and list operations may require pagination. Access changes and user creation modify project membership."
+          },
+          "zh": {
+            "purpose": "描述通过 Rube MCP 浏览 Basecamp 项目、创建和组织待办事项、发布消息及管理项目成员的流程。",
+            "scenarios": [
+              "发现项目结构及其待办集合或消息板。",
+              "创建待办列表、任务、日期、负责人和通知。",
+              "发布或完整替换项目消息板内容。",
+              "列出人员并授予、撤销或新建项目访问权限。",
+              "在待办列表内创建带颜色的分组。"
+            ],
+            "io": "输入包括整数形式的项目、工具、列表、消息和人员 ID，HTML 内容、日期、负责人数组、访问变更数组、名称、颜色及状态筛选器。输出为 Basecamp 项目、任务、消息、分组和人员记录或远程变更结果，通常含 app_url 链接。",
+            "dependencies": [
+              "支持运行时工具查询的 Rube MCP",
+              "通过 Composio 建立的有效 Basecamp OAuth 连接",
+              "相应 Basecamp 项目权限"
+            ],
+            "boundary": "富文本输入被明确为 HTML 而非 Markdown。消息更新会替换完整正文。证据将部分重复工具列为替代项，但未保证行为完全一致；列表操作可能需要分页。访问变更和创建用户会修改项目成员关系。"
+          }
+        },
+        "scope": "Basecamp project, to-do, message-board, people, and access automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/bamboohr-automation",
@@ -3330,7 +3535,50 @@
         "headings": 15,
         "code_blocks": 4
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents workflows for reading employee directories and details, detecting employee changes, managing time-off requests, updating profiles, and inspecting dependents or benefit coverage.",
+            "scenarios": [
+              "List employees and retrieve selected profile fields.",
+              "Identify employees changed since a timestamp for incremental synchronization.",
+              "Inspect balances and create or update time-off requests.",
+              "Update writable employee profile fields.",
+              "List dependents and benefit coverage data."
+            ],
+            "io": "Inputs include numeric employee, request, and time-off-type IDs; requested field names; ISO timestamps or calendar dates; balances and request data; status values; and employee updates. Outputs are directory records, employee details, changed IDs, time-off data, dependent records, benefit records, or mutation results.",
+            "dependencies": [
+              "Rube MCP with current-schema lookup",
+              "Active BambooHR connection through Composio",
+              "BambooHR account and API permissions",
+              "Relevant BambooHR plan features for benefits administration"
+            ],
+            "boundary": "Returned fields and writable operations depend on account permissions and plan features. Changed-employee results contain IDs rather than full records. Time-off creation does not imply approval. Employee and dependent responses can contain sensitive personal data, and the evidence provides no data-governance implementation."
+          },
+          "zh": {
+            "purpose": "描述读取 BambooHR 员工目录和详情、检测员工变更、管理休假申请、更新档案以及查看家属或福利覆盖信息的流程。",
+            "scenarios": [
+              "列出员工并获取指定档案字段。",
+              "识别某时间点后发生变化的员工以进行增量同步。",
+              "查看余额并创建或更新休假申请。",
+              "更新可写的员工档案字段。",
+              "列出家属和福利覆盖数据。"
+            ],
+            "io": "输入包括数字形式的员工、申请和休假类型 ID，请求字段名、ISO 时间戳或日历日期、余额与申请数据、状态值及员工字段更新。输出为目录记录、员工详情、变更 ID、休假数据、家属记录、福利记录或变更结果。",
+            "dependencies": [
+              "支持当前模式查询的 Rube MCP",
+              "通过 Composio 建立的有效 BambooHR 连接",
+              "BambooHR 账户和 API 权限",
+              "福利管理流程所需的 BambooHR 套餐功能"
+            ],
+            "boundary": "可返回字段和可写操作取决于账户权限及套餐功能。员工变更接口仅返回 ID，而非完整记录。创建休假申请不等于批准。员工和家属响应可能包含敏感个人信息，证据未提供数据治理实现。"
+          }
+        },
+        "scope": "BambooHR employee, time-off, dependent, benefit, and profile automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/aurakit",
@@ -3399,7 +3647,48 @@
         "headings": 7,
         "code_blocks": 2
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Presents AuraKit v6 as a command-driven development engine with build, fix, review, deployment, testing, orchestration, security-rule, hook, and language-review modes.",
+            "scenarios": [
+              "Invoke an automatic build workflow from a natural-language request.",
+              "Run a targeted bug-fix or quick-edit mode.",
+              "Request multi-agent code review.",
+              "Select an advertised model tier for a development task.",
+              "Apply language- or framework-oriented review patterns."
+            ],
+            "io": "Input is an /aura command containing a mode, optional tier, and development request. The documented output is a development workflow or resulting code changes produced by the installed AuraKit environment.",
+            "dependencies": [
+              "AuraKit package @smorky85/aurakit or its referenced GitHub repository",
+              "Claude Code environment",
+              "Node.js and npx for the documented package installation"
+            ],
+            "boundary": "The attached evidence is an overview, not the AuraKit implementation, hooks, rules, or verification data. Claims about mode count, security completeness, quality, and token reduction are source assertions and cannot be independently established from this evidence. Installation and execution are outside the assessed content."
+          },
+          "zh": {
+            "purpose": "将 AuraKit v6 描述为一个命令驱动的开发引擎，涵盖构建、修复、审查、部署、测试、编排、安全规则、运行时钩子和多语言审查模式。",
+            "scenarios": [
+              "根据自然语言请求调用自动构建流程。",
+              "运行定向缺陷修复或快速编辑模式。",
+              "请求多代理代码审查。",
+              "为开发任务选择其声明的模型层级。",
+              "应用面向语言或框架的审查模式。"
+            ],
+            "io": "输入为包含模式、可选层级和开发需求的 /aura 命令。文档所述输出为已安装 AuraKit 环境产生的开发流程或代码变更。",
+            "dependencies": [
+              "AuraKit 软件包 @smorky85/aurakit 或其引用的 GitHub 仓库",
+              "Claude Code 环境",
+              "执行文档安装方式所需的 Node.js 和 npx"
+            ],
+            "boundary": "附加证据只是概览，不包含 AuraKit 实现、钩子、规则或验证数据。关于模式数量、安全完整性、质量和令牌减少的说法均为来源自身声明，无法据此独立确认。安装和执行不在本次评估范围内。"
+          }
+        },
+        "scope": "AuraKit command-based full-stack development workflow for Claude Code.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/atlas-cloud-media",
@@ -3484,7 +3773,48 @@
         "headings": 10,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents a CLI workflow for discovering current Atlas Cloud media models, inspecting live request schemas, submitting one explicitly confirmed generation request, and polling its GET status with a fixed bound.",
+            "scenarios": [
+              "Search current image or video models by type and text.",
+              "Inspect a model's required fields, endpoints, and catalog price.",
+              "Generate one image or video from a JSON parameter file after paid-action confirmation.",
+              "Poll an asynchronous prediction until completion, error, or the configured limit."
+            ],
+            "io": "Inputs include an Atlas Cloud model ID, model-discovery filters, a schema-valid JSON parameter object, paid-action confirmation, and polling bounds. Structured JSON output is described as containing model and prediction IDs, status, endpoints, and generated media URLs.",
+            "dependencies": [
+              "Bundled scripts/atlas_media.py implementation",
+              "Python 3",
+              "ATLASCLOUD_API_KEY environment variable",
+              "Network access to Atlas Cloud or a compatible ATLASCLOUD_BASE_URL"
+            ],
+            "boundary": "The attached evidence does not include the CLI script or live model schemas. Availability, price, endpoints, and parameters are explicitly treated as live data. Generation is a paid remote action; automatic POST retry is excluded, polling is GET-only and bounded, and returned URLs may expire."
+          },
+          "zh": {
+            "purpose": "描述一个 CLI 流程，用于发现当前 Atlas Cloud 媒体模型、检查实时请求模式、提交一次经明确确认的生成请求，并以固定上限轮询 GET 状态。",
+            "scenarios": [
+              "按类型和文本搜索当前图像或视频模型。",
+              "查看模型的必填字段、端点和目录价格。",
+              "在确认付费操作后，通过 JSON 参数文件生成一次图像或视频。",
+              "轮询异步预测，直到完成、出错或达到配置上限。"
+            ],
+            "io": "输入包括 Atlas Cloud 模型 ID、模型发现筛选器、符合实时模式的 JSON 参数对象、付费操作确认及轮询上限。文档所述结构化 JSON 输出包含模型和预测 ID、状态、端点及生成媒体 URL。",
+            "dependencies": [
+              "随技能提供的 scripts/atlas_media.py 实现",
+              "Python 3",
+              "ATLASCLOUD_API_KEY 环境变量",
+              "访问 Atlas Cloud 或兼容 ATLASCLOUD_BASE_URL 的网络连接"
+            ],
+            "boundary": "附加证据不包含 CLI 脚本或实时模型模式。可用性、价格、端点和参数被明确视为实时数据。生成属于付费远程操作；不自动重试 POST，只以 GET 做有限轮询，返回的 URL 可能过期。"
+          }
+        },
+        "scope": "Atlas Cloud image and video model discovery and single-request asynchronous generation.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/asana-automation",
@@ -3553,7 +3883,48 @@
         "headings": 13,
         "code_blocks": 2
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents Asana workflows for resolving workspaces, creating and finding tasks, organizing projects and sections, inspecting users and teams, and submitting parallel API actions.",
+            "scenarios": [
+              "Search, create, inspect, or list tasks and subtasks.",
+              "List, create, inspect, or duplicate projects.",
+              "Create sections and assign tasks to them.",
+              "List workspace teams, users, or the authenticated user.",
+              "Submit multiple valid Asana API actions in parallel."
+            ],
+            "io": "Inputs include string GIDs for workspaces, projects, tasks, sections, teams, and users; names; notes; assignees; dates; search text; pagination offsets; and parallel action objects. Outputs are Asana resource records or mutation results.",
+            "dependencies": [
+              "Rube MCP with RUBE_SEARCH_TOOLS",
+              "Active Asana OAuth connection through Composio",
+              "Permissions in the targeted Asana workspace and projects"
+            ],
+            "boundary": "Most operations are workspace-scoped and require resolved string GIDs. Parallel actions are not transactional: successful actions are not rolled back when another fails. The evidence gives summarized parameters and requires runtime schema discovery for current details."
+          },
+          "zh": {
+            "purpose": "描述解析 Asana 工作区、创建和查找任务、组织项目与分区、查看用户和团队以及并行提交 API 操作的流程。",
+            "scenarios": [
+              "搜索、创建、查看或列出任务和子任务。",
+              "列出、创建、查看或复制项目。",
+              "创建分区并将任务加入分区。",
+              "列出工作区团队、用户或当前认证用户。",
+              "并行提交多个有效的 Asana API 操作。"
+            ],
+            "io": "输入包括工作区、项目、任务、分区、团队和用户的字符串 GID，以及名称、备注、负责人、日期、搜索文本、分页偏移量和并行动作对象。输出为 Asana 资源记录或变更结果。",
+            "dependencies": [
+              "提供 RUBE_SEARCH_TOOLS 的 Rube MCP",
+              "通过 Composio 建立的有效 Asana OAuth 连接",
+              "目标 Asana 工作区和项目中的相应权限"
+            ],
+            "boundary": "多数操作限定于工作区，并需要先解析字符串 GID。并行操作不具备事务性：某个动作失败时，已成功动作不会回滚。证据只给出参数摘要，当前细节仍需在运行时发现模式。"
+          }
+        },
+        "scope": "Asana task, project, section, team, user, and workspace automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/artifacts-builder",
@@ -3648,7 +4019,48 @@
         "headings": 9,
         "code_blocks": 2
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents a scaffold-edit-bundle workflow for building stateful, multi-component Claude.ai HTML artifacts with React, TypeScript, Tailwind CSS, and shadcn/ui.",
+            "scenarios": [
+              "Initialize a complex React artifact project.",
+              "Develop artifacts that require state management, routing, or component libraries.",
+              "Bundle a project and its assets into one self-contained HTML file.",
+              "Optionally test or visualize the bundled artifact."
+            ],
+            "io": "Inputs are a project name and edited React/TypeScript source files with a root index.html. Output is a generated project and then a self-contained bundle.html with inlined JavaScript, CSS, and assets.",
+            "dependencies": [
+              "Bundled scripts/init-artifact.sh and scripts/bundle-artifact.sh",
+              "Bash and Node.js 18 or later",
+              "React 18, TypeScript, Vite, Tailwind CSS 3.4.1, shadcn/ui and Radix UI",
+              "Parcel, html-inline, and related bundling packages"
+            ],
+            "boundary": "The evidence describes scripts but does not attach or verify their implementation. Bundling may install dependencies and is intended for complex artifacts rather than simple single-file HTML or JSX. Testing is optional, and no hosting or deployment workflow is documented."
+          },
+          "zh": {
+            "purpose": "描述一个“初始化、编辑、打包”流程，用 React、TypeScript、Tailwind CSS 和 shadcn/ui 构建带状态和多组件的 Claude.ai HTML 产物。",
+            "scenarios": [
+              "初始化复杂 React 产物项目。",
+              "开发需要状态管理、路由或组件库的产物。",
+              "将项目及其资产打包成一个自包含 HTML 文件。",
+              "可选地测试或可视化打包结果。"
+            ],
+            "io": "输入为项目名称，以及包含根目录 index.html 的 React/TypeScript 源文件。输出先是生成的项目，随后是内联 JavaScript、CSS 和资产的自包含 bundle.html。",
+            "dependencies": [
+              "随技能提供的 scripts/init-artifact.sh 和 scripts/bundle-artifact.sh",
+              "Bash 和 Node.js 18 或更高版本",
+              "React 18、TypeScript、Vite、Tailwind CSS 3.4.1、shadcn/ui 和 Radix UI",
+              "Parcel、html-inline 及相关打包依赖"
+            ],
+            "boundary": "证据描述了脚本，但未附加或验证其实现。打包过程可能安装依赖，且该流程面向复杂产物，不适用于简单单文件 HTML 或 JSX。测试为可选项，未描述托管或部署流程。"
+          }
+        },
+        "scope": "Complex single-file HTML artifact construction using a generated React frontend project.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/anti-ui-slop",
@@ -3717,7 +4129,48 @@
         "headings": 7,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Defines a workflow for grounding product interfaces in real-screen references, writing a product-specific design contract, implementing required states, and applying a pre-ship finish gate.",
+            "scenarios": [
+              "Design or redesign a web or iOS product screen.",
+              "Critique an interface for generic patterns or missing states.",
+              "Extract hierarchy and interaction decisions from several references.",
+              "Define responsive rules and required loading, empty, error, success, and permission states.",
+              "Review a rendered interface before handoff."
+            ],
+            "io": "Inputs include the screen's job, users, primary action, required content and states, existing design tokens, and two or three reference screens or links. Output is a design contract, an implemented or critiqued interface, and a finish-gate result.",
+            "dependencies": [
+              "Access to the UIZZE public catalogue or user-supplied UIZZE links/screenshots",
+              "The product's existing components, tokens, and visual language",
+              "Rendering capability for final inspection"
+            ],
+            "boundary": "References are to inform structural decisions, not to supply assets for copying. The evidence prohibits copying branding, proprietary text, imagery, or exact layouts. It does not include a catalogue API or implementation tool, and the stated catalogue size is a source claim."
+          },
+          "zh": {
+            "purpose": "定义一个以真实界面参考为依据的流程，用于编写产品专属设计契约、实现必要状态，并执行发布前完成度检查。",
+            "scenarios": [
+              "设计或重新设计 Web 或 iOS 产品界面。",
+              "检查界面中的通用化模式或缺失状态。",
+              "从多个参考中提取层级和交互决策。",
+              "定义响应式规则以及加载、空、错误、成功和权限状态。",
+              "交付前检查渲染后的界面。"
+            ],
+            "io": "输入包括页面任务、目标用户、主要动作、必要内容与状态、现有设计令牌，以及两到三个参考界面或链接。输出为设计契约、实现或评审后的界面，以及完成度检查结果。",
+            "dependencies": [
+              "访问 UIZZE 公共目录，或由用户提供 UIZZE 链接/截图",
+              "产品已有的组件、设计令牌和视觉语言",
+              "用于最终检查的渲染能力"
+            ],
+            "boundary": "参考只用于提取结构决策，不能作为复制资产。证据明确禁止复制其他产品的品牌、专有文本、图像或精确布局。证据不包含目录 API 或实现工具，所述目录规模属于来源自身声明。"
+          }
+        },
+        "scope": "Reference-led web and iOS interface design, implementation, critique, and finish review.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/amplitude-automation",
@@ -3786,7 +4239,48 @@
         "headings": 15,
         "code_blocks": 4
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents workflows for ingesting analytics events, finding and identifying users, retrieving user activity, and reading or changing cohort membership.",
+            "scenarios": [
+              "Send one or more product-analytics events.",
+              "Resolve an application user to an Amplitude internal ID and inspect activity.",
+              "Apply user-property operations such as set, add, append, or unset.",
+              "List cohorts and inspect cohort details.",
+              "Submit asynchronous cohort membership changes and poll their status."
+            ],
+            "io": "Inputs include event arrays, user or device identifiers, millisecond timestamps, event and user properties, Amplitude internal IDs, cohort IDs, membership changes, pagination values, and async request IDs. Outputs are ingestion acknowledgements, user or activity records, cohort records, and asynchronous-operation status.",
+            "dependencies": [
+              "Rube MCP with current-tool discovery",
+              "Active Amplitude connection through Composio",
+              "Amplitude project permissions and ingestion limits"
+            ],
+            "boundary": "Event and identify operations are eventually consistent, and a successful ingestion response does not mean immediate query availability. User-activity lookup requires Amplitude's internal ID. Cohort changes are asynchronous and may need chunking. Current batch limits and schemas are not fixed by the evidence."
+          },
+          "zh": {
+            "purpose": "描述向 Amplitude 写入分析事件、查找和识别用户、获取用户活动以及读取或修改群组成员关系的流程。",
+            "scenarios": [
+              "发送一个或多个产品分析事件。",
+              "将应用用户解析为 Amplitude 内部 ID 并查看活动。",
+              "应用 set、add、append 或 unset 等用户属性操作。",
+              "列出群组并查看群组详情。",
+              "提交异步群组成员变更并轮询状态。"
+            ],
+            "io": "输入包括事件数组、用户或设备标识符、毫秒时间戳、事件和用户属性、Amplitude 内部 ID、群组 ID、成员变更、分页参数及异步请求 ID。输出为摄取确认、用户或活动记录、群组记录和异步操作状态。",
+            "dependencies": [
+              "支持当前工具发现的 Rube MCP",
+              "通过 Composio 建立的有效 Amplitude 连接",
+              "Amplitude 项目权限和摄取限制"
+            ],
+            "boundary": "事件和用户识别操作为最终一致，摄取成功不代表数据可立即查询。用户活动查询需要 Amplitude 内部 ID。群组变更是异步的，大批量操作可能需分块。证据未固定当前批量限制和工具模式。"
+          }
+        },
+        "scope": "Amplitude event, user, activity, cohort, and event-category automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/airtable-automation",
@@ -3858,41 +4352,45 @@
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Automates Airtable operations including managing records, tables, fields, views, and schemas through the Rube MCP Composio integration.",
+            "purpose": "Documents workflows for discovering Airtable schemas, creating and mutating records, filtering records with formulas, modifying selected schema metadata, and listing record comments.",
             "scenarios": [
-              "Creating, updating, or batch deleting records in an Airtable base",
-              "Filtering and searching records using custom Airtable formula queries",
-              "Inspecting and modifying base schemas or field definitions"
+              "List bases and inspect table and field schemas.",
+              "Create, retrieve, update, or delete single or batched records.",
+              "Filter and sort records using Airtable formulas.",
+              "Create fields or update field and table metadata.",
+              "List comments attached to a record."
             ],
-            "io": "Accepts user instructions along with base IDs, table names, field mapping objects, and formula parameters, and outputs execution statuses, queried records, or base schemas.",
+            "io": "Inputs include Airtable base, table, record, and field IDs; exact field names and values; formula filters; sorts; pagination offsets; typecast flags; schema definitions; and record batches. Outputs are schema, record, and comment records or remote mutation results.",
             "dependencies": [
-              "rube_mcp",
-              "airtable",
-              "composio"
+              "Rube MCP with runtime schema lookup",
+              "Active Airtable authentication through Composio",
+              "Airtable base permissions"
             ],
-            "boundary": "It does not bypass Airtable API rate limits or pagination caps, nor does it support non-Airtable data storage systems."
+            "boundary": "Batch record mutations are documented with a maximum of 10 records, and list pages with at most 100 records. Field names are case-sensitive. Field updates do not change field type or options, and computed fields are described as unavailable for creation. Delete operations modify remote records."
           },
           "zh": {
-            "purpose": "通过 Rube MCP 的 Composio 集成，实现对 Airtable 记录、数据表、字段、视图和 Schema 的自动化管理与操作。",
+            "purpose": "描述发现 Airtable 模式、创建和修改记录、使用公式筛选记录、修改部分模式元数据以及列出记录评论的流程。",
             "scenarios": [
-              "在 Airtable 数据表中创建、更新或批量删除记录",
-              "使用自定义 Airtable 公式过滤和检索记录",
-              "查看及修改数据库 Schema 或字段结构定义"
+              "列出 base 并检查表和字段模式。",
+              "创建、获取、更新或删除单条及批量记录。",
+              "使用 Airtable 公式筛选和排序记录。",
+              "创建字段或更新字段与表的元数据。",
+              "列出记录上的评论。"
             ],
-            "io": "接收用户指令、Base ID、表名称、字段映射对象及公式参数，输出记录操作状态、检索到的数据或 Schema 结构。",
+            "io": "输入包括 Airtable base、表、记录和字段 ID，精确字段名及值、公式筛选器、排序、分页偏移量、typecast 标志、模式定义和记录批次。输出为模式、记录和评论数据或远程变更结果。",
             "dependencies": [
-              "rube_mcp",
-              "airtable",
-              "composio"
+              "支持运行时模式查询的 Rube MCP",
+              "通过 Composio 建立的有效 Airtable 认证",
+              "相应 Airtable base 权限"
             ],
-            "boundary": "该技能无法突破 Airtable 原生的 API 速率与分页限制，也不支持 Airtable 以外的其他数据库系统。"
+            "boundary": "证据所述批量记录变更上限为每次 10 条，列表每页最多 100 条。字段名区分大小写。字段更新不能改变字段类型或选项，且不能通过所述 API 创建计算字段。删除操作会修改远程记录。"
           }
         },
-        "community_repo": "davepoon/buildwithclaude",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Airtable base, table, record, field, and comment automation through Rube MCP.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
       },
-      "enrichment_status": "legacy"
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/ai-search-visibility-audit",
@@ -3961,7 +4459,50 @@
         "headings": 10,
         "code_blocks": 0
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Defines a four-phase audit that samples buyer-intent answers, checks crawler and page reachability, evaluates whether selected pages contain citable passages, and traces citations to first- or third-party pages.",
+            "scenarios": [
+              "Investigate why a public brand or site is absent from AI-generated answers.",
+              "Measure mentions, linked citations, and competitor share within a fixed prompt sample.",
+              "Inspect robots.txt, redirects, raw HTML, sitemaps, and llms.txt.",
+              "Review named pages for direct answers, specificity, evidence, freshness, and structured data.",
+              "Prioritize concrete crawler, content, or third-party-description fixes."
+            ],
+            "io": "Inputs are a public domain, a recommendation category, named competitors, a frozen set of 10–15 buyer-intent prompts, and three priority pages. Outputs are a verdict, citation-baseline table and measured rates, blockers, ranked fix list, and audit limitations.",
+            "dependencies": [
+              "Web search access to an AI answer/search engine",
+              "HTTP access to public pages and robots.txt",
+              "Current crawler documentation from relevant operators",
+              "Structured-data parsing capability for markup validation"
+            ],
+            "boundary": "The workflow is limited to public, authorized-to-audit sites and prohibits bypassing authentication, paywalls, rate limits, or access controls. Results are a single-engine, point-in-time sample rather than a trend or universal visibility score. It excludes keyword-rank tracking, paid search, private pages, and persistent cross-engine monitoring."
+          },
+          "zh": {
+            "purpose": "定义一个四阶段审计流程：抽样买家意图答案、检查爬虫和页面可达性、评估指定页面的可引用性，并追踪引用来自第一方还是第三方页面。",
+            "scenarios": [
+              "调查公开品牌或网站为何未出现在 AI 生成答案中。",
+              "在固定提示词样本中测量提及率、带链接引用率和竞争品牌声量份额。",
+              "检查 robots.txt、重定向、原始 HTML、站点地图和 llms.txt。",
+              "评估指定页面的直接回答、具体性、原创证据、时效信号和结构化数据。",
+              "按优先级提出爬虫、内容或第三方描述修复项。"
+            ],
+            "io": "输入为公开域名、希望被推荐的类别、指定竞争者、固定的 10–15 个买家意图提示词和三个重点页面。输出为总体判断、引用基线表及实测比率、阻塞项、排序后的修复清单和审计限制。",
+            "dependencies": [
+              "可访问 AI 答案或搜索引擎的网络搜索能力",
+              "访问公开页面和 robots.txt 的 HTTP 能力",
+              "相关运营方最新的爬虫文档",
+              "验证结构化数据所需的解析能力"
+            ],
+            "boundary": "流程仅限公开且获授权审计的网站，并禁止绕过认证、付费墙、限流或访问控制。结果只是单一引擎、单一时间点的样本，不能视为趋势或通用可见度分数。不涵盖关键词排名跟踪、付费搜索、私有页面或跨引擎持续监测。"
+          }
+        },
+        "scope": "Point-in-time audit of a public website's accessibility and citability in AI answer engines.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/agenttrace-session-audit",
@@ -4030,7 +4571,46 @@
         "headings": 4,
         "code_blocks": 5
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents commands for discovering and auditing local coding-agent sessions for cost, token use, cache behavior, tool failures, retry loops, latency, health, anomalies, diffs, and CI thresholds.",
+            "scenarios": [
+              "Discover detected agent-session directories and produce an overview.",
+              "Generate Markdown or JSON session reports.",
+              "Inspect the latest session or a specified export or directory.",
+              "Identify high-risk sessions and operational waste.",
+              "Apply CI health, critical-finding, or tool-failure gates."
+            ],
+            "io": "Inputs are local session directories or exports, format and output options, and optional health or failure thresholds. Outputs are terminal, Markdown, or JSON reports and a gate exit result.",
+            "dependencies": [
+              "Installed agenttrace binary on PATH, or the luoyuctl/agenttrace repository with Cargo for its documented fallback",
+              "Readable local coding-agent session data"
+            ],
+            "boundary": "The attached evidence does not include the agenttrace implementation. Available evidence varies by parser capability level; Aggregate or Limited sources do not provide a complete execution trace. Missing metrics must remain unavailable rather than being interpreted as zero. The workflow is local and explicitly excludes uploading logs."
+          },
+          "zh": {
+            "purpose": "描述用于发现和审计本地编码代理会话的命令，关注成本、令牌、缓存、工具失败、重试循环、延迟、健康度、异常、差异及 CI 阈值。",
+            "scenarios": [
+              "发现已检测到的代理会话目录并生成总览。",
+              "生成 Markdown 或 JSON 会话报告。",
+              "检查最近会话或指定导出文件/目录。",
+              "识别高风险会话和运行浪费。",
+              "应用健康度、严重发现或工具失败率 CI 门禁。"
+            ],
+            "io": "输入为本地会话目录或导出文件、格式与输出选项，以及可选的健康度或失败阈值。输出为终端、Markdown 或 JSON 报告及门禁退出结果。",
+            "dependencies": [
+              "PATH 中已安装的 agenttrace，或作为文档回退方式的 luoyuctl/agenttrace 仓库和 Cargo",
+              "可读取的本地编码代理会话数据"
+            ],
+            "boundary": "附加证据不包含 agenttrace 实现。可用证据取决于解析器能力级别；Aggregate 或 Limited 来源不构成完整执行轨迹。缺失指标必须标为不可用，不能解释为零。该流程限定在本地，并明确排除上传日志。"
+          }
+        },
+        "scope": "Local operational analysis of AI coding-agent session logs with agenttrace.",
+        "model": "gpt-5",
+        "community_repo": "davepoon/buildwithclaude"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "davepoon/buildwithclaude/plugins/all-skills/skills/agent-memory-discipline",
@@ -4406,7 +4986,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4448,7 +5028,54 @@
         "headings": 5,
         "code_blocks": 3
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents a finalization workflow that inventories created agent primitives, regenerates a self-contained overview page, suggests one or two upgrades, and advances recorded goal state to done.",
+            "scenarios": [
+              "Recap which agent, environment, session, memory, outcome, and deployment primitives exist.",
+              "Regenerate a shareable agent-overview.html after changes.",
+              "Rank recorded deferrals and standing hardening ideas.",
+              "Confirm which components are live versus only planned.",
+              "Finalize the launcher workflow's goal phase."
+            ],
+            "io": "Inputs are ./my-agent/build-sheet.json, ./my-agent/goal.json, recorded status values, and existing launcher artifacts. Outputs are an inventory, a self-contained agent-overview.html, upgrade suggestions, an updated NEXT-DIRECTIONS.md expectation, and a done phase transition.",
+            "dependencies": [
+              "Python 3",
+              "scripts/primitives_inventory.py",
+              "scripts/overview_page.py",
+              "scripts/upgrade_suggester.py",
+              "A populated ./my-agent build sheet and goal-state files",
+              "The companion goal_state.py workflow"
+            ],
+            "boundary": "The workflow only reports primitives recorded in existing state and does not itself establish that external resources are live. The referenced scripts and companion phase tooling are not included in the attached evidence. It is a closeout step, not an agent creation or deployment mechanism."
+          },
+          "zh": {
+            "purpose": "描述一个收尾流程：盘点已创建的代理原语、重新生成自包含概览页、建议一到两个升级项，并将记录的目标状态推进为完成。",
+            "scenarios": [
+              "汇总已有的代理、环境、会话、记忆、结果和部署原语。",
+              "在发生变更后重新生成可分享的 agent-overview.html。",
+              "对已记录的延期项和常规加固建议排序。",
+              "确认哪些组件已上线，哪些仍只是计划。",
+              "完成代理启动器工作流的目标阶段。"
+            ],
+            "io": "输入为 ./my-agent/build-sheet.json、./my-agent/goal.json、已记录状态值及现有启动器产物。输出为资产清单、自包含 agent-overview.html、升级建议、对 NEXT-DIRECTIONS.md 的更新要求及完成状态迁移。",
+            "dependencies": [
+              "Python 3",
+              "scripts/primitives_inventory.py",
+              "scripts/overview_page.py",
+              "scripts/upgrade_suggester.py",
+              "已填充的 ./my-agent 构建表和目标状态文件",
+              "配套的 goal_state.py 工作流"
+            ],
+            "boundary": "该流程只报告现有状态中记录的原语，不能自行证明外部资源确已上线。所引用脚本和配套阶段工具未包含在附加证据中。它是收尾步骤，不负责创建或部署代理。"
+          }
+        },
+        "scope": "Closeout phase for a previously launched Claude Managed Agent workspace.",
+        "model": "gpt-5",
+        "community_repo": "alirezarezvani/claude-skills"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "alirezarezvani/claude-skills/business-operations/skills/vendor-management",
@@ -4490,7 +5117,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4532,7 +5159,54 @@
         "headings": 18,
         "code_blocks": 1
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Defines a recurring vendor-review workflow that applies deterministic industry-weighted performance scoring, SLA compliance checks, four-vector risk classification, and KEEP/REVIEW/REPLACE labels for human consideration.",
+            "scenarios": [
+              "Prepare quarterly or renewal-time scorecards for existing vendors.",
+              "Quantify recurring SLA gaps and identify possible credit claims.",
+              "Classify third-party risk across data, financial, operational, and regulatory exposure.",
+              "Review tier-1 vendors and document mitigations or break-glass gaps.",
+              "Synthesize a portfolio digest of performance, SLA, and risk findings."
+            ],
+            "io": "Inputs are a vendor catalog JSON, SLA-record JSON, an industry profile, and documented fields for spend, criticality, reliability, support, certifications, renewal terms, and exposure. Outputs are Markdown scorecards, SLA reports, risk matrices, mitigation suggestions, and a synthesized vendor digest.",
+            "dependencies": [
+              "Python 3",
+              "scripts/vendor_scorer.py",
+              "scripts/sla_compliance_tracker.py",
+              "scripts/vendor_risk_classifier.py",
+              "User-supplied vendor and SLA data",
+              "Referenced templates and canon files for the full workflow"
+            ],
+            "boundary": "The workflow concerns ongoing relationships, not vendor selection, contract drafting, legal advice, or internal SLO design. Scores depend entirely on supplied data and fixed script rules; the evidence does not include the scripts for verification. Outputs are inputs to human decisions, and credit eligibility is a flag rather than a validated contractual entitlement."
+          },
+          "zh": {
+            "purpose": "定义一个持续供应商审查流程，采用确定性的行业加权绩效评分、SLA 合规检查、四维风险分类及供人工参考的 KEEP/REVIEW/REPLACE 标签。",
+            "scenarios": [
+              "为现有供应商准备季度或续约期记分卡。",
+              "量化反复出现的 SLA 缺口并识别潜在服务抵扣索赔。",
+              "从数据、财务、运营和监管暴露四个维度分类第三方风险。",
+              "审查一级关键供应商并记录缓解措施或应急方案缺口。",
+              "汇总供应商组合的绩效、SLA 和风险发现。"
+            ],
+            "io": "输入为供应商目录 JSON、SLA 记录 JSON、行业配置，以及支出、关键性、可靠性、支持、认证、续约条款和风险暴露等字段。输出为 Markdown 记分卡、SLA 报告、风险矩阵、缓解建议和综合摘要。",
+            "dependencies": [
+              "Python 3",
+              "scripts/vendor_scorer.py",
+              "scripts/sla_compliance_tracker.py",
+              "scripts/vendor_risk_classifier.py",
+              "用户提供的供应商和 SLA 数据",
+              "完整流程所引用的模板与知识文件"
+            ],
+            "boundary": "该流程用于既有供应商关系的持续管理，不用于初始选型、合同起草、法律建议或内部 SLO 设计。评分完全取决于输入数据和脚本固定规则；附加证据不含脚本，无法验证其实现。输出仅供人工决策参考，抵扣资格只是提示，并非经合同验证的权利。"
+          }
+        },
+        "scope": "Operational performance, SLA, and third-party-risk review of existing vendors.",
+        "model": "gpt-5",
+        "community_repo": "alirezarezvani/claude-skills"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "alirezarezvani/claude-skills/c-level-advisor/executive-mentor/skills/stress-test",
@@ -4559,7 +5233,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4601,7 +5275,46 @@
         "headings": 15,
         "code_blocks": 1
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Provides a five-step framework for making a business assumption testable, seeking counter-evidence, modeling downside cases, assessing outcome sensitivity, and defining validation, contingency, and early-warning hedges.",
+            "scenarios": [
+              "Challenge a revenue, growth, conversion, or sales-cycle assumption.",
+              "Test top-down market-size claims with bottom-up account counts.",
+              "Evaluate whether a claimed competitive moat is currently durable.",
+              "Model hiring delays, lower staffing, or key-person dependency.",
+              "Examine likely incumbent or competitor responses."
+            ],
+            "io": "Input is a specific business assumption plus its source, supporting data, outcome model, and available counter-evidence. Output is a structured assumption statement, counter-evidence summary, downside scenarios, qualitative or quantitative sensitivity assessment, and three hedge types.",
+            "dependencies": [
+              "User-supplied business model and operating data",
+              "Relevant historical, customer, market, or competitor evidence when factual validation is required"
+            ],
+            "boundary": "The document supplies a reasoning framework rather than a calculation tool or verified data source. Probabilities, impacts, and sensitivity cannot be determined faithfully without user data or external research. Its scenarios are planning aids, not forecasts or guarantees."
+          },
+          "zh": {
+            "purpose": "提供一个五步框架，将业务假设具体化并可测试，主动寻找反证，建立下行情景，评估结果敏感性，并定义验证、应急和预警对冲措施。",
+            "scenarios": [
+              "挑战收入、增长、转化率或销售周期假设。",
+              "通过自下而上的目标账户数量检验自上而下的市场规模说法。",
+              "评估所称竞争壁垒当前是否具有持续性。",
+              "模拟招聘延迟、人员不足或关键人物依赖。",
+              "检查现有厂商或竞争者可能采取的回应。"
+            ],
+            "io": "输入为明确的业务假设及其来源、支持数据、结果模型和可用反证。输出为结构化假设陈述、反证摘要、下行情景、定性或定量敏感性评估，以及三类对冲措施。",
+            "dependencies": [
+              "用户提供的业务模型和运营数据",
+              "需要事实验证时使用的历史、客户、市场或竞争证据"
+            ],
+            "boundary": "该文档提供的是推理框架，不是计算工具或经验证的数据源。没有用户数据或外部研究时，无法可靠确定概率、影响和敏感性。其情景仅用于规划，不构成预测或保证。"
+          }
+        },
+        "scope": "Structured stress testing of explicit business assumptions.",
+        "model": "gpt-5",
+        "community_repo": "alirezarezvani/claude-skills"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "alirezarezvani/claude-skills/agent-launcher/skills/stage-launch",
@@ -4643,7 +5356,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4691,7 +5404,56 @@
         "headings": 6,
         "code_blocks": 5
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Documents how to convert a validated agent build sheet into four ordered API payloads, generate a resumable curl launcher, scan staged files for key leakage, and hand execution to the user's shell.",
+            "scenarios": [
+              "Generate environment, agent, session, and kickoff payload files.",
+              "Create a launcher that chains returned IDs and resumes from saved checkpoints.",
+              "Validate payload structure and scan for Anthropic API-key leakage.",
+              "Prepare a user-operated launch sequence and observe its first poll.",
+              "Advance launcher state to the grade-and-iterate phase after launch."
+            ],
+            "io": "Input is ./my-agent/build-sheet.json plus runtime launch configuration and an ANTHROPIC_API_KEY held in the user's shell. Outputs are four JSON payloads, launch.sh, checkpoint ID files after user execution, validation findings, and a phase-state update.",
+            "dependencies": [
+              "Python 3",
+              "scripts/payload_generator.py",
+              "scripts/launch_script_writer.py",
+              "scripts/payload_validator.py",
+              "curl in the user execution environment",
+              "User-owned ANTHROPIC_API_KEY supplied only through the shell environment",
+              "Claude Managed Agent API access"
+            ],
+            "boundary": "The described generators and validator make no network calls; launch.sh is executed by the user and performs external creation. The key must not enter chat, payloads, files, or logs. The attached evidence does not include the scripts or API specification, and successful staging does not establish a successful deployment."
+          },
+          "zh": {
+            "purpose": "描述如何将已验证的代理构建表转换为四个有序 API 载荷，生成可续跑的 curl 启动器，扫描暂存文件中的密钥泄漏，并由用户在其 shell 中执行。",
+            "scenarios": [
+              "生成环境、代理、会话和启动任务载荷文件。",
+              "创建可串联返回 ID 并根据已保存检查点续跑的启动脚本。",
+              "验证载荷结构并扫描 Anthropic API 密钥泄漏。",
+              "准备由用户执行的启动序列并观察首次轮询。",
+              "启动后将启动器状态推进到评分迭代阶段。"
+            ],
+            "io": "输入为 ./my-agent/build-sheet.json、运行时启动配置，以及仅保存在用户 shell 中的 ANTHROPIC_API_KEY。输出为四个 JSON 载荷、launch.sh、用户执行后生成的检查点 ID 文件、验证发现和阶段状态更新。",
+            "dependencies": [
+              "Python 3",
+              "scripts/payload_generator.py",
+              "scripts/launch_script_writer.py",
+              "scripts/payload_validator.py",
+              "用户执行环境中的 curl",
+              "仅通过 shell 环境提供的用户自有 ANTHROPIC_API_KEY",
+              "Claude Managed Agent API 访问权限"
+            ],
+            "boundary": "所述生成器和验证器不发起网络请求；launch.sh 由用户执行并创建外部资源。密钥不得进入对话、载荷、文件或日志。附加证据不包含脚本或 API 规范，暂存成功也不能证明部署成功。"
+          }
+        },
+        "scope": "Staging launch artifacts for a Claude Managed Agent using a user-run BYOK shell script.",
+        "model": "gpt-5",
+        "community_repo": "alirezarezvani/claude-skills"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "alirezarezvani/claude-skills/business-growth/skills/sales-engineer",
@@ -4733,7 +5495,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4775,7 +5537,54 @@
         "headings": 14,
         "code_blocks": 8
       },
-      "enrichment_status": "pending"
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Defines a five-phase pre-sales engineering workflow for discovery, requirement coverage analysis, solution design, tailored demonstrations, proof-of-concept evaluation, and technical proposal preparation.",
+            "scenarios": [
+              "Score an RFP or RFI response for coverage and must-have gaps.",
+              "Build a weighted competitor feature matrix and identify differentiators.",
+              "Prepare a stakeholder-specific technical demo and objection responses.",
+              "Generate and evaluate a phased POC plan and scorecard.",
+              "Compile POC evidence into a technical proposal and implementation plan."
+            ],
+            "io": "Inputs include structured RFP requirements, product coverage data, competitor feature data, customer architecture and constraints, POC criteria, and stakeholder priorities. Outputs include coverage results, bid/no-bid labels, feature matrices, solution and demo plans, POC artifacts, evaluation results, and technical proposal materials.",
+            "dependencies": [
+              "Python 3",
+              "scripts/rfp_response_analyzer.py",
+              "scripts/competitive_matrix_builder.py",
+              "scripts/poc_planner.py",
+              "Referenced JSON schemas, templates, and knowledge-base files",
+              "Customer, product, and competitor evidence supplied for the engagement"
+            ],
+            "boundary": "The attached evidence does not include the scripts, templates, or reference files, so their computations and output schemas cannot be verified here. Coverage thresholds and bid/no-bid results are documented workflow rules, not independent commercial judgments. Reliable comparison requires current, sourced product and competitor data."
+          },
+          "zh": {
+            "purpose": "定义一个五阶段售前工程流程，涵盖需求发现、RFP 覆盖分析、解决方案设计、定制演示、概念验证评估和技术提案准备。",
+            "scenarios": [
+              "评估 RFP 或 RFI 响应的覆盖率和必备项缺口。",
+              "建立加权竞争功能矩阵并识别差异点。",
+              "准备面向不同利益相关者的技术演示和异议处理。",
+              "生成并评估分阶段 POC 计划和记分卡。",
+              "将 POC 证据汇编为技术提案和实施计划。"
+            ],
+            "io": "输入包括结构化 RFP 需求、产品覆盖数据、竞争者功能数据、客户架构与约束、POC 标准和利益相关者优先级。输出包括覆盖分析、投标/不投标标签、功能矩阵、方案与演示计划、POC 产物、评估结果和技术提案材料。",
+            "dependencies": [
+              "Python 3",
+              "scripts/rfp_response_analyzer.py",
+              "scripts/competitive_matrix_builder.py",
+              "scripts/poc_planner.py",
+              "所引用的 JSON 模式、模板和知识库文件",
+              "项目所需的客户、产品和竞争者证据"
+            ],
+            "boundary": "附加证据不包含脚本、模板或参考文件，因此无法在此验证其计算和输出模式。覆盖阈值及投标/不投标结果是文档所述工作流规则，并非独立商业判断。可靠比较需要当前且有来源的产品与竞争者数据。"
+          }
+        },
+        "scope": "Pre-sales RFP coverage analysis, competitive feature comparison, demo preparation, and POC planning.",
+        "model": "gpt-5",
+        "community_repo": "alirezarezvani/claude-skills"
+      },
+      "enrichment_status": "fresh"
     },
     {
       "id": "alirezarezvani/claude-skills/agent-launcher/skills/run-without-you",
@@ -4817,7 +5626,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4901,7 +5710,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -4985,7 +5794,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5069,7 +5878,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5138,7 +5947,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5222,7 +6031,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5306,7 +6115,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5390,7 +6199,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5459,7 +6268,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5543,7 +6352,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5622,7 +6431,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5701,7 +6510,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5785,7 +6594,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5854,7 +6663,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -5938,7 +6747,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6022,7 +6831,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6106,7 +6915,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6175,7 +6984,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6259,7 +7068,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6328,7 +7137,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6397,7 +7206,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6466,7 +7275,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6550,7 +7359,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6619,7 +7428,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -6703,7 +7512,7 @@
         "health": 90,
         "health_factors": {
           "recency_days": 0,
-          "stars": 25278,
+          "stars": 25279,
           "forks": 3591,
           "watchers": 228,
           "age_days": 316,
@@ -9464,8 +10273,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75712,
-          "forks": 12208,
+          "stars": 75713,
+          "forks": 12209,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -9578,8 +10387,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75712,
-          "forks": 12208,
+          "stars": 75713,
+          "forks": 12209,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -9765,8 +10574,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75712,
-          "forks": 12208,
+          "stars": 75713,
+          "forks": 12209,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -9895,8 +10704,8 @@
         "health": 88,
         "health_factors": {
           "recency_days": 4,
-          "stars": 75712,
-          "forks": 12208,
+          "stars": 75713,
+          "forks": 12209,
           "watchers": 300,
           "age_days": 427,
           "archived": false,
@@ -13048,7 +13857,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13133,7 +13942,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13212,7 +14021,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13325,7 +14134,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13448,7 +14257,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13607,7 +14416,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13716,7 +14525,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13900,7 +14709,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -13994,7 +14803,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14063,7 +14872,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14196,7 +15005,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14265,7 +15074,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14334,7 +15143,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14413,7 +15222,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14482,7 +15291,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14551,7 +15360,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14625,7 +15434,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14745,7 +15554,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14824,7 +15633,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -14949,7 +15758,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15072,7 +15881,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15191,7 +16000,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15270,7 +16079,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15345,7 +16154,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15424,7 +16233,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15493,7 +16302,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15572,7 +16381,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15672,7 +16481,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -15733,7 +16542,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 1,
-          "stars": 33419,
+          "stars": 33423,
           "forks": 3535,
           "watchers": 234,
           "age_days": 306,
@@ -15812,7 +16621,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -16027,7 +16836,7 @@
         "health": 86,
         "health_factors": {
           "recency_days": 0,
-          "stars": 1362,
+          "stars": 1363,
           "forks": 215,
           "watchers": 16,
           "age_days": 312,
@@ -17274,7 +18083,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17349,7 +18158,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17418,7 +18227,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17497,7 +18306,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17572,7 +18381,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17662,7 +18471,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17737,7 +18546,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17812,7 +18621,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17887,7 +18696,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -17962,7 +18771,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18031,7 +18840,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18151,7 +18960,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18260,7 +19069,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18420,7 +19229,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18495,7 +19304,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18570,7 +19379,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18655,7 +19464,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18744,7 +19553,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18819,7 +19628,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18899,7 +19708,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -18968,7 +19777,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19037,7 +19846,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19162,7 +19971,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19242,7 +20051,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19316,7 +20125,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19390,7 +20199,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19465,7 +20274,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19580,7 +20389,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19655,7 +20464,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19730,7 +20539,7 @@
         "health": 84,
         "health_factors": {
           "recency_days": 1,
-          "stars": 39884,
+          "stars": 39921,
           "forks": 3711,
           "watchers": 179,
           "age_days": 315,
@@ -19799,7 +20608,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -19904,7 +20713,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20006,7 +20815,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20077,7 +20886,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20146,7 +20955,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20251,7 +21060,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20356,7 +21165,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20428,7 +21237,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20505,7 +21314,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20611,7 +21420,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20694,7 +21503,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20818,7 +21627,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -20928,7 +21737,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21043,7 +21852,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21172,7 +21981,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21244,7 +22053,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21315,7 +22124,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21436,7 +22245,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21505,7 +22314,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21625,7 +22434,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21707,7 +22516,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21789,7 +22598,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21860,7 +22669,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -21965,7 +22774,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -22084,7 +22893,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -22159,7 +22968,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -22236,7 +23045,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -22313,7 +23122,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -22426,7 +23235,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -22501,7 +23310,7 @@
         "health": 83,
         "health_factors": {
           "recency_days": 0,
-          "stars": 3001,
+          "stars": 3002,
           "forks": 488,
           "watchers": 29,
           "age_days": 180,
@@ -24145,7 +24954,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24214,7 +25023,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24283,7 +25092,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24352,7 +25161,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24427,7 +25236,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24496,7 +25305,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24565,7 +25374,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24634,7 +25443,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -24703,7 +25512,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25372,7 +26181,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 0,
-          "stars": 60656,
+          "stars": 60663,
           "forks": 5304,
           "watchers": 218,
           "age_days": 219,
@@ -25537,7 +26346,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25606,7 +26415,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25680,7 +26489,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25749,7 +26558,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25818,7 +26627,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25887,7 +26696,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -25956,7 +26765,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26025,7 +26834,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26094,7 +26903,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26163,7 +26972,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26232,7 +27041,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26301,7 +27110,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26370,7 +27179,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26439,7 +27248,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26508,7 +27317,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -26634,7 +27443,7 @@
         "health": 76,
         "health_factors": {
           "recency_days": 2,
-          "stars": 90998,
+          "stars": 91000,
           "forks": 9727,
           "watchers": 479,
           "age_days": 196,
@@ -27298,9 +28107,9 @@
         "health": 68,
         "health_factors": {
           "recency_days": 0,
-          "stars": 5930,
+          "stars": 5938,
           "forks": 712,
-          "watchers": 17,
+          "watchers": 18,
           "age_days": 145,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
@@ -29998,7 +30807,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30111,7 +30920,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30185,7 +30994,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30259,7 +31068,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30339,7 +31148,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30408,7 +31217,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30492,7 +31301,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30567,7 +31376,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30636,7 +31445,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30715,7 +31524,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30786,7 +31595,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -30935,7 +31744,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31010,7 +31819,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31112,7 +31921,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31214,7 +32023,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31322,7 +32131,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31428,7 +32237,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31532,7 +32341,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31638,7 +32447,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31713,7 +32522,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31819,7 +32628,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -31929,7 +32738,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -32037,7 +32846,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -32147,7 +32956,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -32216,7 +33025,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -32285,7 +33094,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -33024,8 +33833,8 @@
         "health": 61,
         "health_factors": {
           "recency_days": 0,
-          "stars": 36018,
-          "forks": 2311,
+          "stars": 36075,
+          "forks": 2313,
           "watchers": 128,
           "age_days": 138,
           "archived": false,
@@ -33098,7 +33907,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -33167,7 +33976,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -33269,7 +34078,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -33371,7 +34180,7 @@
         "health": 61,
         "health_factors": {
           "recency_days": 1,
-          "stars": 35650,
+          "stars": 35651,
           "forks": 3976,
           "watchers": 222,
           "age_days": 283,
@@ -33730,7 +34539,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -33819,7 +34628,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -33903,7 +34712,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34026,7 +34835,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34148,7 +34957,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34302,7 +35111,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34678,7 +35487,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34830,7 +35639,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -34960,7 +35769,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35062,7 +35871,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35164,7 +35973,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35561,7 +36370,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35675,7 +36484,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35779,7 +36588,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35848,7 +36657,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -35954,7 +36763,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36060,7 +36869,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36167,7 +36976,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36271,7 +37080,7 @@
         "health": 60,
         "health_factors": {
           "recency_days": 9,
-          "stars": 172697,
+          "stars": 172702,
           "forks": 20510,
           "watchers": 1113,
           "age_days": 342,
@@ -36340,10 +37149,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -36442,10 +37251,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -36544,10 +37353,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -36646,10 +37455,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -36765,10 +37574,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -36886,10 +37695,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -36955,10 +37764,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37024,10 +37833,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37093,10 +37902,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37162,10 +37971,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37231,10 +38040,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37300,10 +38109,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37369,10 +38178,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37438,10 +38247,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37507,10 +38316,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37576,10 +38385,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37645,10 +38454,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37714,10 +38523,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37783,10 +38592,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37852,10 +38661,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -37958,10 +38767,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38062,10 +38871,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38168,10 +38977,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38274,10 +39083,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38378,10 +39187,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38484,10 +39293,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38588,10 +39397,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38692,10 +39501,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38763,10 +39572,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -38867,10 +39676,10 @@
         "health": 53,
         "health_factors": {
           "recency_days": 20,
-          "stars": 74092,
-          "forks": 8487,
+          "stars": 74093,
+          "forks": 8488,
           "watchers": 459,
-          "age_days": 317,
+          "age_days": 318,
           "archived": false,
           "maintenance_basis": "issues-per-maintainer",
           "open_issues": 138,
@@ -39540,7 +40349,7 @@
         "health": 37,
         "health_factors": {
           "recency_days": 132,
-          "stars": 208951,
+          "stars": 208954,
           "forks": 21277,
           "watchers": 1213,
           "age_days": 216,
@@ -42257,10 +43066,10 @@
     }
   ],
   "enrichment_coverage": {
-    "fresh": 31,
-    "legacy": 139,
+    "fresh": 51,
+    "legacy": 138,
     "stale": 4,
-    "pending": 234,
+    "pending": 215,
     "total_skills": 408
   }
 }
