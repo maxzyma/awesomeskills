@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "awesomeskills enrichment verdict batch",
+  "description": "Output of the verification pass. The verifier reads the evidence and the proposed enrichment and rules on whether every claim is supported. It never rewrites the enrichment: a verifier that can edit is a second author, and its errors would be indistinguishable from the first author's.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["generated_at", "agent", "model", "verdicts"],
+  "properties": {
+    "generated_at": {"type": "string", "minLength": 10},
+    "agent": {"type": "string", "minLength": 1},
+    "model": {"type": "string", "minLength": 1},
+    "verdicts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "supported", "unsupported_claims"],
+        "properties": {
+          "id": {"type": "string", "minLength": 3},
+          "supported": {
+            "type": "boolean",
+            "description": "True only if every factual claim in the enrichment is traceable to the supplied evidence. Claims that are true of the real product but absent from the evidence are not supported."
+          },
+          "unsupported_claims": {
+            "type": "array",
+            "description": "Verbatim spans from the enrichment that the evidence does not back. Required to be non-empty when supported is false, so a rejection always says what was wrong.",
+            "items": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    }
+  }
+}
