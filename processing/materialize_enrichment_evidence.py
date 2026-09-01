@@ -9,7 +9,7 @@ import os
 from copy import deepcopy
 from pathlib import Path
 
-from build_index import fetch_raw
+from github_api import fetch_raw
 from enrichment_store import BASE, read_json, write_json
 
 

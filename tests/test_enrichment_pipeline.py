@@ -15,9 +15,9 @@ sys.path.insert(0, str(ROOT / "processing"))
 
 from detect_enrichment_changes import build_manifest
 from build_index import (
-    _get, _license_path, _owning_skill_dir, fetch_raw, fetch_skill_contents, fetch_skill_paths,
-    merge_source_entries, merge_source_summaries,
+    _license_path, _owning_skill_dir, merge_source_entries, merge_source_summaries,
 )
+from github_api import _get, fetch_raw, fetch_skill_contents, fetch_skill_paths
 from security_scan import scan_skill_bundle
 from enrichment_store import (
     EnrichmentError, apply_candidate, validate_candidate, validate_manifest_binding,
@@ -123,8 +123,8 @@ class EnrichmentPipelineTest(unittest.TestCase):
                 ]}
             raise AssertionError(url)
 
-        with patch("build_index._get", side_effect=fake_get):
-            self.assertEqual(fetch_skill_paths("o/r", "main", None), ["skills/a/SKILL.md"])
+        with patch("github_api._get", side_effect=fake_get):
+            self.assertEqual(fetch_skill_paths("o/r", "main", None, 30), ["skills/a/SKILL.md"])
 
     def test_transient_github_http_error_is_retried(self):
         class Response:
@@ -141,14 +141,14 @@ class EnrichmentPipelineTest(unittest.TestCase):
             "https://api.github.com/example", 504, "gateway timeout", {}, None,
         )
         with (
-            patch("build_index.urllib.request.urlopen", side_effect=[transient, Response()]),
-            patch("build_index.time.sleep") as sleep,
+            patch("github_api.urllib.request.urlopen", side_effect=[transient, Response()]),
+            patch("github_api.time.sleep") as sleep,
         ):
             self.assertEqual(_get("https://api.github.com/example", None), {"ok": True})
             sleep.assert_called_once()
 
     def test_raw_skill_fetch_uses_authenticated_contents_api(self):
-        with patch("build_index._get", return_value="content") as request:
+        with patch("github_api._get", return_value="content") as request:
             self.assertEqual(fetch_raw("o/r", "feature/x", "skills/a b/SKILL.md", "token"), "content")
         request.assert_called_once_with(
             "https://api.github.com/repos/o/r/contents/skills/a%20b/SKILL.md?ref=feature%2Fx",
@@ -173,7 +173,7 @@ class EnrichmentPipelineTest(unittest.TestCase):
                     }},
                 }).encode()
 
-        with patch("build_index.urllib.request.urlopen", return_value=Response()) as urlopen:
+        with patch("github_api.urllib.request.urlopen", return_value=Response()) as urlopen:
             contents = fetch_skill_contents(
                 "o/r", "feature/x", ["a/SKILL.md", "b/SKILL.md"], "token",
             )
@@ -185,7 +185,7 @@ class EnrichmentPipelineTest(unittest.TestCase):
         self.assertEqual(payload["variables"]["expression1"], "feature/x:b/SKILL.md")
 
     def test_skill_fetch_without_token_keeps_rest_fallback(self):
-        with patch("build_index.fetch_raw", side_effect=["first", "second"]) as fetch:
+        with patch("github_api.fetch_raw", side_effect=["first", "second"]) as fetch:
             contents = fetch_skill_contents("o/r", "main", ["a", "b"], None)
         self.assertEqual(contents, ["first", "second"])
         self.assertEqual(fetch.call_count, 2)
@@ -239,8 +239,8 @@ class EnrichmentPipelineTest(unittest.TestCase):
             BytesIO(b'{"message":"You have exceeded a secondary rate limit."}'),
         )
         with (
-            patch("build_index.urllib.request.urlopen", side_effect=[limited, Response()]),
-            patch("build_index.time.sleep") as sleep,
+            patch("github_api.urllib.request.urlopen", side_effect=[limited, Response()]),
+            patch("github_api.time.sleep") as sleep,
         ):
             self.assertEqual(_get("https://api.github.com/example", "token"), {"ok": True})
             sleep.assert_called_once_with(15.0)

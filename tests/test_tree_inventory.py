@@ -17,6 +17,10 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "processing"))
 
 import build_index  # noqa: E402
+import github_api  # noqa: E402
+
+# The per-repo cap belongs to the caller now, so tests state their own.
+LIMIT = 30
 
 TOKEN = "t"
 REF = "c" * 40
@@ -33,7 +37,7 @@ def tree(path):
 def tree_url(directory: str | None = None, recursive: bool = False) -> str:
     """The exact URL fetch_tree_inventory builds, so routes cannot match each other."""
     target = REF if directory is None else f"{REF}:{directory}"
-    return f"{build_index.API}o/r/git/trees/{target}" + ("?recursive=1" if recursive else "")
+    return f"{github_api.API}o/r/git/trees/{target}" + ("?recursive=1" if recursive else "")
 
 
 def fake_get(routes: dict):
@@ -49,17 +53,17 @@ def fake_get(routes: dict):
 
 
 def test_untruncated_tree_takes_the_whole_repo(monkeypatch):
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": False, "tree": [blob("a/SKILL.md"), tree("a"), blob("LICENSE")]},
     }))
-    blobs, bundle, repo_tree = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    blobs, bundle, repo_tree = github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
     assert {b["path"] for b in blobs} == {"a/SKILL.md", "LICENSE"}
     assert (bundle, repo_tree) == (True, True)
 
 
 def test_truncated_tree_walks_the_selected_skill_dirs(monkeypatch):
     """The bundle is recoverable even when the repository tree is not."""
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": True, "tree": []},
         tree_url("plugins/demo", recursive=True): {
             "truncated": False,
@@ -68,7 +72,7 @@ def test_truncated_tree_walks_the_selected_skill_dirs(monkeypatch):
         tree_url("plugins"): {"truncated": False, "tree": [blob("NOTICE")]},
         tree_url(): {"truncated": False, "tree": [blob("LICENSE"), tree("plugins")]},
     }))
-    blobs, bundle, repo_tree = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["plugins/demo"])
+    blobs, bundle, repo_tree = github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["plugins/demo"])
     paths = {b["path"] for b in blobs}
 
     assert "plugins/demo/SKILL.md" in paths, "subtree paths must be re-prefixed to repo root"
@@ -82,66 +86,66 @@ def test_truncated_tree_walks_the_selected_skill_dirs(monkeypatch):
 def test_scoped_walk_does_not_claim_repo_wide_counts(monkeypatch):
     """repo_tree_complete gates discovered_skill_count. If the scoped walk set it, a repo
     whose SKILL.md enumeration stopped early would report that partial count as the total."""
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": True, "tree": []},
         tree_url(): {"truncated": False, "tree": []},
         tree_url("a", recursive=True): {"truncated": False, "tree": [blob("SKILL.md")]},
     }))
-    _, _, repo_tree = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    _, _, repo_tree = github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
     assert repo_tree is False
 
 
 def test_failed_subtree_marks_the_bundle_incomplete(monkeypatch):
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": True, "tree": []},
         tree_url(): {"truncated": False, "tree": []},
         # the subtree for "a" is unrouted -> None
     }))
-    _, bundle, _ = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    _, bundle, _ = github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
     assert bundle is False
 
 
 def test_truncated_subtree_marks_the_bundle_incomplete(monkeypatch):
     """A subtree can itself be too large. Partial is not complete."""
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": True, "tree": []},
         tree_url(): {"truncated": False, "tree": []},
         tree_url("a", recursive=True): {"truncated": True, "tree": [blob("SKILL.md")]},
     }))
-    _, bundle, _ = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    _, bundle, _ = github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
     assert bundle is False
 
 
 def test_no_skill_dirs_cannot_be_complete(monkeypatch):
     """A repo-level entry in a truncated repo has nothing scoped to walk, so nothing was
     proven about its files."""
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": True, "tree": []},
         tree_url(): {"truncated": False, "tree": [blob("README.md")]},
     }))
-    _, bundle, repo_tree = build_index.fetch_tree_inventory("o/r", REF, TOKEN, [])
+    _, bundle, repo_tree = github_api.fetch_tree_inventory("o/r", REF, TOKEN, [])
     assert (bundle, repo_tree) == (False, False)
 
 
 def test_unfetchable_root_tree_fails_the_build(monkeypatch):
-    monkeypatch.setattr(build_index, "_get", fake_get({}))
+    monkeypatch.setattr(github_api, "_get", fake_get({}))
     try:
-        build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
-    except build_index.BuildError:
+        github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    except github_api.BuildError:
         return
     raise AssertionError("an unfetchable tree must fail the build, not publish a partial one")
 
 
 def test_ancestor_dirs_enumerates_every_level():
-    assert build_index._ancestor_dirs("a/b/c") == ["a", "a/b"]
-    assert build_index._ancestor_dirs("a") == []
-    assert build_index._ancestor_dirs(".") == []
+    assert github_api._ancestor_dirs("a/b/c") == ["a", "a/b"]
+    assert github_api._ancestor_dirs("a") == []
+    assert github_api._ancestor_dirs(".") == []
 
 
 # --- symlinks ----------------------------------------------------------------------------
 
 def symlink(path):
-    return {"path": path, "type": "blob", "mode": build_index.SYMLINK_MODE}
+    return {"path": path, "type": "blob", "mode": github_api.SYMLINK_MODE}
 
 
 def test_symlinked_skill_md_is_not_indexed(monkeypatch):
@@ -149,27 +153,27 @@ def test_symlinked_skill_md_is_not_indexed(monkeypatch):
     string while REST follows the link, so a symlinked SKILL.md was indexed as a 64-byte
     path: empty summary, invalid frontmatter, and a security rating of `pass` awarded to
     content nothing had read."""
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": False, "tree": [
             blob("real/SKILL.md"),
             symlink("alias/SKILL.md"),
         ]},
     }))
-    assert build_index.fetch_skill_paths("o/r", REF, TOKEN) == ["real/SKILL.md"]
+    assert github_api.fetch_skill_paths("o/r", REF, TOKEN, LIMIT) == ["real/SKILL.md"]
 
 
 def test_symlinked_skill_md_is_skipped_in_the_subtree_walk(monkeypatch):
     """fetch_skill_paths descends by tree object SHA, so the symlink filter has to hold on
     that path too, not only on the flat recursive listing."""
     subtree_sha = "e" * 40
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(recursive=True): {"truncated": True, "tree": []},
         tree_url(): {"truncated": False, "tree": [{**tree("a"), "sha": subtree_sha}]},
-        f"{build_index.API}o/r/git/trees/{subtree_sha}?recursive=1": {
+        f"{github_api.API}o/r/git/trees/{subtree_sha}?recursive=1": {
             "truncated": False, "tree": [blob("SKILL.md"), symlink("link/SKILL.md")],
         },
     }))
-    found = build_index.fetch_skill_paths("o/r", REF, TOKEN)
+    found = github_api.fetch_skill_paths("o/r", REF, TOKEN, LIMIT)
     assert found == ["a/SKILL.md"], found
 
 
@@ -181,10 +185,10 @@ def test_symlinked_script_is_not_treated_as_executable_text():
 
 
 def test_regular_blob_is_still_a_real_blob():
-    assert build_index._is_real_blob(blob("a.py"))
-    assert build_index._is_real_blob(blob("a.py", "100755"))
-    assert not build_index._is_real_blob(symlink("a.py"))
-    assert not build_index._is_real_blob(tree("a"))
+    assert github_api._is_real_blob(blob("a.py"))
+    assert github_api._is_real_blob(blob("a.py", "100755"))
+    assert not github_api._is_real_blob(symlink("a.py"))
+    assert not github_api._is_real_blob(tree("a"))
 
 
 # --- an unfetchable recursive tree is not a dead end --------------------------------------
@@ -194,22 +198,22 @@ def test_skill_paths_fall_back_when_the_recursive_tree_never_arrives(monkeypatch
     per-directory responses the subtree walk uses are small enough to survive a link that
     could not carry the whole listing."""
     subtree_sha = "f" * 40
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         # the recursive URL is unrouted -> None, as if the fetch had failed
         tree_url(): {"truncated": False, "tree": [{**tree("a"), "sha": subtree_sha}]},
-        f"{build_index.API}o/r/git/trees/{subtree_sha}?recursive=1": {
+        f"{github_api.API}o/r/git/trees/{subtree_sha}?recursive=1": {
             "truncated": False, "tree": [blob("SKILL.md")],
         },
     }))
-    assert build_index.fetch_skill_paths("o/r", REF, TOKEN) == ["a/SKILL.md"]
+    assert github_api.fetch_skill_paths("o/r", REF, TOKEN, LIMIT) == ["a/SKILL.md"]
 
 
 def test_inventory_falls_back_when_the_recursive_tree_never_arrives(monkeypatch):
-    monkeypatch.setattr(build_index, "_get", fake_get({
+    monkeypatch.setattr(github_api, "_get", fake_get({
         tree_url(): {"truncated": False, "tree": [blob("LICENSE")]},
         tree_url("a", recursive=True): {"truncated": False, "tree": [blob("SKILL.md")]},
     }))
-    blobs, bundle, repo_tree = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    blobs, bundle, repo_tree = github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
     assert {b["path"] for b in blobs} == {"LICENSE", "a/SKILL.md"}
     assert bundle is True
     assert repo_tree is False, "a fetch that failed saw no more of the tree than a truncated one"
@@ -218,8 +222,8 @@ def test_inventory_falls_back_when_the_recursive_tree_never_arrives(monkeypatch)
 def test_a_total_outage_still_fails_the_build(monkeypatch):
     """The fallback covers an oversized response, not an unreachable API. If even the small
     root listing cannot be had, there is nothing to walk."""
-    monkeypatch.setattr(build_index, "_get", fake_get({}))
-    with pytest.raises(build_index.BuildError):
-        build_index.fetch_skill_paths("o/r", REF, TOKEN)
-    with pytest.raises(build_index.BuildError):
-        build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    monkeypatch.setattr(github_api, "_get", fake_get({}))
+    with pytest.raises(github_api.BuildError):
+        github_api.fetch_skill_paths("o/r", REF, TOKEN, LIMIT)
+    with pytest.raises(github_api.BuildError):
+        github_api.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])

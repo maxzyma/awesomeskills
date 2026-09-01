@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "processing"))
 sys.path.insert(0, str(ROOT / "skills" / "awesomeskills" / "scripts"))
 
 import build_index  # noqa: E402
+import github_api  # noqa: E402
 import index_client  # noqa: E402
 import security_scan  # noqa: E402
 
@@ -36,35 +37,35 @@ def test_truncated_blob_is_refetched_in_full(monkeypatch):
     prefix would record a hash of part of a file as if it were the whole file -- and the
     security scanner would only ever see that prefix."""
     monkeypatch.setattr(
-        build_index, "post_graphql",
+        github_api, "post_graphql",
         graphql_returning([{"text": "FIRST-512KB-ONLY", "isTruncated": True}]),
     )
-    monkeypatch.setattr(build_index, "fetch_raw", lambda *a, **k: "THE-WHOLE-FILE")
+    monkeypatch.setattr(github_api, "fetch_raw", lambda *a, **k: "THE-WHOLE-FILE")
 
-    got = build_index.fetch_skill_contents("o/r", "sha", ["big.js"], TOKEN)
+    got = github_api.fetch_skill_contents("o/r", "sha", ["big.js"], TOKEN)
     assert got == ["THE-WHOLE-FILE"]
 
 
 def test_untruncated_blob_is_used_as_is(monkeypatch):
     monkeypatch.setattr(
-        build_index, "post_graphql",
+        github_api, "post_graphql",
         graphql_returning([{"text": "small", "isTruncated": False}]),
     )
-    monkeypatch.setattr(build_index, "fetch_raw", lambda *a, **k: pytest.fail("should not refetch"))
+    monkeypatch.setattr(github_api, "fetch_raw", lambda *a, **k: pytest.fail("should not refetch"))
 
-    assert build_index.fetch_skill_contents("o/r", "sha", ["small.py"], TOKEN) == ["small"]
+    assert github_api.fetch_skill_contents("o/r", "sha", ["small.py"], TOKEN) == ["small"]
 
 
 def test_failed_refetch_of_truncated_blob_yields_none_not_a_prefix(monkeypatch):
     """If the full content cannot be had, the file counts as unfetched. Recording the
     prefix would be worse than recording nothing."""
     monkeypatch.setattr(
-        build_index, "post_graphql",
+        github_api, "post_graphql",
         graphql_returning([{"text": "prefix", "isTruncated": True}]),
     )
-    monkeypatch.setattr(build_index, "fetch_raw", lambda *a, **k: None)
+    monkeypatch.setattr(github_api, "fetch_raw", lambda *a, **k: None)
 
-    assert build_index.fetch_skill_contents("o/r", "sha", ["big.js"], TOKEN) == [None]
+    assert github_api.fetch_skill_contents("o/r", "sha", ["big.js"], TOKEN) == [None]
 
 
 def test_transient_reset_is_retried(monkeypatch):
@@ -123,12 +124,12 @@ def test_binary_blob_is_digested_rather_than_counted_as_a_failure(monkeypatch):
     """GraphQL returns no text for a binary. Treating that as a failed fetch sank the whole
     entry, even though a vendored tarball is exactly the kind of thing worth digesting."""
     monkeypatch.setattr(
-        build_index, "post_graphql",
+        github_api, "post_graphql",
         graphql_returning([{"text": None, "isTruncated": False, "isBinary": True}]),
     )
-    monkeypatch.setattr(build_index, "fetch_blob_bytes", lambda *a, **k: b"\x00\x01binary")
+    monkeypatch.setattr(github_api, "fetch_blob_bytes", lambda *a, **k: b"\x00\x01binary")
 
-    rows = build_index.fetch_bundle_files("o/r", "sha", ["scripts/vendor.tar.gz"], TOKEN)
+    rows = github_api.fetch_bundle_files("o/r", "sha", ["scripts/vendor.tar.gz"], TOKEN)
     assert rows[0]["kind"] == "binary"
     assert rows[0]["text"] is None
     assert rows[0]["sha256"] == hashlib.sha256(b"\x00\x01binary").hexdigest()
@@ -136,22 +137,22 @@ def test_binary_blob_is_digested_rather_than_counted_as_a_failure(monkeypatch):
 
 def test_binary_whose_bytes_cannot_be_fetched_still_counts_as_failed(monkeypatch):
     monkeypatch.setattr(
-        build_index, "post_graphql",
+        github_api, "post_graphql",
         graphql_returning([{"text": None, "isTruncated": False, "isBinary": True}]),
     )
-    monkeypatch.setattr(build_index, "fetch_blob_bytes", lambda *a, **k: None)
+    monkeypatch.setattr(github_api, "fetch_blob_bytes", lambda *a, **k: None)
 
-    assert build_index.fetch_bundle_files("o/r", "sha", ["a.bin"], TOKEN)[0]["kind"] == "failed"
+    assert github_api.fetch_bundle_files("o/r", "sha", ["a.bin"], TOKEN)[0]["kind"] == "failed"
 
 
 def test_missing_text_without_binary_flag_is_a_failure(monkeypatch):
     monkeypatch.setattr(
-        build_index, "post_graphql",
+        github_api, "post_graphql",
         graphql_returning([{"text": None, "isTruncated": False, "isBinary": False}]),
     )
-    monkeypatch.setattr(build_index, "fetch_blob_bytes", lambda *a, **k: pytest.fail("not binary"))
+    monkeypatch.setattr(github_api, "fetch_blob_bytes", lambda *a, **k: pytest.fail("not binary"))
 
-    assert build_index.fetch_bundle_files("o/r", "sha", ["a.py"], TOKEN)[0]["kind"] == "failed"
+    assert github_api.fetch_bundle_files("o/r", "sha", ["a.py"], TOKEN)[0]["kind"] == "failed"
 
 
 def test_manifest_marks_binaries_as_unscanned_and_keeps_their_digest():
