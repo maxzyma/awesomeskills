@@ -38,10 +38,13 @@ jobs:
             --index "$tmpdir/index.json" \
             --site "$tmpdir/site-index.json" \
             --site-slim "$tmpdir/site-slim.json" \
-            --site-detail "$tmpdir/site-detail.json" \
+            --site-detail-dir "$tmpdir/detail" \
             --llm "$tmpdir/llm.txt"
           cmp registry/index.json "$tmpdir/index.json"
           cmp site/public/index.json "$tmpdir/site-index.json"
           cmp site/public/site-index.json "$tmpdir/site-slim.json"
-          cmp site/public/site-detail.json "$tmpdir/site-detail.json"
           cmp site/public/llm.txt "$tmpdir/llm.txt"
+          # diff -r, not cmp: this is a directory, and the comparison has to fail on a file
+          # present on one side only -- a skill dropped from the index leaves its grounding
+          # behind, and a stale file serves forever without ever mismatching anything.
+          diff -r site/public/detail "$tmpdir/detail"

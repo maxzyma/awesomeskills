@@ -268,6 +268,7 @@
   const pagerEl = document.getElementById('pager');
   const PAGE_SIZE = 25;
   let skills = [], repos = {}, generatedAt = '—', page = 1;
+  const byId = new Map(); // id -> entry, for resolving a row element back to its data
   const openRows = new Set();
 
   function populateControls() {
@@ -340,12 +341,13 @@
     // Everything below this line lives in the deferred file. Rendering the panel from the
     // list payload alone would print "?" for every counter, which reads as missing data
     // rather than data still in flight.
-    if (detailState === 'idle' || detailState === 'loading') return `<div class="g-sub">${t('loading_detail')}</div>`;
+    const st = rowState.get(e.id);
+    if (st === undefined || st === 'loading') return `<div class="g-sub">${t('loading_detail')}</div>`;
     const tr = e.trust || {}, f = tr.health_factors || {}, p = f.parts || {}, fm = e.frontmatter;
     const sf = tr.security_findings || [];
     const out = [];
     // Say the evidence is missing rather than printing "?" as if it were the finding.
-    if (detailState === 'failed') out.push(`<div class="g-sub bad">${t('detail_failed')}</div>`);
+    if (st === 'failed') out.push(`<div class="g-sub bad">${t('detail_failed')}</div>`);
     out.push(layer(t('l_health'), [
       `<div><b>${tr.health}</b> = ${t('f_recency')} ${p.recency ?? '?'}/40 · ${t('f_maintenance')} ${p.maintenance ?? '?'}/25 · ${t('f_engagement')} ${p.engagement ?? '?'}/20 · ${t('f_maturity')} ${p.maturity ?? '?'}/15</div>`,
       `<div class="g-sub">${t('lastpush')} ${f.recency_days ?? '?'}d ${t('ago')} · ${f.stars ?? '?'}★ · ${f.open_issues ?? '?'} ${t('openissues')} · ${f.forks ?? '?'} ${t('forks')} · ${f.watchers ?? '?'} ${t('watchers')}${f.archived ? ' · ' + t('archived') : ''}</div>`,
@@ -459,48 +461,61 @@
   // everything. GitHub Pages sends max-age=600 with a working ETag, so without the buster a
   // repeat visit inside ten minutes costs nothing and a later one costs a 304.
   const SITE_INDEX = './site-index.json';
-  let detailState = 'idle'; // 'idle' | 'loading' | 'ready' | 'failed'
-  let detailUrl = './site-detail.json';
 
-  // Merge the deferred half into the objects already rendered, so every reader downstream
-  // (panel, tooltips, sort) keeps seeing one whole entry and needs no second code path.
-  function mergeDetail(detail) {
-    const byId = detail.skills || {};
-    for (const e of skills) {
-      const d = byId[e.id];
-      if (!d) continue;
-      Object.assign(e.trust, d.trust || {});
-      if (d.frontmatter) e.frontmatter = { ...(e.frontmatter || {}), ...d.frontmatter };
-      const sides = (d.grounding || {}).function || {};
-      for (const code of Object.keys(sides)) {
-        e.grounding = e.grounding || {};
-        e.grounding.function = e.grounding.function || {};
-        e.grounding.function[code] = { ...(e.grounding.function[code] || {}), ...sides[code] };
-      }
+  // One fetch per file, shared: several rows from the same repo want the same community
+  // file, and a rejected entry is dropped so a later expand can retry rather than inherit
+  // one failure forever.
+  const fileCache = new Map();
+  function loadFile(path) {
+    if (!fileCache.has(path)) {
+      fileCache.set(path, fetch(path).then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).catch(err => { fileCache.delete(path); throw err; }));
     }
-    for (const [name, extra] of Object.entries(detail.repos || {})) {
-      repos[name] = { ...(repos[name] || {}), ...extra };
+    return fileCache.get(path);
+  }
+
+  // Per row, not global: expanding one row must not imply anything about the other 413.
+  const rowState = new Map(); // skill id -> 'loading' | 'ready' | 'failed'
+
+  // Merge into the object already rendered, so the panel, tooltips and sort keep reading one
+  // whole entry and need no second code path.
+  function mergeSkillDetail(e, d) {
+    if (d.frontmatter) e.frontmatter = { ...(e.frontmatter || {}), ...d.frontmatter };
+    const sides = (d.grounding || {}).function || {};
+    for (const code of Object.keys(sides)) {
+      e.grounding = e.grounding || {};
+      e.grounding.function = e.grounding.function || {};
+      e.grounding.function[code] = { ...(e.grounding.function[code] || {}), ...sides[code] };
     }
   }
 
-  // Called on the first sign of interest in a row's badges -- hovering one is enough, so
-  // the fetch is usually finished by the time the click lands. Runs at most once.
-  function loadDetail() {
-    if (detailState !== 'idle') return;
-    detailState = 'loading';
-    (async () => {
-      try {
-        const response = await fetch(detailUrl);
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        mergeDetail(JSON.parse(await response.text()));
-        detailState = 'ready';
-      } catch (e) {
-        // The list stays fully usable without this; only the panels lose their contents, so
-        // say so in the panel rather than failing the page.
-        detailState = 'failed';
-      }
-      render();
-    })();
+  // Called on the first sign of interest in a row -- hovering its badges is enough, so the
+  // fetch is usually finished by the time the click lands. At most once per row.
+  function ensureDetail(e) {
+    if (!e || rowState.has(e.id)) return;
+    const repo = repos[e.source_repo] || {};
+    const jobs = [];
+    if (e.detail) jobs.push(loadFile(e.detail).then(d => mergeSkillDetail(e, d)));
+    if (repo.detail) jobs.push(loadFile(repo.detail).then(d => Object.assign(repo, d)));
+    // Entries with no assessment yet have no file to point at; nothing to wait for.
+    if (!jobs.length) { rowState.set(e.id, 'ready'); return; }
+    rowState.set(e.id, 'loading');
+    Promise.all(jobs)
+      .then(() => rowState.set(e.id, 'ready'))
+      // The row stays fully usable without this; only its panel loses the prose, so say so
+      // in the panel rather than failing the page.
+      .catch(() => rowState.set(e.id, 'failed'))
+      .then(() => refreshPanel(e.id));
+  }
+
+  // Repaint one panel, not the list. Loading is per row now, so a full render would tear
+  // down and rebuild all 25 rows every time a single one finished -- and would invalidate
+  // any element the user is currently interacting with.
+  function refreshPanel(id) {
+    const li = listEl.querySelector(`.row[data-id="${CSS.escape(id)}"]`);
+    if (li) li.querySelector('.ground-body').innerHTML = groundHtml(byId.get(id));
   }
 
   // Report bytes as they arrive rather than sitting on a static "loading" line. No
@@ -532,9 +547,9 @@
       });
       const data = JSON.parse(body);
       skills = data.skills || [];
+      skills.forEach(e => byId.set(e.id, e));
       repos = data.repos || {};
       generatedAt = data.generated_at || '—';
-      detailUrl = data.detail_index || detailUrl;
       populateControls();
       render();
     } catch (e) {
@@ -550,7 +565,8 @@
   // filled by the time the click arrives. Nothing is downloaded until someone reaches for
   // a row. `mouseover` bubbles, unlike `mouseenter`, so one listener covers every row.
   listEl.addEventListener('mouseover', ev => {
-    if (ev.target.closest('.signals')) loadDetail();
+    const hovered = ev.target.closest('.row');
+    if (hovered && ev.target.closest('.signals')) ensureDetail(byId.get(hovered.dataset.id));
   });
   // Touch and keyboard never fire a hover, so the click path starts it too.
   listEl.addEventListener('click', ev => {
@@ -558,9 +574,9 @@
     // bubbles here too, so this one handler covers both without a second listener.
     const cluster = ev.target.closest('.signals');
     if (!cluster) return;
-    loadDetail();
     const b = cluster.querySelector('.gbtn');
     const li = cluster.closest('.row'), body = li.querySelector('.ground-body'), id = li.dataset.id;
+    ensureDetail(byId.get(id));
     const opening = body.hasAttribute('hidden');
     if (opening) { body.removeAttribute('hidden'); openRows.add(id); } else { body.setAttribute('hidden', ''); openRows.delete(id); }
     b.setAttribute('aria-expanded', opening);

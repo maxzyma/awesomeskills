@@ -1,9 +1,9 @@
 """Tests for the display-only projection the browser fetches.
 
-It is published as two files: a list that blocks the first render, and a detail half fetched
-afterwards that only an expanded row shows. The risk runs one way -- dropping a field the
-page renders degrades the UI silently, printing "?" instead of a number -- so the field lists
-are asserted here, and the partition itself is checked against the real index rather than a
+It is published as a list that blocks the first render, plus one small file per skill and per
+repo, fetched only when a row is expanded. The risk runs one way -- dropping a field the page
+renders degrades the UI silently, printing "?" instead of a number -- so the field lists are
+asserted here, and the partition itself is checked against the real index rather than a
 fixture, because a fixture cannot notice a field the builder started emitting.
 """
 
@@ -18,7 +18,9 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "processing"))
 
-from site_index import detail_index, detail_skill, list_skill, slim_index  # noqa: E402
+from site_index import (  # noqa: E402
+    detail_files, detail_path, detail_skill, list_skill, repo_detail_path, slim_index,
+)
 
 
 def full_entry(**overrides) -> dict:
@@ -83,6 +85,15 @@ def test_enrichment_status_is_in_the_list_because_the_page_discloses_it():
     assert list_skill(full_entry(enrichment_status="legacy"))["enrichment_status"] == "legacy"
 
 
+def test_every_published_filename_is_unique():
+    """The flattening is only injective while no id contains the separator; a collision
+    would silently serve one skill's grounding under another's name."""
+    data = _real_index()
+    paths = [p for p in detail_files(data)]
+    assert len(paths) == len(set(paths))
+    assert all(".." not in p for p in paths)
+
+
 def test_the_list_carries_health_factors_because_every_row_tooltips_them():
     """The health badge shows the score breakdown on hover, on every visible row. Once the
     detail half is only fetched on expand, deferring these would mean a hover shows nothing
@@ -94,9 +105,9 @@ def test_the_list_carries_health_factors_because_every_row_tooltips_them():
 
 
 def test_the_list_defers_what_only_the_panel_shows():
+    """Only the grounding prose. Everything a badge or tooltip reads stays in the list, so
+    an unexpanded row never needs a second request."""
     row = list_skill(full_entry())
-    for key in ("security_findings", "security_scope"):
-        assert key not in row["trust"], key
     for key in ("io", "boundary", "dependencies", "scenarios"):
         assert key not in row["grounding"]["function"]["en"], key
 
@@ -107,23 +118,50 @@ def test_the_detail_carries_the_panel_fields():
     detail = detail_skill(full_entry())
     for key in ("io", "boundary", "dependencies", "scenarios"):
         assert key in detail["grounding"]["function"]["en"], key
-    assert detail["trust"]["security_scope"] == "SKILL.md + executable text files"
-    assert detail["trust"]["security_findings"][0]["label"] == "x"
     assert detail["frontmatter"] == {"issues": [], "headings": 3, "code_blocks": 1}
 
 
-def test_the_detail_is_keyed_by_id():
-    out = detail_index({"skills": [full_entry(), full_entry(id="o/r/t")]})
-    assert set(out["skills"]) == {"o/r/s", "o/r/t"}
+def test_the_security_tooltip_fields_stay_in_the_list():
+    """The security badge tooltips its findings on every visible row. In a per-file layout
+    that would be one request per row just to hover, so they ride in the list."""
+    trust = list_skill(full_entry())["trust"]
+    assert trust["security_findings"][0]["label"] == "x"
+    assert trust["security_scope"] == "SKILL.md + executable text files"
+
+
+def test_there_is_one_file_per_skill():
+    files = detail_files({"skills": [full_entry(), full_entry(id="o/r/t")]})
+    assert set(files) == {"detail/skill/o__r__s.json", "detail/skill/o__r__t.json"}
 
 
 def test_repos_are_split_the_same_way():
-    """The grade pill paints on every row; the community write-up is panel-only."""
+    """The grade pill paints on every row; the community write-up is panel-only, and shared
+    by every skill in the repo rather than copied into each of their files."""
     repos = {"o/r": {"overall_grade": "A", "overall_score": 91,
                      "community": {"en": {}}, "external": {"hn": {}}}}
     data = {"generated_at": "t", "repos": repos, "skills": []}
-    assert slim_index(data)["repos"]["o/r"] == {"overall_grade": "A", "overall_score": 91}
-    assert set(detail_index(data)["repos"]["o/r"]) == {"community", "external"}
+    assert slim_index(data)["repos"]["o/r"] == {
+        "overall_grade": "A", "overall_score": 91, "detail": "detail/repo/o__r.json"}
+    assert set(detail_files(data)["detail/repo/o__r.json"]) == {"community", "external"}
+
+
+def test_skill_and_repo_namespaces_cannot_collide():
+    """A two-segment skill id flattens to `owner__repo`, which is exactly what a repo file
+    would be called. Seven published entries have ids that short."""
+    assert detail_path("o/r") != repo_detail_path("o/r")
+
+
+def test_the_list_names_the_file_so_the_rule_is_not_written_twice():
+    """The browser follows this path rather than rebuilding it from the id, so the flattening
+    rule exists in one language instead of two."""
+    assert list_skill(full_entry())["detail"] == "detail/skill/o__r__s.json"
+
+
+def test_an_entry_with_no_assessment_names_no_file():
+    """Pointing at a file that was never written spends a round trip to learn nothing."""
+    bare = {"id": "o/r/s", "name": "s", "trust": {"health": 1}}
+    assert "detail" not in list_skill(bare)
+    assert detail_files({"skills": [bare]}) == {}
 
 
 # --- verification data must not leak into either display artifact ------------------------
@@ -136,10 +174,11 @@ def test_verification_fields_are_dropped_from_both_halves():
                 "source_ref_kind", "source_branch"):
         assert key not in row, key
         assert key not in detail, key
+    # The detail half carries no trust block at all; the list's is field-limited.
+    assert "trust" not in detail
     for key in ("collection_coverage", "license_path", "security_complete",
                 "executable_files_discovered", "executable_files_scanned"):
         assert key not in row["trust"], key
-        assert key not in detail["trust"], key
 
 
 def test_slim_index_labels_itself_as_display_only():
@@ -148,7 +187,6 @@ def test_slim_index_labels_itself_as_display_only():
     out = slim_index({"generated_at": "t", "repos": {}, "skills": [full_entry()]})
     assert out["display_only"] is True
     assert out["full_index"] == "index.json"
-    assert out["detail_index"] == "site-detail.json"
 
 
 def test_every_entry_is_projected():
@@ -161,7 +199,6 @@ def test_an_entry_without_grounding_or_frontmatter_projects_cleanly():
     assert "grounding" not in list_skill(bare)
     assert "frontmatter" not in list_skill(bare)
     assert detail_skill(bare) == {}
-    assert detail_index({"skills": [bare]})["skills"] == {}
 
 
 # --- the split is only sound if the two halves partition the projection ------------------
@@ -196,7 +233,10 @@ def test_against_the_real_index_the_halves_agree_with_the_source():
     data = _real_index()
     for entry in data["skills"]:
         source = leaves(entry)
-        for path, value in {**leaves(list_skill(entry)), **leaves(detail_skill(entry))}.items():
+        projected = {**leaves(list_skill(entry)), **leaves(detail_skill(entry))}
+        # `.detail` is a pointer this projection invents; it has no counterpart upstream.
+        projected.pop(".detail", None)
+        for path, value in projected.items():
             assert path in source, f"{entry['id']}: projected {path} is not in the index"
             assert source[path] == value, f"{entry['id']}: {path} disagrees with the index"
 
@@ -205,3 +245,38 @@ def test_against_the_real_index_the_halves_do_not_overlap():
     for entry in _real_index()["skills"]:
         overlap = set(leaves(list_skill(entry))) & set(leaves(detail_skill(entry)))
         assert overlap == set(), f"{entry['id']}: {overlap}"
+
+
+# --- the published tree must not accumulate files nobody points at ------------------------
+
+def test_a_file_for_a_departed_skill_is_deleted(tmp_path):
+    """Without pruning, a skill removed from the index keeps serving its old grounding
+    forever, and the reproducibility check cannot tell a correct tree from one carrying
+    leftovers -- a stale file matches nothing, so nothing reports it."""
+    sys.path.insert(0, str(ROOT / "processing"))
+    from merge_index import _write_detail_dir
+
+    directory = tmp_path / "detail"
+    _write_detail_dir(directory, detail_files({"skills": [full_entry(), full_entry(id="o/r/t")]}))
+    assert (directory / "skill" / "o__r__t.json").exists()
+
+    _write_detail_dir(directory, detail_files({"skills": [full_entry()]}))
+    assert (directory / "skill" / "o__r__s.json").exists()
+    assert not (directory / "skill" / "o__r__t.json").exists()
+
+
+def test_pruning_reaches_into_every_namespace(tmp_path):
+    """The tree has a subdirectory per namespace, so a top-level-only sweep would leave
+    every stale file untouched."""
+    from merge_index import _write_detail_dir
+
+    directory = tmp_path / "detail"
+    repos = {"o/r": {"community": {"en": {}}}}
+    _write_detail_dir(directory, detail_files({"skills": [full_entry()], "repos": repos}))
+    for namespace, name in (("skill", "junk__x.json"), ("repo", "junk.json")):
+        (directory / namespace / name).write_text("{}", encoding="utf-8")
+
+    _write_detail_dir(directory, detail_files({"skills": [full_entry()], "repos": repos}))
+    assert not (directory / "skill" / "junk__x.json").exists()
+    assert not (directory / "repo" / "junk.json").exists()
+    assert (directory / "repo" / "o__r.json").exists()

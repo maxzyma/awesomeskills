@@ -4,46 +4,49 @@
 The full `index.json` is the machine-readable artifact: agents and verify_skill.py need the
 pinned refs and the per-file digest manifest. A browser needs none of that, so a display-only
 projection is published separately. Anything a verifier depends on is deliberately absent
-from it, so the slim files can never be mistaken for a source of verification truth.
+from it, so these files can never be mistaken for a source of verification truth.
 
-That projection is split again, because the two halves are needed at different moments.
-Measured against the live site, the payload arrives at roughly 64 KB/s, so bytes convert
-almost directly into seconds before the first row appears:
+It is published as one list plus one small file per skill and per repo.
 
-    one blocking file   269 KB gz   ~4.2s to first paint
-    list                113 KB gz   ~1.7s to first paint
-    detail              163 KB gz   only fetched once a row is expanded
+The list carries everything the page shows before anyone clicks: the row, the badges, every
+badge tooltip, and the text search reads. Measured against the live site the payload arrives
+at roughly 64 KB/s, so bytes convert almost directly into seconds before the first row
+appears -- the single combined artifact was 269 KB gz and ~4.2s, the list is ~119 KB.
 
-The list carries what every row paints, what search reads, and what the badge tooltips show.
-The detail carries only what an expanded grounding panel adds -- scenarios, boundaries,
-dependencies, security findings. Most visitors expand nothing and never fetch it at all.
+A skill's grounding prose -- scenarios, boundary, dependencies, io -- goes in its own file,
+fetched only when that row is expanded; median 841 bytes gzipped, 408 files. A repo's
+community assessment goes in a file of its own, shared by every row from that repo.
 
-Splitting per skill instead was measured and rejected: 414 separate files lose the shared
-compression dictionary, taking the same content from 168 KB to 355 KB gzipped (3.48x down to
-1.65x), and cost a round trip on every expand. Per-file caching was not the reason to do it
-either -- what had disabled caching was a `?t=` cache-buster on the request URL, not the
-size of the file.
-
-The split is only sound while the union of the two is exactly the old single projection;
-`tests/test_site_index.py` asserts that against the real index rather than a fixture.
+Per file rather than one deferred bundle, because of how the two invalidate. Enrichment
+rewrites roughly twenty entries a day. A single bundle changes its ETag whenever any one of
+them does, so every returning visitor re-downloads the whole thing daily; per skill, only the
+rewritten twenty lose their cache and the other several hundred keep it. The bundle does
+compress better as one document (147 KB against 271 KB summed), but that total is only paid
+by someone who expands all 408 rows, and nobody does.
 """
 
 from __future__ import annotations
 
-DETAIL_FILE = "site-detail.json"
+DETAIL_DIR = "detail"
+# Two namespaces, because a two-segment skill id flattens to `owner__repo` -- exactly what a
+# repo file would be called. Seven entries have ids that short.
+SKILL_DIR = f"{DETAIL_DIR}/skill"
+REPO_DIR = f"{DETAIL_DIR}/repo"
 
-# --- what a row paints, and what search reads --------------------------------------------
+# --- what the page shows before anyone clicks --------------------------------------------
 LIST_FIELDS = (
     "id", "name", "summary", "source_repo", "source_url", "kind", "level",
     # Kept because the page discloses it: a `legacy` assessment predates digest binding,
     # so the revision it was written from is unrecorded.
     "enrichment_status",
 )
-# `health_factors` is here rather than in the detail half because the health badge on every
-# visible row carries the score breakdown as a hover tooltip. Deferring it meant a hover
-# could show nothing until the detail arrived -- and once the detail is only fetched on
-# expand, it might never arrive at all. Costs 5.2 KB gzipped, about 0.08s.
-LIST_TRUST_FIELDS = ("health", "security", "zh", "health_factors")
+# Every badge tooltips something, and a tooltip that waited on a per-skill fetch would need
+# one request per visible row just to hover. So all of it rides in the list: the health
+# breakdown costs 5.2 KB gzipped and the security findings 2.9 KB. The effect is that an
+# unexpanded row never needs a second request at all.
+LIST_TRUST_FIELDS = (
+    "health", "security", "zh", "health_factors", "security_findings", "security_scope",
+)
 # `purpose` alone, because the row shows it in place of the upstream summary and the search
 # haystack spans both languages. The rest of the assessment is panel-only.
 LIST_FUNCTION_FIELDS = ("purpose",)
@@ -51,11 +54,10 @@ LIST_FUNCTION_FIELDS = ("purpose",)
 # before the first render. Its issue list is panel-only.
 LIST_FRONTMATTER_FIELDS = ("valid",)
 LIST_REPO_FIELDS = ("overall_grade", "overall_score")
-
-# --- what only the expanded panel shows ---------------------------------------------------
-DETAIL_TRUST_FIELDS = ("security_findings", "security_scope")
-DETAIL_FUNCTION_FIELDS = ("io", "boundary", "dependencies", "scenarios")
-DETAIL_FRONTMATTER_FIELDS = ("issues", "headings", "code_blocks")
+# The community write-up is per-repo and panel-only. Keeping it in the list would put 10 KB
+# gzipped on a payload that carries a cache-buster and is therefore re-fetched every visit;
+# copying it into each skill file would repeat one repo's assessment across all its skills.
+# So it gets its own file, shared by every row from that repo and cached after one expand.
 DETAIL_REPO_FIELDS = ("community", "external")
 
 # Every counter the grounding panel prints, plus the score breakdown.
@@ -64,7 +66,31 @@ HEALTH_FACTOR_FIELDS = (
     "maintainers", "issues_per_maintainer", "parts",
 )
 
+# --- what only an expanded panel adds -----------------------------------------------------
+DETAIL_FUNCTION_FIELDS = ("io", "boundary", "dependencies", "scenarios")
+DETAIL_FRONTMATTER_FIELDS = ("issues", "headings", "code_blocks")
+
 LANGUAGES = ("en", "zh")
+
+
+def detail_path(skill_id: str) -> str:
+    """Where a skill's grounding file lives, relative to the site root.
+
+    Flattened rather than mirroring the id, whose segments include names like `.claude`.
+    A directory tree of dot-prefixed folders is the kind of thing static hosts quietly drop,
+    and the flat form is one directory of plainly named files instead. Ids are already
+    restricted to [A-Za-z0-9._/-] and none contains `__`, so the mapping is injective; the
+    longest name this produces is 148 characters.
+
+    The list publishes this path per entry rather than leaving the browser to rebuild it,
+    so the rule exists once instead of once per language.
+    """
+    return f"{SKILL_DIR}/{skill_id.replace('/', '__')}.json"
+
+
+def repo_detail_path(repo_id: str) -> str:
+    """Where a repo's community assessment lives, relative to the site root."""
+    return f"{REPO_DIR}/{repo_id.replace('/', '__')}.json"
 
 
 def _pick(source: dict | None, fields) -> dict:
@@ -86,6 +112,19 @@ def _split_function(entry: dict, fields) -> dict:
     return {"function": kept} if kept else {}
 
 
+def detail_skill(entry: dict) -> dict:
+    """The panel-only half. Empty when the entry has nothing an expansion would add."""
+    detail: dict = {}
+    grounding = _split_function(entry, DETAIL_FUNCTION_FIELDS)
+    if grounding:
+        detail["grounding"] = grounding
+    if entry.get("frontmatter"):
+        frontmatter = _pick(entry["frontmatter"], DETAIL_FRONTMATTER_FIELDS)
+        if frontmatter:
+            detail["frontmatter"] = frontmatter
+    return detail
+
+
 def list_skill(entry: dict) -> dict:
     row = _pick(entry, LIST_FIELDS)
     trust = _pick(entry.get("trust"), LIST_TRUST_FIELDS)
@@ -99,52 +138,43 @@ def list_skill(entry: dict) -> dict:
         frontmatter = _pick(entry["frontmatter"], LIST_FRONTMATTER_FIELDS)
         if frontmatter:
             row["frontmatter"] = frontmatter
+    # Named only when a file was actually written. Six entries have no assessment yet, and
+    # pointing at their absent files would spend a round trip to learn nothing.
+    if detail_skill(entry):
+        row["detail"] = detail_path(entry["id"])
     return row
 
 
-def detail_skill(entry: dict) -> dict:
-    trust = _pick(entry.get("trust"), DETAIL_TRUST_FIELDS)
-    detail: dict = {}
-    if trust:
-        detail["trust"] = trust
-    grounding = _split_function(entry, DETAIL_FUNCTION_FIELDS)
-    if grounding:
-        detail["grounding"] = grounding
-    if entry.get("frontmatter"):
-        frontmatter = _pick(entry["frontmatter"], DETAIL_FRONTMATTER_FIELDS)
-        if frontmatter:
-            detail["frontmatter"] = frontmatter
-    return detail
+def _list_repo(repo_id: str, repo: dict) -> dict:
+    row = _pick(repo, LIST_REPO_FIELDS)
+    if _pick(repo, DETAIL_REPO_FIELDS):
+        row["detail"] = repo_detail_path(repo_id)
+    return row
 
 
 def slim_index(data: dict) -> dict:
-    """The blocking payload: everything needed to paint and search the list."""
+    """The blocking payload: everything shown before a row is expanded."""
     return {
         "generated_at": data.get("generated_at"),
         "display_only": True,
         "full_index": "index.json",
-        "detail_index": DETAIL_FILE,
         "repos": {
-            name: _pick(repo, LIST_REPO_FIELDS)
+            name: _list_repo(name, repo)
             for name, repo in (data.get("repos") or {}).items()
         },
         "skills": [list_skill(entry) for entry in data.get("skills", [])],
     }
 
 
-def detail_index(data: dict) -> dict:
-    """The deferred payload, keyed by id so the client can merge it without re-sorting."""
-    skills = {}
+def detail_files(data: dict) -> dict[str, dict]:
+    """Every deferred file -- per skill and per repo -- keyed by path from the site root."""
+    files = {}
     for entry in data.get("skills", []):
         detail = detail_skill(entry)
         if detail:
-            skills[entry["id"]] = detail
-    return {
-        "generated_at": data.get("generated_at"),
-        "display_only": True,
-        "repos": {
-            name: _pick(repo, DETAIL_REPO_FIELDS)
-            for name, repo in (data.get("repos") or {}).items()
-        },
-        "skills": skills,
-    }
+            files[detail_path(entry["id"])] = detail
+    for repo_id, repo in (data.get("repos") or {}).items():
+        community = _pick(repo, DETAIL_REPO_FIELDS)
+        if community:
+            files[repo_detail_path(repo_id)] = community
+    return files

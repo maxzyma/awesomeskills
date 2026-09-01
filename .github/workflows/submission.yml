@@ -45,11 +45,11 @@ jobs:
           python3 -m py_compile processing/*.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # site-index.json and site-detail.json are what the browser actually reads.
+          # site-index.json and the detail tree are what the browser actually reads.
           # Omitting them committed a fresh index.json beside a stale site, and the next
           # validate run would fail on the mismatch it had itself created.
           git add registry/base-index.json registry/index.json \
-            site/public/index.json site/public/site-index.json site/public/site-detail.json \
+            site/public/index.json site/public/site-index.json site/public/detail \
             site/public/llm.txt
           if ! git diff --cached --quiet; then
             git commit -m "chore: assess submission #${{ github.event.issue.number }}"

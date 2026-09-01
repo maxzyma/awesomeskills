@@ -10,12 +10,12 @@ from copy import deepcopy
 from pathlib import Path
 
 from enrichment_store import BASE, CACHE, ROOT, read_json
-from site_index import DETAIL_FILE, detail_index, slim_index
+from site_index import DETAIL_DIR, detail_files, slim_index
 
 INDEX = ROOT / "registry" / "index.json"
 SITE = ROOT / "site" / "public" / "index.json"
 SITE_SLIM = ROOT / "site" / "public" / "site-index.json"
-SITE_DETAIL = ROOT / "site" / "public" / DETAIL_FILE
+SITE_DETAIL_DIR = ROOT / "site" / "public" / DETAIL_DIR
 LLM = ROOT / "site" / "public" / "llm.txt"
 
 
@@ -91,6 +91,31 @@ def _write_json(path: Path, payload: dict) -> str:
     return blob
 
 
+def _write_detail_dir(directory: Path, files: dict[str, dict]) -> int:
+    """Write every per-skill file and delete any that no longer belongs.
+
+    Pruning is the point of writing the directory as a whole. A skill that leaves the index
+    would otherwise keep serving its stale grounding forever, and the reproducibility check
+    could not tell a correct tree from one carrying leftovers.
+    """
+    directory.mkdir(parents=True, exist_ok=True)
+    written = set()
+    for path, payload in files.items():
+        target = directory.parent / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        blob = json.dumps(payload, ensure_ascii=False) + "\n"
+        # Skip untouched files so a rebuild does not restate 400 unchanged blobs to git.
+        if not target.exists() or target.read_text(encoding="utf-8") != blob:
+            target.write_text(blob, encoding="utf-8")
+        written.add(target.resolve())
+    # rglob, not iterdir: the tree has a subdirectory per namespace, and a top-level-only
+    # sweep would leave every stale file in them untouched.
+    for stale in directory.rglob("*"):
+        if stale.is_file() and stale.resolve() not in written:
+            stale.unlink()
+    return len(written)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", type=Path, default=BASE)
@@ -98,7 +123,7 @@ def main() -> int:
     parser.add_argument("--index", type=Path, default=INDEX)
     parser.add_argument("--site", type=Path, default=SITE)
     parser.add_argument("--site-slim", type=Path, default=SITE_SLIM)
-    parser.add_argument("--site-detail", type=Path, default=SITE_DETAIL)
+    parser.add_argument("--site-detail-dir", type=Path, default=SITE_DETAIL_DIR)
     parser.add_argument("--llm", type=Path, default=LLM)
     args = parser.parse_args()
     data = merge(read_json(args.base), read_json(args.cache))
@@ -112,7 +137,7 @@ def main() -> int:
     # render and the part only an expanded row needs. The full artifact stays published at
     # index.json for agents and verify_skill.py.
     slim_blob = _write_json(args.site_slim, slim_index(data))
-    detail_blob = _write_json(args.site_detail, detail_index(data))
+    detail_count = _write_detail_dir(args.site_detail_dir, detail_files(data))
 
     args.llm.parent.mkdir(parents=True, exist_ok=True)
     llm_temporary = args.llm.with_suffix(args.llm.suffix + ".tmp")
@@ -121,7 +146,7 @@ def main() -> int:
     coverage = data["enrichment_coverage"]
     print(f"merged {len(data['skills'])} entries; enrichment {coverage}")
     print(f"  site list: {len(slim_blob)/1024:.0f} KB (blocks first paint)"
-          f" · detail {len(detail_blob)/1024:.0f} KB (deferred)"
+          f" · {detail_count} deferred files"
           f" · full {len(blob)/1024:.0f} KB")
     return 0
 
