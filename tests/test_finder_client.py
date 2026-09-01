@@ -174,3 +174,49 @@ def test_legacy_misspelled_env_var_still_works(monkeypatch):
 def test_cli_url_beats_environment(monkeypatch):
     monkeypatch.setenv(index_client.ENV_VAR, "https://example.test/env.json")
     assert index_client.resolve_index_url("./local.json") == "./local.json"
+
+
+# --- the output has to stay bounded as the index grows ------------------------------------
+
+def test_the_withheld_list_does_not_grow_without_limit():
+    """It exists so a filtered result is never passed off as complete, and the count does
+    that. Listing every id spent 101 entries of the caller's context at `--security pass`
+    on 414 skills, and would spend more on every skill added."""
+    import find_skill
+
+    withheld = [{"id": f"o/r/s{i}", "trust": {"security": "warn"}} for i in range(500)]
+    out = find_skill.summarise_withheld(withheld)
+    assert out["count"] == 500
+    assert out["by_rating"] == {"warn": 500}
+    assert len(out["ids"]) == find_skill.MAX_WITHHELD_IDS
+    assert out["ids_truncated"] == 500 - find_skill.MAX_WITHHELD_IDS
+
+
+def test_a_short_withheld_list_is_not_marked_truncated():
+    import find_skill
+
+    out = find_skill.summarise_withheld([{"id": "o/r/s", "trust": {"security": "fail"}}])
+    assert out == {"count": 1, "by_rating": {"fail": 1}, "ids": ["o/r/s"]}
+
+
+def test_nothing_withheld_still_reports_a_count():
+    """A missing count would read as "no gate ran", not "the gate removed nothing"."""
+    import find_skill
+
+    assert find_skill.summarise_withheld([]) == {"count": 0, "by_rating": {}}
+
+
+def test_a_candidate_carries_no_digest_manifest():
+    """The whole entry used to be returned; one carried a 19 KB manifest that no agent reads
+    while deciding and verify_skill fetches for itself."""
+    import find_skill
+
+    entry = {
+        "id": "o/r/s", "name": "s", "summary": "does things", "source_repo": "o/r",
+        "files": [{"path": "p", "sha256": "d" * 64}], "content_sha256": "d" * 64,
+        "source_ref": "a" * 40, "trust": {"health": 80, "security": "pass"},
+    }
+    out = find_skill.present(entry, {})
+    for key in ("files", "content_sha256", "source_ref"):
+        assert key not in out, key
+    assert out["verify"] == "verify/o__r__s.json"

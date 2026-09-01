@@ -30,6 +30,11 @@ from index_client import flat_name, load_catalog, resolve_index_url
 # Ordered least to most dangerous. `unrated` means not yet assessed, which is not a pass.
 SECURITY_ORDER = ["pass", "unrated", "warn", "fail"]
 DEFAULT_MAX_SECURITY = "warn"
+# The withheld list exists so a filtered result is never passed off as complete. That duty is
+# discharged by the count; the ids are a convenience, and an uncapped one grows with the
+# index -- `--security pass` already withholds 101 of 414, which is context spent on ids no
+# agent acts on.
+MAX_WITHHELD_IDS = 10
 
 
 def purpose_in(entry: dict, language: str) -> str:
@@ -104,6 +109,20 @@ def passes_gate(entry: dict, max_security: str) -> bool:
     return security_rank(entry) <= SECURITY_ORDER.index(max_security)
 
 
+def summarise_withheld(withheld: list[dict]) -> dict:
+    """Report what the gate removed without listing all of it."""
+    by_rating: dict[str, int] = {}
+    for entry in withheld:
+        rating = entry.get("trust", {}).get("security", "unrated")
+        by_rating[rating] = by_rating.get(rating, 0) + 1
+    out = {"count": len(withheld), "by_rating": by_rating}
+    if withheld:
+        out["ids"] = [e["id"] for e in withheld[:MAX_WITHHELD_IDS]]
+        if len(withheld) > MAX_WITHHELD_IDS:
+            out["ids_truncated"] = len(withheld) - MAX_WITHHELD_IDS
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--query", default="", help="capability keywords (all must match)")
@@ -141,9 +160,7 @@ def main() -> int:
         "query": args.query,
         "security_gate": args.security,
         "count": len(candidates),
-        "withheld_by_security_gate": [
-            {"id": e["id"], "security": e.get("trust", {}).get("security")} for e in withheld
-        ],
+        "withheld_by_security_gate": summarise_withheld(withheld),
         "candidates": [present(e, index.get("repos") or {}) for e in candidates[: args.limit]],
     }
     print(json.dumps(out, ensure_ascii=False, indent=2))

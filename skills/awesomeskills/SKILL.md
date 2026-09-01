@@ -45,8 +45,9 @@ The script prints ranked candidates as JSON — the fields needed to choose, not
 entries. Relay them to the user with the trust signals visible, and only proceed to install
 with the user's confirmation.
 
-`withheld_by_security_gate` in the output lists candidates that matched the query but were
-withheld. If it is non-empty, say so — do not present a filtered list as if it were complete.
+`withheld_by_security_gate` reports what the gate removed: a `count`, a `by_rating`
+breakdown, and up to 10 `ids` (`ids_truncated` gives how many more). If `count` is non-zero,
+say so — do not present a filtered list as if it were complete.
 
 ## Verify
 
