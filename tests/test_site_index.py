@@ -66,6 +66,12 @@ def test_frontmatter_counts_the_panel_prints_are_kept():
     assert frontmatter["code_blocks"] == 1
 
 
+def test_enrichment_status_is_kept_because_the_page_discloses_it():
+    """A `legacy` assessment predates digest binding, so the page says the revision behind
+    it cannot be confirmed. Dropping the field would silently remove that disclosure."""
+    assert slim_skill(full_entry(enrichment_status="legacy"))["enrichment_status"] == "legacy"
+
+
 def test_display_fields_survive():
     row = slim_skill(full_entry())
     for key in ("id", "name", "summary", "source_repo", "source_url", "kind", "level", "grounding"):
@@ -81,7 +87,7 @@ def test_verification_fields_are_dropped():
     the single largest field."""
     row = slim_skill(full_entry())
     for key in ("files", "files_complete", "content_sha256", "source_ref",
-                "source_ref_kind", "source_branch", "enrichment_status"):
+                "source_ref_kind", "source_branch"):
         assert key not in row, key
     for key in ("collection_coverage", "license_path", "security_complete",
                 "executable_files_discovered", "executable_files_scanned"):

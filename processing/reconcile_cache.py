@@ -41,13 +41,26 @@ def current_skill_digests(base: dict) -> dict[str, str]:
     }
 
 
-def reconcile(base: dict, cache: dict) -> tuple[dict, dict]:
-    """Return the new cache and a report. The input cache is not mutated."""
+def reconcile(base: dict, cache: dict, unbind_legacy: bool = False) -> tuple[dict, dict]:
+    """Return the new cache and a report. The input cache is not mutated.
+
+    `unbind_legacy` drops the binding so every legacy entry returns to the queue. Measured
+    2026-09-01 against all 249 enriched entries: purposes were checked for specific nouns
+    absent from the SKILL.md they were written from. The current pipeline scored 0 of 111;
+    the legacy set scored 4 of 138. Those four assert things the evidence never says --
+    "macOS Full Disk Access", "M5Stack", "AbuseIPDB threat intelligence queries" for a
+    source that only says "Automate Abuselpdb tasks". Each is true of the real product and
+    unsupported by the evidence, which is the failure mode the enrichment policy forbids
+    and the hardest kind to catch by reading.
+
+    All 138 are requeued rather than just the four. The detector only sees leakage that
+    introduces a new proper noun, so the other 134 are unmeasured, not clean.
+    """
     digests = current_skill_digests(base)
     entries = cache.get("entries", {})
 
     kept: dict[str, dict] = {}
-    bound = rebound = orphaned = 0
+    bound = rebound = orphaned = unbound = 0
     for skill_id, item in entries.items():
         if skill_id not in digests:
             orphaned += 1
@@ -58,6 +71,10 @@ def reconcile(base: dict, cache: dict) -> tuple[dict, dict]:
         digest = digests[skill_id]
         if not digest:
             kept[skill_id] = item
+            continue
+        if unbind_legacy:
+            unbound += 1 if BIND_FIELD in item else 0
+            kept[skill_id] = {k: v for k, v in item.items() if k != BIND_FIELD}
             continue
         if item.get(BIND_FIELD) == digest:
             kept[skill_id] = item
@@ -72,6 +89,7 @@ def reconcile(base: dict, cache: dict) -> tuple[dict, dict]:
         "legacy_bound": bound,
         "legacy_rebound": rebound,
         "orphans_pruned": orphaned,
+        "legacy_unbound": unbound,
     }
     return {**cache, "entries": kept}, report
 
@@ -81,10 +99,14 @@ def main() -> int:
     parser.add_argument("--base", type=Path, default=BASE)
     parser.add_argument("--cache", type=Path, default=CACHE)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--unbind-legacy", action="store_true",
+        help="return every legacy entry to the enrichment queue",
+    )
     args = parser.parse_args()
 
     cache = read_json(args.cache)
-    updated, report = reconcile(read_json(args.base), cache)
+    updated, report = reconcile(read_json(args.base), cache, args.unbind_legacy)
     print(json.dumps(report, indent=2))
     if args.dry_run:
         print("dry run; cache not written")

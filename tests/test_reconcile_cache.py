@@ -118,3 +118,35 @@ def test_entry_without_a_base_digest_is_not_bound():
     out, report = reconcile(base_with(skill("a", None)), cache_with(a=legacy()))
     assert BIND_FIELD not in out["entries"]["a"]
     assert report["legacy_bound"] == 0
+
+
+# --- requeueing legacy after the leakage audit --------------------------------------------
+
+def test_unbind_returns_legacy_to_the_queue():
+    """Measured 2026-09-01 across all 249 enriched entries: the current pipeline produced
+    no purpose containing a specific noun absent from its evidence, the legacy set produced
+    four. Binding froze that in place."""
+    bound, _ = reconcile(base_with(skill("a", "d1")), cache_with(a=legacy()))
+    unbound, report = reconcile(base_with(skill("a", "d1")), bound, unbind_legacy=True)
+
+    assert BIND_FIELD not in unbound["entries"]["a"]
+    assert report["legacy_unbound"] == 1
+    assert build_manifest(base_with(skill("a", "d1")), unbound)["pending_count"] == 1
+
+
+def test_unbind_preserves_the_text_being_served():
+    """Requeued entries keep serving their existing text until a replacement lands; the
+    queue is 138 deep, so removing them from the site meanwhile would be worse."""
+    bound, _ = reconcile(base_with(skill("a", "d1")), cache_with(a=legacy("existing")))
+    unbound, _ = reconcile(base_with(skill("a", "d1")), bound, unbind_legacy=True)
+    merged = merge(base_with(skill("a", "d1")), unbound)
+
+    assert merged["skills"][0]["grounding"] == "existing"
+    assert merged["skills"][0]["enrichment_status"] == "legacy"
+
+
+def test_unbind_leaves_fresh_entries_untouched():
+    cache = cache_with(a=fresh("d1"))
+    unbound, report = reconcile(base_with(skill("a", "d1")), cache, unbind_legacy=True)
+    assert unbound["entries"] == cache["entries"]
+    assert report["legacy_unbound"] == 0
