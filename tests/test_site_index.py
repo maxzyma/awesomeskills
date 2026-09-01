@@ -83,9 +83,19 @@ def test_enrichment_status_is_in_the_list_because_the_page_discloses_it():
     assert list_skill(full_entry(enrichment_status="legacy"))["enrichment_status"] == "legacy"
 
 
+def test_the_list_carries_health_factors_because_every_row_tooltips_them():
+    """The health badge shows the score breakdown on hover, on every visible row. Once the
+    detail half is only fetched on expand, deferring these would mean a hover shows nothing
+    on a page nobody expands."""
+    factors = list_skill(full_entry())["trust"]["health_factors"]
+    for key in ("recency_days", "stars", "open_issues", "forks", "watchers", "archived"):
+        assert key in factors, key
+    assert factors["parts"]["maintenance"] == 25
+
+
 def test_the_list_defers_what_only_the_panel_shows():
     row = list_skill(full_entry())
-    for key in ("health_factors", "security_findings", "security_scope"):
+    for key in ("security_findings", "security_scope"):
         assert key not in row["trust"], key
     for key in ("io", "boundary", "dependencies", "scenarios"):
         assert key not in row["grounding"]["function"]["en"], key
@@ -97,9 +107,8 @@ def test_the_detail_carries_the_panel_fields():
     detail = detail_skill(full_entry())
     for key in ("io", "boundary", "dependencies", "scenarios"):
         assert key in detail["grounding"]["function"]["en"], key
-    assert detail["trust"]["health_factors"]["parts"]["maintenance"] == 25
-    for key in ("recency_days", "stars", "open_issues", "forks", "watchers", "archived"):
-        assert key in detail["trust"]["health_factors"], key
+    assert detail["trust"]["security_scope"] == "SKILL.md + executable text files"
+    assert detail["trust"]["security_findings"][0]["label"] == "x"
     assert detail["frontmatter"] == {"issues": [], "headings": 3, "code_blocks": 1}
 
 

@@ -11,12 +11,18 @@ Measured against the live site, the payload arrives at roughly 64 KB/s, so bytes
 almost directly into seconds before the first row appears:
 
     one blocking file   269 KB gz   ~4.2s to first paint
-    list                113 KB gz   ~1.8s to first paint
-    detail              188 KB gz   fetched afterwards, blocking nothing
+    list                113 KB gz   ~1.7s to first paint
+    detail              163 KB gz   only fetched once a row is expanded
 
-The list carries what every row paints and what search reads. The detail carries what only
-the expanded grounding panel shows -- scenarios, boundaries, dependencies, health factor
-counters, security findings. Most visitors expand nothing, and no visitor expands 414 rows.
+The list carries what every row paints, what search reads, and what the badge tooltips show.
+The detail carries only what an expanded grounding panel adds -- scenarios, boundaries,
+dependencies, security findings. Most visitors expand nothing and never fetch it at all.
+
+Splitting per skill instead was measured and rejected: 414 separate files lose the shared
+compression dictionary, taking the same content from 168 KB to 355 KB gzipped (3.48x down to
+1.65x), and cost a round trip on every expand. Per-file caching was not the reason to do it
+either -- what had disabled caching was a `?t=` cache-buster on the request URL, not the
+size of the file.
 
 The split is only sound while the union of the two is exactly the old single projection;
 `tests/test_site_index.py` asserts that against the real index rather than a fixture.
@@ -33,7 +39,11 @@ LIST_FIELDS = (
     # so the revision it was written from is unrecorded.
     "enrichment_status",
 )
-LIST_TRUST_FIELDS = ("health", "security", "zh")
+# `health_factors` is here rather than in the detail half because the health badge on every
+# visible row carries the score breakdown as a hover tooltip. Deferring it meant a hover
+# could show nothing until the detail arrived -- and once the detail is only fetched on
+# expand, it might never arrive at all. Costs 5.2 KB gzipped, about 0.08s.
+LIST_TRUST_FIELDS = ("health", "security", "zh", "health_factors")
 # `purpose` alone, because the row shows it in place of the upstream summary and the search
 # haystack spans both languages. The rest of the assessment is panel-only.
 LIST_FUNCTION_FIELDS = ("purpose",)
@@ -43,7 +53,7 @@ LIST_FRONTMATTER_FIELDS = ("valid",)
 LIST_REPO_FIELDS = ("overall_grade", "overall_score")
 
 # --- what only the expanded panel shows ---------------------------------------------------
-DETAIL_TRUST_FIELDS = ("health_factors", "security_findings", "security_scope")
+DETAIL_TRUST_FIELDS = ("security_findings", "security_scope")
 DETAIL_FUNCTION_FIELDS = ("io", "boundary", "dependencies", "scenarios")
 DETAIL_FRONTMATTER_FIELDS = ("issues", "headings", "code_blocks")
 DETAIL_REPO_FIELDS = ("community", "external")
@@ -78,7 +88,10 @@ def _split_function(entry: dict, fields) -> dict:
 
 def list_skill(entry: dict) -> dict:
     row = _pick(entry, LIST_FIELDS)
-    row["trust"] = _pick(entry.get("trust"), LIST_TRUST_FIELDS)
+    trust = _pick(entry.get("trust"), LIST_TRUST_FIELDS)
+    if "health_factors" in trust:
+        trust["health_factors"] = _pick(trust["health_factors"], HEALTH_FACTOR_FIELDS)
+    row["trust"] = trust
     grounding = _split_function(entry, LIST_FUNCTION_FIELDS)
     if grounding:
         row["grounding"] = grounding
@@ -91,8 +104,6 @@ def list_skill(entry: dict) -> dict:
 
 def detail_skill(entry: dict) -> dict:
     trust = _pick(entry.get("trust"), DETAIL_TRUST_FIELDS)
-    if "health_factors" in trust:
-        trust["health_factors"] = _pick(trust["health_factors"], HEALTH_FACTOR_FIELDS)
     detail: dict = {}
     if trust:
         detail["trust"] = trust
