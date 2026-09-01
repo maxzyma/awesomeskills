@@ -40,11 +40,17 @@ jobs:
           git checkout --force -B "$PROPOSAL_BRANCH" "origin/$PROPOSAL_BRANCH"
           python3 processing/build_index.py --only-source "$SOURCE_REPO"
           python3 processing/merge_index.py
-          python3 -m unittest discover -s tests -v
+          python3 -m pip install --quiet pytest
+          python3 -m pytest tests -q
           python3 -m py_compile processing/*.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add registry/base-index.json registry/index.json site/public/index.json site/public/llm.txt
+          # site-index.json and site-detail.json are what the browser actually reads.
+          # Omitting them committed a fresh index.json beside a stale site, and the next
+          # validate run would fail on the mismatch it had itself created.
+          git add registry/base-index.json registry/index.json \
+            site/public/index.json site/public/site-index.json site/public/site-detail.json \
+            site/public/llm.txt
           if ! git diff --cached --quiet; then
             git commit -m "chore: assess submission #${{ github.event.issue.number }}"
             git push origin "HEAD:$PROPOSAL_BRANCH"

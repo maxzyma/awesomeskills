@@ -21,17 +21,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # pytest, not `unittest discover`: most of the suite is plain test_* functions, which
+      # unittest collects none of. It reported OK on 31 of 145 tests and named no skips.
+      - name: Install test dependencies
+        run: python3 -m pip install --quiet pytest
       - name: Run unit tests
-        run: python3 -m unittest discover -s tests -v
+        run: python3 -m pytest tests -q
       - name: Check Python sources
         run: python3 -m py_compile processing/*.py
+      # Every generated path is redirected into the tmpdir. Leaving one at its default made
+      # the check overwrite the working tree and then compare nothing.
       - name: Reproduce merged artifacts without an LLM
         run: |
           tmpdir="$(mktemp -d)"
           python3 processing/merge_index.py \
             --index "$tmpdir/index.json" \
             --site "$tmpdir/site-index.json" \
+            --site-slim "$tmpdir/site-slim.json" \
+            --site-detail "$tmpdir/site-detail.json" \
             --llm "$tmpdir/llm.txt"
           cmp registry/index.json "$tmpdir/index.json"
           cmp site/public/index.json "$tmpdir/site-index.json"
+          cmp site/public/site-index.json "$tmpdir/site-slim.json"
+          cmp site/public/site-detail.json "$tmpdir/site-detail.json"
           cmp site/public/llm.txt "$tmpdir/llm.txt"

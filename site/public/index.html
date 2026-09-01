@@ -197,6 +197,7 @@
       prev: '‹ Prev', next: 'Next ›', page_of: (p, n) => `page ${p} / ${n}`,
       meta: (m, n, d) => `${m} of ${n} skills · index generated ${d}`,
       no_match: 'No matching skills.', loading: 'Loading index…', load_failed: 'Failed to load the index',
+      detail_failed: 'The supporting detail failed to load — the figures below are incomplete.',
       upstream: 'upstream', upstream_tip: 'The author\u2019s own description. We have not written our own assessment for this skill yet.',
       legacy_note: 'Assessed before content digests were recorded \u2014 the revision it was written from is unknown.',
       grounding: 'grounding', grounding_show: 'Show grounding', grounding_hide: 'Hide grounding', copied: 'Copied', copy: 'Copy',
@@ -230,6 +231,7 @@
       prev: '‹ 上一页', next: '下一页 ›', page_of: (p, n) => `第 ${p} / ${n} 页`,
       meta: (m, n, d) => `${n} 个 skill 中 ${m} 个匹配 · 索引生成于 ${d}`,
       no_match: '没有匹配的 skill。', loading: '加载索引中…', load_failed: '索引加载失败',
+      detail_failed: '依据明细加载失败——下面的数据不完整。',
       upstream: '未译', upstream_tip: '这是上游作者自己写的原文描述。我们还没有为这个 skill 写出中文评估。',
       legacy_note: '该评估先于内容摘要绑定 \u2014 所依据的版本已无法确认。',
       grounding: 'grounding 依据', grounding_show: '展开 grounding 依据', grounding_hide: '收起 grounding 依据', copied: '已复制', copy: '复制',
@@ -333,9 +335,15 @@
   function layer(h, rows) { return `<div class="g-layer"><div class="g-h">${h}</div>${rows.join('')}</div>`; }
 
   function groundHtml(e) {
+    // Everything below this line lives in the deferred file. Rendering the panel from the
+    // list payload alone would print "?" for every counter, which reads as missing data
+    // rather than data still in flight.
+    if (detailState === 'pending') return `<div class="g-sub">${t('loading')}</div>`;
     const tr = e.trust || {}, f = tr.health_factors || {}, p = f.parts || {}, fm = e.frontmatter;
     const sf = tr.security_findings || [];
     const out = [];
+    // Say the evidence is missing rather than printing "?" as if it were the finding.
+    if (detailState === 'failed') out.push(`<div class="g-sub bad">${t('detail_failed')}</div>`);
     out.push(layer(t('l_health'), [
       `<div><b>${tr.health}</b> = ${t('f_recency')} ${p.recency ?? '?'}/40 · ${t('f_maintenance')} ${p.maintenance ?? '?'}/25 · ${t('f_engagement')} ${p.engagement ?? '?'}/20 · ${t('f_maturity')} ${p.maturity ?? '?'}/15</div>`,
       `<div class="g-sub">${t('lastpush')} ${f.recency_days ?? '?'}d ${t('ago')} · ${f.stars ?? '?'}★ · ${f.open_issues ?? '?'} ${t('openissues')} · ${f.forks ?? '?'} ${t('forks')} · ${f.watchers ?? '?'} ${t('watchers')}${f.archived ? ' · ' + t('archived') : ''}</div>`,
@@ -400,7 +408,10 @@
       const i = start + idx;
       const tr = e.trust, f = tr.health_factors || {}, pp = f.parts || {};
       const rp2 = repos[e.source_repo] || {};
-      const htip = `${t('health_word')}\n${t('f_recency')} ${pp.recency ?? '?'}/40 · ${t('f_maintenance')} ${pp.maintenance ?? '?'}/25 · ${t('f_engagement')} ${pp.engagement ?? '?'}/20 · ${t('f_maturity')} ${pp.maturity ?? '?'}/15`;
+      // The breakdown lives in the deferred file; until it lands the tooltip is the label
+      // alone rather than four question marks.
+      const htip = pp.recency == null ? t('health_word')
+        : `${t('health_word')}\n${t('f_recency')} ${pp.recency}/40 · ${t('f_maintenance')} ${pp.maintenance}/25 · ${t('f_engagement')} ${pp.engagement}/20 · ${t('f_maturity')} ${pp.maturity}/15`;
       const fnd = (tr.security_findings || []).map(x => x.label).join('; ');
       const stip = t('sec_' + tr.security + '_tip') + (fnd ? ': ' + fnd : '');
       const grade = rp2.overall_grade;
@@ -429,7 +440,48 @@
   // Fetches the display-only projection, not index.json: the full artifact carries the
   // pinned refs and per-file digest manifest that only agents and verify_skill.py need,
   // and the manifest alone is its single largest field.
+  //
+  // That projection is split in two. Measured against the live site the payload arrives at
+  // about 64 KB/s, so the 269 KB single file cost ~4.2s before a single row appeared. The
+  // list is 107 KB; the remaining 167 KB is what only an expanded row shows, and it is
+  // fetched after the first paint, blocking nothing. Most visitors expand nothing at all.
   const SITE_INDEX = './site-index.json';
+  let detailState = 'pending'; // 'pending' | 'ready' | 'failed'
+
+  // Merge the deferred half into the objects already rendered, so every reader downstream
+  // (panel, tooltips, sort) keeps seeing one whole entry and needs no second code path.
+  function mergeDetail(detail) {
+    const byId = detail.skills || {};
+    for (const e of skills) {
+      const d = byId[e.id];
+      if (!d) continue;
+      Object.assign(e.trust, d.trust || {});
+      if (d.frontmatter) e.frontmatter = { ...(e.frontmatter || {}), ...d.frontmatter };
+      const sides = (d.grounding || {}).function || {};
+      for (const code of Object.keys(sides)) {
+        e.grounding = e.grounding || {};
+        e.grounding.function = e.grounding.function || {};
+        e.grounding.function[code] = { ...(e.grounding.function[code] || {}), ...sides[code] };
+      }
+    }
+    for (const [name, extra] of Object.entries(detail.repos || {})) {
+      repos[name] = { ...(repos[name] || {}), ...extra };
+    }
+  }
+
+  async function loadDetail(name) {
+    try {
+      const response = await fetch(name + '?t=' + Date.now());
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      mergeDetail(JSON.parse(await response.text()));
+      detailState = 'ready';
+    } catch (e) {
+      // The list stays fully usable without this; only the panels lose their contents, so
+      // say so in the panel rather than failing the page.
+      detailState = 'failed';
+    }
+    render();
+  }
 
   // Report bytes as they arrive rather than sitting on a static "loading" line. No
   // percentage: with gzip on the wire, Content-Length is the compressed size while the
@@ -464,6 +516,9 @@
       generatedAt = data.generated_at || '—';
       populateControls();
       render();
+      // Deliberately not awaited: the list is on screen and usable, and this only fills in
+      // what an expanded row shows.
+      loadDetail(data.detail_index || './site-detail.json');
     } catch (e) {
       listEl.innerHTML = `<li class="empty">${t('load_failed')}: ${esc(String(e))}</li>`;
     }

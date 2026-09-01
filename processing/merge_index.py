@@ -10,11 +10,12 @@ from copy import deepcopy
 from pathlib import Path
 
 from enrichment_store import BASE, CACHE, ROOT, read_json
-from site_index import slim_index
+from site_index import DETAIL_FILE, detail_index, slim_index
 
 INDEX = ROOT / "registry" / "index.json"
 SITE = ROOT / "site" / "public" / "index.json"
 SITE_SLIM = ROOT / "site" / "public" / "site-index.json"
+SITE_DETAIL = ROOT / "site" / "public" / DETAIL_FILE
 LLM = ROOT / "site" / "public" / "llm.txt"
 
 
@@ -80,6 +81,16 @@ def llm_text(data: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _write_json(path: Path, payload: dict) -> str:
+    """Write atomically and return the blob, so the caller can report its size."""
+    blob = json.dumps(payload, ensure_ascii=False) + "\n"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(blob, encoding="utf-8")
+    os.replace(temporary, path)
+    return blob
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", type=Path, default=BASE)
@@ -87,6 +98,7 @@ def main() -> int:
     parser.add_argument("--index", type=Path, default=INDEX)
     parser.add_argument("--site", type=Path, default=SITE)
     parser.add_argument("--site-slim", type=Path, default=SITE_SLIM)
+    parser.add_argument("--site-detail", type=Path, default=SITE_DETAIL)
     parser.add_argument("--llm", type=Path, default=LLM)
     args = parser.parse_args()
     data = merge(read_json(args.base), read_json(args.cache))
@@ -96,12 +108,11 @@ def main() -> int:
         temporary = path.with_suffix(path.suffix + ".tmp")
         temporary.write_text(blob, encoding="utf-8")
         os.replace(temporary, path)
-    # Display-only projection the browser fetches. The full artifact stays published at
+    # Display-only projection the browser fetches, split into the part that blocks the first
+    # render and the part only an expanded row needs. The full artifact stays published at
     # index.json for agents and verify_skill.py.
-    slim_blob = json.dumps(slim_index(data), ensure_ascii=False) + "\n"
-    slim_temporary = args.site_slim.with_suffix(args.site_slim.suffix + ".tmp")
-    slim_temporary.write_text(slim_blob, encoding="utf-8")
-    os.replace(slim_temporary, args.site_slim)
+    slim_blob = _write_json(args.site_slim, slim_index(data))
+    detail_blob = _write_json(args.site_detail, detail_index(data))
 
     args.llm.parent.mkdir(parents=True, exist_ok=True)
     llm_temporary = args.llm.with_suffix(args.llm.suffix + ".tmp")
@@ -109,7 +120,9 @@ def main() -> int:
     os.replace(llm_temporary, args.llm)
     coverage = data["enrichment_coverage"]
     print(f"merged {len(data['skills'])} entries; enrichment {coverage}")
-    print(f"  site slim: {len(slim_blob)/1024:.0f} KB vs full {len(blob)/1024:.0f} KB")
+    print(f"  site list: {len(slim_blob)/1024:.0f} KB (blocks first paint)"
+          f" · detail {len(detail_blob)/1024:.0f} KB (deferred)"
+          f" · full {len(blob)/1024:.0f} KB")
     return 0
 
 

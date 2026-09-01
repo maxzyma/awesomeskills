@@ -1,20 +1,24 @@
 """Tests for the display-only projection the browser fetches.
 
-The risk here runs one way: dropping a field the page renders degrades the UI silently,
-showing "?" instead of a number. Field lists are enumerated by hand, so these tests assert
-what the site reads today; the standing check is the differential render (build both
-artifacts, render every entry from each, diff the HTML), which is what actually proves the
-projection is lossless for display.
+It is published as two files: a list that blocks the first render, and a detail half fetched
+afterwards that only an expanded row shows. The risk runs one way -- dropping a field the
+page renders degrades the UI silently, printing "?" instead of a number -- so the field lists
+are asserted here, and the partition itself is checked against the real index rather than a
+fixture, because a fixture cannot notice a field the builder started emitting.
 """
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "processing"))
+import pytest
 
-from site_index import slim_index, slim_skill  # noqa: E402
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "processing"))
+
+from site_index import detail_index, detail_skill, list_skill, slim_index  # noqa: E402
 
 
 def full_entry(**overrides) -> dict:
@@ -26,7 +30,10 @@ def full_entry(**overrides) -> dict:
         "content_sha256": "d" * 64,
         "files": [{"path": "s/SKILL.md", "sha256": "d" * 64, "role": "skill"}],
         "files_complete": True,
-        "grounding": {"function": {"en": {"purpose": "p"}}},
+        "grounding": {"function": {"en": {
+            "purpose": "p", "io": "writes files", "boundary": "no network",
+            "dependencies": ["Node.js"], "scenarios": ["a scenario"],
+        }}},
         "enrichment_status": "fresh",
         "trust": {
             "health": 80, "security": "warn", "zh": True,
@@ -48,50 +55,82 @@ def full_entry(**overrides) -> dict:
     return {**entry, **overrides}
 
 
-# --- every value the grounding panel prints must survive ---------------------------------
+# --- the list half must carry everything needed to paint and search ----------------------
 
-def test_health_counters_the_panel_prints_are_kept():
-    """The Health section prints stars, open issues, forks and watchers by name. Dropping
-    any of them renders a '?' rather than failing loudly."""
-    factors = slim_skill(full_entry())["trust"]["health_factors"]
-    for key in ("recency_days", "stars", "open_issues", "forks", "watchers", "archived"):
-        assert key in factors, key
-    assert factors["parts"]["maintenance"] == 25
-
-
-def test_frontmatter_counts_the_panel_prints_are_kept():
-    """The Coverage section prints heading and code-block counts."""
-    frontmatter = slim_skill(full_entry())["frontmatter"]
-    assert frontmatter["headings"] == 3
-    assert frontmatter["code_blocks"] == 1
-
-
-def test_enrichment_status_is_kept_because_the_page_discloses_it():
-    """A `legacy` assessment predates digest binding, so the page says the revision behind
-    it cannot be confirmed. Dropping the field would silently remove that disclosure."""
-    assert slim_skill(full_entry(enrichment_status="legacy"))["enrichment_status"] == "legacy"
-
-
-def test_display_fields_survive():
-    row = slim_skill(full_entry())
-    for key in ("id", "name", "summary", "source_repo", "source_url", "kind", "level", "grounding"):
+def test_the_list_carries_what_a_row_shows():
+    row = list_skill(full_entry())
+    for key in ("id", "name", "summary", "source_repo", "source_url", "kind", "level"):
         assert key in row, key
-    for key in ("health", "security", "zh", "security_findings", "security_scope"):
+    for key in ("health", "security", "zh"):
         assert key in row["trust"], key
 
 
-# --- verification data must not leak into the display artifact ---------------------------
+def test_the_list_carries_purpose_because_search_reads_it():
+    """The haystack spans both languages, so a row can display a translated purpose and
+    still not match a word copied out of it if purpose is deferred."""
+    assert list_skill(full_entry())["grounding"]["function"]["en"]["purpose"] == "p"
 
-def test_verification_fields_are_dropped():
-    """These are the payload the browser was downloading for nothing; the manifest alone was
-    the single largest field."""
-    row = slim_skill(full_entry())
+
+def test_the_list_carries_frontmatter_validity_because_the_default_sort_gates_on_it():
+    """Broken entries sink to the bottom. Deferring `valid` would sort the first paint one
+    way and resort it seconds later when the detail arrived."""
+    assert list_skill(full_entry())["frontmatter"] == {"valid": True}
+
+
+def test_enrichment_status_is_in_the_list_because_the_page_discloses_it():
+    """A `legacy` assessment predates digest binding, so the page says the revision it was
+    written from cannot be confirmed."""
+    assert list_skill(full_entry(enrichment_status="legacy"))["enrichment_status"] == "legacy"
+
+
+def test_the_list_defers_what_only_the_panel_shows():
+    row = list_skill(full_entry())
+    for key in ("health_factors", "security_findings", "security_scope"):
+        assert key not in row["trust"], key
+    for key in ("io", "boundary", "dependencies", "scenarios"):
+        assert key not in row["grounding"]["function"]["en"], key
+
+
+# --- the detail half must carry the rest --------------------------------------------------
+
+def test_the_detail_carries_the_panel_fields():
+    detail = detail_skill(full_entry())
+    for key in ("io", "boundary", "dependencies", "scenarios"):
+        assert key in detail["grounding"]["function"]["en"], key
+    assert detail["trust"]["health_factors"]["parts"]["maintenance"] == 25
+    for key in ("recency_days", "stars", "open_issues", "forks", "watchers", "archived"):
+        assert key in detail["trust"]["health_factors"], key
+    assert detail["frontmatter"] == {"issues": [], "headings": 3, "code_blocks": 1}
+
+
+def test_the_detail_is_keyed_by_id():
+    out = detail_index({"skills": [full_entry(), full_entry(id="o/r/t")]})
+    assert set(out["skills"]) == {"o/r/s", "o/r/t"}
+
+
+def test_repos_are_split_the_same_way():
+    """The grade pill paints on every row; the community write-up is panel-only."""
+    repos = {"o/r": {"overall_grade": "A", "overall_score": 91,
+                     "community": {"en": {}}, "external": {"hn": {}}}}
+    data = {"generated_at": "t", "repos": repos, "skills": []}
+    assert slim_index(data)["repos"]["o/r"] == {"overall_grade": "A", "overall_score": 91}
+    assert set(detail_index(data)["repos"]["o/r"]) == {"community", "external"}
+
+
+# --- verification data must not leak into either display artifact ------------------------
+
+def test_verification_fields_are_dropped_from_both_halves():
+    """These are the payload the browser was downloading for nothing; the digest manifest
+    alone was the single largest field."""
+    row, detail = list_skill(full_entry()), detail_skill(full_entry())
     for key in ("files", "files_complete", "content_sha256", "source_ref",
                 "source_ref_kind", "source_branch"):
         assert key not in row, key
+        assert key not in detail, key
     for key in ("collection_coverage", "license_path", "security_complete",
                 "executable_files_discovered", "executable_files_scanned"):
         assert key not in row["trust"], key
+        assert key not in detail["trust"], key
 
 
 def test_slim_index_labels_itself_as_display_only():
@@ -100,19 +139,60 @@ def test_slim_index_labels_itself_as_display_only():
     out = slim_index({"generated_at": "t", "repos": {}, "skills": [full_entry()]})
     assert out["display_only"] is True
     assert out["full_index"] == "index.json"
-
-
-def test_repos_block_passes_through_for_the_community_layer():
-    repos = {"o/r": {"overall_grade": "A", "overall_score": 91, "community": {"en": {}}}}
-    out = slim_index({"generated_at": "t", "repos": repos, "skills": []})
-    assert out["repos"] == repos
-
-
-def test_entry_without_frontmatter_stays_without_one():
-    row = slim_skill(full_entry(frontmatter=None))
-    assert "frontmatter" not in row
+    assert out["detail_index"] == "site-detail.json"
 
 
 def test_every_entry_is_projected():
     out = slim_index({"generated_at": "t", "repos": {}, "skills": [full_entry(), full_entry(id="o/r/t")]})
     assert [row["id"] for row in out["skills"]] == ["o/r/s", "o/r/t"]
+
+
+def test_an_entry_without_grounding_or_frontmatter_projects_cleanly():
+    bare = {"id": "o/r/s", "name": "s", "trust": {"health": 1, "security": "unrated"}}
+    assert "grounding" not in list_skill(bare)
+    assert "frontmatter" not in list_skill(bare)
+    assert detail_skill(bare) == {}
+    assert detail_index({"skills": [bare]})["skills"] == {}
+
+
+# --- the split is only sound if the two halves partition the projection ------------------
+
+def leaves(node, prefix="") -> dict:
+    """Flatten to dotted paths, so two halves can be compared as sets of values."""
+    if isinstance(node, dict):
+        out = {}
+        for key, value in node.items():
+            out.update(leaves(value, f"{prefix}.{key}"))
+        return out
+    return {prefix: json.dumps(node, ensure_ascii=False, sort_keys=True)}
+
+
+@pytest.mark.parametrize("entry", [full_entry()])
+def test_the_halves_never_carry_the_same_field(entry):
+    """Overlap is the failure mode that matters: a field present in both can disagree after
+    a rebuild, and the client's merge would silently pick the deferred one."""
+    assert set(leaves(list_skill(entry))) & set(leaves(detail_skill(entry))) == set()
+
+
+def _real_index():
+    path = ROOT / "registry" / "index.json"
+    if not path.exists():
+        pytest.skip("registry/index.json not built")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_against_the_real_index_the_halves_agree_with_the_source():
+    """Run over every published entry, not a fixture: a fixture cannot notice a field the
+    builder started emitting, and the projection is hand-enumerated."""
+    data = _real_index()
+    for entry in data["skills"]:
+        source = leaves(entry)
+        for path, value in {**leaves(list_skill(entry)), **leaves(detail_skill(entry))}.items():
+            assert path in source, f"{entry['id']}: projected {path} is not in the index"
+            assert source[path] == value, f"{entry['id']}: {path} disagrees with the index"
+
+
+def test_against_the_real_index_the_halves_do_not_overlap():
+    for entry in _real_index()["skills"]:
+        overlap = set(leaves(list_skill(entry))) & set(leaves(detail_skill(entry)))
+        assert overlap == set(), f"{entry['id']}: {overlap}"
