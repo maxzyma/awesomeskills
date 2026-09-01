@@ -448,11 +448,16 @@
   // list is 107 KB; the rest is what only an expanded row shows and is not fetched until a
   // row is actually expanded. Most visitors expand nothing and never pay for it.
   //
-  // No `?t=` cache-buster on either URL. The browser caches by full URL, so a unique query
-  // string per load meant no request ever had a cache entry to revalidate against and every
-  // visit re-downloaded everything. GitHub Pages sends max-age=600 with an ETag, so without
-  // the buster a repeat visit inside ten minutes costs nothing and a later one costs a 304.
-  // Ten minutes is the whole exposure, against an index rebuilt once a day.
+  // The two files are cached differently on purpose.
+  //
+  // The list keeps a `?t=` cache-buster, so what a visitor sees -- which skills exist, their
+  // health and security -- is always the freshly published set, never up to ten minutes old.
+  // That is the number this site is judged on, so it is worth re-fetching every visit.
+  //
+  // The detail has no buster. A browser caches by full URL, so a unique query string per
+  // load means no request ever has an entry to revalidate and every visit re-downloads
+  // everything. GitHub Pages sends max-age=600 with a working ETag, so without the buster a
+  // repeat visit inside ten minutes costs nothing and a later one costs a 304.
   const SITE_INDEX = './site-index.json';
   let detailState = 'idle'; // 'idle' | 'loading' | 'ready' | 'failed'
   let detailUrl = './site-detail.json';
@@ -519,7 +524,7 @@
   applyStatic();
   (async () => {
     try {
-      const response = await fetch(SITE_INDEX);
+      const response = await fetch(SITE_INDEX + '?t=' + Date.now());
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const loadingEl = listEl.querySelector('.empty');
       const body = await readWithProgress(response, received => {
