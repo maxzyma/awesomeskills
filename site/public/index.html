@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Relative, because the site is reachable both at the apex domain and under a project
+     path. Declaring it also stops the browser probing /favicon.ico and 404ing. -->
+<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#3730a3" />
 <title>awesomeskills — a trust-first index of public agent skills</title>
 <style>
   :root { --fg:#111827; --body:#374151; --muted:#5b6472; --line:#e5e7eb; --ok:#15803d; --warn:#b45309; --accent:#3730a3; --bg:#fff; }
@@ -55,7 +59,13 @@
                   border-radius: 4px; font-size: 11px; color: var(--muted); vertical-align: 1px;
                   white-space: nowrap; cursor: default; }
 
-  .signals { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+  /* The whole badge cluster toggles the panel, not just the chevron. The badges are the
+     summary of what the panel explains, so pointing at one and getting nothing reads as
+     broken. The chevron stays a real <button> -- it is what keyboard and screen readers
+     drive; the surrounding area is a click target layered on top of it. */
+  .signals { display: flex; gap: 6px; align-items: center; white-space: nowrap; cursor: pointer; }
+  .signals .tip { cursor: pointer; }
+  .signals:hover .gbtn { color: var(--accent); }
   .pill { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 6px; border: none; line-height: 1.5; font-variant-numeric: tabular-nums; }
   .pill.health { background: #f1f2f6; color: #4b5563; display: inline-flex; align-items: center; gap: 4px; }
   .pi { pointer-events: none; width: 13px; height: 13px; }
@@ -464,9 +474,12 @@
   document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
   listEl.addEventListener('click', ev => {
-    const b = ev.target.closest('.gbtn');
-    if (!b) return;
-    const li = b.closest('.row'), body = li.querySelector('.ground-body'), id = li.dataset.id;
+    // Anywhere in the badge cluster, including the chevron itself -- a click on the button
+    // bubbles here too, so this one handler covers both without a second listener.
+    const cluster = ev.target.closest('.signals');
+    if (!cluster) return;
+    const b = cluster.querySelector('.gbtn');
+    const li = cluster.closest('.row'), body = li.querySelector('.ground-body'), id = li.dataset.id;
     const opening = body.hasAttribute('hidden');
     if (opening) { body.removeAttribute('hidden'); openRows.add(id); } else { body.setAttribute('hidden', ''); openRows.delete(id); }
     b.setAttribute('aria-expanded', opening);

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="awesomeskills">
+  <!-- A check rather than a wordmark: a letter is unreadable at 16px, and the check is the
+       one claim the product makes, that these entries were assessed and not just collected. -->
+  <rect width="32" height="32" rx="7" fill="#3730a3"/>
+  <path d="M8.8 16.6l4.9 4.9L23.2 11" fill="none" stroke="#fff" stroke-width="3.6"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
