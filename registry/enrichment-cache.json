@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "updated_at": "2026-08-31T14:01:03+00:00",
+  "updated_at": "2026-09-01T04:06:25+00:00",
   "entries": {
     "shareAI-lab/learn-claude-code/skills/pdf": {
       "content_sha256": "b143723126a9951c556063edbdf15fce252a505e11c85a3fdbaa221f1116d178",
@@ -1669,317 +1669,353 @@
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/flush": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "7a2a74cd6a694596640030b9b8dde5eeb8cfffca64c27f8d399eadbe0b6655fd",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Manually applies pending commits from an interrupted deferred-commit queue onto the user's Git branch and clears the queue.",
+            "purpose": "Manually inspects or flushes a persisted Hyperflow deferred-commit queue after an interrupted chain.",
             "scenarios": [
-              "Recovering uncommitted work after a execution chain crashed or was interrupted before auto-flush",
-              "Inspecting queued commits using `--dry-run` before applying them to the target branch",
-              "Manually applying deferred commits when automatic chain wrap-up was skipped"
+              "Preview queued commits with a dry run.",
+              "Fast-forward queued staging commits onto the recorded user branch.",
+              "Recover when automatic end-of-chain flushing did not run."
             ],
-            "io": "Accepts an optional `--dry-run` flag and reads `.hyperflow/commits-queue/manifest.json` to output fast-forwarded Git commits and branch cleanup logs.",
+            "io": "Input: optional --dry-run and .hyperflow/commits-queue/manifest.json. Output: queued-commit listing or a fast-forward result; on divergence, an error and manual recovery suggestions.",
             "dependencies": [
-              "git",
-              "bash"
+              "Git repository",
+              "Hyperflow queue manifest",
+              "Hyperflow scripts/flush-commits.sh",
+              "Claude Code-compatible shell and file-reading tools"
             ],
-            "boundary": "It does not automatically resolve branch divergence or merge conflicts, requiring manual rebase or cherry-pick handling if fast-forward fails."
+            "boundary": "Limited to Hyperflow's recorded staging and user branches. It cannot resolve branch divergence automatically; on failure it preserves the staging branch and manifest. Missing staging branches may cause stale queue metadata to be cleared."
           },
           "zh": {
-            "purpose": "手动刷新并应用因中断或未完成的 Hyperflow 流程而推迟提交的代码队列，并清理暂存分支与清单。",
+            "purpose": "在 Hyperflow 链路中断后，手动检查或清空持久化的延迟提交队列。",
             "scenarios": [
-              "在 Hyperflow 执行链崩溃或中断后恢复未自动刷新的延迟提交",
-              "使用 `--dry-run` 参数预览队列中等待应用的提交列表",
-              "在自动收尾阶段被跳过时手动将暂存分支合并回用户分支"
+              "通过 dry-run 预览排队的提交。",
+              "将暂存分支中的提交快进合并到清单记录的用户分支。",
+              "自动收尾未执行时恢复提交。"
             ],
-            "io": "接受可选的 `--dry-run` 参数并读取 `.hyperflow/commits-queue/manifest.json` 队列文件，输出快进合并后的 Git 提交记录及分支清理日志。",
+            "io": "输入：可选的 --dry-run 和 .hyperflow/commits-queue/manifest.json。输出：队列提交列表或快进合并结果；分支分叉时输出错误及人工恢复建议。",
             "dependencies": [
-              "git",
-              "bash"
+              "Git 仓库",
+              "Hyperflow 队列清单",
+              "Hyperflow scripts/flush-commits.sh",
+              "兼容 Claude Code 的 Shell 与文件读取工具"
             ],
-            "boundary": "当用户分支与暂存分支发生偏离时，它不会自动解决分支冲突，需用户手动执行 rebase 或 cherry-pick。"
+            "boundary": "仅处理 Hyperflow 清单记录的暂存分支和用户分支；不能自动解决分叉。失败时保留暂存分支和清单；暂存分支缺失时可能清理失效的队列元数据。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Hyperflow deferred-commit recovery for a local Git repository.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/dispatch": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "5aab2c0b03b9cc8261a592077e7fa536f27b40a411ec143999bd51a19a9d04ac",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Orchestrates and dispatches parallel worker agents with per-batch reviewer oversight to execute multi-step plans from task files and commit completed sub-tasks.",
+            "purpose": "Executes Hyperflow task or feature artifacts through parallel workers, staged reviews, quality gates, commits, memory updates, and end-of-build choices.",
             "scenarios": [
-              "Executing structured task plans from `.hyperflow/tasks/` with fan-out worker agents",
-              "Running multi-level code reviews and quality gate checks on batch outputs",
-              "Synthesizing batch learnings and creating per-subtask Git commits automatically"
+              "Run batches from a generated .hyperflow task file.",
+              "Resume execution from a selected batch or run only final integration review.",
+              "Build a multi-phase feature sequentially or one phase at a time.",
+              "Rehydrate and execute a second-session handoff package."
             ],
-            "io": "Inputs task file paths, handoff slugs, and execution flags; outputs code modifications, Git commits, and final integration review summaries.",
+            "io": "Input: task path or slug, optional handoff package, session/phase/resume/review-mode flags, and operational commit/branch/push arguments. Output: project changes, review verdicts, quality-gate results, commits or deferred queue state, progress metadata, memory artifacts, and audit/deploy prompts.",
             "dependencies": [
-              "bash",
-              "git",
-              "gh",
-              "python3",
-              "agent"
+              "Claude Code Agent, Skill, and AskUserQuestion capabilities",
+              "Hyperflow task or feature artifacts",
+              "Hyperflow project context files",
+              "Git repository",
+              "Hyperflow scripts and referenced prompt/policy files",
+              "Project lint, typecheck, and test tools when configured",
+              "Optional GitHub CLI for GitHub-native flows"
             ],
-            "boundary": "Executes tasks and commits code locally, but does NOT perform automated deployment or release operations."
+            "boundary": "Acts only on authored Hyperflow plans and project files. It does not deploy automatically without the documented end gate or handoff disposition. Security violations halt execution; unresolved worker or gate failures can leave partial task status and changes. Correct behavior depends on referenced Hyperflow files not included in this evidence."
           },
           "zh": {
-            "purpose": "调度并编排并行 Worker Agent，在按批次审查员的监督下执行任务文件中的多步骤计划并提交子任务代码。",
+            "purpose": "通过并行工作代理、分层审查、质量门禁、提交、记忆更新和构建结束选择，执行 Hyperflow 任务或功能制品。",
             "scenarios": [
-              "使用并行 Worker Agent 执行来自 `.hyperflow/tasks/` 的结构化任务计划",
-              "对批次产出运行多级代码审查与自动化质量门禁检查",
-              "合成批次执行经验并自动针对每个子任务创建 Git 提交"
+              "执行 .hyperflow 任务文件中的批次。",
+              "从指定批次恢复，或只运行最终集成审查。",
+              "连续构建多阶段功能，或一次只构建一个阶段。",
+              "还原并执行第二会话的交接包。"
             ],
-            "io": "输入任务文件路径、handoff 标识及执行参数标志，输出代码修改、Git 提交记录和最终集成审查总结。",
+            "io": "输入：任务路径或 slug、可选交接包、会话/阶段/恢复/审查模式参数，以及提交、分支、推送参数。输出：项目改动、审查结论、质量门禁结果、提交或延迟队列状态、进度元数据、记忆制品，以及审计/部署询问。",
             "dependencies": [
-              "bash",
-              "git",
-              "gh",
-              "python3",
-              "agent"
+              "Claude Code 的 Agent、Skill 和 AskUserQuestion 能力",
+              "Hyperflow 任务或功能制品",
+              "Hyperflow 项目上下文文件",
+              "Git 仓库",
+              "Hyperflow 脚本及引用的提示词/策略文件",
+              "项目已配置的 lint、类型检查和测试工具",
+              "GitHub 原生流程可选依赖 GitHub CLI"
             ],
-            "boundary": "负责任务的分派执行、代码审查与本地提交，但明确不包含自动部署或线上发布功能。"
+            "boundary": "仅依据已编写的 Hyperflow 计划操作项目文件。没有文档规定的结束门禁或交接处置时不会自动部署。安全违规会中止执行；未解决的代理或门禁失败可能留下部分状态和改动。完整行为依赖本证据未附带的 Hyperflow 引用文件。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Hyperflow task-plan execution and multi-agent orchestration in a local project.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/deploy": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "881feb162af16f0603d74336f74c8e67788b74cdab1cf9b753ad7cf7f83e4c72",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Executes a rigorous pre-push release pipeline that runs linting, typechecking, builds, tests, and security sweeps before committing and pushing code.",
+            "purpose": "Surveys repository state, runs quality and security gates, optionally creates a release, and pushes only according to an explicit or pre-elected push policy.",
             "scenarios": [
-              "Preparing and releasing a new package or application version",
-              "Running automated pre-push security and quality validation gates",
-              "Safely committing and pushing staged changes with explicit user confirmation"
+              "Validate lint, formatting, types, builds, and tests before shipping.",
+              "Scan recent changes for secrets and audit dependencies.",
+              "Run a detected release workflow and verify version consistency.",
+              "Push a validated branch and tags after confirmation."
             ],
-            "io": "Accepts release or deployment triggers (e.g., '/hyperflow:deploy' or 'ship it') and outputs step-by-step validation results and push confirmations.",
+            "io": "Input: repository state, Hyperflow context, project manifests/scripts, and push policy. Output: gate verdicts, optional fix/release commits and version changes, a push result, and a structured ship summary.",
             "dependencies": [
-              "git",
-              "npm",
-              "pnpm",
-              "bash"
+              "Git repository with remote",
+              "Claude Code agents and AskUserQuestion",
+              "Detected package manager and project gate commands",
+              "Hyperflow security and vulnerability reviewer agents",
+              "Optional release script, release-please, or Changesets",
+              "Network access for dependency-advisory research and push"
             ],
-            "boundary": "It does not auto-fix failing quality or security checks, never uses '--no-verify' to bypass gates, and will not push code without explicit user confirmation."
+            "boundary": "Halts on failed quality gates, detected secrets, or applicable critical/high vulnerabilities. It does not bypass hooks or force-push. Missing commands may be skipped as described. User-owned uncommitted changes require an inclusion choice, and interactive confirmation is required when push policy is ask."
           },
           "zh": {
-            "purpose": "在提交和推送代码之前，执行包含代码检查、类型检查、构建、测试及安全扫描的严格发布前流水线。",
+            "purpose": "检查仓库状态，运行质量与安全门禁，可选执行发布，并仅按明确确认或预选策略推送。",
             "scenarios": [
-              "准备并发布新的软件包或应用版本",
-              "在推送前运行自动化的质量与安全验证门禁",
-              "在获得用户明确确认后，安全地提交并推送变更"
+              "发布前验证 lint、格式、类型、构建和测试。",
+              "扫描近期改动中的密钥并审计依赖。",
+              "运行检测到的发布流程并核对版本一致性。",
+              "确认后推送已验证的分支和标签。"
             ],
-            "io": "接收发布或部署触发指令（如 '/hyperflow:deploy' 或 'ship it'），输出各阶段验证门禁的执行结果与推送状态。",
+            "io": "输入：仓库状态、Hyperflow 上下文、项目清单/脚本和推送策略。输出：门禁结论、可选修复或发布提交、版本变化、推送结果和结构化发版摘要。",
             "dependencies": [
-              "git",
-              "npm",
-              "pnpm",
-              "bash"
+              "带远端的 Git 仓库",
+              "Claude Code 代理与 AskUserQuestion",
+              "检测到的包管理器和项目门禁命令",
+              "Hyperflow 安全及漏洞审查代理",
+              "可选发布脚本、release-please 或 Changesets",
+              "依赖公告研究和推送所需网络"
             ],
-            "boundary": "该技能不会自动修复失败的质量或安全检查，绝不使用 '--no-verify' 跳过门禁，且在未经用户明确确认前不会执行推送。"
+            "boundary": "质量门禁失败、发现密钥或适用的严重/高危漏洞时停止。不会绕过钩子或强制推送。缺失命令可能按文档跳过。纳入用户已有未提交改动需要选择；push=ask 时需要交互确认。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Pre-push validation, release preparation, and gated Git push for a local project.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/cache": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "1e1147ffc5ca852371c05a95baae049539b3fc838e59ed2ddec5a89d774b4def",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Provides a comprehensive CRUD interface to manage persistent project memory stored within the `.hyperflow/memory/` directory.",
+            "purpose": "Provides lifecycle operations for viewing, searching, adding, editing, pruning, archiving, clearing, migrating, and compacting Hyperflow memory entries.",
             "scenarios": [
-              "Searching past project decisions, learnings, and coding conventions",
-              "Adding new insights or editing existing memory entries during development",
-              "Pruning, archiving, or compacting stale memory files to maintain project context",
-              "Migrating legacy memory entries or viewing storage statistics"
+              "Search or inspect remembered project decisions and patterns.",
+              "Add or edit categorized memory entries.",
+              "Archive, prune, clear, or compact aged memory.",
+              "Import project-matching entries from a legacy global memory file."
             ],
-            "io": "Accepts memory subcommands and context details as input, and outputs memory entries, search results, or action confirmation summaries.",
+            "io": "Input: a cache subcommand plus query, category, entry ID, or target file as applicable. Output: matching entries, statistics, mutation confirmation, archive paths, or compaction counts.",
             "dependencies": [
-              "file_system",
-              "bash"
+              "Read/write access to .hyperflow/memory/",
+              "Hyperflow memory protocol references",
+              "AskUserQuestion for destructive clear confirmation",
+              "Agent support for compaction writing/review",
+              "Optional legacy ~/.claude/hyperflow-memory.md",
+              "Optional memory-index.py refresh script"
             ],
-            "boundary": "Only reads and modifies files inside `.hyperflow/memory/` and never directly edits project source code files."
+            "boundary": "Targets memory files rather than source code. Clear requires confirmation and archives content instead of irreversibly discarding it. Migration reads only the described legacy file and filters by project. Detailed parsing and compaction behavior depends on referenced files not attached here."
           },
           "zh": {
-            "purpose": "提供用于管理 `.hyperflow/memory/` 目录下项目持久化记忆的全套 CRUD 接口。",
+            "purpose": "为 Hyperflow 项目记忆提供查看、搜索、新增、编辑、修剪、归档、清空、迁移和压缩等生命周期操作。",
             "scenarios": [
-              "检索项目以往的决策记录、经验教训与开发规范",
-              "在开发过程中添加新心得或修改已有的记忆条目",
-              "对陈旧记忆进行清理、归档或压缩以维持高效上下文",
-              "迁移旧版记忆文件或查看当前记忆库的统计信息"
+              "搜索或查看已记录的项目决策与模式。",
+              "新增或编辑分类记忆条目。",
+              "归档、修剪、清空或压缩旧记忆。",
+              "从旧版全局记忆文件导入与当前项目匹配的条目。"
             ],
-            "io": "输入为记忆管理子命令及相关参数，输出为格式化的记忆条目、搜索结果或操作状态汇总。",
+            "io": "输入：cache 子命令及相应查询、类别、条目 ID 或目标文件。输出：匹配条目、统计、变更确认、归档路径或压缩计数。",
             "dependencies": [
-              "file_system",
-              "bash"
+              ".hyperflow/memory/ 的读写权限",
+              "Hyperflow 记忆协议引用文件",
+              "清空操作所需 AskUserQuestion",
+              "压缩写入和审查所需 Agent 能力",
+              "可选旧文件 ~/.claude/hyperflow-memory.md",
+              "可选 memory-index.py 刷新脚本"
             ],
-            "boundary": "仅对 `.hyperflow/memory/` 目录下的记忆文件进行读写，绝不直接修改项目的源代码文件。"
+            "boundary": "只面向记忆文件，不修改源代码。清空需要确认，并通过归档保留内容。迁移只读取所述旧文件并按项目过滤。具体解析和压缩行为依赖本证据未附带的引用文件。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Project-local Hyperflow memory management under .hyperflow/memory/.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/bridge": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "e2b64f42fd2aa9a5bb1cbb100c075a499641386a0937008cd241c9fb385bd725",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Embeds a portable subset of hyperflow's behavioral rules into a project's CLAUDE.md file so they take effect across non-CLI surfaces like Claude Desktop and claude.ai web.",
+            "purpose": "Generates, refreshes, removes, or reports a managed Hyperflow doctrine block so non-CLI Claude surfaces can load a subset of Hyperflow behavior.",
             "scenarios": [
-              "Applying hyperflow workflow rules to Claude Desktop or claude.ai web sessions.",
-              "Updating or refreshing the managed hyperflow doctrine block inside CLAUDE.md.",
-              "Configuring auto-bridge settings or removing the doctrine block from the project."
+              "Add portable Hyperflow rules to CLAUDE.md.",
+              "Refresh an existing managed block after plugin updates.",
+              "Remove only the managed doctrine block.",
+              "Configure automatic, manual, or disabled bridge maintenance."
             ],
-            "io": "Accepts subcommand arguments (generate, refresh, remove, status, mode) and manages fenced doctrine blocks in CLAUDE.md along with project bridge mode settings.",
+            "io": "Input: generate, refresh, remove, status, or mode with auto/manual/off. Output: an updated CLAUDE.md or .hyperflow/.bridge-mode and a presence/version/status confirmation.",
             "dependencies": [
-              "Read",
-              "Write",
-              "Edit",
-              "Bash"
+              "Writable project CLAUDE.md",
+              "Hyperflow doctrine template",
+              "Active or vendored Hyperflow plugin installation",
+              "Session-start auto-bridge hook for automatic maintenance"
             ],
-            "boundary": "It only embeds static behavioral guidelines into CLAUDE.md and cannot execute slash commands or dispatch dynamic skills outside the CLI."
+            "boundary": "Transfers a documented behavioral subset only; it does not provide slash commands, skill dispatch, background agents, or full adaptive workflows. It refuses malformed or duplicate marker blocks to avoid overwriting ambiguous user content. Auto mode can modify CLAUDE.md at session start."
           },
           "zh": {
-            "purpose": "将 hyperflow 的行为准则精简版嵌入项目的 CLAUDE.md 文件中，使其能够在 Claude Desktop 和 claude.ai 网页等非 CLI 环境中生效。",
+            "purpose": "生成、刷新、移除或检查受管理的 Hyperflow doctrine 区块，使非 CLI 的 Claude 界面可加载部分 Hyperflow 行为规则。",
             "scenarios": [
-              "使 hyperflow 行为规范在 Claude Desktop 或 claude.ai 网页端生效。",
-              "在插件更新后手动或自动刷新 CLAUDE.md 中的准则区块。",
-              "管理项目的自动桥接模式或从 CLAUDE.md 中移除准则内容。"
+              "把可移植 Hyperflow 规则加入 CLAUDE.md。",
+              "插件更新后刷新现有受管理区块。",
+              "只移除受管理的 doctrine 区块。",
+              "将自动维护模式设为自动、手动或关闭。"
             ],
-            "io": "接收子命令参数（generate、refresh、remove、status、mode），并在 CLAUDE.md 和 `.hyperflow/.bridge-mode` 文件中写入或查看准则与模式状态。",
+            "io": "输入：generate、refresh、remove、status，或带 auto/manual/off 的 mode。输出：更新后的 CLAUDE.md 或 .hyperflow/.bridge-mode，以及存在性、版本或状态确认。",
             "dependencies": [
-              "Read",
-              "Write",
-              "Edit",
-              "Bash"
+              "可写的项目 CLAUDE.md",
+              "Hyperflow doctrine 模板",
+              "当前或随附的 Hyperflow 插件安装",
+              "自动维护所需的会话启动钩子"
             ],
-            "boundary": "该技能仅能在 CLAUDE.md 中嵌入静态准则文本，无法在 CLI 之外触发斜杠命令或进行实际的动态技能调度。"
+            "boundary": "只迁移文档所述的行为子集，不提供斜杠命令、技能调度、后台代理或完整自适应流程。遇到损坏或重复的标记区块会拒绝修改，以免覆盖含义不明的用户内容。auto 模式可在会话启动时修改 CLAUDE.md。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Portable Hyperflow doctrine block management in a project's CLAUDE.md.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/background": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "8aec2ec9190f3ee56b920e92814e50e4dacce768a15a3b25dc3f4f24cda05a25",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Manages, inspects, cancels, and cleans up background agents and their output buffers generated by Hyperflow workflows.",
+            "purpose": "Lists, inspects, marks cancelled, or prunes background agents previously launched by other Hyperflow workflows.",
             "scenarios": [
-              "Listing all active, completed, or stalled background agents",
-              "Inspecting the output log of a completed background task",
-              "Canceling running background agents before ending a session",
-              "Pruning old output buffer files older than 7 days"
+              "List running, completed, stalled, or errored background work.",
+              "Read a completed agent's output buffer.",
+              "Cancel one or all running agents.",
+              "Prune terminal-state buffers older than seven days."
             ],
-            "io": "Takes subcommands like list, show, cancel, or prune along with optional IDs as input, and outputs task status tables, log contents, or status updates.",
+            "io": "Input: list, show <id>, cancel <id|--all>, or prune. Output: grouped status tables, buffer contents, cancellation confirmations, or prune counts.",
             "dependencies": [
-              "file_system",
-              "bash"
+              ".hyperflow/background/registry.json",
+              "Per-agent .hyperflow/background/<id>.md buffers",
+              "Provider cancellation API when available",
+              "Filesystem read/write access"
             ],
-            "boundary": "It only manages state and logs of existing background processes and does not spawn new agents or execute workflow steps directly."
+            "boundary": "Does not launch agents or modify source code. When live cancellation is unavailable it only marks registry state and discards later results; the underlying agent may continue until completion or timeout. Prune is limited to terminal-state records and buffers older than seven days."
           },
           "zh": {
-            "purpose": "用于管理、查看、取消和清理 Hyperflow 工作流产生的后台 Agent 及其输出日志。",
+            "purpose": "列出、查看、标记取消或修剪由其他 Hyperflow 流程先前启动的后台代理。",
             "scenarios": [
-              "查看所有运行中、已完成或挂起的后台 Agent 列表",
-              "检查特定已完成后台任务的详细日志输出",
-              "在结束会话前取消正在运行的后台 Agent",
-              "清理保存超过 7 天的历史输出缓冲区文件"
+              "列出运行中、已完成、停滞或出错的后台任务。",
+              "读取已完成代理的输出缓冲区。",
+              "取消一个或全部运行中代理。",
+              "清理超过七天的终态缓冲区。"
             ],
-            "io": "输入子命令（如 list、show、cancel、prune）及可选的任务 ID，输出任务状态表格、日志内容或状态更新提示。",
+            "io": "输入：list、show <id>、cancel <id|--all> 或 prune。输出：分组状态表、缓冲区内容、取消确认或清理计数。",
             "dependencies": [
-              "file_system",
-              "bash"
+              ".hyperflow/background/registry.json",
+              "各代理的 .hyperflow/background/<id>.md 缓冲区",
+              "可用时的提供方取消 API",
+              "文件系统读写权限"
             ],
-            "boundary": "该技能仅负责管理已有后台进程的状态和日志，本身不会主动创建新的后台 Agent 或直接执行工作流逻辑。"
+            "boundary": "不会启动代理或修改源代码。无法实时取消时，只更新注册表状态并丢弃后续结果，底层代理可能继续运行到完成或超时。修剪仅处理超过七天的终态记录和缓冲区。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Management of Hyperflow background-agent registry records and output buffers.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/audit": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "d8bc0bf29b7c14a857af68ba6e870ce1077f49274f4e043e7a0c55bb0906a04c",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Performs multi-level (L1-L5) code reviews on recent changes to evaluate code quality, specification compliance, security, and performance.",
+            "purpose": "Builds context around a change set, runs level-scaled specialist reviews, writes a structured audit artifact, and optionally hands selected findings to Hyperflow planning.",
             "scenarios": [
-              "Reviewing git diffs or pull requests prior to merging",
-              "Auditing recent changes for security vulnerabilities and performance bottlenecks",
-              "Checking code quality against project conventions and test coverage patterns"
+              "Review unstaged and staged local changes.",
+              "Audit a file set, commit, branch, PR, or explicit Git range.",
+              "Run security-oriented review at L3 or deeper.",
+              "Turn selected findings into a fix specification and planning workflow."
             ],
-            "io": "Accepts target files, git references, or review level flags (L1-L5) as inputs, and outputs categorized review findings along with an interactive fix prompt.",
+            "io": "Input: optional review target and level 1-5; default is working-tree and staged diff at L2. Output: review verdict and counts, a .hyperflow/audits Markdown report, optional memory updates, and a fix-choice gate when applicable.",
             "dependencies": [
-              "git",
-              "hyperflow",
-              "AskUserQuestion"
+              "Git repository",
+              "Claude Code Agent, Skill, and AskUserQuestion capabilities",
+              "Hyperflow reviewer agents and prompt/reference files",
+              "Writable .hyperflow/audits and memory directories",
+              "Web research for current security advisories in gated specialist reviews"
             ],
-            "boundary": "It analyzes code and synthesizes review findings without modifying files directly, delegating actual code fixes to downstream workflows upon user approval at the fix gate."
+            "boundary": "Produces review findings rather than directly fixing code unless the user chooses a fix path. Security violations halt and are surfaced immediately. Accuracy depends on reachable targets and gathered project context; referenced review and security policies are not attached in this evidence."
           },
           "zh": {
-            "purpose": "对近期代码变更进行多层级（L1-L5）代码审查，全面评估代码质量、规范符合度、安全性与性能。",
+            "purpose": "围绕变更集收集上下文，按审查级别运行专业审查，写入结构化审计制品，并可将选定问题交给 Hyperflow 规划。",
             "scenarios": [
-              "在代码合并前审查 Git Diff 或 PR 变更",
-              "审计近期代码中的安全漏洞与性能瓶颈",
-              "依据项目规范与测试覆盖模式评估代码质量"
+              "审查未暂存和已暂存的本地改动。",
+              "审计文件集、提交、分支、PR 或明确的 Git 范围。",
+              "在 L3 或更高等级执行安全审查。",
+              "把选定发现转成修复规格并进入规划流程。"
             ],
-            "io": "输入目标文件、Git 引用或审查层级（L1-L5），输出分类化的审查报告及交互式修复提示。",
+            "io": "输入：可选审查目标及 1-5 级别；默认审查工作区和暂存区差异，级别为 L2。输出：审查结论和计数、.hyperflow/audits Markdown 报告、可选记忆更新，以及适用时的修复选择门禁。",
             "dependencies": [
-              "git",
-              "hyperflow",
-              "AskUserQuestion"
+              "Git 仓库",
+              "Claude Code 的 Agent、Skill 和 AskUserQuestion 能力",
+              "Hyperflow 审查代理及提示词/引用文件",
+              "可写的 .hyperflow/audits 与记忆目录",
+              "门禁式安全审查所需的当前漏洞公告研究"
             ],
-            "boundary": "仅负责分析代码与汇总审查意见，本身不会直接修改文件，需在用户通过修复关卡确认后交由后续工作流执行代码修复。"
+            "boundary": "默认只产出审查发现；只有用户选择修复路径后才进入后续修复流程。安全违规会立即中止并显示。准确性依赖目标可访问性和项目上下文；本证据未附带被引用的审查与安全策略。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Multi-level review of local Git changes, commits, branches, ranges, files, or pull requests.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser": {
@@ -2027,181 +2063,189 @@
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/agency-os/skills/agency-os": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "b6b0736b67a459fa2cad22fd70dd2a30da9782ae58d555a739e29569ebbb7d07",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Transforms a Notion Tasks database into a source-of-truth dispatch board to manage, orchestrate, and batch-execute AI agency workflows using specialized models.",
+            "purpose": "Uses one Notion Tasks database as the source of truth for capturing, discussing, approving, scheduling, and dispatching AI work.",
             "scenarios": [
-              "Capturing chat discussions and adding them as task suggestions into Notion",
-              "Discussing, approving, and transitioning tasks through status workflows",
-              "Batch-executing approved To-Do tasks across parallel agents with per-task model selection",
-              "Managing subtask trees, task dependencies, and recurring cadences in Notion"
+              "Capture a conversation item as a suggestion.",
+              "Move tasks through Discussion, To-Do, In Progress, and Done.",
+              "Manage subtasks, dependencies, recurrence, templates, and model selection.",
+              "Fan out approved To-Do tasks to parallel agents."
             ],
-            "io": "Inputs CLI subcommands or conversational chat triggers alongside Notion workspace state, and outputs updated Notion database entries, state transitions, and task execution results.",
+            "io": "Input: agency-os commands or equivalent natural-language task operations. Output: mutated Notion task records, affected task IDs and statuses, next-action hints, and for batch runs, per-task results and model-call estimates.",
             "dependencies": [
-              "notion-mcp-server",
-              "python3",
-              "claude-code"
+              "Notion MCP server",
+              "Notion integration token with read/write access",
+              "Notion workspace and expected Tasks database schema",
+              "references/notion-pointers.json",
+              "Python 3 for optional offline query helper",
+              "Agent runtime supporting parallel task execution"
             ],
-            "boundary": "It operates strictly through Notion as its stateless single source of truth and does not maintain local disk state or support non-Notion task management boards."
+            "boundary": "Runtime state is stored in Notion; only the pointer file is described as local committed state. Status transitions and dependency checks are enforced, and API, pointer-drift, cycle, or missing-model errors halt rather than being silently corrected. Full command behavior depends on unattached reference files."
           },
           "zh": {
-            "purpose": "将 Notion 任务数据库打造为单一事实来源的分发看板，用于跨不同模型管理、编排和批量并行执行 AI Agency 工作流。",
+            "purpose": "以单个 Notion Tasks 数据库作为事实源，用于记录、讨论、批准、安排和调度 AI 工作。",
             "scenarios": [
-              "将对话讨论内容捕获并作为任务建议添加至 Notion",
-              "在状态工作流中讨论、审批和推进任务状态",
-              "通过并行 Agent 及按任务指定的模型批量执行待办任务",
-              "在 Notion 中管理子任务树、任务依赖关系及周期性任务"
+              "把对话内容记录为建议任务。",
+              "让任务依次经过 Discussion、To-Do、In Progress 和 Done。",
+              "管理子任务、依赖、周期、模板和模型选择。",
+              "将已批准的 To-Do 任务并行分发给代理。"
             ],
-            "io": "输入 CLI 子命令或自然语言对话指令以及 Notion 工作区状态，输出更新后的 Notion 数据库条目、状态迁移及任务执行结果。",
+            "io": "输入：agency-os 命令或等价的自然语言任务操作。输出：变更后的 Notion 任务记录、受影响任务 ID 与状态、下一步提示；批量运行还输出逐任务结果和模型调用估算。",
             "dependencies": [
-              "notion-mcp-server",
-              "python3",
-              "claude-code"
+              "Notion MCP 服务器",
+              "具备读写权限的 Notion 集成令牌",
+              "符合预期 Tasks 数据库结构的 Notion 工作区",
+              "references/notion-pointers.json",
+              "可选离线查询辅助工具所需 Python 3",
+              "支持并行任务执行的代理运行时"
             ],
-            "boundary": "该技能完全依赖 Notion 作为无状态的单一事实来源，不在本地磁盘持久化运行状态，也不支持第三方看板或非 Notion 任务管理工具。"
+            "boundary": "运行时状态存于 Notion；所述本地提交状态仅有指针文件。状态流和依赖检查被强制执行，API、指针漂移、依赖环或模型缺失会导致停止，不会静默修正。完整命令行为依赖未附带的引用文件。"
           }
         },
-        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Notion-backed task-board operations and multi-task agent dispatch.",
+        "model": "configured-default",
+        "community_repo": "jeremylongshore/claude-code-plugins-plus-skills"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "1459194a98757929a407e45c4729775bd5dd71e362e96f2cc3f8a3cb83fa9545",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides the AI agent to execute tasks autonomously end-to-end without stopping for step-by-step user permission or guidance.",
+            "purpose": "Urges an agent to continue assigned work end to end without requiring approval after each small step.",
             "scenarios": [
-              "Executing complex multi-step code refactoring without prompting for confirmation after every minor change.",
-              "Resolving secondary issues encountered during task execution independently to deliver a fully functional output.",
-              "Handling end-to-end project updates based on high-level goals without needing hand-holding."
+              "Reduce unnecessary progress confirmations during a multi-step task.",
+              "Encourage continued execution when the next action is already implied by the assignment."
             ],
-            "io": "Inputs high-level user directives or goals, and outputs completely finished, validated task results.",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "It does not grant permission to make unrecoverable destructive system changes or violate core project safety constraints."
+            "io": "Input: an assigned task. Output: more autonomous continuation and fewer hand-holding requests; no concrete artifact format is specified.",
+            "dependencies": [],
+            "boundary": "Contains only forcefully worded behavioral guidance. It defines no workflow, tools, validation method, safety policy, inputs, or technical implementation, so it cannot by itself perform or verify work."
           },
           "zh": {
-            "purpose": "指导 AI Agent 端到端地自主完成任务，避免在每个微小步骤中频繁寻求用户确认或指导。",
+            "purpose": "要求代理在无需每个小步骤都等待批准的情况下，端到端推进已分配任务。",
             "scenarios": [
-              "在无需每步确认的情况下，自主完成多步骤的代码重构与功能开发。",
-              "自动识别并修复执行过程中发现的衍生问题，直接交付最终可用的结果。",
-              "根据高层级目标主动推进关联任务，无需用户全程步步跟进。"
+              "减少多步骤任务中不必要的进度确认。",
+              "当下一步已由任务隐含确定时，鼓励代理继续执行。"
             ],
-            "io": "输入为高层级的任务目标或指令，输出为完整交付且验证通过的最终结果。",
-            "dependencies": [
-              "none"
-            ],
-            "boundary": "本技能不包含执行未授权的破坏性系统变更或突破核心安全限制的行为。"
+            "io": "输入：已分配任务。输出：更自主的持续执行和更少的逐步确认；未规定具体制品格式。",
+            "dependencies": [],
+            "boundary": "仅包含措辞强烈的行为指导，没有定义工作流、工具、验证方法、安全策略、输入结构或技术实现，因此自身无法执行或验证具体工作。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "General behavioral guidance for autonomous task completion.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "27106c0b4f91061faee0e0ea13128a82b237d5e842a012d59fd9a2aed8a37dcb",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides the step-by-step creation of a reusable agent-integration skill that synthesizes official OpenAI SDK, LiteLLM, and FastMCP documentation for connecting custom LLM backends.",
+            "purpose": "Guides a learner to create an agent-integration skill covering custom LLM backends, OpenAI-compatible APIs, tool calling, fallbacks, and MCP integration.",
             "scenarios": [
-              "Configuring LiteLLM proxy and custom base_url endpoints to route OpenAI SDK calls to custom LLM deployments like Ollama.",
-              "Implementing structured outputs and tool calling patterns for self-hosted or alternative model backends.",
-              "Setting up Model Context Protocol (MCP) servers with error handling and foundation model fallbacks."
+              "Create a reference skill from official SDK documentation.",
+              "Configure an OpenAI-compatible client through LiteLLM.",
+              "Study structured tool schemas and model fallback patterns.",
+              "Map local Ollama deployments to agent frameworks."
             ],
-            "io": "Inputs documentation research prompts and framework configurations; outputs a verified agent-integration skill file saved in .claude/skills/.",
+            "io": "Input: a prescribed prompt, deployment details, and documentation research. Output: an expected .claude/skills/agent-integration/SKILL.md containing integration patterns and templates.",
             "dependencies": [
-              "OpenAI Python SDK",
-              "LiteLLM",
-              "FastMCP",
-              "Context7",
-              "Ollama"
+              "Claude skill-creator capability",
+              "Context7 documentation retrieval",
+              "Official OpenAI SDK, LiteLLM, and FastMCP documentation",
+              "A skills-lab workspace",
+              "Optional Ollama or another model backend"
             ],
-            "boundary": "Focuses on synthesizing documentation into reusable skill patterns and templates, and does not build or run end-to-end agent applications directly."
+            "boundary": "This is a lesson and example set, not an implemented integration. The supplied code is illustrative and includes broad exception fallback. Producing a verified skill depends on external documentation and tools not attached to the evidence."
           },
           "zh": {
-            "purpose": "指导通过检索 OpenAI SDK、LiteLLM 和 FastMCP 官方文档来创建可复用的 Agent 集成 Skill，以连接自定义 LLM 后端与 Agent 框架。",
+            "purpose": "指导学习者创建可复用的 agent-integration 技能，涵盖自定义 LLM 后端、OpenAI 兼容 API、工具调用、降级和 MCP 集成。",
             "scenarios": [
-              "配置 LiteLLM 代理和自定义 base_url，将 OpenAI SDK 请求重定向至 Ollama 等本地大模型后端。",
-              "为自定义模型实现结构化输出和工具调用（Tool Calling）集成模式。",
-              "搭建 Model Context Protocol (MCP) 服务端并配置异常降级回退机制。"
+              "依据官方 SDK 文档创建参考技能。",
+              "通过 LiteLLM 配置 OpenAI 兼容客户端。",
+              "学习结构化工具 schema 和模型降级模式。",
+              "把本地 Ollama 部署映射到代理框架。"
             ],
-            "io": "输入文档检索需求与框架配置要求，输出存储在 .claude/skills/ 目录下的 Agent 集成 Skill 文件。",
+            "io": "输入：规定的提示词、部署细节和文档研究。输出：预期生成 .claude/skills/agent-integration/SKILL.md，其中包含集成模式与模板。",
             "dependencies": [
-              "OpenAI Python SDK",
-              "LiteLLM",
-              "FastMCP",
-              "Context7",
-              "Ollama"
+              "Claude skill-creator 能力",
+              "Context7 文档检索",
+              "OpenAI SDK、LiteLLM 和 FastMCP 官方文档",
+              "skills-lab 工作区",
+              "可选 Ollama 或其他模型后端"
             ],
-            "boundary": "仅专注于将官方文档提炼为可复用的集成模式 Skill 与配置模板，不负责直接运行或部署完整的 Agent 业务系统。"
+            "boundary": "这是课程和示例集合，并非已实现的集成。所给代码仅作示例，且异常降级处理较宽泛。生成经过验证的技能依赖本证据未附带的外部文档和工具。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Educational lesson for creating a reusable custom-model agent-integration skill.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "2f1537566b9c9f60a01ae32c140026d2f26eb8c8a7633d4018971f15c1770578",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides the composition, acceptance testing, and commercial positioning required to build production-ready, specification-first Digital FTE agent skills.",
+            "purpose": "Guides a learner through building a specification-first domain execution skill by composing MCP, script-execution, validation, and orchestration components.",
             "scenarios": [
-              "Writing domain-specific design specifications (spec.md) for custom agent skills",
-              "Orchestrating multiple MCP-wrapping and script-execution skills into a cohesive architecture",
-              "Running acceptance test scenarios to validate edge cases, error handling, and specification alignment",
-              "Formulating monetization and go-to-market strategies for standalone agent products"
+              "Define a customer problem, measurable success criteria, and non-goals.",
+              "Design multi-skill data flow and error recovery.",
+              "Run acceptance tests and reconcile specification gaps.",
+              "Package documentation and outline monetization and go-to-market positioning."
             ],
-            "io": "Takes domain business requirements and sub-component skills as input, and outputs a specification-driven, fully validated Digital FTE skill package along with a monetization plan.",
+            "io": "Input: a selected domain, customer problem, specifications, component skills, test data, and business assumptions. Output: specification and architecture documents, an orchestrator SKILL.md, test results, user documentation, installation guidance, and a positioning/pricing proposal.",
             "dependencies": [
-              "mcp",
-              "python"
+              "Skills and patterns from the preceding course lessons",
+              "Relevant MCP data source",
+              "Script execution environment",
+              "AI assistance for implementation and review",
+              "Test data and customer/domain knowledge"
             ],
-            "boundary": "It focuses on skill composition methodology, spec validation, and business strategy rather than providing an automated no-code skill generator or direct agent runtime hosting."
+            "boundary": "This is an instructional capstone rather than a working Digital FTE. Claims of production readiness or business value require the learner to implement components and run acceptance tests. Monetization examples are planning prompts, not validated market evidence."
           },
           "zh": {
-            "purpose": "指导开发者遵循规范优先原则组合多个子技能，构建、验证并商业化可投产的数字员工（Digital FTE）代理技能。",
+            "purpose": "指导学习者通过组合 MCP、脚本执行、验证和编排组件，构建规格先行的领域执行技能。",
             "scenarios": [
-              "编写特定领域代理技能的设计规范（spec.md）与验收标准",
-              "将多个 MCP 工具和脚本执行技能整合为统一的数字员工架构",
-              "设计并执行验收测试用例，验证边缘情况与容错恢复机制",
-              "制定打包代理技能的商业定位、定价模型与 Go-To-Market 策略"
+              "定义客户问题、可测量成功标准和非目标。",
+              "设计多技能数据流与错误恢复。",
+              "运行验收测试并修正规格缺口。",
+              "打包文档并规划商业化和市场定位。"
             ],
-            "io": "输入业务需求及已有的子组件技能，输出包含规范文档、测试报告和商业化规划的完整数字员工技能包。",
+            "io": "输入：选定领域、客户问题、规格、组件技能、测试数据和商业假设。输出：规格与架构文档、编排器 SKILL.md、测试结果、用户文档、安装说明和定位/定价提案。",
             "dependencies": [
-              "mcp",
-              "python"
+              "课程前序章节的技能与模式",
+              "相关 MCP 数据源",
+              "脚本执行环境",
+              "实现和复核所需 AI 协助",
+              "测试数据及客户/领域知识"
             ],
-            "boundary": "本技能侧重于架构组合方法论、规范验证与商业策略规划，不提供自动化的无代码技能生成工具或运行时 Agent 托管平台。"
+            "boundary": "这是教学型结课项目，不是可直接运行的 Digital FTE。生产就绪或商业价值主张需要学习者实际实现组件并运行验收测试。商业化示例是规划提示，不是经验证的市场证据。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Educational capstone for specifying, composing, validating, packaging, and positioning an agent skill.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution": {
@@ -2249,133 +2293,141 @@
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "8c42ec9a987793fe0413aeccef211600c814d8fb516d8784149ffb0d9bae7d01",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides users to generate a customized Claude Agent SDK skill using natural language prompts and official documentation.",
+            "purpose": "Instructs a learner to use a skill creator and official-documentation research to generate a reusable Claude Agent SDK skill.",
             "scenarios": [
-              "Generating a baseline Claude Agent SDK skill from official documentation",
-              "Configuring agent tool patterns, subagents, and hooks via natural conversation",
-              "Bootstrapping agentic AI development setups in local projects"
+              "Bootstrap a Claude Agent SDK learning reference before studying the chapter.",
+              "Request patterns for tools, subagents, hooks, and production agent systems."
             ],
-            "io": "Accepts user prompt preferences as input and outputs a structured Claude Agent SDK skill directory inside .claude/skills/.",
+            "io": "Input: the supplied natural-language creation prompt plus answers to setup questions. Output: an expected .claude/skills/claude-agent-sdk/ skill with references and templates.",
             "dependencies": [
-              "claude-code",
-              "context7",
-              "skill-creator"
+              "Claude skill-creator capability",
+              "Context7 documentation retrieval",
+              "Official Claude Agent SDK documentation",
+              "Downloaded claude-code-skills-lab",
+              "Claude Code"
             ],
-            "boundary": "It focuses on generating and bootstrapping the Claude Agent SDK skill, but does not directly execute or deploy production agent services."
+            "boundary": "Contains setup instructions only; it does not itself teach or implement SDK architecture. The resulting skill's accuracy depends on external documentation retrieval and generated files not present in the evidence."
           },
           "zh": {
-            "purpose": "指导用户利用自然语言提示词和官方文档快速生成自定义的 Claude Agent SDK 技能。",
+            "purpose": "指导学习者使用技能创建器和官方文档研究，生成可复用的 Claude Agent SDK 技能。",
             "scenarios": [
-              "结合官方最新文档快速生成 Claude Agent SDK 基础技能",
-              "通过自然对话配置 Agent 的工具模式、子代理及钩子函数",
-              "在本地开发环境中初始化并引导智能体开发工作流"
+              "在学习章节前创建 Claude Agent SDK 参考技能。",
+              "请求工具、子代理、钩子和生产级代理系统模式。"
             ],
-            "io": "输入用户的 Agent SDK 技能定制需求，输出生成在 .claude/skills/ 目录下的结构化技能文件。",
+            "io": "输入：所给自然语言创建提示词及设置问题的回答。输出：预期生成带引用和模板的 .claude/skills/claude-agent-sdk/ 技能。",
             "dependencies": [
-              "claude-code",
-              "context7",
-              "skill-creator"
+              "Claude skill-creator 能力",
+              "Context7 文档检索",
+              "Claude Agent SDK 官方文档",
+              "下载的 claude-code-skills-lab",
+              "Claude Code"
             ],
-            "boundary": "仅负责 Agent SDK 技能模板的创建与初始化，不直接执行、托管或部署生产环境中的智能体服务。"
+            "boundary": "仅包含设置说明，不直接教授或实现 SDK 架构。所得技能的准确性依赖本证据未包含的外部文档检索和生成文件。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Introductory lesson for creating a Claude Agent SDK reference skill.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "964c9bac9aaf0e02e527426eaf727a5ec161e31eec1e590717454e92451e26f1",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Teaches users how to bootstrap a Google Agent Development Kit (ADK) skill for Claude using official documentation.",
+            "purpose": "Instructs a learner to generate a reusable Google ADK skill from official documentation before studying the framework.",
             "scenarios": [
-              "Generating a Google ADK skill via a single prompt in Claude Code",
-              "Fetching official Gemini ADK documentation via Context7 for skill creation",
-              "Setting up standard ADK skill templates in .claude/skills/"
+              "Bootstrap a Google ADK learning reference.",
+              "Request workflow-agent, tool, evaluation, and Gemini agent patterns."
             ],
-            "io": "Inputs a natural language prompt instructing Claude to build the skill; outputs a generated Google ADK skill directory in .claude/skills/.",
+            "io": "Input: the supplied creation prompt plus answers about workflow types, tools, and evaluation needs. Output: an expected .claude/skills/google-adk/ skill containing references and templates.",
             "dependencies": [
-              "claude-code",
-              "context7"
+              "Claude skill-creator capability",
+              "Context7 documentation retrieval",
+              "Official Google ADK documentation",
+              "Downloaded claude-code-skills-lab",
+              "Claude Code"
             ],
-            "boundary": "This file provides instructions for bootstrapping an ADK skill from documentation, but does not directly execute code or deploy production agents."
+            "boundary": "This is a short setup lesson, not an ADK implementation or framework reference itself. The generated skill and its verification depend on external documentation and artifacts absent from the evidence."
           },
           "zh": {
-            "purpose": "教导用户如何利用官方文档在 Claude 中快速创建并引导配置谷歌 Agent 开发工具包（ADK）技能。",
+            "purpose": "指导学习者在学习 Google ADK 前，依据官方文档生成可复用的 Google ADK 技能。",
             "scenarios": [
-              "在 Claude Code 中通过单条提示词快速生成 Google ADK 技能",
-              "通过 Context7 获取 Gemini ADK 官方文档以构建定制技能",
-              "在 .claude/skills/ 目录中建立标准的 ADK 技能模板"
+              "创建 Google ADK 学习参考。",
+              "请求工作流代理、工具、评估和 Gemini 代理模式。"
             ],
-            "io": "输入用于触发技能创建的自然语言提示词；输出在 .claude/skills/ 目录下生成的 Google ADK 技能目录。",
+            "io": "输入：所给创建提示词，以及关于工作流类型、工具和评估需求的回答。输出：预期生成包含引用与模板的 .claude/skills/google-adk/ 技能。",
             "dependencies": [
-              "claude-code",
-              "context7"
+              "Claude skill-creator 能力",
+              "Context7 文档检索",
+              "Google ADK 官方文档",
+              "下载的 claude-code-skills-lab",
+              "Claude Code"
             ],
-            "boundary": "该教程仅提供引导生成 ADK 技能的指令，不直接执行代码或部署生产级 Agent 系统。"
+            "boundary": "这是简短的设置课程，不是 ADK 实现或框架参考本身。生成技能及其验证依赖本证据未包含的外部文档和制品。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Introductory lesson for creating a Google Agent Development Kit reference skill.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "c8e4fb6bba4fdcc5d0979d029761c01714c3108735382862cb8bda1dacf2b58f",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Guides users through bootstrapping a custom OpenAI Agents SDK skill for Claude Code by leveraging official documentation via Context7.",
+            "purpose": "Instructs a learner to generate a reusable OpenAI Agents SDK skill from official documentation before studying the framework.",
             "scenarios": [
-              "Generating an OpenAI Agents SDK skill inside Claude Code using a single prompt.",
-              "Fetching up-to-date official OpenAI documentation to build an accurate agent skill.",
-              "Bootstrapping a learning workspace for building AI agents from basic to production level."
+              "Bootstrap an OpenAI Agents SDK learning reference.",
+              "Request tool, handoff, guardrail, and production-agent patterns."
             ],
-            "io": "Inputs user instructions to create the skill via prompt, and outputs generated skill files in the `.claude/skills/openai-agents/` directory.",
+            "io": "Input: the supplied creation prompt plus answers about tools, handoffs, and guardrails. Output: an expected .claude/skills/openai-agents/ skill containing references and templates.",
             "dependencies": [
-              "claude-code",
-              "context7",
-              "skill-creator"
+              "Claude skill-creator capability",
+              "Context7 documentation retrieval",
+              "Official OpenAI Agents SDK documentation",
+              "Downloaded claude-code-skills-lab",
+              "Claude Code"
             ],
-            "boundary": "It only scaffolds the OpenAI Agents skill template using official docs and does not directly write or execute full production agent backend code."
+            "boundary": "This is setup-oriented educational content, not an implemented OpenAI agent. The created skill's correctness depends on external official documentation and generated files not included in the evidence."
           },
           "zh": {
-            "purpose": "指导用户利用 Context7 调取官方文档，为 Claude Code 快速生成自定义的 OpenAI Agents SDK 技能。",
+            "purpose": "指导学习者在学习框架前，依据官方文档生成可复用的 OpenAI Agents SDK 技能。",
             "scenarios": [
-              "通过一条提示词在 Claude Code 中生成 OpenAI Agents SDK 技能。",
-              "抓取最新的 OpenAI 官方文档以构建无盲区假设的 Agent 技能库。",
-              "搭建从入门到生产级的智能体开发学习与脚手架环境。"
+              "创建 OpenAI Agents SDK 学习参考。",
+              "请求工具、交接、护栏和生产级代理模式。"
             ],
-            "io": "输入为要求创建技能提示词指令，输出为存储在 `.claude/skills/openai-agents/` 目录下的技能配置文件。",
+            "io": "输入：所给创建提示词，以及关于工具、交接和护栏的回答。输出：预期生成包含引用与模板的 .claude/skills/openai-agents/ 技能。",
             "dependencies": [
-              "claude-code",
-              "context7",
-              "skill-creator"
+              "Claude skill-creator 能力",
+              "Context7 文档检索",
+              "OpenAI Agents SDK 官方文档",
+              "下载的 claude-code-skills-lab",
+              "Claude Code"
             ],
-            "boundary": "该过程仅负责引导生成技能脚手架与知识库，并不直接编写或运行具体的生产级多智能体应用代码。"
+            "boundary": "这是偏设置的教学内容，不是已实现的 OpenAI 代理。所得技能的正确性依赖本证据未包含的外部官方文档和生成文件。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Introductory lesson for creating an OpenAI Agents SDK reference skill.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk": {
@@ -2423,47 +2475,47 @@
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "8cec4fb81e44885b142baf6975a592e00d29340955593a74bdfac443ed6ec462",
+      "status": "fresh",
+      "generated_at": "2026-09-01T03:49:31Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Validates system auto-boot sequences using lightweight Bash scripts and Git-based memory persistence.",
+            "purpose": "Claims to describe a Bash-native validator concept with Git-backed memory and offline/degraded handling.",
             "scenarios": [
-              "Validating system auto-boot sequences during startup",
-              "Testing boot routines under offline or degraded execution scenarios",
-              "Tracking boot state diagnostics and history using Git as a persistence layer"
+              "Explore the named trinity auto-boot validator concept.",
+              "Consider generated patterns involving persistence and failure feedback."
             ],
-            "io": "Accepts boot configurations or environment triggers as input and returns validation status reports and diagnostic logs.",
+            "io": "Input: no concrete invocation or data contract is provided. Output: no implemented result is specified; the file contains only conceptual capability statements and a placeholder usage block.",
             "dependencies": [
-              "bash",
-              "git",
-              "gremlin-brain-v2"
+              "gremlin-brain-v2",
+              "chaos-gremlin-v2",
+              "gremlin-forge",
+              "Git and Bash are asserted as implementation elements"
             ],
-            "boundary": "It only performs auto-boot sequence validation and diagnostic logging, without providing operating system installation or multi-cloud infrastructure provisioning."
+            "boundary": "The attached evidence provides no executable procedure, commands, schemas, validation rules, or examples. References to metadata and sub-agents are descriptive claims and cannot be verified from this file alone."
           },
           "zh": {
-            "purpose": "通过原生 Bash 脚本和基于 Git 的记忆持久化层校验 Trinity 系统的自动启动序列。",
+            "purpose": "声称描述一种 Bash 原生的“trinity auto-boot validator”概念，使用 Git 记忆并考虑离线或降级场景。",
             "scenarios": [
-              "在系统启动期间验证自动启动流程与逻辑",
-              "在离线或降级环境下测试启动流程的边界情况",
-              "利用 Git 记录并追踪启动状态历史与故障诊断"
+              "探索名为 trinity auto-boot validator 的概念。",
+              "考察涉及持久化和失败反馈的生成式模式。"
             ],
-            "io": "接收启动配置或环境触发信号作为输入，输出校验状态报告及故障诊断日志。",
+            "io": "输入：未提供具体调用方式或数据契约。输出：未规定可实现结果；文件只有概念性能力陈述和占位用法区块。",
             "dependencies": [
-              "bash",
-              "git",
-              "gremlin-brain-v2"
+              "gremlin-brain-v2",
+              "chaos-gremlin-v2",
+              "gremlin-forge",
+              "文中声称 Git 和 Bash 是实现要素"
             ],
-            "boundary": "该技能仅专注于自动启动序列的校验与状态诊断，不涵盖操作系统部署或复杂的云端基础设施管理。"
+            "boundary": "所附证据没有可执行流程、命令、schema、验证规则或实际示例。对 metadata 和子代理的引用仅是描述性声明，无法由该文件单独核验。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Generated conceptual description of a “trinity auto-boot validator.”",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf": {

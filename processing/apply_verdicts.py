@@ -48,6 +48,15 @@ def validate_verdict_binding(candidate: dict, verdicts: dict) -> None:
         )
 
 
+def _observations(verdicts: dict) -> dict[str, list[str]]:
+    """Remarks that are not rulings. Carried into the report, never into the decision."""
+    return {
+        verdict["id"]: verdict["observations"]
+        for verdict in verdicts.get("verdicts", [])
+        if verdict.get("observations")
+    }
+
+
 def _rejection_reasons(verdicts: dict) -> dict[str, list[str]]:
     return {
         verdict["id"]: verdict.get("unsupported_claims") or []
@@ -78,6 +87,7 @@ def apply_verdicts(candidate: dict, manifest: dict, verdicts: dict) -> tuple[dic
         "rejected": len(rejected),
         "rejected_ids": sorted(rejected),
         "reasons": rejected,
+        "observations": _observations(verdicts),
     }
     reduced_candidate = {**candidate, "entries": kept_entries}
     reduced_manifest = {

@@ -170,5 +170,36 @@ def test_an_all_clean_batch_passes_through_whole():
     cand, man, report = apply_verdicts(
         candidate_of("a", "b"), manifest_of("a", "b"), verdicts_of(a=True, b=True),
     )
-    assert report == {"submitted": 2, "upheld": 2, "rejected": 0, "rejected_ids": [], "reasons": {}}
+    assert report == {"submitted": 2, "upheld": 2, "rejected": 0, "rejected_ids": [],
+                      "reasons": {}, "observations": {}}
     assert len(cand["entries"]) == len(man["entries"]) == 2
+
+
+# --- observations are recorded, never acted on --------------------------------------------
+
+def test_an_observation_does_not_reject_an_entry():
+    """Without somewhere to put a remark, the only way to report anything is to reject. The
+    first calibration run lost two entries that way: the verifier noticed their evidence was
+    byte-identical to another entry -- true, useful, and nothing to do with claim support."""
+    noted = verdicts_of(a=True, b=True)
+    noted["verdicts"][0]["observations"] = ["evidence is byte-identical to entry b"]
+
+    cand, man, report = apply_verdicts(candidate_of("a", "b"), manifest_of("a", "b"), noted)
+    assert report["rejected"] == 0
+    assert len(cand["entries"]) == 2
+    assert report["observations"]["a"] == ["evidence is byte-identical to entry b"]
+
+
+def test_a_rejection_can_also_carry_observations():
+    noted = verdicts_of(a=False)
+    noted["verdicts"][0]["observations"] = ["source is one line long"]
+    _, _, report = apply_verdicts(candidate_of("a", "b"), manifest_of("a", "b"),
+                                  {**noted, "verdicts": noted["verdicts"] + [
+                                      {"id": "b", "supported": True, "unsupported_claims": []}]})
+    assert report["rejected_ids"] == ["a"]
+    assert report["observations"]["a"] == ["source is one line long"]
+
+
+def test_entries_without_observations_are_absent_from_the_report():
+    _, _, report = apply_verdicts(candidate_of("a"), manifest_of("a"), verdicts_of(a=True))
+    assert report["observations"] == {}

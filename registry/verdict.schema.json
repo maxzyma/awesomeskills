@@ -4,20 +4,41 @@
   "description": "Output of the verification pass. The verifier reads the evidence and the proposed enrichment and rules on whether every claim is supported. It never rewrites the enrichment: a verifier that can edit is a second author, and its errors would be indistinguishable from the first author's.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["generated_at", "agent", "model", "verdicts"],
+  "required": [
+    "generated_at",
+    "agent",
+    "model",
+    "verdicts"
+  ],
   "properties": {
-    "generated_at": {"type": "string", "minLength": 10},
-    "agent": {"type": "string", "minLength": 1},
-    "model": {"type": "string", "minLength": 1},
+    "generated_at": {
+      "type": "string",
+      "minLength": 10
+    },
+    "agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
     "verdicts": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "supported", "unsupported_claims"],
+        "required": [
+          "id",
+          "supported",
+          "unsupported_claims"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 3},
+          "id": {
+            "type": "string",
+            "minLength": 3
+          },
           "supported": {
             "type": "boolean",
             "description": "True only if every factual claim in the enrichment is traceable to the supplied evidence. Claims that are true of the real product but absent from the evidence are not supported."
@@ -25,7 +46,18 @@
           "unsupported_claims": {
             "type": "array",
             "description": "Verbatim spans from the enrichment that the evidence does not back. Required to be non-empty when supported is false, so a rejection always says what was wrong.",
-            "items": {"type": "string", "minLength": 1}
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "observations": {
+            "type": "array",
+            "description": "Remarks that are not rulings on claim support: duplicated evidence, an unusually thin source, anything worth a maintainer's attention. Recorded and never blocking. This field exists because without it the only way to report anything is to reject, and the first calibration run saw two entries rejected for having evidence byte-identical to another entry -- a true and useful observation about the index, and nothing to do with whether their claims held.",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }
