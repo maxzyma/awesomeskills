@@ -65,10 +65,31 @@ def _rejection_reasons(verdicts: dict) -> dict[str, list[str]]:
     }
 
 
-def apply_verdicts(candidate: dict, manifest: dict, verdicts: dict) -> tuple[dict, dict, dict]:
-    """Return (reduced candidate, reduced manifest, report). Inputs are not mutated."""
+UNEXPLAINED_ACCEPTANCE = (
+    "upheld despite naming a term absent from the evidence, with no observation saying what "
+    "entails it; acceptances under the entailment exception must be recorded to be reviewable"
+)
+
+
+def apply_verdicts(
+    candidate: dict, manifest: dict, verdicts: dict, flagged_ids: set[str] | None = None,
+) -> tuple[dict, dict, dict]:
+    """Return (reduced candidate, reduced manifest, report). Inputs are not mutated.
+
+    `flagged_ids` are entries where the deterministic pre-filter found a term present in the
+    enrichment and absent from the evidence. Upholding one of those means the verifier
+    accepted an addition -- permitted only when the evidence's own subject could not exist
+    without it, and required to be recorded. Enforcing that here turns the rule from advice
+    into something the batch has to satisfy: an exception nobody has to justify is a rule
+    that widens quietly.
+    """
     validate_verdict_binding(candidate, verdicts)
     rejected = _rejection_reasons(verdicts)
+    observations = _observations(verdicts)
+
+    for skill_id in sorted(flagged_ids or set()):
+        if skill_id not in rejected and skill_id not in observations:
+            rejected[skill_id] = [UNEXPLAINED_ACCEPTANCE]
 
     unexplained = sorted(skill_id for skill_id, claims in rejected.items() if not claims)
     if unexplained:
@@ -87,7 +108,7 @@ def apply_verdicts(candidate: dict, manifest: dict, verdicts: dict) -> tuple[dic
         "rejected": len(rejected),
         "rejected_ids": sorted(rejected),
         "reasons": rejected,
-        "observations": _observations(verdicts),
+        "observations": observations,
     }
     reduced_candidate = {**candidate, "entries": kept_entries}
     reduced_manifest = {
@@ -107,6 +128,11 @@ def main() -> int:
     parser.add_argument("verdicts", type=Path)
     parser.add_argument("--out-candidate", type=Path, required=True)
     parser.add_argument("--out-manifest", type=Path, required=True)
+    parser.add_argument(
+        "--flagged", type=Path,
+        help="JSON array of ids the deterministic pre-filter flagged; upholding one without "
+             "an observation is treated as a rejection",
+    )
     args = parser.parse_args()
 
     try:
@@ -114,6 +140,7 @@ def main() -> int:
             json.loads(args.candidate.read_text(encoding="utf-8")),
             json.loads(args.manifest.read_text(encoding="utf-8")),
             json.loads(args.verdicts.read_text(encoding="utf-8")),
+            set(json.loads(args.flagged.read_text(encoding="utf-8"))) if args.flagged else None,
         )
     except (VerdictError, json.JSONDecodeError) as error:
         print(f"verdict application failed: {error}", file=sys.stderr)

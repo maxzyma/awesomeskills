@@ -203,3 +203,42 @@ def test_a_rejection_can_also_carry_observations():
 def test_entries_without_observations_are_absent_from_the_report():
     _, _, report = apply_verdicts(candidate_of("a"), manifest_of("a"), verdicts_of(a=True))
     assert report["observations"] == {}
+
+
+# --- the entailment exception has to be justified to be used ------------------------------
+
+def test_upholding_a_flagged_entry_without_saying_why_is_a_rejection():
+    """Naming something the evidence does not is permitted only when the evidence's own
+    subject could not exist without it -- npx entails Node.js; a device name does not entail
+    its manufacturer. An exception nobody has to justify is a rule that widens quietly."""
+    _, _, report = apply_verdicts(
+        candidate_of("a", "b"), manifest_of("a", "b"), verdicts_of(a=True, b=True),
+        flagged_ids={"a"},
+    )
+    assert report["rejected_ids"] == ["a"]
+    assert "entails" in report["reasons"]["a"][0]
+
+
+def test_a_flagged_entry_with_an_observation_is_upheld():
+    noted = verdicts_of(a=True, b=True)
+    noted["verdicts"][0]["observations"] = ["accepted 'Node.js': npx ships with npm"]
+    cand, _, report = apply_verdicts(
+        candidate_of("a", "b"), manifest_of("a", "b"), noted, flagged_ids={"a"},
+    )
+    assert report["rejected"] == 0
+    assert [e["id"] for e in cand["entries"]] == ["a", "b"]
+
+
+def test_an_unflagged_entry_needs_no_observation():
+    _, _, report = apply_verdicts(
+        candidate_of("a"), manifest_of("a"), verdicts_of(a=True), flagged_ids=set(),
+    )
+    assert report["rejected"] == 0
+
+
+def test_a_flagged_entry_the_verifier_already_rejected_keeps_its_own_reason():
+    _, _, report = apply_verdicts(
+        candidate_of("a", "b"), manifest_of("a", "b"), verdicts_of(a=False, b=True),
+        flagged_ids={"a"},
+    )
+    assert report["reasons"]["a"] == ["claimed X"]
