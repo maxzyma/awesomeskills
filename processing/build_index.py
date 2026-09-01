@@ -177,9 +177,7 @@ def fetch_commit_sha(repo_id: str, branch: str, token: str | None) -> str | None
 
 def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str] | None:
     tree = _get(f"{API}{repo_id}/git/trees/{branch}?recursive=1", token)
-    if not tree:
-        return None
-    if not tree.get("truncated"):
+    if tree and not tree.get("truncated"):
         candidates = [i for i in tree.get("tree", []) if i.get("path", "").endswith("SKILL.md")]
         real = [i for i in candidates if _is_real_blob(i)]
         skipped = len(candidates) - len(real)
@@ -187,9 +185,13 @@ def fetch_skill_paths(repo_id: str, branch: str, token: str | None) -> list[str]
             print(f"  … {repo_id}: skipping {skipped} symlinked SKILL.md (alias, not a skill)", file=sys.stderr)
         return sorted(item["path"] for item in real)
 
-    # GitHub truncates very large recursive trees. Walk subtrees in path order and stop only
-    # after enough eligible paths are known for the public per-repo cap.
-    print(f"  … {repo_id}: recursive tree truncated; walking subtrees", file=sys.stderr)
+    # Either GitHub truncated the recursive tree, or the response never arrived. Both mean
+    # the same thing here -- no whole-tree listing -- and both are answered by walking
+    # subtrees, whose per-directory responses are small enough to survive a link that could
+    # not carry the full one. A 10.6 MB tree failing mid-download used to abort the entire
+    # build over a single repository.
+    reason = "truncated" if tree else "unavailable"
+    print(f"  … {repo_id}: recursive tree {reason}; walking subtrees", file=sys.stderr)
     root = _get(f"{API}{repo_id}/git/trees/{branch}", token)
     if not root:
         raise BuildError(f"failed to fetch root Git tree for {repo_id}")
@@ -275,15 +277,17 @@ def fetch_tree_inventory(
     repository that may hold hundreds of thousands of files.
     """
     tree = _get(f"{API}{repo_id}/git/trees/{urllib.parse.quote(ref, safe='')}?recursive=1", token)
-    if not tree:
-        raise BuildError(f"failed to fetch Git tree inventory for {repo_id}")
-    if not tree.get("truncated"):
+    if tree and not tree.get("truncated"):
         blobs = [item for item in tree.get("tree", []) if item.get("type") == "blob"]
         return blobs, True, True
 
+    # As in fetch_skill_paths: a tree that is truncated and a tree that failed to arrive are
+    # the same situation, and the scoped walk handles both. Either way the whole tree was
+    # not seen, so repo_tree_complete stays false.
     targets = sorted({d for d in (skill_dirs or []) if d and d != "."})
+    reason = "truncated" if tree else "unavailable"
     print(
-        f"  … {repo_id}: tree inventory truncated; walking {len(targets)} skill dir(s) as subtrees",
+        f"  … {repo_id}: tree inventory {reason}; walking {len(targets)} skill dir(s) as subtrees",
         file=sys.stderr,
     )
 

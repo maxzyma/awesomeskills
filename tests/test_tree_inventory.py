@@ -12,6 +12,8 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "processing"))
 
 import build_index  # noqa: E402
@@ -183,3 +185,41 @@ def test_regular_blob_is_still_a_real_blob():
     assert build_index._is_real_blob(blob("a.py", "100755"))
     assert not build_index._is_real_blob(symlink("a.py"))
     assert not build_index._is_real_blob(tree("a"))
+
+
+# --- an unfetchable recursive tree is not a dead end --------------------------------------
+
+def test_skill_paths_fall_back_when_the_recursive_tree_never_arrives(monkeypatch):
+    """A 10.6 MB tree failing mid-download aborted an entire build over one repository. The
+    per-directory responses the subtree walk uses are small enough to survive a link that
+    could not carry the whole listing."""
+    subtree_sha = "f" * 40
+    monkeypatch.setattr(build_index, "_get", fake_get({
+        # the recursive URL is unrouted -> None, as if the fetch had failed
+        tree_url(): {"truncated": False, "tree": [{**tree("a"), "sha": subtree_sha}]},
+        f"{build_index.API}o/r/git/trees/{subtree_sha}?recursive=1": {
+            "truncated": False, "tree": [blob("SKILL.md")],
+        },
+    }))
+    assert build_index.fetch_skill_paths("o/r", REF, TOKEN) == ["a/SKILL.md"]
+
+
+def test_inventory_falls_back_when_the_recursive_tree_never_arrives(monkeypatch):
+    monkeypatch.setattr(build_index, "_get", fake_get({
+        tree_url(): {"truncated": False, "tree": [blob("LICENSE")]},
+        tree_url("a", recursive=True): {"truncated": False, "tree": [blob("SKILL.md")]},
+    }))
+    blobs, bundle, repo_tree = build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
+    assert {b["path"] for b in blobs} == {"LICENSE", "a/SKILL.md"}
+    assert bundle is True
+    assert repo_tree is False, "a fetch that failed saw no more of the tree than a truncated one"
+
+
+def test_a_total_outage_still_fails_the_build(monkeypatch):
+    """The fallback covers an oversized response, not an unreachable API. If even the small
+    root listing cannot be had, there is nothing to walk."""
+    monkeypatch.setattr(build_index, "_get", fake_get({}))
+    with pytest.raises(build_index.BuildError):
+        build_index.fetch_skill_paths("o/r", REF, TOKEN)
+    with pytest.raises(build_index.BuildError):
+        build_index.fetch_tree_inventory("o/r", REF, TOKEN, ["a"])
