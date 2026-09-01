@@ -32,7 +32,8 @@
         "required": [
           "id",
           "supported",
-          "unsupported_claims"
+          "unsupported_claims",
+          "observations"
         ],
         "properties": {
           "id": {
@@ -53,7 +54,7 @@
           },
           "observations": {
             "type": "array",
-            "description": "Remarks that are not rulings on claim support: duplicated evidence, an unusually thin source, anything worth a maintainer's attention. Recorded and never blocking. This field exists because without it the only way to report anything is to reject, and the first calibration run saw two entries rejected for having evidence byte-identical to another entry -- a true and useful observation about the index, and nothing to do with whether their claims held.",
+            "description": "Remarks that are not rulings on claim support: duplicated evidence, an unusually thin source, anything worth a maintainer's attention. Recorded and never blocking. This field exists because without it the only way to report anything is to reject, and the first calibration run saw two entries rejected for having evidence byte-identical to another entry -- a true and useful observation about the index, and nothing to do with whether their claims held. Emit an empty array when there is nothing to note: the structured-output API requires every declared property to appear in `required`, so this field is always present.",
             "items": {
               "type": "string",
               "minLength": 1

@@ -242,3 +242,25 @@ def test_a_flagged_entry_the_verifier_already_rejected_keeps_its_own_reason():
         flagged_ids={"a"},
     )
     assert report["reasons"]["a"] == ["claimed X"]
+
+
+def test_the_verdict_schema_satisfies_the_structured_output_contract():
+    """Every declared property must appear in `required`, or the API rejects the schema
+    outright and the agent never runs. Adding `observations` to properties alone did exactly
+    that, and the resulting error surfaced as echoed request content -- which reads like the
+    model losing its instructions and cost a wrong diagnosis."""
+    import json as _json
+    schema = _json.loads(
+        (Path(__file__).resolve().parent.parent / "registry" / "verdict.schema.json").read_text()
+    )
+
+    def every_property_required(node, path="root"):
+        if not isinstance(node, dict):
+            return
+        if node.get("type") == "object" and "properties" in node:
+            assert set(node["properties"]) == set(node.get("required", [])), path
+        for key, value in node.items():
+            if isinstance(value, dict):
+                every_property_required(value, f"{path}.{key}")
+
+    every_property_required(schema)
