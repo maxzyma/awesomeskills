@@ -234,8 +234,10 @@ def test_against_the_real_index_the_halves_agree_with_the_source():
     for entry in data["skills"]:
         source = leaves(entry)
         projected = {**leaves(list_skill(entry)), **leaves(detail_skill(entry))}
-        # `.detail` is a pointer this projection invents; it has no counterpart upstream.
+        # `.detail` and `.verify` are pointers this projection invents; neither has a
+        # counterpart upstream.
         projected.pop(".detail", None)
+        projected.pop(".verify", None)
         for path, value in projected.items():
             assert path in source, f"{entry['id']}: projected {path} is not in the index"
             assert source[path] == value, f"{entry['id']}: {path} disagrees with the index"
@@ -254,13 +256,13 @@ def test_a_file_for_a_departed_skill_is_deleted(tmp_path):
     forever, and the reproducibility check cannot tell a correct tree from one carrying
     leftovers -- a stale file matches nothing, so nothing reports it."""
     sys.path.insert(0, str(ROOT / "processing"))
-    from merge_index import _write_detail_dir
+    from merge_index import _write_tree
 
     directory = tmp_path / "detail"
-    _write_detail_dir(directory, detail_files({"skills": [full_entry(), full_entry(id="o/r/t")]}))
+    _write_tree(directory, detail_files({"skills": [full_entry(), full_entry(id="o/r/t")]}))
     assert (directory / "skill" / "o__r__t.json").exists()
 
-    _write_detail_dir(directory, detail_files({"skills": [full_entry()]}))
+    _write_tree(directory, detail_files({"skills": [full_entry()]}))
     assert (directory / "skill" / "o__r__s.json").exists()
     assert not (directory / "skill" / "o__r__t.json").exists()
 
@@ -268,15 +270,72 @@ def test_a_file_for_a_departed_skill_is_deleted(tmp_path):
 def test_pruning_reaches_into_every_namespace(tmp_path):
     """The tree has a subdirectory per namespace, so a top-level-only sweep would leave
     every stale file untouched."""
-    from merge_index import _write_detail_dir
+    from merge_index import _write_tree
 
     directory = tmp_path / "detail"
     repos = {"o/r": {"community": {"en": {}}}}
-    _write_detail_dir(directory, detail_files({"skills": [full_entry()], "repos": repos}))
+    _write_tree(directory, detail_files({"skills": [full_entry()], "repos": repos}))
     for namespace, name in (("skill", "junk__x.json"), ("repo", "junk.json")):
         (directory / namespace / name).write_text("{}", encoding="utf-8")
 
-    _write_detail_dir(directory, detail_files({"skills": [full_entry()], "repos": repos}))
+    _write_tree(directory, detail_files({"skills": [full_entry()], "repos": repos}))
     assert not (directory / "skill" / "junk__x.json").exists()
     assert not (directory / "repo" / "junk.json").exists()
     assert (directory / "repo" / "o__r.json").exists()
+
+
+# --- verification data is published per skill too -----------------------------------------
+
+def test_a_skill_verification_record_carries_what_a_check_needs():
+    from site_index import verify_files, verify_path
+    record = verify_files({"skills": [full_entry()]})[verify_path("o/r/s")]
+    for key in ("source_repo", "source_ref", "source_ref_kind", "files", "files_complete"):
+        assert key in record, key
+
+
+def test_the_verification_record_carries_the_security_rating():
+    """Matching digests answers "are these the bytes we assessed", which alone is a dangerous
+    half-answer: a skill can verify exactly and still be the one whose installer runs
+    `rm -rf $HOME`. An agent calling verify_skill directly would otherwise never see it."""
+    from site_index import verify_files, verify_path
+    record = verify_files({"skills": [full_entry()]})[verify_path("o/r/s")]
+    assert record["security"] == "warn"
+    assert record["security_findings"] == ["x"]
+
+
+def test_verification_records_are_not_display_material():
+    """They live outside detail/ because they are not something the page renders."""
+    from site_index import verify_path
+    assert not verify_path("o/r/s").startswith("detail/")
+
+
+def test_the_list_does_not_name_the_verification_record():
+    """Unlike `detail`, which the browser follows and no test can hold to the rule here, the
+    verify path is read only by Python that a test does pin. Publishing it would put a
+    verification pointer inside the artifact marked as carrying no verification data."""
+    assert "verify" not in list_skill(full_entry())
+
+
+def test_the_list_holds_no_digests_so_nothing_can_verify_against_it():
+    """The finder searches the list; only that. `display_only` is what says so."""
+    row = list_skill(full_entry())
+    for key in ("files", "content_sha256", "source_ref"):
+        assert key not in row, key
+    assert slim_index({"skills": [full_entry()], "repos": {}})["display_only"] is True
+
+
+def test_the_client_derives_the_same_verification_path_as_the_builder():
+    """The flattening rule exists twice: the finder skill installs on its own, with no
+    access to processing/. Nothing but this test keeps the two from drifting apart."""
+    sys.path.insert(0, str(ROOT / "skills" / "awesomeskills" / "scripts"))
+    import index_client
+
+    from site_index import verify_path
+    for skill_id in ("o/r/s", "o/r", "a/b/.claude/skills/x", "a/b/c/d/e/f/g/h/i"):
+        assert f"verify/{index_client.flat_name(skill_id)}" == verify_path(skill_id), skill_id
+
+
+def test_every_published_verification_filename_is_unique():
+    from site_index import verify_files
+    paths = list(verify_files(_real_index()))
+    assert len(paths) == len(set(paths))

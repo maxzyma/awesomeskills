@@ -24,14 +24,10 @@ import json
 import sys
 from concurrent.futures import ThreadPoolExecutor
 
-from index_client import fetch_bytes, load_index, raw_file_url, resolve_index_url
+from index_client import fetch_bytes, load_verify_record, raw_file_url, resolve_index_url
 
 VERIFIED, REFUSED, MISMATCH = "verified", "refused", "mismatch"
 MAX_FETCH_WORKERS = 4  # raw.githubusercontent resets connections above this
-
-
-def find_entry(index: dict, skill_id: str) -> dict | None:
-    return next((e for e in index.get("skills", []) if e.get("id") == skill_id), None)
 
 
 def refusal_reason(entry: dict, allow_incomplete: bool) -> str | None:
@@ -107,12 +103,13 @@ def main() -> int:
 
     url = resolve_index_url(args.index_url)
     try:
-        index, used = load_index(url)
+        # One skill's manifest, not the whole index: the full artifact is ~366 KB gzipped
+        # and a record is a few hundred bytes.
+        entry, used = load_verify_record(url, args.id)
     except Exception as error:  # noqa: BLE001 — surface any resolution failure to the agent
         print(json.dumps({"error": f"failed to load index from {url}: {error}"}), file=sys.stderr)
         return 2
 
-    entry = find_entry(index, args.id)
     if entry is None:
         print(json.dumps({"error": f"no index entry with id {args.id!r}"}), file=sys.stderr)
         return 2
@@ -124,7 +121,8 @@ def main() -> int:
         "source_repo": entry.get("source_repo"),
         "source_ref": entry.get("source_ref"),
         "source_ref_kind": entry.get("source_ref_kind"),
-        "security": entry.get("trust", {}).get("security"),
+        "security": entry.get("security"),
+        "security_findings": entry.get("security_findings") or [],
         **result,
     }, ensure_ascii=False, indent=2))
     return 0 if result["verdict"] == VERIFIED else 1

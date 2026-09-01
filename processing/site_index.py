@@ -1,21 +1,31 @@
 #!/usr/bin/env python3
-"""Project the full index down to what the browser renders, split by when it is needed.
+"""Project the full index into the pieces its readers actually need, when they need them.
 
-The full `index.json` is the machine-readable artifact: agents and verify_skill.py need the
-pinned refs and the per-file digest manifest. A browser needs none of that, so a display-only
-projection is published separately. Anything a verifier depends on is deliberately absent
-from it, so these files can never be mistaken for a source of verification truth.
+`index.json` stays published whole, for anyone who wants everything in one request. What
+this module adds is the split both readers of the index turned out to want: a browser
+painting a list, and the finder skill choosing a skill for an agent. Neither reads most of
+the artifact, and both used to download all of it.
 
-It is published as one list plus one small file per skill and per repo.
+    site-index.json     the list        ~119 KB gz
+    detail/skill/*      grounding prose, per skill, median 841 B gz
+    detail/repo/*       community assessment, shared by a repo's skills
+    verify/*            digest manifest, per skill, median 268 B gz
 
-The list carries everything the page shows before anyone clicks: the row, the badges, every
+The list carries everything shown before anyone asks for more -- the row, the badges, every
 badge tooltip, and the text search reads. Measured against the live site the payload arrives
-at roughly 64 KB/s, so bytes convert almost directly into seconds before the first row
-appears -- the single combined artifact was 269 KB gz and ~4.2s, the list is ~119 KB.
+at roughly 64 KB/s, so bytes convert almost directly into seconds; the combined artifact was
+269 KB gz and ~4.2s to first paint, the list is ~119 KB.
 
-A skill's grounding prose -- scenarios, boundary, dependencies, io -- goes in its own file,
-fetched only when that row is expanded; median 841 bytes gzipped, 408 files. A repo's
-community assessment goes in a file of its own, shared by every row from that repo.
+The list holds no digests, which is why it is marked `display_only`: it is safe to search
+and rank from, and never sufficient to verify against. Verification reads `verify/`, whose
+records carry the pinned commit and the manifest -- and carry ref kind and completeness
+too, so a refusal can state its reason rather than infer it from a missing field.
+
+The list names each skill's `detail` file but not its `verify` file. The browser reads the
+former and would have to rebuild the path in JavaScript, which no test can hold to the rule
+here; the latter is read only by Python that a test does pin (see
+test_the_client_derives_the_same_verification_path_as_the_builder). Publishing a pointer
+nobody needs would also put a verification path inside the artifact marked as carrying none.
 
 Per file rather than one deferred bundle, because of how the two invalidate. Enrichment
 rewrites roughly twenty entries a day. A single bundle changes its ETag whenever any one of
@@ -32,6 +42,10 @@ DETAIL_DIR = "detail"
 # repo file would be called. Seven entries have ids that short.
 SKILL_DIR = f"{DETAIL_DIR}/skill"
 REPO_DIR = f"{DETAIL_DIR}/repo"
+# Verification data, kept out of `detail/` because it is not display material: this is what
+# verify_skill.py checks a download against. Per skill for the same reason as the grounding
+# -- fetching one skill's digests should not mean downloading everyone's.
+VERIFY_DIR = "verify"
 
 # --- what the page shows before anyone clicks --------------------------------------------
 LIST_FIELDS = (
@@ -96,6 +110,46 @@ def repo_detail_path(repo_id: str) -> str:
 def _pick(source: dict | None, fields) -> dict:
     source = source or {}
     return {key: source[key] for key in fields if key in source}
+
+
+def verify_path(skill_id: str) -> str:
+    """Where a skill's digest manifest lives, relative to the site root."""
+    return f"{VERIFY_DIR}/{skill_id.replace('/', '__')}.json"
+
+
+# What verify_skill.py needs to prove a download matches what was assessed, and nothing
+# else. The refusal cases depend on ref kind and manifest completeness, so both travel with
+# the digests rather than being inferred from their absence.
+VERIFY_FIELDS = (
+    "id", "source_repo", "source_ref", "source_ref_kind", "source_branch",
+    "content_sha256", "files", "files_complete",
+)
+
+
+def verify_skill_record(entry: dict) -> dict:
+    """The manifest, plus the security rating it was assessed with.
+
+    Verification answers "are these the bytes we assessed", which on its own is a dangerous
+    half-answer: a skill can match its digests exactly and still be the one whose installer
+    runs `rm -rf $HOME`. An agent that calls verify_skill without going through find_skill
+    would otherwise never see that.
+    """
+    record = _pick(entry, VERIFY_FIELDS)
+    trust = entry.get("trust") or {}
+    if "security" in trust:
+        record["security"] = trust["security"]
+    findings = [f.get("label") for f in (trust.get("security_findings") or []) if f.get("label")]
+    if findings:
+        record["security_findings"] = findings
+    return record
+
+
+def verify_files(data: dict) -> dict[str, dict]:
+    """One digest manifest per skill, keyed by path from the site root."""
+    return {
+        verify_path(entry["id"]): verify_skill_record(entry)
+        for entry in data.get("skills", [])
+    }
 
 
 def _function_sides(entry: dict) -> dict:

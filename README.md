@@ -65,7 +65,7 @@ Split by who writes a file: curated input, code, or generated output.
 | `processing/` | AI-ready assessment kernel — builds the skill-level index (health / zh / frontmatter) |
 | `skills/awesomeskills/` | the finder skill (thin client over the static index) |
 | `ops/`        | Cloudflare DNS automation (`cf_dns.py`) — token-based, creds never in repo |
-| `site/public/`| everything published to awesomeskills.io, generated: `index.json`, `site-index.json`, `detail/`, `llm.txt` |
+| `site/public/`| everything published to awesomeskills.io, generated: `index.json`, `site-index.json`, `detail/`, `verify/`, `llm.txt` |
 | `.claude-plugin/` | marketplace manifest for one-click Claude Code install |
 | `docs/`       | product definition, policy, and external reference material |
 

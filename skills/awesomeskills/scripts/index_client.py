@@ -85,6 +85,55 @@ def load_index(url: str, allow_local_fallback: bool = True) -> tuple[dict, str]:
         return payload, f"{LOCAL_FALLBACK} (offline fallback after: {error})"
 
 
+def sibling_url(index_url: str, relative: str) -> str:
+    """Resolve a path published beside the index, for both URLs and local paths."""
+    if index_url.startswith(("http://", "https://")):
+        return urllib.parse.urljoin(index_url, relative)
+    return str(Path(index_url).parent / relative)
+
+
+def load_sibling(index_url: str, relative: str) -> dict:
+    """Load one file published beside the index. Raises if it is not there."""
+    target = sibling_url(index_url, relative)
+    if target.startswith(("http://", "https://")):
+        return json.loads(fetch_text(target))
+    return json.loads(Path(target).read_text(encoding="utf-8"))
+
+
+# Must match site_index.verify_path / detail_path. The rule lives twice because this package
+# is installed on its own, with no access to processing/; tests/test_finder_client.py asserts
+# the two agree, and every caller falls back to the full index when the derived path is not
+# there, so a drift degrades to slow rather than to wrong.
+def flat_name(skill_id: str) -> str:
+    return skill_id.replace("/", "__") + ".json"
+
+
+def load_catalog(index_url: str) -> tuple[dict, str]:
+    """The search catalogue: the list if it is published, else the full index.
+
+    The list is a tenth the size and carries everything a search reads. It carries no
+    digests, which is exactly why nothing verifies against it -- see load_verify_record.
+    """
+    try:
+        return load_sibling(index_url, "site-index.json"), sibling_url(index_url, "site-index.json")
+    except Exception:  # noqa: BLE001 — a custom or older index has no list beside it
+        return load_index(index_url)
+
+
+def load_verify_record(index_url: str, skill_id: str) -> tuple[dict | None, str]:
+    """One skill's digest manifest, without downloading everyone else's.
+
+    Falls back to the full index so a missing per-skill file costs time, not the check.
+    """
+    relative = f"verify/{flat_name(skill_id)}"
+    try:
+        return load_sibling(index_url, relative), sibling_url(index_url, relative)
+    except Exception:  # noqa: BLE001 — fall back rather than refuse to verify
+        index, used = load_index(index_url)
+        entry = next((e for e in index.get("skills", []) if e.get("id") == skill_id), None)
+        return entry, used
+
+
 def raw_file_url(repo: str, ref: str, path: str) -> str:
     quoted = urllib.parse.quote(path, safe="/")
     return f"{RAW_BASE}/{repo}/{urllib.parse.quote(ref, safe='')}/{quoted}"

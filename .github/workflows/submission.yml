@@ -49,7 +49,8 @@ jobs:
           # Omitting them committed a fresh index.json beside a stale site, and the next
           # validate run would fail on the mismatch it had itself created.
           git add registry/base-index.json \
-            site/public/index.json site/public/site-index.json site/public/detail \
+            site/public/index.json site/public/site-index.json \
+            site/public/detail site/public/verify \
             site/public/llm.txt
           if ! git diff --cached --quiet; then
             git commit -m "chore: assess submission #${{ github.event.issue.number }}"

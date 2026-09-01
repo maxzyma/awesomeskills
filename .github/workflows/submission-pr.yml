@@ -38,6 +38,7 @@ jobs:
             --site "$tmpdir/index.json" \
             --site-slim "$tmpdir/site-slim.json" \
             --site-detail-dir "$tmpdir/detail" \
+            --site-verify-dir "$tmpdir/verify" \
             --llm "$tmpdir/llm.txt"
           cmp site/public/index.json "$tmpdir/index.json"
           cmp site/public/site-index.json "$tmpdir/site-slim.json"
@@ -46,3 +47,4 @@ jobs:
           # present on one side only -- a skill dropped from the index leaves its grounding
           # behind, and a stale file serves forever without ever mismatching anything.
           diff -r site/public/detail "$tmpdir/detail"
+          diff -r site/public/verify "$tmpdir/verify"

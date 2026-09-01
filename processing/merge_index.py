@@ -10,7 +10,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from enrichment_store import BASE, CACHE, ROOT, read_json
-from site_index import DETAIL_DIR, detail_files, slim_index
+from site_index import DETAIL_DIR, VERIFY_DIR, detail_files, slim_index, verify_files
 
 # The machine-readable artifact, published at awesomeskills.io/index.json for agents and
 # verify_skill.py. Written once: it used to be committed here and under registry/ as well,
@@ -18,6 +18,7 @@ from site_index import DETAIL_DIR, detail_files, slim_index
 SITE = ROOT / "site" / "public" / "index.json"
 SITE_SLIM = ROOT / "site" / "public" / "site-index.json"
 SITE_DETAIL_DIR = ROOT / "site" / "public" / DETAIL_DIR
+SITE_VERIFY_DIR = ROOT / "site" / "public" / VERIFY_DIR
 LLM = ROOT / "site" / "public" / "llm.txt"
 
 
@@ -103,8 +104,8 @@ def _write_json(path: Path, payload: dict) -> str:
     return blob
 
 
-def _write_detail_dir(directory: Path, files: dict[str, dict]) -> int:
-    """Write every per-skill file and delete any that no longer belongs.
+def _write_tree(directory: Path, files: dict[str, dict]) -> int:
+    """Write every file in a published tree and delete any that no longer belongs.
 
     Pruning is the point of writing the directory as a whole. A skill that leaves the index
     would otherwise keep serving its stale grounding forever, and the reproducibility check
@@ -135,6 +136,7 @@ def main() -> int:
     parser.add_argument("--site", type=Path, default=SITE)
     parser.add_argument("--site-slim", type=Path, default=SITE_SLIM)
     parser.add_argument("--site-detail-dir", type=Path, default=SITE_DETAIL_DIR)
+    parser.add_argument("--site-verify-dir", type=Path, default=SITE_VERIFY_DIR)
     parser.add_argument("--llm", type=Path, default=LLM)
     args = parser.parse_args()
     data = merge(read_json(args.base), read_json(args.cache))
@@ -143,7 +145,8 @@ def main() -> int:
     # render and the part only an expanded row needs. The full artifact stays published at
     # index.json for agents and verify_skill.py.
     slim_blob = _write_json(args.site_slim, slim_index(data))
-    detail_count = _write_detail_dir(args.site_detail_dir, detail_files(data))
+    detail_count = _write_tree(args.site_detail_dir, detail_files(data))
+    verify_count = _write_tree(args.site_verify_dir, verify_files(data))
 
     args.llm.parent.mkdir(parents=True, exist_ok=True)
     llm_temporary = args.llm.with_suffix(args.llm.suffix + ".tmp")
@@ -152,7 +155,7 @@ def main() -> int:
     coverage = data["enrichment_coverage"]
     print(f"merged {len(data['skills'])} entries; enrichment {coverage}")
     print(f"  site list: {len(slim_blob)/1024:.0f} KB (blocks first paint)"
-          f" · {detail_count} deferred files"
+          f" · {detail_count} detail + {verify_count} verify files"
           f" · full {len(blob)/1024:.0f} KB")
     return 0
 
