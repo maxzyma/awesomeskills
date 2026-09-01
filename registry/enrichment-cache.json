@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "updated_at": "2026-09-01T04:06:25+00:00",
+  "updated_at": "2026-09-01T07:57:08+00:00",
   "entries": {
     "shareAI-lab/learn-claude-code/skills/pdf": {
       "content_sha256": "b143723126a9951c556063edbdf15fce252a505e11c85a3fdbaa221f1116d178",
@@ -2019,47 +2019,53 @@
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "2c7dab0e789873ae237207d5ff0d24f74579d088d878f0cd7e9982940f9f6ae9",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Provides a browser automation CLI for AI agents to programmatically interact with websites, perform UI actions, and extract web content.",
+            "purpose": "Guide an agent through browser navigation, page inspection, interaction, capture, extraction, session persistence, authentication, and state comparison using the agent-browser CLI.",
             "scenarios": [
-              "Automating login flows and complex multi-step form submissions",
-              "Scraping dynamic web pages and taking page screenshots",
-              "Testing web applications by clicking buttons and asserting page state",
-              "Downloading files and inspecting DOM element text"
+              "Fill and submit web forms using snapshot-derived element references.",
+              "Extract page text or JSON and capture screenshots or PDFs.",
+              "Run isolated or persistent browser sessions, including authenticated and parallel sessions.",
+              "Compare page states for functional or visual regression checks."
             ],
-            "io": "Takes CLI commands and element references (e.g., '@e1') as input, and outputs element snapshots, text content, screenshots, or downloaded files.",
+            "io": "Inputs are URLs, element references or semantic locators, form values, selectors, session/configuration options, and optional local paths. Outputs include accessibility snapshots, text or JSON data, screenshots, PDFs, downloads, recordings, profiles, diffs, and saved browser state.",
             "dependencies": [
-              "browser",
-              "bash"
+              "agent-browser CLI",
+              "A compatible local browser runtime",
+              "Optional environment variables or agent-browser.json configuration",
+              "Optional encryption key for protected credentials or session state",
+              "For iOS: macOS, Xcode, Appium, and the XCUITest driver"
             ],
-            "boundary": "It strictly operates through browser CLI execution and does not handle anti-bot CAPTCHA bypassing or non-browser API calls."
+            "boundary": "The document states that security controls are opt-in and navigation/actions are unrestricted by default. Element references expire after page changes. Authentication and persisted state may contain sensitive material. iOS support has additional platform requirements. The evidence documents commands but does not establish availability, correctness, or safety of the CLI."
           },
           "zh": {
-            "purpose": "为 AI Agent 提供基于命令行（CLI）的浏览器自动化工具，用于程序化地与网页交互、执行操作及提取数据。",
+            "purpose": "指导代理使用 agent-browser CLI 完成浏览器导航、页面检查、交互、采集、数据提取、会话持久化、认证和页面状态对比。",
             "scenarios": [
-              "自动化执行登录流程与复杂的多步骤网页表单填写",
-              "抓取动态网页内容与保存页面屏幕截图",
-              "通过点击按键和断言页面状态对 Web 应用进行自动化测试",
-              "触发文件下载与检查 DOM 元素文本"
+              "通过页面快照生成的元素引用填写并提交表单。",
+              "提取页面文本或 JSON，并生成截图或 PDF。",
+              "运行隔离、并行或可持久化的浏览器会话，包括认证会话。",
+              "通过快照差异或像素差异检查功能和视觉回归。"
             ],
-            "io": "输入为 CLI 浏览器控制指令和元素引用标识（如 '@e1'），输出为元素快照、网页文本、截图或下载的文件。",
+            "io": "输入包括 URL、元素引用或语义定位器、表单值、选择器、会话与配置选项，以及可选本地路径。输出包括无障碍树快照、文本或 JSON、截图、PDF、下载文件、录像、性能数据、差异结果和保存的浏览器状态。",
             "dependencies": [
-              "browser",
-              "bash"
+              "agent-browser CLI",
+              "兼容的本地浏览器运行时",
+              "可选环境变量或 agent-browser.json 配置",
+              "用于保护凭据或会话状态的可选加密密钥",
+              "iOS 场景需要 macOS、Xcode、Appium 和 XCUITest 驱动"
             ],
-            "boundary": "该工具仅限于通过 CLI 执行浏览器操作，不具备绕过人机验证（CAPTCHA）或处理非浏览器 API 请求的能力。"
+            "boundary": "文档明确说明安全功能默认不启用，导航与操作默认不受限制；页面变化后元素引用会失效；认证信息和持久化状态可能包含敏感数据；iOS 支持有额外平台要求。证据只描述命令，不能证明 CLI 已安装、实现正确或操作安全。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: command-oriented guidance for operating the agent-browser CLI; it is not the browser implementation itself.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/agency-os/skills/agency-os": {
@@ -2249,47 +2255,53 @@
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "0a56a80568d1db9b6b5fc53bf283c175d4159f29592915c891f9c49fc91d3741",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Teaches how to create an agent skill that uses a write-execute-analyze loop with automated error recovery to autonomously process data.",
+            "purpose": "Teach how to specify, build, test, and document a skill that generates Python data-processing code, executes it, analyzes failures, applies fixes, and stops on convergence or iteration limits.",
             "scenarios": [
-              "Building autonomous CSV analysis workflows with automatic edge-case handling.",
-              "Implementing automated code execution and self-healing error recovery in agents.",
-              "Creating robust data processing pipelines with defined iteration and timeout controls."
+              "Build a CSV analysis, transformation, or aggregation workflow from a written specification.",
+              "Recover from syntax errors, runtime failures, malformed data, and timeouts.",
+              "Validate generated output against required fields and formats.",
+              "Test convergence across clean, malformed, empty, and large inputs."
             ],
-            "io": "Inputs data specifications, raw data files, and success criteria; outputs validated execution results, processed data, and execution logs.",
+            "io": "Inputs are a task specification, CSV input files, validation rules, success criteria, edge cases, retry limits, and timeouts. Intended outputs are generated Python code, execution stdout/stderr, validation results, corrected iterations, final data products, and test records.",
             "dependencies": [
-              "python",
-              "mcp",
-              "code execution sandbox"
+              "Python",
+              "A code-execution environment with subprocess support",
+              "An unspecified AI code-generation interface",
+              "CSV test data",
+              "Optional JSON parsing and persistence components"
             ],
-            "boundary": "Focuses on automated iterative script execution and recovery within a sandbox, but does not cover production application deployment or interactive UI building."
+            "boundary": "Most implementation components are placeholders or illustrative snippets. The AI integration and specification parser are not implemented. The sample execution approach writes and runs generated code without describing a true sandbox, so timeout handling alone is not a complete isolation boundary. The lesson is scoped mainly to CSV processing."
           },
           "zh": {
-            "purpose": "教授如何构建一个通过“编写-执行-分析”循环和自动错误修复机制来自主处理数据的 Agent 技能。",
+            "purpose": "讲解如何定义、构建、测试和记录一个脚本执行技能：根据规格生成 Python 数据处理代码，执行代码，分析失败，生成修复，并在收敛或达到迭代上限时停止。",
             "scenarios": [
-              "构建能够自动处理边界情况的 CSV 数据分析工作流。",
-              "为 Agent 实现自动代码执行与自我修复机制。",
-              "创建具备收敛判定和超时控制的稳健数据处理流水线。"
+              "依据书面规格构建 CSV 分析、转换或聚合流程。",
+              "处理语法错误、运行时错误、异常数据和超时。",
+              "按照必填字段和输出格式验证生成结果。",
+              "使用正常、畸形、空文件和大文件测试收敛行为。"
             ],
-            "io": "输入数据处理规范、原始数据文件和收敛标准，输出经过校验的执行结果、处理完的数据以及运行日志。",
+            "io": "输入包括任务规格、CSV 文件、验证规则、成功条件、边界案例、重试上限和超时。预期输出包括生成的 Python 代码、标准输出与错误、验证结果、修正后的迭代版本、最终数据产物和测试记录。",
             "dependencies": [
-              "python",
-              "mcp",
-              "code execution sandbox"
+              "Python",
+              "支持 subprocess 的代码执行环境",
+              "未具体定义的 AI 代码生成接口",
+              "CSV 测试数据",
+              "可选 JSON 解析和持久化组件"
             ],
-            "boundary": "专注于沙盒环境中的自动化迭代脚本执行与错误恢复，不涉及生产级应用部署或交互式 UI 开发。"
+            "boundary": "大部分组件是占位符或示例代码，AI 接口和规格解析器并未实现。示例会写入并执行生成代码，但未描述真正的沙箱；只有超时并不能构成完整隔离边界。课程主要面向 CSV 数据处理。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached lesson-style SKILL.md: educational guidance and pseudocode for designing a script-generation and execution loop, not a complete runnable implementation.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development": {
@@ -2563,125 +2575,143 @@
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "ae04b91e0630dcf96a212f5d6bf8726ed3e9aa03aa620316d6a87be14357c44c",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Find, map, and scrape state-by-state criminal record expungement laws and authoritative court sources reflecting the 2026 legal landscape.",
+            "purpose": "Guide state-by-state discovery, scraping, and validation of authoritative U.S. expungement statutes, court resources, forms, fees, and related 2026 changes for a National Expungement Guide project.",
             "scenarios": [
-              "Locating primary authoritative court and statutory URLs for state expungement laws",
-              "Configuring Firecrawl web scrapers for state legislature and court self-help sites",
-              "Researching recent state updates regarding Clean Slate acts and marijuana record expungements"
+              "Locate legislature and court sources for a state's expungement rules and forms.",
+              "Configure Firecrawl extraction schemas and conservative request settings for government sites.",
+              "Validate scraped statutes, dates, links, forms, fees, and state identifiers.",
+              "Identify missing state-level data and prioritize collection work."
             ],
-            "io": "Inputs state names, legal research requests, or scraping parameters, and outputs structured Firecrawl configurations, authoritative URL hierarchies, and coverage gap assessments.",
+            "io": "Inputs include a state, research questions, known URLs, existing scraped files, Firecrawl job configuration, and project data paths. Outputs are source URLs, extracted statute or court metadata, forms and fee records, validation findings, gap lists, and scraped JSON intended for later manual integration.",
             "dependencies": [
-              "Firecrawl",
-              "browser"
+              "Firecrawl and FIRECRAWL_API_KEY",
+              "Node.js/npx and tsx for the referenced project scripts",
+              "National Expungement Guide repository structure",
+              "Government, court, legislature, and legal-reference websites",
+              "Manual review before integration"
             ],
-            "boundary": "This skill does not interpret legal statutory meaning, offer legal advice, build UI components, or perform general non-legal web scraping."
+            "boundary": "It is explicitly not for legal interpretation, legal advice, or UI work. Its source lists, URL patterns, and 2026 legal-landscape statements may become stale and require current verification. The workflow is tied to one repository layout, and the referenced files are not attached evidence."
           },
           "zh": {
-            "purpose": "查找、梳理并抓取各州犯罪记录涂销法律及权威法院资源，反映2026年的最新法律动态。",
+            "purpose": "为 National Expungement Guide 项目提供按州查找、抓取和验证美国删除犯罪记录相关法规、法院资源、表格、费用及 2026 年变化的指导。",
             "scenarios": [
-              "定位各州记录涂销法律的权威法院与立法机关原发 URL",
-              "为州立法机关和法院自助服务网站配置 Firecrawl 网页抓取任务",
-              "调研各州关于“洁面法案”（Clean Slate）及大麻记录涂销的最新法律变动"
+              "查找某州删除记录规则与申请表格的立法机关和法院权威来源。",
+              "为政府网站配置 Firecrawl 提取结构和保守请求参数。",
+              "验证法规引用、日期、链接、PDF 表格、费用和州代码。",
+              "识别各州数据缺口并确定采集优先顺序。"
             ],
-            "io": "输入州名称、法律调研需求或抓取参数，输出结构化的 Firecrawl 配置、权威 URL 拓扑结构及数据覆盖缺口评估。",
+            "io": "输入包括州名、研究问题、已知 URL、现有抓取文件、Firecrawl 任务配置和项目数据路径。输出包括来源 URL、法规或法院元数据、表格与费用记录、验证发现、缺口清单，以及供后续人工整合的 JSON。",
             "dependencies": [
-              "Firecrawl",
-              "browser"
+              "Firecrawl 和 FIRECRAWL_API_KEY",
+              "Node.js、npx 与 tsx",
+              "National Expungement Guide 特定仓库结构",
+              "政府、法院、立法机关及法律参考网站",
+              "整合前的人工复核"
             ],
-            "boundary": "该技能不负责解释法律条文的具体含义、提供法律咨询建议、构建前端 UI 组件，或进行与法律无关的通用网页抓取。"
+            "boundary": "文档明确不用于法律解释、法律建议或 UI 开发。来源清单、URL 模式及 2026 法律现状可能过时，必须按当前信息核验。流程绑定特定仓库布局，所引用的其他文件未包含在本次证据中。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: project-specific research and scraping guidance for U.S. expungement sources; time-sensitive legal claims in the document are unverified by this assessment.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/200-agents-md": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "4b8b9a9176ab21f53b3035269606fabbb5e13b3e0656a70443ebe930b0835a0e",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Interactively generates or updates a comprehensive AGENTS.md file for Java repositories to establish tech stacks, workflows, and AI agent boundaries.",
+            "purpose": "Guide an interactive, repository-specific process for creating or updating AGENTS.md for Java projects, covering roles, stack, structure, commands, Git workflow, and contributor boundaries.",
             "scenarios": [
-              "Creating a new AGENTS.md file for a Java project from scratch",
-              "Updating existing agent guidelines and project conventions in a repository",
-              "Establishing clear permission boundaries (Always do / Ask first / Never do) for AI collaborators"
+              "Create AGENTS.md for a new or existing Java repository.",
+              "Update agent instructions after project conventions or commands change.",
+              "Document permitted, approval-required, and prohibited contributor actions."
             ],
-            "io": "Inputs user input from interactive prompts and repository file context, and outputs a formatted AGENTS.md markdown file.",
+            "io": "Inputs are repository structure, existing documentation, role requirements, technology stack, commands, Git conventions, and contributor boundaries gathered interactively. Output is a repository-specific AGENTS.md document.",
             "dependencies": [
-              "none"
+              "Read access to the Java repository and its documentation",
+              "User participation in requirements capture",
+              "references/200-agents-md.md for detailed examples and safeguards"
             ],
-            "boundary": "It generates documentation and agent guidelines, but does not execute project build commands or modify actual source code files."
+            "boundary": "The workflow is explicitly interactive and requires repository review before drafting. It does not require Maven validation. Ambiguous goals, missing context, or conflicts require user clarification. The detailed referenced guidance was not included, so this assessment covers only the top-level workflow."
           },
           "zh": {
-            "purpose": "通过模块化交互流程为 Java 项目生成或更新 AGENTS.md 指南文件，以规范 AI Agent 的技术栈、工作流及行为边界。",
+            "purpose": "通过交互式、面向具体仓库的流程，为 Java 项目创建或更新 AGENTS.md，涵盖角色、技术栈、目录结构、命令、Git 工作流和贡献边界。",
             "scenarios": [
-              "从零开始为 Java 项目创建全新的 AGENTS.md 文件",
-              "更新现有仓库中的 AI Agent 操作指南、命令行规范与 Git 工作流",
-              "为 AI 协作者设定明确的执行权限边界（始终执行 / 提前询问 / 严禁执行）"
+              "为新建或现有 Java 仓库创建 AGENTS.md。",
+              "在项目约定或命令变化后更新代理说明。",
+              "记录允许执行、需先询问和禁止执行的贡献者行为。"
             ],
-            "io": "输入用户交互提示的回答与仓库文件上下文，输出结构化的 AGENTS.md 文档。",
+            "io": "输入包括仓库结构、现有文档、角色要求、技术栈、命令、Git 约定，以及交互收集的贡献边界；输出为仓库专用 AGENTS.md。",
             "dependencies": [
-              "none"
+              "对 Java 仓库及其文档的读取权限",
+              "用户参与需求收集",
+              "用于详细示例和保护措施的 references/200-agents-md.md"
             ],
-            "boundary": "仅专注于引导互动与生成 Agent 规范文档，不执行项目构建部署命令或修改项目的实际源代码。"
+            "boundary": "流程明确要求交互，并在起草前审查仓库；不要求 Maven 验证。目标不清、上下文缺失或约束冲突时必须询问用户。引用的详细指南未附带，因此本评估仅覆盖顶层流程。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: an interactive workflow definition for generating AGENTS.md in Java repositories; its detailed reference file is not attached.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/003-agents-installation": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "bd7a35a2133991ee4b4c2e0227628840a172909b01fcbfbcb159b311a8b94b0d",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Interactively installs embedded robot agent definitions into either the .cursor/agents or .claude/agents directory.",
+            "purpose": "Install a predefined bundle of embedded agent definitions into either .cursor/agents or .claude/agents after the user explicitly selects the destination.",
             "scenarios": [
-              "Bootstrapping the .cursor/agents directory with standard agent definitions",
-              "Setting up the .claude/agents directory for Claude Code usage",
-              "Re-installing or updating embedded agent definition files in a project"
+              "Bootstrap embedded agents for Cursor.",
+              "Bootstrap embedded agents for Claude Code.",
+              "Reinstall the bundle while reporting files that would be overwritten."
             ],
-            "io": "Takes the user's interactive target directory selection as input and outputs copied agent files into the destination along with a summary report.",
+            "io": "Input is an explicit destination choice plus embedded agent assets named by the reference. Outputs are the created target directory, copied agent-definition files, overwrite reporting, and an optional verification command.",
             "dependencies": [
-              "file_system"
+              "Embedded agent files under assets/agents",
+              "references/003-agents-installation.md",
+              "Write access to the selected project directory",
+              "Explicit user confirmation of .cursor/agents or .claude/agents"
             ],
-            "boundary": "This skill strictly handles copying predefined agent files to the selected directory and does not configure agent logic or modify other project files."
+            "boundary": "No file may be copied before the destination is confirmed. All referenced embedded files must be copied with their original names, and overwrites must be reported. The attached evidence does not contain the file list or assets, so their contents cannot be assessed."
           },
           "zh": {
-            "purpose": "通过交互方式引导用户选择目标路径，将预定义的嵌入式 Agent 配置文件安装至 .cursor/agents 或 .claude/agents 目录。",
+            "purpose": "在用户明确选择目标目录后，将预定义的嵌入式代理定义包安装到 .cursor/agents 或 .claude/agents。",
             "scenarios": [
-              "在项目中初始化 .cursor/agents 目录下的 Agent 配置文件",
-              "为 Claude Code 环境配置 .claude/agents 目录及其 Agent 定义",
-              "重新安装或更新项目中的 Agent 配置文件"
+              "为 Cursor 初始化嵌入式代理。",
+              "为 Claude Code 初始化嵌入式代理。",
+              "重新安装代理包并报告会被覆盖的文件。"
             ],
-            "io": "输入用户的目标路径选择，输出复制到指定目录的 Agent 配置文件以及安装结果报告。",
+            "io": "输入是明确的目标目录选择，以及参考文件列出的嵌入式代理资源。输出包括创建的目标目录、复制的代理定义文件、覆盖报告和可选验证命令。",
             "dependencies": [
-              "file_system"
+              "assets/agents 下的嵌入式代理文件",
+              "references/003-agents-installation.md",
+              "所选项目目录的写权限",
+              "用户明确确认 .cursor/agents 或 .claude/agents"
             ],
-            "boundary": "该 Skill 仅负责将预定义的 Agent 文件复制到指定目录，不包含对 Agent 逻辑的修改或对其他项目文件的调整。"
+            "boundary": "确认目标目录前不得复制文件；必须复制参考内容列出的全部文件并保留文件名，覆盖操作必须报告。附带证据没有文件清单或资源内容，因此无法评估这些文件本身。"
           }
         },
-        "community_repo": "majiayu000/claude-skill-registry",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: an interactive installation workflow; the embedded agent files and reference content are not attached.",
+        "model": "configured-default",
+        "community_repo": "majiayu000/claude-skill-registry"
       }
     },
     "majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436": {
@@ -3381,49 +3411,53 @@
       }
     },
     "elementalsouls/Claude-OSINT/.claude/skills/run-claude-osint": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "0b30d03ae84cef6c36646502d2a636d91eccb3a3dad163c139a37b0de93e6c38",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Build, validate, and smoke-test the claude-osint skills repository and its embedded Python helper scripts.",
+            "purpose": "Validate the claude-osint skills package by checking helper syntax and behavior, SKILL.md frontmatter, content synchronization, and an optional live HackerOne reference lookup.",
             "scenarios": [
-              "Running full smoke test suites on the claude-osint repository",
-              "Validating YAML frontmatter metadata and triggers across SKILL.md files",
-              "Testing secret scanning and HackerOne reference retrieval Python scripts"
+              "Run the repository's full or offline smoke test.",
+              "Validate OSINT skill frontmatter fields and trigger counts.",
+              "Test the secret scanner against stdin or repository content.",
+              "Exercise the HackerOne disclosed-report helper when network access is available."
             ],
-            "io": "Accepts repository files, command-line flags, or stdin text, and outputs PASS/FAIL log reports alongside JSON/JSONL scan results.",
+            "io": "Inputs are the claude-osint repository, optional --no-net mode, sample secret text, directories to scan, and HackerOne query options. Outputs include PASS/FAIL status, JSONL secret findings, frontmatter validation results, synchronization status, and disclosed-report data.",
             "dependencies": [
-              "python3",
-              "pyyaml",
-              "bash",
-              "network"
+              "Python 3",
+              "PyYAML for frontmatter validation",
+              "Repository scripts including smoke.sh, secret_scan.py, h1_reference.py, and sync-skill-content.sh",
+              "Outbound HTTPS to hackerone.com for the optional live check",
+              "Optional markdownlint-cli2 and shellcheck for fuller CI parity"
             ],
-            "boundary": "It only validates repository structure and script functionality, and does not serve as an OSINT execution application or install external code linters."
+            "boundary": "The package has no GUI or server. The live HackerOne check is described as non-fatal and relies on an undocumented endpoint. The sync check may skip missing source material and still exit successfully. Example tokens in documentation can produce expected scanner findings."
           },
           "zh": {
-            "purpose": "构建、验证并冒烟测试 claude-osint 技能存储库及其内置的 Python 辅助脚本。",
+            "purpose": "通过检查辅助脚本语法与行为、SKILL.md 前置元数据、内容同步状态和可选 HackerOne 在线查询，验证 claude-osint 技能包。",
             "scenarios": [
-              "运行 claude-osint 存储库的完整冒烟测试套件",
-              "验证各个 SKILL.md 文件的 YAML 前置元数据结构与触发词",
-              "单独测试密钥扫描和 HackerOne 漏洞参考获取等 Python 脚本"
+              "运行完整或离线模式的仓库冒烟测试。",
+              "验证 OSINT 技能前置元数据字段和触发词数量。",
+              "使用标准输入或仓库内容测试密钥扫描器。",
+              "网络可用时测试 HackerOne 已披露报告辅助工具。"
             ],
-            "io": "输入为存储库文件、命令行参数或标准输入文本，输出为 PASS/FAIL 状态日志及 JSON/JSONL 格式的扫描结果。",
+            "io": "输入包括 claude-osint 仓库、可选 --no-net 模式、示例密钥文本、待扫描目录和 HackerOne 查询参数。输出包括 PASS/FAIL 状态、JSONL 密钥发现、前置元数据验证结果、同步检查状态和披露报告数据。",
             "dependencies": [
-              "python3",
-              "pyyaml",
-              "bash",
-              "network"
+              "Python 3",
+              "用于前置元数据验证的 PyYAML",
+              "smoke.sh、secret_scan.py、h1_reference.py、sync-skill-content.sh 等仓库脚本",
+              "可选在线检查需要访问 hackerone.com",
+              "用于更完整复现 CI 的可选 markdownlint-cli2 和 shellcheck"
             ],
-            "boundary": "该技能仅用于验证本地存储库结构与脚本功能，本身并非交互式 OSINT 应用，也不包含外部 Lint 工具的自动安装与运行。"
+            "boundary": "该包没有 GUI 或服务器。HackerOne 在线检查依赖未公开接口，并被描述为非致命检查。同步脚本可能在源目录缺失时跳过并仍返回成功。文档中的示例令牌会产生预期的扫描结果。"
           }
         },
-        "community_repo": "elementalsouls/Claude-OSINT",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: repository-specific build and smoke-test instructions; referenced scripts and their claimed behavior were not independently executed or inspected.",
+        "model": "configured-default",
+        "community_repo": "elementalsouls/Claude-OSINT"
       }
     },
     "elementalsouls/Claude-OSINT/skills/osint-methodology": {
@@ -3467,109 +3501,115 @@
       }
     },
     "elementalsouls/Claude-OSINT/skills/osint-autopilot": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "40dc5be46ae7ee2b230b2e3a569e3a543d2ff036b9068167e5b0223c736207e8",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "This skill automates an end-to-end external OSINT and attack surface reconnaissance pipeline for a target domain.",
+            "purpose": "Run an end-to-end authorized external OSINT engagement through methodology stages 1–5, fan out per-host analysis, verify headline claims, and generate a consolidated spreadsheet deliverable.",
             "scenarios": [
-              "Automated external attack surface discovery for an authorized domain",
-              "Subdomain enumeration, endpoint harvesting, and HTTP service probing",
-              "Generating a consolidated multi-tab Excel workbook of OSINT evidence"
+              "Perform full reconnaissance for an authorized domain.",
+              "Distribute content and JavaScript analysis across bounded host buckets.",
+              "Recheck high-confidence claims before reporting.",
+              "Generate findings.csv and a multi-tab consolidated XLSX workbook."
             ],
-            "io": "Takes a target domain name as input and outputs structured evidence files along with a consolidated multi-tab .xlsx report.",
+            "io": "Input is an authorized domain plus optional workflow paths and environment configuration. Outputs are an engagement directory, raw evidence and hashes, host buckets, a Stage 6 target queue, findings CSV, run logs, and a consolidated XLSX workbook.",
             "dependencies": [
-              "bash",
-              "subfinder",
-              "certspotter",
-              "nmap",
+              "Companion osint-methodology skill",
+              "Repository scripts including recon_pipeline.sh, host_enum.workflow.js, findings_gen.py, and build_xlsx.py",
+              "Shell, Python, curl, dig, and referenced recon utilities",
               "ffuf",
-              "gowitness",
-              "curl",
-              "dig"
+              "openpyxl",
+              "A workflow/multi-agent runtime",
+              "Local engagement storage under ~/Research/engagements"
             ],
-            "boundary": "It executes Stages 1–5 of reconnaissance but strictly stops short of Stage 6 active exploitation and scanning out-of-scope domains."
+            "boundary": "Authorization is required. Active Stage 6 techniques and newly discovered sibling domains are hard stops pending explicit confirmation. The runbook is tied to specific scripts, paths, host assumptions, and local tool behavior. Automated or delegated findings must be independently reproduced before being reported as confirmed."
           },
           "zh": {
-            "purpose": "该 Skill 用于自动化执行针对目标域名的端到端外部 OSINT 与攻击面侦察流程。",
+            "purpose": "按照方法论第 1 至第 5 阶段执行端到端授权外部 OSINT 项目，分发逐主机分析，复核重点结论，并生成汇总电子表格交付物。",
             "scenarios": [
-              "针对已授权域名进行自动化的外部攻击面梳理",
-              "子域名枚举、端点信息收集与 HTTP 服务探测",
-              "汇总侦察证据并自动生成多标签页 Excel 报告"
+              "对已授权域名执行完整侦察。",
+              "按主机分桶并行分析内容和 JavaScript。",
+              "报告前重新验证高置信度重点发现。",
+              "生成 findings.csv 和多工作表 XLSX 汇总文件。"
             ],
-            "io": "输入目标域名及范围参数，输出结构化的侦察证据文件及整合的多标签页 .xlsx 报告。",
+            "io": "输入是已授权域名及可选工作流路径和环境配置。输出包括项目目录、原始证据与哈希、主机分桶、Stage 6 目标队列、发现 CSV、运行日志和汇总 XLSX。",
             "dependencies": [
-              "bash",
-              "subfinder",
-              "certspotter",
-              "nmap",
+              "配套 osint-methodology 技能",
+              "recon_pipeline.sh、host_enum.workflow.js、findings_gen.py、build_xlsx.py 等仓库脚本",
+              "Shell、Python、curl、dig 和相关侦察工具",
               "ffuf",
-              "gowitness",
-              "curl",
-              "dig"
+              "openpyxl",
+              "工作流或多代理运行时",
+              "~/Research/engagements 下的本地项目存储"
             ],
-            "boundary": "仅自动执行阶段 1–5 的信息收集与枚举，严格禁止执行阶段 6 的主动漏洞利用及超出授权范围的资产扫描。"
+            "boundary": "必须具备授权。主动 Stage 6 技术和新发现的同级域名必须等待明确确认。运行手册依赖特定脚本、路径、主机假设和本地工具行为。自动或委派产生的发现，在标记为确认前必须独立复现。"
           }
         },
-        "community_repo": "elementalsouls/Claude-OSINT",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: an executable runbook for a specific authorized OSINT repository and local environment; referenced scripts and workflow runtime are not attached.",
+        "model": "configured-default",
+        "community_repo": "elementalsouls/Claude-OSINT"
       }
     },
     "elementalsouls/Claude-OSINT/skills/org-attack-surface": {
-      "content_sha256": null,
-      "status": "legacy",
-      "generated_at": "2026-08-12T10:36:57+00:00",
-      "agent": "legacy-enrich-grounding",
-      "model": "gemini-flash-latest",
+      "content_sha256": "c42d2b490ec0f5136c6abf0a080fe09798bce9bdd6edb4d3520361a771a81965",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
       "grounding": {
         "function": {
           "en": {
-            "purpose": "Maps an organization's complete corporate family tree and owned internet footprint starting from its legal name or entity identity using passive OSINT and strict attribution discipline.",
+            "purpose": "Map a legal entity's broader corporate-family internet footprint by resolving subsidiaries, related domains, registered netblocks, ASNs, and live-index leads while retaining explicit ownership evidence and discover-only gates.",
             "scenarios": [
-              "Mapping corporate-family internet assets and shadow IT sprawl for M&A due diligence or security auditing.",
-              "Resolving a legal entity name to LEI identifiers and subsidiary hierarchies using SEC-EDGAR and corporate registries.",
-              "Discovering unlinked dark netblocks, owned domains, and ASNs while guarding against cloud/CDN over-attribution."
+              "Resolve a company name to LEI and traverse filed direct-child relationships.",
+              "Find subsidiary or acquisition domains beyond a seed domain.",
+              "Discover organization-registered netblocks or ASNs with no DNS link to the seed.",
+              "Score domain and infrastructure ownership evidence and create a human promotion queue.",
+              "Avoid attributing hyperscaler or CDN address space to a tenant."
             ],
-            "io": "Takes a company's legal name or seed entity identity as input and outputs an attributed corporate hierarchy along with verified domains, netblocks, ASNs, and prioritized candidate assets.",
+            "io": "Inputs include a legal entity name, seed domain, organization aliases, authorization boundaries, registry/API results, DNS and certificate evidence, optional paid-provider keys, and operator-set caps. Outputs include corporate-family nodes, related-domain leads, dark-netblock and ASN leads, ownership signals and tiers, truncation notices, and a ranked discover-only promotion queue.",
             "dependencies": [
               "GLEIF LEI API",
-              "SEC-EDGAR",
-              "OpenCorporates",
-              "Wikidata",
-              "crt.sh",
-              "ARIN/RIPE APIs",
-              "Shodan/Censys/FOFA/ZoomEye"
+              "SEC EDGAR",
+              "Optional OpenCorporates and Wikidata",
+              "ARIN and RIPE registry APIs",
+              "Certificate Transparency sources such as crt.sh",
+              "DNS and ASN/BGP lookup services",
+              "Optional reverse-WHOIS and internet-scan providers",
+              "Companion OSINT skills and an asset-graph implementation"
             ],
-            "boundary": "It performs passive OSINT discovery and attribution analysis without executing active vulnerability scans or intrusive testing on discovered assets."
+            "boundary": "All assets beyond the seed remain discover-only until a human confirms ownership and scope. Name re-resolution, single-signal attribution, privacy-WHOIS pivots, and hyperscaler range expansion are explicitly disallowed. APNIC, LACNIC, and AFRINIC reverse-organization coverage is described as incomplete. Active exploitation is outside scope, and authorization must cover any subsequent testing."
           },
           "zh": {
-            "purpose": "该技能基于被动 OSINT 和严格的归因规则，从公司法定名称或实体身份出发梳理完整的企业家族及所属网络资产图谱。",
+            "purpose": "从法律实体出发，在保留明确所有权证据和 discover-only 闸门的前提下，映射企业家族、关联域名、注册网段、ASN 和在线索引线索。",
             "scenarios": [
-              "在并购调查或安全审计中评估企业家族的完整网络资产与影子 IT 蔓延。",
-              "利用 SEC-EDGAR 及企业注册库将公司法定名称解析为 LEI 标识和子公司层级结构。",
-              "发现无 DNS 关联的网段、所属域名及 ASN，同时防止对云服务提供商或 CDN 共享网段的过度归因。"
+              "将公司名称解析为 LEI，并遍历申报的直接子公司关系。",
+              "发现单一种子域名之外的子公司或并购品牌域名。",
+              "发现与种子域名没有 DNS 关联的组织注册网段或 ASN。",
+              "合并域名和基础设施所有权证据并生成人工晋级队列。",
+              "避免把超大规模云服务商或 CDN 地址空间归属于租户。"
             ],
-            "io": "输入公司法定名称或种子实体身份，输出包含归因置信度分级的企业架构图以及关联的域名、网段、ASN 和候选资产列表。",
+            "io": "输入包括法律实体名称、种子域名、组织别名、授权边界、注册机构/API 结果、DNS 和证书证据、可选付费服务密钥及操作员设置的上限。输出包括企业家族节点、关联域名线索、暗网段和 ASN 线索、所有权信号与等级、截断提示和 discover-only 晋级队列。",
             "dependencies": [
               "GLEIF LEI API",
-              "SEC-EDGAR",
-              "OpenCorporates",
-              "Wikidata",
-              "crt.sh",
-              "ARIN/RIPE APIs",
-              "Shodan/Censys/FOFA/ZoomEye"
+              "SEC EDGAR",
+              "可选 OpenCorporates 与 Wikidata",
+              "ARIN 与 RIPE 注册机构 API",
+              "crt.sh 等证书透明度来源",
+              "DNS 与 ASN/BGP 查询服务",
+              "可选反向 WHOIS 和互联网扫描索引服务",
+              "配套 OSINT 技能与资产图实现"
             ],
-            "boundary": "该技能仅进行被动的 OSINT 资产发现与置信度归因，不会对发现的网络资产发起主动漏洞扫描或入侵测试。"
+            "boundary": "种子之外的所有资产在人工确认所有权和范围前均保持 discover-only。文档明确禁止对子公司名称重新搜索、单信号归属、隐私 WHOIS 透视和云服务商整段扩张。APNIC、LACNIC 和 AFRINIC 的反向组织覆盖被说明为不完整。主动利用不在范围内，后续测试必须另有授权。"
           }
         },
-        "community_repo": "elementalsouls/Claude-OSINT",
-        "model": "gemini-flash-latest",
-        "scope": "function=SKILL.md; community=repo-level, GitHub signals only"
+        "scope": "Observed from the attached SKILL.md: a passive-first organizational attribution methodology for authorized scoping; cited registries, APIs, weights, and implementation references were not independently verified.",
+        "model": "configured-default",
+        "community_repo": "elementalsouls/Claude-OSINT"
       }
     },
     "elementalsouls/Claude-OSINT/skills/offensive-osint": {
@@ -11477,6 +11517,362 @@
         },
         "scope": "Claude Code statusline setup and diagnostics",
         "model": "gpt-5",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/read-codex-history": {
+      "content_sha256": "2ea7ee7eff279a0dea029722ba472d9992e5f2999f4ad1765597a7d0b9cf61ea",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "List, search, and reconstruct local OpenAI Codex session evidence while preserving session identity, prompt-ledger distinctions, fork lineage, compaction boundaries, and coverage gaps.",
+            "scenarios": [
+              "List recent Codex sessions and exact user inputs.",
+              "Locate a rollout by verified internal session ID.",
+              "Reconstruct a chronological session timeline with parent-fork lineage.",
+              "Perform bounded keyword search across live and archived rollout events."
+            ],
+            "io": "Inputs are session IDs, workspace paths, date ranges, keywords, and local Codex history stores. Outputs are inventories, verbatim input tables, verified session briefings, timelines, matches, identity/lineage status, and explicit gaps.",
+            "dependencies": [
+              "Local Codex history.jsonl",
+              "Codex state_*.sqlite databases",
+              "Live or archived rollout JSONL files",
+              "Bundled Python readers and analyzers",
+              "Referenced storage and rollout-format documentation"
+            ],
+            "boundary": "It is read-only and must not resume or alter prior work. State-database paths are only candidates until rollout identity matches. Missing, malformed, divergent, or ambiguous records must remain visible gaps. Writer-lock absence does not prove a session stopped. Raw history should remain local unless sharing is explicitly requested."
+          },
+          "zh": {
+            "purpose": "在保留会话身份、提示词账本差异、分叉谱系、压缩边界和覆盖缺口的前提下，列出、搜索并重建本地 OpenAI Codex 会话证据。",
+            "scenarios": [
+              "列出近期 Codex 会话和用户原始输入。",
+              "通过已验证的内部会话 ID 定位 rollout。",
+              "重建包含父级分叉谱系的时间线。",
+              "在在线与归档 rollout 事件中执行有界关键词搜索。"
+            ],
+            "io": "输入包括会话 ID、工作区路径、日期范围、关键词和本地 Codex 历史存储。输出包括会话清单、逐字输入表、已验证会话简报、时间线、匹配结果、身份与谱系状态，以及明确缺口。",
+            "dependencies": [
+              "本地 Codex history.jsonl",
+              "Codex state_*.sqlite 数据库",
+              "在线或归档 rollout JSONL 文件",
+              "配套 Python 读取与分析脚本",
+              "存储和 rollout 格式参考文档"
+            ],
+            "boundary": "仅允许读取，不得恢复或修改旧任务。状态数据库中的路径在 rollout 身份匹配前只是候选。缺失、损坏、分歧或歧义记录必须作为缺口报告。writer lock 缺失不能证明会话已停止。除非用户明确要求，原始历史应留在本地。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a read-only workflow for local Codex history using bundled readers; referenced scripts and storage-format references are not attached.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/read-claude-web-conversation": {
+      "content_sha256": "d097dad7b1eee1b6d57c2bf26ffe0ad8914a53a8a592e522698cd08fb54ae00e",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Export complete private or shared Claude.ai web conversations, including tool blocks and downloadable files, then render them locally with fidelity and completeness checks.",
+            "scenarios": [
+              "Archive a private claude.ai/chat conversation from a signed-in browser.",
+              "Export a public claude.ai/share snapshot and disclose platform-withheld gaps.",
+              "Render a long transcript with tool calls, citations, navigation, and Obsidian-compatible callouts.",
+              "Download uploads, generated files, and images referenced by the conversation."
+            ],
+            "io": "Inputs are a Claude.ai chat or share URL, an authenticated browser session where needed, raw conversation JSON, rendering options, and file identifiers. Outputs are raw JSON, a Markdown or Obsidian transcript, fidelity accounting, known-gap notices, and downloaded attachments.",
+            "dependencies": [
+              "A signed-in Claude.ai browser session for private conversations",
+              "One supported JavaScript injection channel: browser extension, CDP, or macOS AppleScript",
+              "Claude.ai internal API endpoints",
+              "Bundled JavaScript and Python export/render/download scripts",
+              "uv/Python and optional websockets support",
+              "Local storage for transcripts and attachments"
+            ],
+            "boundary": "The workflow uses undocumented, version-sensitive Claude.ai endpoints. Shared snapshots may irreversibly omit upload-related tool content. It must not automate login or rely on DOM text as a complete transcript. Browser routing and platform permissions can block extraction. A 100% text fidelity result does not mean a complete archive if downloadable files remain."
+          },
+          "zh": {
+            "purpose": "导出完整的 Claude.ai 私有或共享网页对话，包括工具块和可下载文件，并在本地通过保真度与完整性检查生成文本记录。",
+            "scenarios": [
+              "从已登录浏览器归档 claude.ai/chat 私有对话。",
+              "导出 claude.ai/share 快照并披露平台隐藏的内容缺口。",
+              "将长对话渲染为包含工具调用、引用、导航和 Obsidian 折叠块的记录。",
+              "下载对话引用的上传文件、生成文件和图片。"
+            ],
+            "io": "输入包括 Claude.ai 聊天或分享 URL、必要时已认证的浏览器会话、原始对话 JSON、渲染选项和文件标识符。输出包括原始 JSON、Markdown 或 Obsidian 对话记录、保真度统计、已知缺口说明和下载的附件。",
+            "dependencies": [
+              "私有对话需要已登录 Claude.ai 的浏览器会话",
+              "浏览器扩展、CDP 或 macOS AppleScript 中的一种 JavaScript 注入通道",
+              "Claude.ai 内部 API",
+              "配套 JavaScript 与 Python 导出、渲染和下载脚本",
+              "uv/Python 及可选 websockets 支持",
+              "用于记录和附件的本地存储"
+            ],
+            "boundary": "流程依赖未公开且可能变化的 Claude.ai 接口。共享快照可能不可恢复地省略与上传文件相关的工具内容。不得自动登录，也不能把 DOM 文本当作完整记录。浏览器路由和平台权限可能阻止提取。文本保真度为 100% 时，如仍有文件未下载，归档仍不完整。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a workflow for exporting Claude.ai conversations through authenticated browser context and locally rendering them; it depends on undocumented web APIs and unexamined helper scripts.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/read-claude-code-history": {
+      "content_sha256": "025421e7ded4b02f2f5b6e044d49c1ab433e0d44843d7f745573b3ad7c5dd6bd",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Inventory, search, and reconstruct local Claude Code history, including queued human prompts, sidechains, compaction context, file-history evidence, archives, and limited Kimi CLI history routing.",
+            "scenarios": [
+              "List recent Claude Code sessions across active homes and registered archives.",
+              "Reconstruct one session as a chronological evidence briefing.",
+              "Export verbatim human inputs, including prompts queued while the assistant was busy.",
+              "Search full events for a quote, tool result, file, or prior action.",
+              "Report recoverable deleted-file content before a separately authorized recovery."
+            ],
+            "io": "Inputs are session IDs, workspace paths, date ranges, keywords, history homes, archive registrations, and optional Kimi scope. Outputs include inventories, evidence briefings, verbatim-message exports, search matches, triage results, recovery reports, coverage, and gaps.",
+            "dependencies": [
+              "Local Claude Code JSONL history",
+              "Registered history archives",
+              "Bundled history readers, search, index, and recovery scripts",
+              "Optional BM25/vector index for hybrid recall",
+              "Kimi history home for Kimi-scoped requests"
+            ],
+            "boundary": "Ordinary use is read-only and must not resume work. Recovery writes are separate and require an explicit recovery request, with restoration away from the current project tree. Storage labels are not sufficient authorship proof. Missing or malformed sources and excluded scopes must be reported; an empty bounded search is not a universal absence claim."
+          },
+          "zh": {
+            "purpose": "清点、搜索和重建本地 Claude Code 历史，包括排队的人类提示、旁支、压缩上下文、文件历史证据、归档，以及有限的 Kimi CLI 历史路由。",
+            "scenarios": [
+              "跨活动配置目录和已注册归档列出近期 Claude Code 会话。",
+              "将单个会话重建为按时间排序的证据简报。",
+              "导出人类原始输入，包括助手忙碌时排队的提示。",
+              "在完整事件中搜索引语、工具结果、文件或历史操作。",
+              "在另行授权恢复前报告可恢复的已删除文件内容。"
+            ],
+            "io": "输入包括会话 ID、工作区路径、日期范围、关键词、历史目录、归档注册和可选 Kimi 范围。输出包括清单、证据简报、逐字消息导出、搜索匹配、结束状态分析、恢复报告、覆盖范围和缺口。",
+            "dependencies": [
+              "本地 Claude Code JSONL 历史",
+              "已注册历史归档",
+              "配套历史读取、搜索、索引和恢复脚本",
+              "用于混合召回的可选 BM25/向量索引",
+              "Kimi 请求所需的 Kimi 历史目录"
+            ],
+            "boundary": "常规使用只读，不得恢复旧任务。文件恢复写入属于独立流程，必须由用户明确请求，并避免直接覆盖当前项目。存储标签不足以证明作者身份。缺失或损坏来源及排除范围必须报告；有界搜索无结果不能证明全局不存在。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a read-oriented local-history workflow for Claude Code and Kimi CLI; referenced scripts and schema documents are not attached.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/prior-work-retrieval": {
+      "content_sha256": "4a97b0ae0fb6196eb6824ede8b52dd09416d5c442f7bf1920c2406c42ba99869",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Search declared local evidence carriers for relevant prior work, verify candidates at their authoritative source, and record whether each should be reused, adapted, or rejected before substantial new production.",
+            "scenarios": [
+              "Find existing code, decisions, SOPs, documents, meetings, or conversations the user explicitly wants reused.",
+              "Verify whether a historical artifact remains authoritative relative to current project decisions.",
+              "Create and validate a source-coverage and reuse receipt.",
+              "Route exact, semantic, conversational, meeting, or live-message retrieval through declared carriers."
+            ],
+            "io": "Inputs are a business outcome, outcome terms, implementation query terms, session ID, an explicit source manifest, and optionally required manual carriers. Outputs are immutable retrieval runs, candidate records, verification decisions, coverage gaps, a reuse/adapt/no-reuse receipt, and a receipt-validation result.",
+            "dependencies": [
+              "scripts/prior_work.py and companion hook scripts",
+              "A valid sources.json manifest",
+              "Declared filesystem, command, semantic, conversation, meeting, or manual carriers",
+              "A stable session ID",
+              "Current project operating-context documents"
+            ],
+            "boundary": "It must only trigger on an explicit prior-work or reuse request, not ordinary current-state inspection. Search snippets are hypotheses until opened at their source. Zero hits do not prove absence. Failed required carriers cannot be silently skipped. Historical evidence cannot override newer explicit decisions, and private project data must not be copied into public examples."
+          },
+          "zh": {
+            "purpose": "在大量新工作开始前，从明确声明的本地证据载体中检索相关既有成果，回到权威来源核验候选项，并记录复用、调整或拒绝决定。",
+            "scenarios": [
+              "查找用户明确要求复用的已有代码、决策、SOP、文档、会议或对话。",
+              "核验历史产物相对于当前项目决策是否仍具权威性。",
+              "创建并验证来源覆盖与复用回执。",
+              "通过声明的载体路由精确、语义、对话、会议或实时消息检索。"
+            ],
+            "io": "输入包括业务结果、结果关键词、实现查询词、会话 ID、显式来源清单和可选强制人工来源。输出包括不可变检索运行记录、候选项、核验决定、覆盖缺口、复用/调整/不复用回执及回执校验结果。",
+            "dependencies": [
+              "scripts/prior_work.py 和配套钩子脚本",
+              "有效 sources.json 清单",
+              "声明的文件系统、命令、语义、对话、会议或人工来源",
+              "稳定的会话 ID",
+              "当前项目操作上下文文档"
+            ],
+            "boundary": "仅在用户明确要求查找或复用先前工作时触发，不能用于普通当前状态检查。搜索摘要在打开原始来源前只是线索。零命中不能证明不存在。必需来源失败时不得静默跳过。历史证据不能覆盖更新的明确决策，也不得把私有项目数据复制到公开示例。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a retrieval-and-receipt workflow triggered only by explicit prior-work or reuse requests; implementation scripts and source manifests are not attached.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/marketplace-dev": {
+      "content_sha256": "83d522ac3623e98744fef1f3be98eefaed415cc78543090f4fcb0d8d9d010e37",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Create, update, validate, installation-test, and prepare pull requests for Claude Code plugin marketplaces, including single-skill plugins and multi-skill suites.",
+            "scenarios": [
+              "Add marketplace support to a skills repository.",
+              "Add or update a plugin entry in an existing marketplace.",
+              "Consolidate or move skills into suite plugins through a dedicated migration workflow.",
+              "Validate manifest paths, metadata, installation behavior, and cache footprint."
+            ],
+            "io": "Inputs include a skills repository, SKILL.md frontmatter, repository metadata, marketplace rules, plugin-boundary decisions, categories, and an existing marketplace manifest when present. Outputs include .claude-plugin/marketplace.json, validation results, installation and cache checks, documentation updates where appropriate, and PR-ready change descriptions.",
+            "dependencies": [
+              "Claude Code CLI with plugin commands",
+              "Repository skill directories and metadata",
+              "Bundled check_marketplace.sh",
+              "jq and shell utilities for cache inspection",
+              "Official marketplace/plugin documentation",
+              "Referenced marketplace schema, cache, anti-pattern, and suite-consolidation guides"
+            ],
+            "boundary": "Manifest descriptions must preserve original SKILL.md text. Suite migrations use a separate workflow. Validation and installation tests may alter local plugin registration/cache state and require cleanup. The document contains version-sensitive claims about Claude Code schema and cache behavior, which require validation against the installed CLI."
+          },
+          "zh": {
+            "purpose": "创建、更新、验证、安装测试并准备 Claude Code 插件市场相关拉取请求，覆盖单技能插件和多技能套件。",
+            "scenarios": [
+              "为技能仓库增加插件市场支持。",
+              "在现有市场中添加或更新插件条目。",
+              "通过专用迁移流程把技能整合或移动到套件插件。",
+              "验证清单路径、元数据、安装行为和缓存范围。"
+            ],
+            "io": "输入包括技能仓库、SKILL.md 前置元数据、仓库元数据、市场规则、插件边界决定、分类，以及已有市场清单。输出包括 .claude-plugin/marketplace.json、验证结果、安装与缓存检查、必要的文档更新和可用于 PR 的变更说明。",
+            "dependencies": [
+              "支持插件命令的 Claude Code CLI",
+              "仓库技能目录与元数据",
+              "配套 check_marketplace.sh",
+              "用于缓存检查的 jq 和 Shell 工具",
+              "官方市场与插件文档",
+              "市场结构、缓存、反模式和套件迁移参考指南"
+            ],
+            "boundary": "清单描述必须保留 SKILL.md 原文。套件迁移使用独立工作流。验证和安装测试可能改变本地插件注册或缓存状态，并需要清理。文档中关于 Claude Code 结构和缓存行为的说法具有版本依赖性，应使用当前安装的 CLI 验证。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a workflow for creating and maintaining Claude Code plugin marketplaces and suite layouts; referenced schema and migration documents are not attached.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/local-conversation-history": {
+      "content_sha256": "0801ba4677cef0810ca1b1779fd1e6025eee2de57b1ce21f7c688836949cb464",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Route local AI conversation-history requests to the correct provider-specific reader or continuation workflow for Claude Code, OpenAI Codex, or Kimi CLI, and define cross-provider inventory/search scope.",
+            "scenarios": [
+              "Route a known Claude Code or Codex read request to its dedicated history reader.",
+              "Identify the provider for an unknown session ID before any continuation.",
+              "List recent sessions across Claude Code, Codex, and Kimi CLI.",
+              "Search conversation content across multiple providers.",
+              "Route continuation only after verified session evidence exists."
+            ],
+            "io": "Inputs are provider hints, session IDs, keywords, workspace paths, and whether the user wants evidence or continuation. Outputs are a selected executor skill and explicit provider scope; for cross-provider tasks, the delegated executor returns inventories or search results.",
+            "dependencies": [
+              "Provider-specific Claude Code and Codex history skills",
+              "Claude reader's Kimi inventory/search support",
+              "Local history stores for each requested provider",
+              "Verified read receipts before continuation"
+            ],
+            "boundary": "The router does not parse history or implement provider-specific commands. It must not guess a provider from ID shape, route a past-evidence question to continuation, or claim absence from partial coverage. Kimi has no continuation workflow in the documented routing table."
+          },
+          "zh": {
+            "purpose": "将本地 AI 对话历史请求路由到 Claude Code、OpenAI Codex 或 Kimi CLI 的正确读取或续作流程，并定义跨平台清单与搜索范围。",
+            "scenarios": [
+              "将明确的 Claude Code 或 Codex 读取请求交给专用历史读取器。",
+              "在继续任务前识别未知会话 ID 所属平台。",
+              "跨 Claude Code、Codex 和 Kimi CLI 列出近期会话。",
+              "跨多个平台搜索对话内容。",
+              "仅在取得已验证会话证据后路由续作。"
+            ],
+            "io": "输入包括平台线索、会话 ID、关键词、工作区路径，以及用户需要证据还是续作。输出是选定的执行技能和明确的平台范围；跨平台任务由被委派的执行器返回清单或搜索结果。",
+            "dependencies": [
+              "Claude Code 与 Codex 专用历史技能",
+              "Claude 读取器提供的 Kimi 清单和搜索支持",
+              "每个目标平台的本地历史存储",
+              "续作前的已验证读取回执"
+            ],
+            "boundary": "该路由器不解析历史，也不实现平台专用命令。不得根据 ID 外形猜测平台，不得把历史证据问题路由为续作，也不得从不完整覆盖得出不存在结论。文档路由表中没有 Kimi 续作流程。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a routing layer for local conversation-history tasks; it intentionally delegates provider-specific parsing and continuation.",
+        "model": "configured-default",
+        "community_repo": "daymade/claude-code-skills"
+      }
+    },
+    "daymade/claude-code-skills/daymade-claude-code/lark-cli-router": {
+      "content_sha256": "b7e80255449e58d0f837da63ac2faafb2b00840e022b7dcdf8670685de0b2d11",
+      "status": "fresh",
+      "generated_at": "2026-09-01T07:35:57Z",
+      "agent": "codex-automation/v1",
+      "model": "configured-default",
+      "grounding": {
+        "function": {
+          "en": {
+            "purpose": "Route Feishu, Lark, or Doubao operations to the smallest version-matched guide set embedded in lark-cli, then execute and verify the requested CLI action.",
+            "scenarios": [
+              "Work with Lark documents, drive files, sheets, Base, wiki, minutes, meetings, calendar, messages, mail, tasks, approvals, or apps.",
+              "Resolve authentication, identity, or missing-scope errors.",
+              "Interpret Lark resource URLs or tokens and choose the correct domain guide.",
+              "Execute a typed, shortcut, or documented escape-hatch API command and verify a write."
+            ],
+            "io": "Inputs include a Lark task, resource URL or token, optional explicit profile, and domain-specific parameters discovered from the selected guide or CLI schema. Outputs include selected guide names, CLI JSON or text responses, dry-run proposals, verified read/write results, and explicit authorization or coverage errors.",
+            "dependencies": [
+              "lark-cli binary",
+              "The CLI's embedded version-matched lark-* guides",
+              "Installed guide assets or scripts when not embedded",
+              "Lark account authorization and required API scopes",
+              "Environment flags for stable no-proxy and notifier-free execution"
+            ],
+            "boundary": "Tencent IMA is excluded. The router forbids browser automation, raw curl, or guessed API contracts when lark-cli covers the operation. High-risk writes that request confirmation must pause for the user, and success requires exit code 0 or ok=true. Missing binaries, mismatched guide bundles, authorization failures, or absent assets must be reported rather than bypassed."
+          },
+          "zh": {
+            "purpose": "将飞书、Lark 或豆包操作路由到 lark-cli 内置的最小版本匹配指南集合，然后执行并验证对应 CLI 操作。",
+            "scenarios": [
+              "操作飞书文档、云盘、电子表格、多维表格、知识库、妙记、会议、日历、消息、邮箱、任务、审批或应用。",
+              "处理认证、身份或权限范围不足问题。",
+              "根据飞书资源 URL 或 token 选择正确领域指南。",
+              "执行快捷命令、类型化资源命令或文档化的 API 兜底命令，并验证写入。"
+            ],
+            "io": "输入包括飞书任务、资源 URL 或 token、可选明确 profile，以及从所选指南或 CLI schema 获取的领域参数。输出包括所选指南、CLI JSON 或文本响应、dry-run 提案、已验证读写结果和明确的授权或覆盖错误。",
+            "dependencies": [
+              "lark-cli 可执行文件",
+              "CLI 内置且与版本匹配的 lark-* 指南",
+              "未嵌入时所需的已安装指南资源或脚本",
+              "飞书账号授权与必要 API 权限",
+              "用于稳定无代理、无通知执行的环境变量"
+            ],
+            "boundary": "不适用于腾讯 IMA。lark-cli 已覆盖任务时，不得使用浏览器自动化、原始 curl 或猜测 API。高风险写入若要求确认，必须暂停等待用户；成功条件是退出码 0 或 ok=true。缺少二进制、指南包不匹配、授权失败或资源缺失时必须报告，不能绕过。"
+          }
+        },
+        "scope": "Observed from the attached SKILL.md: a router and execution protocol for an installed lark-cli; domain-specific embedded guides and the CLI implementation are not attached.",
+        "model": "configured-default",
         "community_repo": "daymade/claude-code-skills"
       }
     }
