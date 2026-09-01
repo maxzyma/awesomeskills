@@ -6,7 +6,7 @@
 ## 里程碑
 
 ### M0 — 骨架可运行（本轮自主完成）
-- [x] 私有仓 + monorepo 目录骨架
+- [x] 仓库与目录骨架
 - [x] 产品定义 v0.1（分发=单skill+静态index，责任边界）
 - [x] `registry/schema.md` + `registry/sources.toml`（首批种子源）
 - [x] `processing/build_index.py`：sources → GitHub API → fail-closed `base-index.json`
@@ -33,8 +33,7 @@
 - [ ] 打包 plugin 走 CC marketplace
 
 ## 本轮交付边界（我能自己负责的）
-- 全部 M0 项 + 子模块 commit & push 到私有 remote。
-- 父仓：登记 CHECKPOINT/CLAUDE/AGENTS，但**不 commit 父仓**（共享工作树有别的会话在途改动，提交边界留给 Human）。
+- 全部 M0 项已 commit & push。
 
 ## 待 Human 决策（我不擅自定）
 - 静态托管选型与 awesomeskills.io 接入（M1）。

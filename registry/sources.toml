@@ -66,8 +66,9 @@ kind = "skill-collection"
 note = "Chinese-community Claude Code learning/skills repo — seed for zh coverage (the industry gap)"
 
 # --- Batch 2 (2026-08): public GitHub only, picked for diversity of kind + vertical + language.
-# HARD RULE: only public github.com owner/repo. Internal GitLab (internal-host.*) repos are FORBIDDEN
-# here — a public repo must not reference internal sources. build_index.py enforces this too.
+# HARD RULE: only public github.com owner/repo. Nothing host-qualified, nothing private, and
+# no non-GitHub source — a public index must not point at anything its readers cannot reach.
+# build_index.py enforces this too.
 
 [[source]]
 id   = "alirezarezvani/claude-skills"

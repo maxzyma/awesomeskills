@@ -44,8 +44,8 @@ community grounding；这些信任信号全部由同一条 pipeline 从公开证
 9. **批准后的受控执行**：批准必须携带 receipt 中的完整 token。执行器重新确认双关卡摘要、PR 仍为 open、head
    SHA 未变化、`deterministic-validation` 对该 SHA 为 success 且没有 security fail，随后才把私有
    对话决策转换为 GitHub Review 和 squash merge。SHA 或 diff 变化会使旧批准自动失效。
-10. **合并后自动收尾**：等待 main 的公开产物验证成功，再快进本地公开仓并只提交父仓的 submodule
-   引用。Issue 由 PR 的 `Closes #N` 自动关闭。Action 本身仍永不自动合并。
+10. **合并后自动收尾**：等待 main 的公开产物验证成功，再同步本地。Issue 由 PR 的 `Closes #N`
+   自动关闭。Action 本身仍永不自动合并。
 
 人工闸门的最低检查可以运行：
 

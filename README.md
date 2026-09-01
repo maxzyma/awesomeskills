@@ -99,3 +99,10 @@ python3 processing/merge_index.py
 
 `base-index.json` and repo grades are deterministic. Optional agent summaries live in a
 digest-bound cache and never affect ranking. See [`docs/enrichment-policy.md`](docs/enrichment-policy.md).
+
+## License
+
+[Apache-2.0](LICENSE).
+
+The index describes public repositories; each indexed skill remains under its own
+repository's license, and the entry links to the source so that license is one click away.

@@ -78,8 +78,12 @@ _GITHUB_ID = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 
 
 def is_public_github_id(repo_id: str) -> bool:
-    """Guard: only public github.com owner/repo ids allowed (no internal internal-host refs)."""
-    if "://" in repo_id or "internal-host" in repo_id or repo_id.count("/") != 1:
+    """Guard: only a bare public github.com `owner/repo` is accepted.
+
+    A host-qualified id -- any scheme, or any extra path segment -- is rejected, which is
+    what keeps a non-GitHub or otherwise unreachable source out of the index.
+    """
+    if "://" in repo_id or repo_id.count("/") != 1:
         return False
     return bool(_GITHUB_ID.match(repo_id))
 

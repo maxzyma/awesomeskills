@@ -146,9 +146,9 @@ MVP **不做**：常驻 server、MCP、全量爬取、重的质量 eval 基建�
 
 ## 9. 引用方向与复用边界（硬约束）
 
-- 这是**公开仓**：按 REDACTED-WORKSPACE 规则，**公开（外部）不能引用内部**。
-- 可复用（公开）：`article-pivot` —— **借鉴范式 + 裁剪双语/归档组件，不直接 pip 依赖**（评估见 `docs/article-pivot-fit.md`：它无 Markdown/frontmatter 入口、校验绑死文章语义，需自建 skill 语义层）；`catalog.toml` schema 范式；`REDACTED-PRIVATE-REPO` 里 grounding 的**公开 SKILL 部分**。
-- **不可进本仓**：`REDACTED-INTERNAL-DIR/` 下的内部编排、凭证、调度、内部 profile 配置。
+- 这是**公开仓**：只能引用同样公开的东西，反向不成立。
+- 可复用：[`article-pivot`](https://github.com/maxzyma/article-pivot)（公开）—— **借鉴范式 + 裁剪双语/归档组件，不直接 pip 依赖**（评估见 [`article-pivot-fit.md`](article-pivot-fit.md)：它无 Markdown/frontmatter 入口、校验绑死文章语义，需自建 skill 语义层）；`catalog.toml` 的 schema 范式。
+- **不可进本仓**：任何非公开来源的编排、凭证、调度与配置；以及任何指向它们的名称或路径。
 
 ## 10. 开放问题（待人工收敛）
 
