@@ -12,7 +12,9 @@ from pathlib import Path
 from enrichment_store import BASE, CACHE, ROOT, read_json
 from site_index import DETAIL_DIR, detail_files, slim_index
 
-INDEX = ROOT / "registry" / "index.json"
+# The machine-readable artifact, published at awesomeskills.io/index.json for agents and
+# verify_skill.py. Written once: it used to be committed here and under registry/ as well,
+# byte-identical, so every rebuild wrote 2 MB of the same change twice.
 SITE = ROOT / "site" / "public" / "index.json"
 SITE_SLIM = ROOT / "site" / "public" / "site-index.json"
 SITE_DETAIL_DIR = ROOT / "site" / "public" / DETAIL_DIR
@@ -81,6 +83,16 @@ def llm_text(data: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _write_json_indented(path: Path, payload: dict) -> str:
+    """The machine-readable artifact, indented because people read it too."""
+    blob = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(blob, encoding="utf-8")
+    os.replace(temporary, path)
+    return blob
+
+
 def _write_json(path: Path, payload: dict) -> str:
     """Write atomically and return the blob, so the caller can report its size."""
     blob = json.dumps(payload, ensure_ascii=False) + "\n"
@@ -120,19 +132,13 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", type=Path, default=BASE)
     parser.add_argument("--cache", type=Path, default=CACHE)
-    parser.add_argument("--index", type=Path, default=INDEX)
     parser.add_argument("--site", type=Path, default=SITE)
     parser.add_argument("--site-slim", type=Path, default=SITE_SLIM)
     parser.add_argument("--site-detail-dir", type=Path, default=SITE_DETAIL_DIR)
     parser.add_argument("--llm", type=Path, default=LLM)
     args = parser.parse_args()
     data = merge(read_json(args.base), read_json(args.cache))
-    blob = json.dumps(data, ensure_ascii=False, indent=2) + "\n"
-    for path in (args.index, args.site):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        temporary = path.with_suffix(path.suffix + ".tmp")
-        temporary.write_text(blob, encoding="utf-8")
-        os.replace(temporary, path)
+    blob = _write_json_indented(args.site, data)
     # Display-only projection the browser fetches, split into the part that blocks the first
     # render and the part only an expanded row needs. The full artifact stays published at
     # index.json for agents and verify_skill.py.

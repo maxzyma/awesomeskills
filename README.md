@@ -57,18 +57,35 @@ Maintainer workflow: [`docs/submission-workflow.md`](docs/submission-workflow.md
 
 ## Layout
 
+Split by who writes a file: curated input, code, or generated output.
+
 | Dir | Role |
 |-----|------|
-| `registry/`   | SSoT: curated source list (`sources.toml`) + schema + generated `index.json` |
+| `registry/`   | inputs and contracts — curated `sources.toml`, schemas, and the digest-bound caches the build reads back |
 | `processing/` | AI-ready assessment kernel — builds the skill-level index (health / zh / frontmatter) |
 | `skills/awesomeskills/` | the finder skill (thin client over the static index) |
 | `ops/`        | Cloudflare DNS automation (`cf_dns.py`) — token-based, creds never in repo |
-| `site/`       | awesomeskills.io site + generated `index.json`/`llm.txt` |
+| `site/public/`| everything published to awesomeskills.io, generated: `index.json`, `site-index.json`, `detail/`, `llm.txt` |
 | `.claude-plugin/` | marketplace manifest for one-click Claude Code install |
-| `docs/`       | product definition, MVP plan, assessments |
+| `docs/`       | product definition, policy, and external reference material |
+
+Generated files live in exactly one place. `index.json` was previously committed under both
+`registry/` and `site/public/`, byte-identical, so every rebuild wrote the same 2 MB change
+twice; the finder now reads the published endpoint instead of a path inside the repo.
 
 > Status: **early**. Distribution is a finder skill + static index (no server); MCP is a
 > possible future. See [`docs/product-definition.md`](docs/product-definition.md).
+
+### Documents
+
+| File | What it answers |
+|------|-----------------|
+| [`docs/product-definition.md`](docs/product-definition.md) | what the product is, and the open questions still to settle |
+| [`docs/enrichment-policy.md`](docs/enrichment-policy.md) | what an agent may write, and what binds it to evidence |
+| [`docs/submission-workflow.md`](docs/submission-workflow.md) | how a submitted skill reaches the index |
+| [`docs/mvp-plan.md`](docs/mvp-plan.md) | the delivery checklist this was built against |
+| [`docs/article-pivot-fit.md`](docs/article-pivot-fit.md) | assessment of reuse from the article-pivot kernel |
+| [`docs/herdr-distribution-reference.md`](docs/herdr-distribution-reference.md) | **external reference input**, not a decision — someone else's distribution write-up, kept for comparison |
 
 ## Build artifacts
 

@@ -11,7 +11,7 @@
 - [x] `registry/schema.md` + `registry/sources.toml`（首批种子源）
 - [x] `processing/build_index.py`：sources → GitHub API → fail-closed `base-index.json`
 - [x] digest-bound enrichment cache + schema validator + deterministic public-index merge
-- [x] 首版真实 `registry/index.json` + `site/public/llm.txt`（种子源实跑）
+- [x] 首版真实 `site/public/index.json` + `site/public/llm.txt`（种子源实跑）
 - [x] `skills/awesomeskills/`：薄客户端 skill
 - [x] `site/index.html`：极简查阅器（fetch index.json）
 

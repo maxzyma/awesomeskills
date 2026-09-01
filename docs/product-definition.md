@@ -84,7 +84,7 @@ grounding = 我们对每个 skill 的**多层评估**（站内、非外链源仓
 
 ## 6. 数据契约（静态 index，最小 schema）
 
-`registry/index.json`（生成物，v0.2 起为 **skill 级**：每个 SKILL.md 一条；无 SKILL.md 的 awesome-list/hub 回退为 repo 级一条）：
+`site/public/index.json`（生成物，v0.2 起为 **skill 级**：每个 SKILL.md 一条；无 SKILL.md 的 awesome-list/hub 回退为 repo 级一条）：
 
 ```jsonc
 {

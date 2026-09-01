@@ -15,8 +15,12 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-HOSTED_DEFAULT = "https://raw.githubusercontent.com/maxzyma/awesomeskills/main/registry/index.json"
-LOCAL_FALLBACK = Path(__file__).resolve().parents[3] / "registry" / "index.json"
+# The published endpoint rather than a raw path into the repo. The artifact used to be
+# committed twice -- once under registry/ for this client, once under site/public/ for the
+# site -- and naming the site is what lets the repo be rearranged without breaking installed
+# copies of this skill.
+HOSTED_DEFAULT = "https://awesomeskills.io/index.json"
+LOCAL_FALLBACK = Path(__file__).resolve().parents[3] / "site" / "public" / "index.json"
 
 ENV_VAR = "AWESOMESKILLS_INDEX_URL"
 # The variable shipped misspelled in 0.1. Still honored so existing setups keep working.

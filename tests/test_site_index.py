@@ -221,9 +221,9 @@ def test_the_halves_never_carry_the_same_field(entry):
 
 
 def _real_index():
-    path = ROOT / "registry" / "index.json"
+    path = ROOT / "site" / "public" / "index.json"
     if not path.exists():
-        pytest.skip("registry/index.json not built")
+        pytest.skip("site/public/index.json not built")
     return json.loads(path.read_text(encoding="utf-8"))
 
 

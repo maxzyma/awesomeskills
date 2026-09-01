@@ -42,7 +42,8 @@ decision but does not destructively discard the local diff.
 ## Published index
 
 `processing/merge_index.py` combines base data and matching cache entries into
-`registry/index.json`, `site/public/index.json`, and `site/public/llm.txt`. Repo community and
+`site/public/index.json`, the display-only `site/public/site-index.json` and `detail/` tree, and
+`site/public/llm.txt`. Repo community and
 external discussion fields may be attached as explanation, but deterministic repo grades always
 win during the merge.
 

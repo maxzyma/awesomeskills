@@ -48,7 +48,7 @@ RAW = "https://raw.githubusercontent.com/"
 SCHEMA_VERSION = "0.4"
 # Cap per repo; truncation is logged, never silent. Raised 15 -> 30 on 2026-08-31: this
 # makes the mid-size collections complete instead of arbitrarily sampled, while keeping
-# registry/index.json small enough for the finder skill to fetch it on every invocation
+# index.json small enough for the finder skill to fetch it on every invocation
 # (the artifact is pulled per call, see product-definition.md section 5). The mega-
 # collections (thousands of SKILL.md) stay truncated at any sane cap; sharding is the
 # real fix and is still open.
