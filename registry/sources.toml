@@ -13,7 +13,21 @@ note = "Anthropic official example skills + Agent Skills spec — the reference 
 [[source]]
 id   = "anthropics/claude-plugins-official"
 kind = "plugin-marketplace"
-note = "Official Claude Code plugin marketplace — only CLI-native install entry"
+limit = 60
+note = """Official Claude Code plugin marketplace — only CLI-native install entry. \
+31 SKILL.md, so the default cap of 30 dropped exactly one for no reason; a vetted \
+marketplace this size is taken whole."""
+
+[[source]]
+id   = "anthropics/claude-plugins-community"
+kind = "plugin-marketplace"
+note = """Anthropic's community plugin marketplace — the counterpart to the official one, \
+and the first-party home of skills that reach the aggregator repos only as copies (eli5 \
+is here; the 21k-entry registry carries a duplicate of it). Submissions go through a \
+stated intake at clau.de/plugin-directory-submission, which is a real gate rather than a \
+crawl. 31 SKILL.md, whole tree readable. Carries no license file: entries link to source \
+and remain under whatever terms each plugin's own repo states."""
+limit = 60
 
 [[source]]
 id   = "ComposioHQ/awesome-claude-skills"

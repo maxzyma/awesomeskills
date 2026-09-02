@@ -61,6 +61,18 @@ SCHEMA_VERSION = "0.4"
 # collections (thousands of SKILL.md) stay truncated at any sane cap; sharding is the
 # real fix and is still open.
 MAX_SKILLS_PER_REPO = 30
+
+
+def source_limit(src: dict) -> int:
+    """The cap for one source. `limit` in sources.toml overrides the default.
+
+    A single number cannot serve both cases the index actually has. A curated marketplace of
+    31 entries loses one for no reason; a 6,000-entry crawl would blow up the payload at any
+    cap generous enough to take the marketplace whole. So the default samples, and a source
+    that is small and vetted says so explicitly.
+    """
+    limit = src.get("limit")
+    return int(limit) if isinstance(limit, int) and limit > 0 else MAX_SKILLS_PER_REPO
 # Per-skill cap on executable files scanned and digested. Raised 50 -> 200 on 2026-08-31.
 # The distribution is extremely skewed: median 0 executable files per skill, p90 = 4, and
 # only 7 of 408 skills exceeded 50. Since the cost is only paid by skills that actually
@@ -153,6 +165,51 @@ def _file_manifest(skill_path: str, skill_text: str, bundle: list[dict]) -> list
     return rows
 
 
+def _selection_group(path: str) -> str:
+    """The directory a skill sits in, one level above the skill's own folder.
+
+    For `skills/other/eli5/SKILL.md` that is `skills/other` -- the category. Grouping by it
+    is what lets the cap spread across a repo instead of eating one corner of it.
+    """
+    parts = path.split("/")
+    return "/".join(parts[:-2]) if len(parts) >= 3 else ""
+
+
+def select_skill_paths(paths: list[str], limit: int) -> list[str]:
+    """Choose at most `limit` paths, spread across the repo's directories.
+
+    Taking the first N of a sorted list is not a sample, it is the alphabetical head. On a
+    registry organised by category that means one category is taken whole and the rest not at
+    all: 30 of 30 from `skills/agent/`, zero from the eleven directories sorting after it.
+    Round-robin over the groups instead, so a truncated repo is still represented by the
+    shape of its contents.
+
+    Limit of this fix: it can only spread over what it is handed. When GitHub truncates a
+    repo's recursive tree, fetch_skill_paths falls back to a depth-first subtree walk that
+    stops at the limit, so this sees one directory's worth and has nothing to spread. That
+    path serves one source today -- a 21k-entry aggregated registry -- and fixing it means
+    a breadth-first walk costing many more API calls.
+    """
+    if len(paths) <= limit:
+        return sorted(paths)
+    groups: dict[str, list[str]] = {}
+    for path in sorted(paths):
+        groups.setdefault(_selection_group(path), []).append(path)
+    chosen: list[str] = []
+    while len(chosen) < limit:
+        drained = True
+        for bucket in groups.values():
+            if not bucket:
+                continue
+            chosen.append(bucket.pop(0))
+            drained = False
+            if len(chosen) == limit:
+                break
+        if drained:
+            break
+    return sorted(chosen)
+
+
 def _skill_dir(path: str) -> str:
     d = path[: -len("SKILL.md")].rstrip("/")
     return d or "."
@@ -220,16 +277,22 @@ def build_skill_entries(
     ref = commit_sha or branch
     ref_kind = "commit" if commit_sha else "branch"
 
-    paths = fetch_skill_paths(repo_id, ref, token, MAX_SKILLS_PER_REPO)
+    limit = source_limit(src)
+    paths = fetch_skill_paths(repo_id, ref, token, limit)
     if paths is None:
         raise BuildError(f"failed to fetch Git tree for {repo_id}")
     # skip placeholder/non-skill SKILL.md (e.g. a README/ dir, or template/example dirs)
     paths = [path for path in paths if _eligible_skill_path(path)]
     discovered_count = len(paths)
-    selection_truncated = discovered_count > MAX_SKILLS_PER_REPO
+    selection_truncated = discovered_count > limit
     if selection_truncated:
-        print(f"  … {repo_id}: {len(paths)} SKILL.md found, capping at {MAX_SKILLS_PER_REPO}", file=sys.stderr)
-        paths = paths[:MAX_SKILLS_PER_REPO]
+        paths = select_skill_paths(paths, limit)
+        spread = len({_selection_group(path) for path in paths})
+        print(
+            f"  … {repo_id}: {discovered_count} SKILL.md found, capping at "
+            f"{limit} across {spread} director{'y' if spread == 1 else 'ies'}",
+            file=sys.stderr,
+        )
     skill_dirs = [_skill_dir(candidate) for candidate in paths]
     inventory, bundle_complete, repo_tree_complete = fetch_tree_inventory(
         repo_id, ref, token, skill_dirs,
@@ -241,7 +304,7 @@ def build_skill_entries(
         "discovered_skill_count": discovered_count if repo_tree_complete else None,
         "selected_skill_count": len(paths),
         "omitted_skill_count": max(0, discovered_count - len(paths)) if repo_tree_complete else None,
-        "selection_limit": MAX_SKILLS_PER_REPO,
+        "selection_limit": limit,
         "complete": repo_tree_complete and not selection_truncated,
         "reason": "complete" if repo_tree_complete and not selection_truncated else (
             "selection limit" if repo_tree_complete else "GitHub tree inventory truncated"
