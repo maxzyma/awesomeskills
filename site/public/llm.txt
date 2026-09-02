@@ -1,5 +1,5 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-09-02T07:05:18+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-09-02T10:48:09+00:00. Human + agent readable. Full data: /index.json
 # health/security/repo grade are deterministic; optional summaries are agent enrichment
 
 - uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 91, security pass, en
@@ -92,9 +92,6 @@
 - about-atlantic-home-mortgage (davepoon/buildwithclaude/plugins/mortgage/skills/about-atlantic-home-mortgage) — health 91, security pass, en
   Background information about Lendtrain powered by Atlantic Home Mortgage — company history, credentials, founder bio, and contact information for borrower trust-building.
   https://github.com/davepoon/buildwithclaude/tree/main/plugins/mortgage/skills/about-atlantic-home-mortgage
-- vpe-advisor (alirezarezvani/claude-skills/c-level-advisor/vpe-advisor/skills/vpe-advisor) — health 89, security pass, en
-  VP of Engineering advisory for startups: delivery throughput (DORA 4 metrics + bottleneck identification), engineering hiring funnel (sourcing → screen → onsite → offer conversion + time-to-fill + pipeline gap), engineering team structure (squad/tribe/chapter design + tech-lead manager-trigger thresholds), and production discipline (on-call, deployment cadence, postmortem culture). Use when sprint velocity is dropping, eng hiring is broken, team structure is unclear, or deciding when to add a tech-lead manager. NOT a CTO skill (which owns architecture) — VPE owns delivery operations and how the team ships.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/vpe-advisor/skills/vpe-advisor
 - vertex-engine-inspector (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/jeremy-vertex-engine/skills/vertex-engine-inspector) — health 89, security warn, en
   Inspect and validate Vertex AI Agent Engine deployments including Code
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/jeremy-vertex-engine/skills/vertex-engine-inspector
@@ -113,9 +110,6 @@
 - splitting-datasets (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/dataset-splitter/skills/splitting-datasets) — health 89, security warn, en
   Process split datasets into training, validation, and testing sets for
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/dataset-splitter/skills/splitting-datasets
-- snowflake-development (alirezarezvani/claude-skills/engineering-team/snowflake-development/skills/snowflake-development) — health 89, security pass, en
-  Use when writing Snowflake SQL, building data pipelines with Dynamic Tables or Streams/Tasks, using Cortex AI functions, creating Cortex Agents, writing Snowpark Python, configuring dbt for Snowflake, or troubleshooting Snowflake errors.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/snowflake-development/skills/snowflake-development
 - shipwright-pipeline (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/shipwright/skills/shipwright-pipeline) — health 89, security warn, en
   Autonomous app builder that converts plain-English descriptions into
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/shipwright/skills/shipwright-pipeline
@@ -140,21 +134,12 @@
 - hyperflow-audit (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/templates/antigravity/skills/hyperflow-audit) — health 89, security pass, en
   Hyperflow code review. Use when the user wants the current diff, a commit, branch, or PR reviewed — verbs like audit, review, "check for issues", "security check", "code review". Multi-level review (L1 quick → L5 exhaustive), writes findings to .hyperflow/audits/, then a fix-gate.
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/templates/antigravity/skills/hyperflow-audit
-- google-workspace-cli (alirezarezvani/claude-skills/engineering-team/google-workspace-cli/skills/google-workspace-cli) — health 89, security pass, en
-  Google Workspace administration via the gws CLI (github.com/googleworkspace/cli). Install, authenticate, and automate Gmail, Drive, Sheets, Calendar, Docs, Chat, and Tasks. Run security audits and use local recipe templates and persona bundles. Use for Google Workspace admin, gws CLI setup, Gmail automation, Drive management, or Calendar scheduling.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/google-workspace-cli/skills/google-workspace-cli
 - genkit-production-expert (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/jeremy-genkit-pro/skills/genkit-production-expert) — health 89, security warn, en
   Build production Firebase Genkit applications including RAG systems,
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/jeremy-genkit-pro/skills/genkit-production-expert
-- general-counsel-advisor (alirezarezvani/claude-skills/c-level-advisor/general-counsel-advisor/skills/general-counsel-advisor) — health 89, security pass, en
-  General Counsel advisory for startups: contract review (MSA, SaaS, NDA, DPA, employment), IP strategy, term sheet decoding, and regulatory landscape mapping. Use when reviewing any contract or term sheet, deciding when to engage outside counsel, defining IP strategy, evaluating regulatory exposure (HIPAA, GDPR, FDA, fintech), or when user mentions general counsel, GC, legal review, contract risk, term sheet, IP assignment, or regulatory exposure. NOT a substitute for licensed counsel — surfaces questions to bring to qualified attorneys.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/general-counsel-advisor/skills/general-counsel-advisor
 - gcp-examples-expert (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/jeremy-gcp-starter-examples/skills/gcp-examples-expert) — health 89, security warn, en
   Generate production-ready Google Cloud code examples from official repositories
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/jeremy-gcp-starter-examples/skills/gcp-examples-expert
-- extract (alirezarezvani/claude-skills/engineering-team/self-improving-agent/skills/extract) — health 89, security pass, en
-  Turn a proven pattern or debugging solution into a standalone reusable skill with SKILL.md, reference docs, and examples. Use when the user runs /si:extract or asks to package a recurring solution from memory into a skill.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/self-improving-agent/skills/extract
 - engineering-features-for-machine-learning (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/feature-engineering-toolkit/skills/engineering-features-for-machine-learning) — health 89, security warn, en
   Execute create, select, and transform features to improve machine learning
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/feature-engineering-toolkit/skills/engineering-features-for-machine-learning
@@ -167,99 +152,27 @@
 - creating-data-visualizations (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/data-visualization-creator/skills/creating-data-visualizations) — health 89, security warn, en
   Generate plots, charts, and graphs from data with automatic visualization
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/data-visualization-creator/skills/creating-data-visualizations
-- claude-coach (alirezarezvani/claude-skills/engineering/claude-coach/skills/claude-coach) — health 89, security pass, en
-  Personal coach that teaches users to become Claude power users. Use this skill the FIRST time a user asks to "learn Claude", "be a power user", "coach me", "teach me Claude tricks", "what can Claude do", "make me better at prompting", or any variation. After activation, also use it on EVERY subsequent turn to detect missed optimization opportunities (vague prompts, ignored capabilities, manual work Claude could automate) and surface a single power-user tip. Trigger generously — most users do not know what they do not know, so err on the side of coaching.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/claude-coach/skills/claude-coach
-- chief-data-officer-advisor (alirezarezvani/claude-skills/c-level-advisor/chief-data-officer-advisor/skills/chief-data-officer-advisor) — health 89, security pass, en
-  Chief Data Officer advisory for startups: AI training data rights and consent provenance, data product strategy (warehouse vs lakehouse vs mesh, build-vs-buy), B2B customer-data-as-asset valuation and M&A readiness, data team org evolution. Use when deciding whether to train models on customer data, choosing data architecture, valuing data for fundraising or M&A, sequencing data hires, or when user mentions CDO, chief data officer, data strategy, data mesh, lakehouse, training data, data product, data monetization, or customer data asset. NOT a tactical data engineering skill — strategic decisions only.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/chief-data-officer-advisor/skills/chief-data-officer-advisor
-- chief-customer-officer-advisor (alirezarezvani/claude-skills/c-level-advisor/chief-customer-officer-advisor/skills/chief-customer-officer-advisor) — health 89, security pass, en
-  Chief Customer Officer advisory for startups: retention decomposition (gross retention vs NRR honesty, churn root-cause taxonomy), customer segmentation strategy (differential investment across tiers + ICP fit scoring), CS team coverage model (pooled vs named CSM thresholds + ratio math), and CS team org evolution (CS vs Support vs AM distinctions). Use when designing retention strategy, segmenting customers for differential investment, sizing CS team, or sequencing CS hires. Strategic only — does not duplicate engineering/business-growth tactical skills.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/chief-customer-officer-advisor/skills/chief-customer-officer-advisor
-- chief-ai-officer-advisor (alirezarezvani/claude-skills/c-level-advisor/chief-ai-officer-advisor/skills/chief-ai-officer-advisor) — health 89, security pass, en
-  Chief AI Officer advisory for startups: model build-vs-buy decisions (API vs fine-tune vs in-house), AI risk classification under EU AI Act + US state patchwork, AI cost economics (API-to-self-hosted breakeven), and AI team org evolution. Use when deciding whether to call an API or fine-tune, classifying AI use cases for regulatory risk, calculating when self-hosting pays off, sequencing AI hires, or when user mentions CAIO, AI strategy, model selection, foundation model, fine-tuning, EU AI Act, NIST AI RMF, AI governance, model risk, or AI economics. Strategic only — does not duplicate engineering AI/ML skills.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/chief-ai-officer-advisor/skills/chief-ai-officer-advisor
-- chaos-engineering (alirezarezvani/claude-skills/engineering/chaos-engineering/skills/chaos-engineering) — health 89, security pass, en
-  Use when planning, running, or learning from chaos engineering experiments. Triggers on "chaos experiment", "fault injection", "gameday", "resilience test", "blast radius", "steady state", "abort criteria", "Chaos Toolkit", "Chaos Mesh", "Litmus", "Gremlin", "AWS FIS", or any deliberate failure-injection question. Ships experiment designer, blast-radius calculator, and postmortem generator (all stdlib Python), 4 references on chaos principles + experiment design + attack taxonomy + tooling landscape, and a /chaos-experiment slash command. Composes with feature-flags-architect (kill switches as abort triggers) and kubernetes-operator (common chaos targets).
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/chaos-engineering/skills/chaos-engineering
-- channel-economics (alirezarezvani/claude-skills/commercial/skills/channel-economics) — health 89, security pass, en
-  Use when reviewing or rebalancing direct vs. partner-led channel economics — computing fully-loaded cost-to-serve per channel, channel ROI with cash / LTV / marginal lenses, and optimal channel mix subject to constraints. For Head of Commercial, RevOps, and VP Sales doing quarterly channel review when pipeline is mixed (e.g., 60% direct + 40% partner-led) and nobody actually knows which channel makes money after CAC, support load, partner discount, deal-velocity differences, retention differential, and overhead allocation are all loaded in. Outputs cost to serve, channel ROI verdicts (DOUBLE-DOWN / MAINTAIN / DEFUND / EXIT), a sensitivity-tested channel-mix recommendation, and the diminishing-returns inflection (e.g., 'which channel actually makes money — direct or partner?').
-  https://github.com/alirezarezvani/claude-skills/tree/main/commercial/skills/channel-economics
-- caveman (alirezarezvani/claude-skills/engineering/caveman/skills/caveman) — health 89, security pass, en
-  Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says "caveman mode", "talk like caveman", "use caveman", "less tokens", "be brief", or invokes /caveman.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/caveman/skills/caveman
 - cad-dxf-agent (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/cad-dxf-agent/skills/cad-dxf-agent) — health 89, security warn, en
   Analyzes DXF drawings deterministically — ADA/IBC code compliance, drawing health and QA, quantity takeoff, plain-English summaries, RFI generation, and room/zone detection — with no LLM or API key. Use when a user has a .dxf file and wants to check code compliance, audit drawing quality, pull quantities, summarize a drawing, generate RFIs, or detect rooms and areas. Trigger with "analyze this DXF", "check compliance", "drawing health", "quantity takeoff", "summarize this drawing", "generate RFIs", "detect zones", or "/cad-dxf-agent".
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/cad-dxf-agent/skills/cad-dxf-agent
 - buzz-devrel (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/tonone/bundle/marketing-team/skills/buzz-devrel) — health 89, security warn, en
   Developer relations playbook builder — produces a DevRel program design covering community platform, contributor program tiers, ambassador criteria, event strategy, and success metrics. Use when asked to "build a DevRel program", "design our developer community", "create a contributor program", "start a developer advocacy program", or "how do we grow our dev community".
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/tonone/bundle/marketing-team/skills/buzz-devrel
-- business-operations-skills (alirezarezvani/claude-skills/business-operations/skills/business-operations-skills) — health 89, security pass, en
-  Use when running, diagnosing, or designing internal business operations — process documentation, vendor SLAs, capacity planning, internal comms, SOP/runbook authoring, procurement spend. Triggers on "BizOps review", "where's the bottleneck", "vendor health", "internal SOP", "all-hands deck", "spend categorization", "capacity for Q3", "process mapping". Forks context to route to one of six BizOps sub-skills (process-mapper, vendor-management, capacity-planner, internal-comms, knowledge-ops, procurement-optimizer) and returns a digest. Distinct from business-growth (external sales motion) and c-level-advisor (strategic, not operational).
-  https://github.com/alirezarezvani/claude-skills/tree/main/business-operations/skills/business-operations-skills
-- business-growth-skills (alirezarezvani/claude-skills/business-growth/skills/business-growth-skills) — health 89, security pass, en
-  Router/index for the 4 business & growth skills bundled in this plugin: customer-success-manager (health scoring, churn risk, expansion), sales-engineer (RFP analysis, competitive matrices, PoC planning), revenue-operations (pipeline, forecast accuracy, GTM efficiency), and contract-and-proposal-writer. Use when a growth/revenue request doesn't obviously match one skill and you need to pick the right one (e.g., 'which accounts are at risk', 'should we bid on this RFP').
-  https://github.com/alirezarezvani/claude-skills/tree/main/business-growth/skills/business-growth-skills
 - building-classification-models (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/classification-model-builder/skills/building-classification-models) — health 89, security warn, en
   Build and evaluate classification models for supervised learning tasks
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/classification-model-builder/skills/building-classification-models
 - building-automl-pipelines (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/automl-pipeline-builder/skills/building-automl-pipelines) — health 89, security warn, en
   Build automated machine learning pipelines with feature engineering,
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/automl-pipeline-builder/skills/building-automl-pipelines
-- browserstack (alirezarezvani/claude-skills/engineering-team/playwright-pro/skills/browserstack) — health 89, security pass, en
-  Run tests on BrowserStack. Use when user mentions "browserstack", "cross-browser", "cloud testing", "browser matrix", "test on safari", "test on firefox", or "browser compatibility".
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/playwright-pro/skills/browserstack
-- boost-asio-pro (alirezarezvani/claude-skills/engineering/boost-asio-pro) — health 89, security pass, en
-  Use when writing or reviewing asynchronous C++ networking code with Boost.Asio or standalone Asio — TCP/UDP servers and clients, SSL/TLS, timers, strands, io_context, co_spawn, awaitable, async_read/async_write, asio::spawn, yield_context, or pre-C++20 completion-handler callbacks.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/boost-asio-pro
-- book-to-skill (alirezarezvani/claude-skills/engineering/book-to-skill/skills/book-to-skill) — health 89, security pass, en
-  Converts books, documentation folders, and source collections (PDF, EPUB, DOCX, HTML, Markdown, RST, AsciiDoc, RTF, MOBI/AZW) into structured agent skills — extracting named frameworks, principles, techniques, and anti-patterns into a master SKILL.md plus on-demand chapter files, a glossary, a patterns file, and a decision cheatsheet. Use when the user wants to study a document with an agent, apply an author's frameworks while working, turn internal docs or standards into a reusable knowledge base, or package a compiled book skill as a claude-skills plugin.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/book-to-skill/skills/book-to-skill
-- boardroom (alirezarezvani/claude-skills/c-level-agents/skills/boardroom) — health 89, security pass, en
-  /cs:boardroom <brief> — 6-phase multi-role deliberation across the C-suite with Phase 2 isolation, critic pre-screen, and synthesis. Outputs a board memo. Use when a decision spans multiple executive domains — e.g. a pricing change touching finance, positioning, and product, or a raise-vs-cut runway call.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-agents/skills/boardroom
-- board-prep (alirezarezvani/claude-skills/c-level-advisor/executive-mentor/skills/board-prep) — health 89, security pass, en
-  Board meeting preparation for the adversarial scenario, not the friendly one. Forces numbers-cold mastery, anticipates hard questions, builds a narrative that acknowledges weakness without losing the room. Use when preparing for a board meeting, an investor update, fundraising presentation, or any high-stakes adversarial review where every number must live in your head not just on a slide.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/executive-mentor/skills/board-prep
-- behuman (alirezarezvani/claude-skills/engineering/behuman/skills/behuman) — health 89, security pass, en
-  Use when the user wants more human-like AI responses — less robotic, less listy, more authentic. Triggers: 'behuman', 'be real', 'like a human', 'more human', 'less AI', 'talk like a person', 'mirror mode', 'stop being so AI', or when conversations are emotionally charged (grief, job loss, relationship advice, fear). NOT for technical questions, code generation, or factual lookups.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/behuman/skills/behuman
 - audit (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/hyperflow/skills/audit) — health 89, security warn, en
   Use when the user wants a code review on recent changes — quality, spec, security, or performance feedback. Triggers a multi-level (L1-L5) review with a standalone Reviewer; on NEEDS_FIX, offers to apply findings via /hyperflow:plan. Trigger with /hyperflow:audit, "review this change", "review my PR", "audit the diff", "code review".
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/hyperflow/skills/audit
-- arquiteto-de-empresa (alirezarezvani/claude-skills/c-level-advisor/arquiteto-de-empresa/skills/arquiteto-de-empresa) — health 89, security pass, en
-  Company Architect: builds a business from scratch as an OKF (Open Knowledge Format) bundle — a tree of version-controllable .md files with frontmatter type, links forming a graph, and reserved index.md/log.md, readable by humans and agents. Guides the founder through a 12-phase interview (foundation, strategy, market, financial, sales, marketing, product, operations, tech, people, legal, governance), one phase at a time, few questions per block, and generates the concepts as conformant markdown. Trigger when the user wants to create, structure, or document an entire company in folders and .md files; when they mention build my company from scratch, company as code, company knowledge base for AI to read, company wiki for agents, OKF, or knowledge bundle. In English.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/arquiteto-de-empresa/skills/arquiteto-de-empresa
-- ar-resume (alirezarezvani/claude-skills/engineering/autoresearch-agent/skills/ar-resume) — health 89, security pass, en
-  Resume a paused experiment. Checkout the experiment branch, read results history, continue iterating. Use when the user runs /ar:ar-resume or asks to pick up a previously started autoresearch experiment.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/autoresearch-agent/skills/ar-resume
 - apex-plan (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/tonone/skills/apex-plan) — health 89, security warn, en
   Plan and scope a project — discovery, challenge assumptions, present S/M/L options with token and cost estimates. Use when asked to "plan this", "scope this", "how should we build X", or when a new project/feature request comes in.
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/tonone/skills/apex-plan
-- ai-act-readiness (alirezarezvani/claude-skills/compliance-os/skills/ai-act-readiness) — health 89, security pass, en
-  /cs:ai-act-readiness <system> — EU AI Act 6-question forcing interrogation. Use during AI-system intake, before EU deployment, or during annual compliance refresh as Article 113 obligations phase in (2025-02-02 / 2025-08-02 / 2026-08-02 / 2027-08-02).
-  https://github.com/alirezarezvani/claude-skills/tree/main/compliance-os/skills/ai-act-readiness
-- agenthub (alirezarezvani/claude-skills/engineering/agenthub/skills/agenthub) — health 89, security pass, en
-  Multi-agent collaboration plugin that spawns N parallel subagents competing on the same task via git worktree isolation. Agents work independently, results are evaluated by metric or LLM judge, and the best branch is merged. Use when: user wants multiple approaches tried in parallel — code optimization, content variation, research exploration, or any task that benefits from parallel competition. Requires: a git repo.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/agenthub/skills/agenthub
-- agent-protocol (alirezarezvani/claude-skills/c-level-advisor/skills/agent-protocol) — health 89, security pass, en
-  Inter-agent communication protocol for C-suite agent teams. Defines invocation syntax, loop prevention, isolation rules, and response formats. Use when C-suite agents need to query each other, coordinate cross-functional analysis, or run board meetings with multiple agent roles.
-  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/skills/agent-protocol
-- agent-memory (alirezarezvani/claude-skills/engineering/agent-memory/skills/agent-memory) — health 89, security pass, en
-  Use when a project's CLAUDE.md has grown past what anyone reads and you want the agent to learn durable facts from its own sessions instead — or when asking why the agent keeps re-learning the same correction, why a remembered rule is wrong, or where a memory line came from. Implements a four-tier store (L0 transcripts / L1 candidates / L2 project context / L3 stable persona) where promotion is earned by recurrence across sessions and days, never by one confident statement, and nothing reaches a committed file without a human adopting it.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/agent-memory/skills/agent-memory
-- agent-launcher-orchestrator (alirezarezvani/claude-skills/agent-launcher/skills/agent-launcher-orchestrator) — health 89, security pass, en
-  Use when a user wants to build, launch, grade, or schedule a Claude Managed Agent (CMA) in their own Anthropic account — "build me an agent", "launch this as a managed agent", "run this on a schedule", "grade my agent against a rubric", "set up a nightly worker". Reads the per-session goal (./my-agent/goal.json), routes deterministically to one of five phase sub-skills (interview → stage-launch → grade-iterate → run-without-you → wrap-up) via goal_router.py, and compiles the goal+phase into an execution shape (single-pass workflow / bounded grade→iterate loop / recurring cron deployment loop) via loop_compiler.py. Forks context so heavy intake (build sheets, payloads, eval cases) stays out of the parent thread. All launches are emitted as BYOK curl the user runs with their own key; no tool makes API calls. Inspired by anthropics/launch-your-agent (Apache-2.0). Distinct from engineering/agent-harness (generic domain loop) and engineering/write-a-skill (authors Claude Code skills, not CMAs).
-  https://github.com/alirezarezvani/claude-skills/tree/main/agent-launcher/skills/agent-launcher-orchestrator
-- agent-harness (alirezarezvani/claude-skills/engineering/agent-harness/skills/agent-harness) — health 89, security pass, en
-  Turn any domain folder of skills into a bounded agentic loop: compile a goal into a verifiable task plan, execute tasks with the domain's own tools, verify every task with machine-run checks, retry with caps, escalate to a human when budgets exhaust, and refuse to close until everything is verified or explicitly waived. Use when you want an agent or subagent to pick up a goal and drive it to a verified close across one of this repo's 18 domains ('run this goal through the engineering harness', 'set up an agentic loop for marketing work', 'make the finance domain self-verifying'). NOT for authoring Claude Code Workflow-tool .js scripts (workflow-builder), N-agent tournaments on one task (agenthub), single-file metric optimization (autoresearch-agent), or discovering published loop recipes (loop-library).
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/agent-harness/skills/agent-harness
 - agency-os (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-agency/agency-os/skills/agency-os) — health 89, security warn, en
   Notion-as-source-of-truth dispatch board for running your work like an AI agency. One Tasks database is the source of truth; tasks flow Suggestion through Discussion, To-Do, In Progress, and Done with subtasks, recurring cadences, dependencies, and template subtrees. Batch execution fans approved To-Do rows out to parallel agents with per-task model selection. Use when capturing chat to Notion, running the To-Do queue, suggesting, approving, or discussing tasks, or coordinating multi-task batches. Trigger with "/agency-os" subcommands or natural-language variants ("add a suggestion: …", "let's discuss X", "run the queue").
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-agency/agency-os/skills/agency-os
-- adversarial-reviewer (alirezarezvani/claude-skills/engineering-team/skills/adversarial-reviewer) — health 89, security pass, en
-  Adversarial code review that breaks the self-review monoculture. Use when you want a genuinely critical review of recent changes, before merging a PR, or when you suspect Claude is being too agreeable about code quality. Forces perspective shifts through hostile reviewer personas that catch blind spots the author's mental model shares with the reviewer.
-  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/adversarial-reviewer
 - adk-engineer (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/jeremy-adk-software-engineer/skills/adk-engineer) — health 89, security warn, en
   Execute software engineer specializing in creating production-ready
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/jeremy-adk-software-engineer/skills/adk-engineer
@@ -269,98 +182,96 @@
 - adk-agent-builder (jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/jeremy-google-adk/skills/adk-agent-builder) — health 89, security warn, en
   Scaffold production-ready AI agents on Google's Agent Development Kit (ADK): ReAct-style single agents, multi-agent orchestration (Sequential/Parallel/Loop), tool wiring, evaluation, and optional Vertex AI Agent Engine deployment. Use when building, scaffolding, or deploying ADK agents on Google Cloud, or when wiring ADK tools and orchestration patterns. Trigger with "build an ADK agent", "scaffold an agent on ADK", or "deploy to Agent Engine".
   https://github.com/jeremylongshore/claude-code-plugins-plus-skills/tree/main/plugins/ai-ml/jeremy-google-adk/skills/adk-agent-builder
-- a11y-audit (alirezarezvani/claude-skills/engineering-team/a11y-audit/skills/a11y-audit) — health 89, security pass, en
+- vpe-advisor (alirezarezvani/claude-skills/c-level-advisor/vpe-advisor/skills/vpe-advisor) — health 88, security pass, en
+  VP of Engineering advisory for startups: delivery throughput (DORA 4 metrics + bottleneck identification), engineering hiring funnel (sourcing → screen → onsite → offer conversion + time-to-fill + pipeline gap), engineering team structure (squad/tribe/chapter design + tech-lead manager-trigger thresholds), and production discipline (on-call, deployment cadence, postmortem culture). Use when sprint velocity is dropping, eng hiring is broken, team structure is unclear, or deciding when to add a tech-lead manager. NOT a CTO skill (which owns architecture) — VPE owns delivery operations and how the team ships.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/vpe-advisor/skills/vpe-advisor
+- snowflake-development (alirezarezvani/claude-skills/engineering-team/snowflake-development/skills/snowflake-development) — health 88, security pass, en
+  Use when writing Snowflake SQL, building data pipelines with Dynamic Tables or Streams/Tasks, using Cortex AI functions, creating Cortex Agents, writing Snowpark Python, configuring dbt for Snowflake, or troubleshooting Snowflake errors.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/snowflake-development/skills/snowflake-development
+- google-workspace-cli (alirezarezvani/claude-skills/engineering-team/google-workspace-cli/skills/google-workspace-cli) — health 88, security pass, en
+  Google Workspace administration via the gws CLI (github.com/googleworkspace/cli). Install, authenticate, and automate Gmail, Drive, Sheets, Calendar, Docs, Chat, and Tasks. Run security audits and use local recipe templates and persona bundles. Use for Google Workspace admin, gws CLI setup, Gmail automation, Drive management, or Calendar scheduling.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/google-workspace-cli/skills/google-workspace-cli
+- general-counsel-advisor (alirezarezvani/claude-skills/c-level-advisor/general-counsel-advisor/skills/general-counsel-advisor) — health 88, security pass, en
+  General Counsel advisory for startups: contract review (MSA, SaaS, NDA, DPA, employment), IP strategy, term sheet decoding, and regulatory landscape mapping. Use when reviewing any contract or term sheet, deciding when to engage outside counsel, defining IP strategy, evaluating regulatory exposure (HIPAA, GDPR, FDA, fintech), or when user mentions general counsel, GC, legal review, contract risk, term sheet, IP assignment, or regulatory exposure. NOT a substitute for licensed counsel — surfaces questions to bring to qualified attorneys.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/general-counsel-advisor/skills/general-counsel-advisor
+- extract (alirezarezvani/claude-skills/engineering-team/self-improving-agent/skills/extract) — health 88, security pass, en
+  Turn a proven pattern or debugging solution into a standalone reusable skill with SKILL.md, reference docs, and examples. Use when the user runs /si:extract or asks to package a recurring solution from memory into a skill.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/self-improving-agent/skills/extract
+- claude-coach (alirezarezvani/claude-skills/engineering/claude-coach/skills/claude-coach) — health 88, security pass, en
+  Personal coach that teaches users to become Claude power users. Use this skill the FIRST time a user asks to "learn Claude", "be a power user", "coach me", "teach me Claude tricks", "what can Claude do", "make me better at prompting", or any variation. After activation, also use it on EVERY subsequent turn to detect missed optimization opportunities (vague prompts, ignored capabilities, manual work Claude could automate) and surface a single power-user tip. Trigger generously — most users do not know what they do not know, so err on the side of coaching.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/claude-coach/skills/claude-coach
+- chief-data-officer-advisor (alirezarezvani/claude-skills/c-level-advisor/chief-data-officer-advisor/skills/chief-data-officer-advisor) — health 88, security pass, en
+  Chief Data Officer advisory for startups: AI training data rights and consent provenance, data product strategy (warehouse vs lakehouse vs mesh, build-vs-buy), B2B customer-data-as-asset valuation and M&A readiness, data team org evolution. Use when deciding whether to train models on customer data, choosing data architecture, valuing data for fundraising or M&A, sequencing data hires, or when user mentions CDO, chief data officer, data strategy, data mesh, lakehouse, training data, data product, data monetization, or customer data asset. NOT a tactical data engineering skill — strategic decisions only.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/chief-data-officer-advisor/skills/chief-data-officer-advisor
+- chief-customer-officer-advisor (alirezarezvani/claude-skills/c-level-advisor/chief-customer-officer-advisor/skills/chief-customer-officer-advisor) — health 88, security pass, en
+  Chief Customer Officer advisory for startups: retention decomposition (gross retention vs NRR honesty, churn root-cause taxonomy), customer segmentation strategy (differential investment across tiers + ICP fit scoring), CS team coverage model (pooled vs named CSM thresholds + ratio math), and CS team org evolution (CS vs Support vs AM distinctions). Use when designing retention strategy, segmenting customers for differential investment, sizing CS team, or sequencing CS hires. Strategic only — does not duplicate engineering/business-growth tactical skills.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/chief-customer-officer-advisor/skills/chief-customer-officer-advisor
+- chief-ai-officer-advisor (alirezarezvani/claude-skills/c-level-advisor/chief-ai-officer-advisor/skills/chief-ai-officer-advisor) — health 88, security pass, en
+  Chief AI Officer advisory for startups: model build-vs-buy decisions (API vs fine-tune vs in-house), AI risk classification under EU AI Act + US state patchwork, AI cost economics (API-to-self-hosted breakeven), and AI team org evolution. Use when deciding whether to call an API or fine-tune, classifying AI use cases for regulatory risk, calculating when self-hosting pays off, sequencing AI hires, or when user mentions CAIO, AI strategy, model selection, foundation model, fine-tuning, EU AI Act, NIST AI RMF, AI governance, model risk, or AI economics. Strategic only — does not duplicate engineering AI/ML skills.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/chief-ai-officer-advisor/skills/chief-ai-officer-advisor
+- chaos-engineering (alirezarezvani/claude-skills/engineering/chaos-engineering/skills/chaos-engineering) — health 88, security pass, en
+  Use when planning, running, or learning from chaos engineering experiments. Triggers on "chaos experiment", "fault injection", "gameday", "resilience test", "blast radius", "steady state", "abort criteria", "Chaos Toolkit", "Chaos Mesh", "Litmus", "Gremlin", "AWS FIS", or any deliberate failure-injection question. Ships experiment designer, blast-radius calculator, and postmortem generator (all stdlib Python), 4 references on chaos principles + experiment design + attack taxonomy + tooling landscape, and a /chaos-experiment slash command. Composes with feature-flags-architect (kill switches as abort triggers) and kubernetes-operator (common chaos targets).
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/chaos-engineering/skills/chaos-engineering
+- channel-economics (alirezarezvani/claude-skills/commercial/skills/channel-economics) — health 88, security pass, en
+  Use when reviewing or rebalancing direct vs. partner-led channel economics — computing fully-loaded cost-to-serve per channel, channel ROI with cash / LTV / marginal lenses, and optimal channel mix subject to constraints. For Head of Commercial, RevOps, and VP Sales doing quarterly channel review when pipeline is mixed (e.g., 60% direct + 40% partner-led) and nobody actually knows which channel makes money after CAC, support load, partner discount, deal-velocity differences, retention differential, and overhead allocation are all loaded in. Outputs cost to serve, channel ROI verdicts (DOUBLE-DOWN / MAINTAIN / DEFUND / EXIT), a sensitivity-tested channel-mix recommendation, and the diminishing-returns inflection (e.g., 'which channel actually makes money — direct or partner?').
+  https://github.com/alirezarezvani/claude-skills/tree/main/commercial/skills/channel-economics
+- caveman (alirezarezvani/claude-skills/engineering/caveman/skills/caveman) — health 88, security pass, en
+  Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says "caveman mode", "talk like caveman", "use caveman", "less tokens", "be brief", or invokes /caveman.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/caveman/skills/caveman
+- business-operations-skills (alirezarezvani/claude-skills/business-operations/skills/business-operations-skills) — health 88, security pass, en
+  Use when running, diagnosing, or designing internal business operations — process documentation, vendor SLAs, capacity planning, internal comms, SOP/runbook authoring, procurement spend. Triggers on "BizOps review", "where's the bottleneck", "vendor health", "internal SOP", "all-hands deck", "spend categorization", "capacity for Q3", "process mapping". Forks context to route to one of six BizOps sub-skills (process-mapper, vendor-management, capacity-planner, internal-comms, knowledge-ops, procurement-optimizer) and returns a digest. Distinct from business-growth (external sales motion) and c-level-advisor (strategic, not operational).
+  https://github.com/alirezarezvani/claude-skills/tree/main/business-operations/skills/business-operations-skills
+- business-growth-skills (alirezarezvani/claude-skills/business-growth/skills/business-growth-skills) — health 88, security pass, en
+  Router/index for the 4 business & growth skills bundled in this plugin: customer-success-manager (health scoring, churn risk, expansion), sales-engineer (RFP analysis, competitive matrices, PoC planning), revenue-operations (pipeline, forecast accuracy, GTM efficiency), and contract-and-proposal-writer. Use when a growth/revenue request doesn't obviously match one skill and you need to pick the right one (e.g., 'which accounts are at risk', 'should we bid on this RFP').
+  https://github.com/alirezarezvani/claude-skills/tree/main/business-growth/skills/business-growth-skills
+- browserstack (alirezarezvani/claude-skills/engineering-team/playwright-pro/skills/browserstack) — health 88, security pass, en
+  Run tests on BrowserStack. Use when user mentions "browserstack", "cross-browser", "cloud testing", "browser matrix", "test on safari", "test on firefox", or "browser compatibility".
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/playwright-pro/skills/browserstack
+- boost-asio-pro (alirezarezvani/claude-skills/engineering/boost-asio-pro) — health 88, security pass, en
+  Use when writing or reviewing asynchronous C++ networking code with Boost.Asio or standalone Asio — TCP/UDP servers and clients, SSL/TLS, timers, strands, io_context, co_spawn, awaitable, async_read/async_write, asio::spawn, yield_context, or pre-C++20 completion-handler callbacks.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/boost-asio-pro
+- book-to-skill (alirezarezvani/claude-skills/engineering/book-to-skill/skills/book-to-skill) — health 88, security pass, en
+  Converts books, documentation folders, and source collections (PDF, EPUB, DOCX, HTML, Markdown, RST, AsciiDoc, RTF, MOBI/AZW) into structured agent skills — extracting named frameworks, principles, techniques, and anti-patterns into a master SKILL.md plus on-demand chapter files, a glossary, a patterns file, and a decision cheatsheet. Use when the user wants to study a document with an agent, apply an author's frameworks while working, turn internal docs or standards into a reusable knowledge base, or package a compiled book skill as a claude-skills plugin.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/book-to-skill/skills/book-to-skill
+- boardroom (alirezarezvani/claude-skills/c-level-agents/skills/boardroom) — health 88, security pass, en
+  /cs:boardroom <brief> — 6-phase multi-role deliberation across the C-suite with Phase 2 isolation, critic pre-screen, and synthesis. Outputs a board memo. Use when a decision spans multiple executive domains — e.g. a pricing change touching finance, positioning, and product, or a raise-vs-cut runway call.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-agents/skills/boardroom
+- board-prep (alirezarezvani/claude-skills/c-level-advisor/executive-mentor/skills/board-prep) — health 88, security pass, en
+  Board meeting preparation for the adversarial scenario, not the friendly one. Forces numbers-cold mastery, anticipates hard questions, builds a narrative that acknowledges weakness without losing the room. Use when preparing for a board meeting, an investor update, fundraising presentation, or any high-stakes adversarial review where every number must live in your head not just on a slide.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/executive-mentor/skills/board-prep
+- behuman (alirezarezvani/claude-skills/engineering/behuman/skills/behuman) — health 88, security pass, en
+  Use when the user wants more human-like AI responses — less robotic, less listy, more authentic. Triggers: 'behuman', 'be real', 'like a human', 'more human', 'less AI', 'talk like a person', 'mirror mode', 'stop being so AI', or when conversations are emotionally charged (grief, job loss, relationship advice, fear). NOT for technical questions, code generation, or factual lookups.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/behuman/skills/behuman
+- arquiteto-de-empresa (alirezarezvani/claude-skills/c-level-advisor/arquiteto-de-empresa/skills/arquiteto-de-empresa) — health 88, security pass, en
+  Company Architect: builds a business from scratch as an OKF (Open Knowledge Format) bundle — a tree of version-controllable .md files with frontmatter type, links forming a graph, and reserved index.md/log.md, readable by humans and agents. Guides the founder through a 12-phase interview (foundation, strategy, market, financial, sales, marketing, product, operations, tech, people, legal, governance), one phase at a time, few questions per block, and generates the concepts as conformant markdown. Trigger when the user wants to create, structure, or document an entire company in folders and .md files; when they mention build my company from scratch, company as code, company knowledge base for AI to read, company wiki for agents, OKF, or knowledge bundle. In English.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/arquiteto-de-empresa/skills/arquiteto-de-empresa
+- ar-resume (alirezarezvani/claude-skills/engineering/autoresearch-agent/skills/ar-resume) — health 88, security pass, en
+  Resume a paused experiment. Checkout the experiment branch, read results history, continue iterating. Use when the user runs /ar:ar-resume or asks to pick up a previously started autoresearch experiment.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/autoresearch-agent/skills/ar-resume
+- ai-act-readiness (alirezarezvani/claude-skills/compliance-os/skills/ai-act-readiness) — health 88, security pass, en
+  /cs:ai-act-readiness <system> — EU AI Act 6-question forcing interrogation. Use during AI-system intake, before EU deployment, or during annual compliance refresh as Article 113 obligations phase in (2025-02-02 / 2025-08-02 / 2026-08-02 / 2027-08-02).
+  https://github.com/alirezarezvani/claude-skills/tree/main/compliance-os/skills/ai-act-readiness
+- agenthub (alirezarezvani/claude-skills/engineering/agenthub/skills/agenthub) — health 88, security pass, en
+  Multi-agent collaboration plugin that spawns N parallel subagents competing on the same task via git worktree isolation. Agents work independently, results are evaluated by metric or LLM judge, and the best branch is merged. Use when: user wants multiple approaches tried in parallel — code optimization, content variation, research exploration, or any task that benefits from parallel competition. Requires: a git repo.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/agenthub/skills/agenthub
+- agent-protocol (alirezarezvani/claude-skills/c-level-advisor/skills/agent-protocol) — health 88, security pass, en
+  Inter-agent communication protocol for C-suite agent teams. Defines invocation syntax, loop prevention, isolation rules, and response formats. Use when C-suite agents need to query each other, coordinate cross-functional analysis, or run board meetings with multiple agent roles.
+  https://github.com/alirezarezvani/claude-skills/tree/main/c-level-advisor/skills/agent-protocol
+- agent-memory (alirezarezvani/claude-skills/engineering/agent-memory/skills/agent-memory) — health 88, security pass, en
+  Use when a project's CLAUDE.md has grown past what anyone reads and you want the agent to learn durable facts from its own sessions instead — or when asking why the agent keeps re-learning the same correction, why a remembered rule is wrong, or where a memory line came from. Implements a four-tier store (L0 transcripts / L1 candidates / L2 project context / L3 stable persona) where promotion is earned by recurrence across sessions and days, never by one confident statement, and nothing reaches a committed file without a human adopting it.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/agent-memory/skills/agent-memory
+- agent-launcher-orchestrator (alirezarezvani/claude-skills/agent-launcher/skills/agent-launcher-orchestrator) — health 88, security pass, en
+  Use when a user wants to build, launch, grade, or schedule a Claude Managed Agent (CMA) in their own Anthropic account — "build me an agent", "launch this as a managed agent", "run this on a schedule", "grade my agent against a rubric", "set up a nightly worker". Reads the per-session goal (./my-agent/goal.json), routes deterministically to one of five phase sub-skills (interview → stage-launch → grade-iterate → run-without-you → wrap-up) via goal_router.py, and compiles the goal+phase into an execution shape (single-pass workflow / bounded grade→iterate loop / recurring cron deployment loop) via loop_compiler.py. Forks context so heavy intake (build sheets, payloads, eval cases) stays out of the parent thread. All launches are emitted as BYOK curl the user runs with their own key; no tool makes API calls. Inspired by anthropics/launch-your-agent (Apache-2.0). Distinct from engineering/agent-harness (generic domain loop) and engineering/write-a-skill (authors Claude Code skills, not CMAs).
+  https://github.com/alirezarezvani/claude-skills/tree/main/agent-launcher/skills/agent-launcher-orchestrator
+- agent-harness (alirezarezvani/claude-skills/engineering/agent-harness/skills/agent-harness) — health 88, security pass, en
+  Turn any domain folder of skills into a bounded agentic loop: compile a goal into a verifiable task plan, execute tasks with the domain's own tools, verify every task with machine-run checks, retry with caps, escalate to a human when budgets exhaust, and refuse to close until everything is verified or explicitly waived. Use when you want an agent or subagent to pick up a goal and drive it to a verified close across one of this repo's 18 domains ('run this goal through the engineering harness', 'set up an agentic loop for marketing work', 'make the finance domain self-verifying'). NOT for authoring Claude Code Workflow-tool .js scripts (workflow-builder), N-agent tournaments on one task (agenthub), single-file metric optimization (autoresearch-agent), or discovering published loop recipes (loop-library).
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering/agent-harness/skills/agent-harness
+- adversarial-reviewer (alirezarezvani/claude-skills/engineering-team/skills/adversarial-reviewer) — health 88, security pass, en
+  Adversarial code review that breaks the self-review monoculture. Use when you want a genuinely critical review of recent changes, before merging a PR, or when you suspect Claude is being too agreeable about code quality. Forces perspective shifts through hostile reviewer personas that catch blind spots the author's mental model shares with the reviewer.
+  https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/adversarial-reviewer
+- a11y-audit (alirezarezvani/claude-skills/engineering-team/a11y-audit/skills/a11y-audit) — health 88, security pass, en
   Accessibility audit skill for scanning, fixing, and verifying WCAG 2.2 Level A and AA compliance across React, Next.js, Vue, Angular, Svelte, and plain HTML codebases. Use when auditing accessibility, fixing a11y violations, checking color contrast, generating compliance reports, or integrating accessibility checks into CI/CD pipelines.
   https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/a11y-audit/skills/a11y-audit
-- evolving-ai-agents (majiayu000/claude-skill-registry/skills/agent/a-evolve) — health 88, security pass, en
-  Provides guidance for automatically evolving and optimizing AI agents across any domain using LLM-driven evolution algorithms. Use when building self-improving agents, optimizing agent prompts and skills against benchmarks, or implementing automated agent evaluation loops.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/a-evolve
-- agent-browser (majiayu000/claude-skill-registry/skills/agent/3rd-agent-browser) — health 88, security warn, en
-  Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/3rd-agent-browser
-- ac-master-controller (majiayu000/claude-skill-registry/skills/agent/ac-master-controller-adaptationio-skrillz-3) — health 88, security pass, en
-  Master controller for complete autonomous operation. Use when starting full autonomous projects, managing end-to-end workflow, controlling autonomous lifecycle, or running complete implementations.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-master-controller-adaptationio-skrillz-3
-- ac-lock (majiayu000/claude-skill-registry/skills/agent/ac-lock) — health 88, security pass, en
-  Phase 4.0 — Acceptance Criteria lock checkpoint before implementation. Consolidates all ACs from PRD, TechSpec, and Tasks, presents to user for confirmation, and saves the locked AC list to accepted-criteria.md. Implementation only starts after explicit user confirmation.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-lock
-- ac-knowledge-graph (majiayu000/claude-skill-registry/skills/agent/ac-knowledge-graph-adaptationio-skrillz) — health 88, security pass, en
-  Manage knowledge graph for autonomous coding. Use when storing relationships, querying connected knowledge, building project understanding, or maintaining semantic memory.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-knowledge-graph-adaptationio-skrillz
-- ac-knowledge-graph (majiayu000/claude-skill-registry/skills/agent/ac-knowledge-graph) — health 88, security pass, en
-  Manage knowledge graph for autonomous coding. Use when storing relationships, querying connected knowledge, building project understanding, or maintaining semantic memory.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-knowledge-graph
-- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator-adaptationio-skrillz-3) — health 88, security pass, en
-  Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-handoff-creator-adaptationio-skrillz-3
-- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator-adaptationio-skrillz-4) — health 88, security pass, en
-  Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-handoff-creator-adaptationio-skrillz-4
-- ac-handoff-creator (majiayu000/claude-skill-registry/skills/agent/ac-handoff-creator) — health 88, security pass, en
-  Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-handoff-creator
-- ac-criteria-validator (majiayu000/claude-skill-registry/skills/agent/ac-criteria-validator) — health 88, security pass, en
-  Validate acceptance criteria and feature completion. Use when checking if features pass, validating test results, verifying acceptance criteria, or determining feature completion status.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-criteria-validator
-- ac-commit-manager (majiayu000/claude-skill-registry/skills/agent/ac-commit-manager) — health 88, security pass, en
-  Manage git commits for autonomous coding. Use when committing feature implementations, creating descriptive commits, managing git workflow, or handling version control.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-commit-manager
-- ac-checkpoint-manager (majiayu000/claude-skill-registry/skills/agent/ac-checkpoint-manager) — health 88, security pass, en
-  Manage checkpoints for rollback capability. Use when creating save points, rolling back changes, managing recovery points, or restoring previous states.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-checkpoint-manager
-- ac-autonomous-orchestrator (majiayu000/claude-skill-registry/skills/agent/ac-autonomous-orchestrator) — health 88, security pass, en
-  Main orchestrator for autonomous coding operations. Use when running autonomous sessions, coordinating components, managing the full lifecycle, or orchestrating implementations.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/ac-autonomous-orchestrator
-- 81-pipecat (majiayu000/claude-skill-registry/skills/agent/81-pipecat) — health 88, security pass, en [frontmatter:invalid]
-  Create your Pipecat skill from official documentation, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/81-pipecat
-- 80-livekit-agents-panaversity-agentfactory-1f8ecf89 (majiayu000/claude-skill-registry/skills/agent/80-livekit-agents-panaversity-agentfactory-1f8ecf89) — health 88, security pass, en [frontmatter:invalid]
-  Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-livekit-agents-panaversity-agentfactory-1f8ecf89
-- 80-livekit-agents-majiayu000-claude-skill-registr (majiayu000/claude-skill-registry/skills/agent/80-livekit-agents-majiayu000-claude-skill-registr) — health 88, security pass, en [frontmatter:invalid]
-  Create your LiveKit Agents skill from official documentation, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-livekit-agents-majiayu000-claude-skill-registr
-- 80-01-autonomous-work (majiayu000/claude-skill-registry/skills/agent/80-01-autonomous-work) — health 88, security pass, en
-  Work autonomously without waiting for hand-holding — complete tasks end-to-end without asking for permission at every step.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/80-01-autonomous-work
-- 71-agent-framework-integration (majiayu000/claude-skill-registry/skills/agent/71-agent-framework-integration) — health 88, security pass, en [frontmatter:invalid]
-  Create your agent-integration skill from OpenAI SDK and LiteLLM documentation before learning framework integration
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/71-agent-framework-integration
-- 39-agent-skills-mcp-code-execution-panaversity-agentfactory (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory) — health 88, security pass, en [frontmatter:invalid]
-  Build a specification-first Digital FTE that orchestrates accumulated intelligence from Lessons 1-7. Learn to compose execution skills into production-ready agents, validate against specifications, and position for monetization.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution-panaversity-agentfactory
-- 39-agent-skills-mcp-code-execution (majiayu000/claude-skill-registry/skills/agent/39-agent-skills-mcp-code-execution) — health 88, security pass, en [frontmatter:invalid]
-  Create a skill that orchestrates the write-execute-analyze loop to autonomously process data. Learn to implement error recovery, iterate toward robust solutions, and test your skill across diverse input scenarios. This is where specification-driven development meets real problem-solving.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/39-agent-skills-mcp-code-execution
-- 36-anthropic-agents-kit-development (majiayu000/claude-skill-registry/skills/agent/36-anthropic-agents-kit-development) — health 88, security pass, en [frontmatter:invalid]
-  Create your Claude Agent SDK skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/36-anthropic-agents-kit-development
-- 35-google-adk-reliable-agents (majiayu000/claude-skill-registry/skills/agent/35-google-adk-reliable-agents) — health 88, security pass, en [frontmatter:invalid]
-  Create your Google Agent Development Kit skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/35-google-adk-reliable-agents
-- 34-openai-agents-sdk-panaversity-agentfactory-8f59f147 (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147) — health 88, security pass, en [frontmatter:invalid]
-  Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk-panaversity-agentfactory-8f59f147
-- 34-openai-agents-sdk (majiayu000/claude-skill-registry/skills/agent/34-openai-agents-sdk) — health 88, security pass, en [frontmatter:invalid]
-  Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/34-openai-agents-sdk
-- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework) — health 88, security pass, en
-  Generated by Gremlin Forge Meta-Agent 🍆👾⚡
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf-agentgptsmith-monadframework
-- 20260102-214532-trinity-auto-boot-validator (majiayu000/claude-skill-registry/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf) — health 88, security pass, en
-  Generated by Gremlin Forge Meta-Agent 🍆👾⚡
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/20260102-214532-trinity-auto-boot-validator-agentgptsmith-monadf
-- 2026-legal-research-agent (majiayu000/claude-skill-registry/skills/agent/2026-legal-research-agent) — health 88, security pass, en
-  Expert legal research agent for finding and scraping expungement data state by state. Knows authoritative sources, URL patterns, Firecrawl configuration, and 2026 legal landscape. Activate on "find expungement data", "scrape state laws", "legal research", "court URLs", "statute sources", "Clean Slate laws", "automatic expungement research". NOT for interpreting laws (use national-expungement-expert), building UI, or legal advice.
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/2026-legal-research-agent
-- 200-agents-md (majiayu000/claude-skill-registry/skills/agent/200-agents-md) — health 88, security pass, en
-  Use when you need to generate an AGENTS.md file for a Java repository — covering project conventions, tech stack, file structure, commands, Git workflow, and contributor boundaries — through a modular, step-based interactive process that adapts to your specific project needs. This should trigger for requests such as Create AGENTS.md; Update AGENTS.md file; Add agent instructions. Part of cursor-rules-java project
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/200-agents-md
-- 003-agents-installation (majiayu000/claude-skill-registry/skills/agent/003-agents-installation) — health 88, security pass, en
-  Use when you need to install the embedded robot agents into either .cursor/agents or .claude/agents, selecting the destination interactively and copying the embedded agent definitions from project assets. This should trigger for requests such as Install embedded agents; Bootstrap .cursor/agents; Bootstrap .claude/agents; Copy robot agents. Part of cursor-rules-java project
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/003-agents-installation
-- 0000-dorgonman-kano-agent-backlog-s-59370436 (majiayu000/claude-skill-registry/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436) — health 88, security pass, en [frontmatter:invalid]
-  https://github.com/majiayu000/claude-skill-registry/tree/main/skills/agent/0000-dorgonman-kano-agent-backlog-s-59370436
 - pdf (shareAI-lab/learn-claude-code/skills/pdf) — health 87, security pass, en
   Process PDF files - extract text, create PDFs, merge documents. Use when user asks to read PDF, create PDF, or work with PDF files.
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/pdf
@@ -370,12 +281,12 @@
 - code-review (shareAI-lab/learn-claude-code/skills/code-review) — health 87, security pass, en
   Perform thorough code reviews with security, performance, and maintainability analysis. Use when user asks to review code, check for bugs, or audit a codebase.
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/code-review
-- awesome-agent-skills (VoltAgent/awesome-agent-skills) — health 87, security unrated, en
-  A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.
-  https://github.com/VoltAgent/awesome-agent-skills
 - agent-builder (shareAI-lab/learn-claude-code/skills/agent-builder) — health 87, security fail, en
   Design and build AI agents for any domain. Use when users: (1) ask to "create an agent", "build an assistant", or "design an AI system" (2) want to understand agent architecture, agentic patterns, or autonomous AI (3) need help with capabilities, subagents, planning, or skill mechanisms (4) ask about Claude Code, Cursor, or similar agent internals (5) want to build agents for business, research, creative, or operational tasks Keywords: agent, assistant, autonomous, workflow, tool use, multi-step, orchestration
   https://github.com/shareAI-lab/learn-claude-code/tree/main/skills/agent-builder
+- awesome-agent-skills (VoltAgent/awesome-agent-skills) — health 86, security unrated, en
+  A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.
+  https://github.com/VoltAgent/awesome-agent-skills
 - stepfun-tts (daymade/claude-code-skills/daymade-audio/stepfun-tts) — health 85, security pass, zh
   Generate Chinese / Japanese speech with StepFun's stepaudio-2.5-tts — Contextual TTS that replaces step-tts-2's `voice_label` with natural-language `instruction` (≤200 chars) plus inline `()` parentheses for句内 prosody. Use when the user wants emotional / prosody control over voice synthesis (whisper, pause, stress, mood pivot mid-sentence), batch-generates game / app voice lines, migrates from `step-tts-2` (the `voice_label → instruction` breaking change), or hits StepFun's stricter 2.5-era censorship (死/消失/political terms). Triggers on 阶跃 TTS, StepAudio 合成, 语音合成, 配音, 文本转语音, TTS 升级, 迁移 step-tts-2. For transcription with the sibling stepaudio-2.5-asr model, use the stepfun-asr skill instead.
   https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/stepfun-tts
@@ -586,9 +497,24 @@
 - adaptyv (K-Dense-AI/scientific-agent-skills/skills/adaptyv) — health 84, security pass, en
   How to use the Adaptyv Bio Foundry API and Python SDK for protein experiment design, submission, and results retrieval. Use this skill whenever the user mentions Adaptyv, Foundry API, protein binding assays, protein screening experiments, BLI/SPR assays, thermostability assays, or wants to submit protein sequences for experimental characterization. Also trigger when code imports `adaptyv`, `adaptyv_sdk`, or `FoundryClient`, or references `foundry-api-public.adaptyvbio.com`.
   https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/adaptyv
-- claude-skills-collection (abubakarsiddik31/claude-skills-collection) — health 83, security unrated, en
+- claude-skills-collection (abubakarsiddik31/claude-skills-collection) — health 82, security unrated, en
   A curated collection of official and community-built Claude Skills – extend Anthropic's Claude with powerful, modular capabilities for productivity, creativity, coding, and more.
   https://github.com/abubakarsiddik31/claude-skills-collection
+- webmcp-gen (browserbase/skills/skills/webmcp-gen) — health 80, security warn, en
+  Create, compile, and validate site-specific WebMCP init scripts from a target URL and desired tool capability. Use when the user wants to author WebMCP tools for a website, produce a webmcp.init.js artifact, or test WebMCP registration and invocation through Stagehand.
+  https://github.com/browserbase/skills/tree/main/skills/webmcp-gen
+- ui-test (browserbase/skills/skills/ui-test) — health 80, security warn, en
+  AI-powered adversarial UI testing via the browse CLI. Analyzes git diffs to test only what changed, or explores the full app to find bugs. Tests functional correctness, accessibility, responsive layout, and UX heuristics. Use when the user asks to test UI changes, QA a pull request, audit accessibility, or run exploratory testing. Supports local browser (localhost) and remote Browserbase (deployed sites).
+  https://github.com/browserbase/skills/tree/main/skills/ui-test
+- search (browserbase/skills/skills/search) — health 80, security warn, en
+  Use this skill when the user wants to search the web without a full browser session: find URLs, titles, and metadata for a query. Prefer it over a browser when you just need search results, not page content. Returns structured results with titles, URLs, authors, and dates.
+  https://github.com/browserbase/skills/tree/main/skills/search
+- safe-browser (browserbase/skills/skills/safe-browser) — health 80, security warn, en
+  Build local constrained-browser agents with a safe_browser tool that owns CDP, enforces a domain allowlist with Fetch interception, and lets a runtime Claude Agent SDK agent complete browsing tasks without raw browser, shell, or CDP access. Use when the user wants an agent to browse or scrape while staying on approved domains, demo blocked off-domain navigation, or generate a safe browser client.
+  https://github.com/browserbase/skills/tree/main/skills/safe-browser
+- optimize-agent-prompt (browserbase/skills/skills/optimize-agent-prompt) — health 80, security warn, en
+  Builds and improves Browserbase Agent API demos through an Autobrowse-style outer loop: run a fixed task, collect Agent messages and session logs, score the result, revise one system-prompt heuristic, and confirm convergence. Use when creating a Browserbase Agents demo or POC, optimizing an Agent system prompt, diagnosing flaky Agent runs, or applying auto-research/autobrowse to the Browserbase Agents API.
+  https://github.com/browserbase/skills/tree/main/skills/optimize-agent-prompt
 - offensive-tls-attacks (SnailSploit/Claude-Red/Skills/crypto/offensive-tls-attacks) — health 80, security pass, en [frontmatter:invalid]
   Comprehensive methodology for auditing and exploiting TLS/SSL implementations and misconfigurations across network services and mobile applications. Covers protocol downgrade attacks including POODLE (CVE-2014-3566) against SSLv3 CBC padding, DROWN (CVE-2016-0800) cross-protocol attack leveraging SSLv2 export ciphers to decrypt TLS sessions, and FREAK (CVE-2015-0204) forcing RSA export-grade key exchange. Addresses BEAST (CVE-2011-3389) exploiting CBC IV predictability in TLS 1.0, CRIME (CVE-2012-4929) and BREACH targeting TLS-level and HTTP-level compression oracles respectively, and Heartbleed (CVE-2014-0160) for OpenSSL memory disclosure. Covers certificate validation bypass techniques for applications with improper hostname verification or chain validation, certificate pinning bypass using Frida and Objection for mobile application interception, HSTS bypass via NTP manipulation and subdomain exploitation, TLS 1.3 0-RTT replay attacks against non-idempotent endpoints, mutual TLS (mTLS) authentication attacks including client certificate theft and relay, and Certificate Transparency log monitoring for reconnaissance. Primary tooling includes testssl.sh for comprehensive TLS auditing, sslyze for Python-integrated scanning, sslscan for quick cipher enumeration, and tlsx for high-speed TLS probing at scale. Maps to CWE-295 (Improper Certificate Validation), CWE-319 (Cleartext Transmission of Sensitive Information), and CWE-757 (Selection of Less-Secure Algorithm During Negotiation).
   https://github.com/SnailSploit/Claude-Red/tree/main/Skills/crypto/offensive-tls-attacks
@@ -672,63 +598,48 @@
 - offensive-active-directory (SnailSploit/Claude-Red/Skills/active-directory/offensive-active-directory) — health 80, security pass, en
   Active Directory attack methodology for internal network red team engagements. Covers reconnaissance (BloodHound, PowerView, ADExplorer), credential abuse (Kerberoasting, ASREProasting, NTLM relay, LLMNR/NBT-NS poisoning), privilege escalation (ACL abuse, GPO abuse, unconstrained/constrained delegation), lateral movement (Pass-the-Hash, Pass-the-Ticket, Overpass-the-Hash, WMI/WinRM/PsExec), persistence (Golden/Silver/Diamond Tickets, DCSync, DCShadow, AdminSDHolder, Skeleton Key), forest trust attacks, ADCS abuse (ESC1-ESC15), and modern MDI/Defender for Identity evasion. Use when assessing on-prem AD, hybrid AD/Entra ID environments, or ADCS deployments.
   https://github.com/SnailSploit/Claude-Red/tree/main/Skills/active-directory/offensive-active-directory
-- webmcp-gen (browserbase/skills/skills/webmcp-gen) — health 78, security warn, en
-  Create, compile, and validate site-specific WebMCP init scripts from a target URL and desired tool capability. Use when the user wants to author WebMCP tools for a website, produce a webmcp.init.js artifact, or test WebMCP registration and invocation through Stagehand.
-  https://github.com/browserbase/skills/tree/main/skills/webmcp-gen
-- ui-test (browserbase/skills/skills/ui-test) — health 78, security warn, en
-  AI-powered adversarial UI testing via the browse CLI. Analyzes git diffs to test only what changed, or explores the full app to find bugs. Tests functional correctness, accessibility, responsive layout, and UX heuristics. Use when the user asks to test UI changes, QA a pull request, audit accessibility, or run exploratory testing. Supports local browser (localhost) and remote Browserbase (deployed sites).
-  https://github.com/browserbase/skills/tree/main/skills/ui-test
-- search (browserbase/skills/skills/search) — health 78, security warn, en
-  Use this skill when the user wants to search the web without a full browser session: find URLs, titles, and metadata for a query. Prefer it over a browser when you just need search results, not page content. Returns structured results with titles, URLs, authors, and dates.
-  https://github.com/browserbase/skills/tree/main/skills/search
-- safe-browser (browserbase/skills/skills/safe-browser) — health 78, security warn, en
-  Build local constrained-browser agents with a safe_browser tool that owns CDP, enforces a domain allowlist with Fetch interception, and lets a runtime Claude Agent SDK agent complete browsing tasks without raw browser, shell, or CDP access. Use when the user wants an agent to browse or scrape while staying on approved domains, demo blocked off-domain navigation, or generate a safe browser client.
-  https://github.com/browserbase/skills/tree/main/skills/safe-browser
-- optimize-agent-prompt (browserbase/skills/skills/optimize-agent-prompt) — health 78, security warn, en
-  Builds and improves Browserbase Agent API demos through an Autobrowse-style outer loop: run a fixed task, collect Agent messages and session logs, score the result, revise one system-prompt heuristic, and confirm convergence. Use when creating a Browserbase Agents demo or POC, optimizing an Agent system prompt, diagnosing flaky Agent runs, or applying auto-research/autobrowse to the Browserbase Agents API.
-  https://github.com/browserbase/skills/tree/main/skills/optimize-agent-prompt
-- functions (browserbase/skills/skills/functions) — health 78, security warn, en
+- functions (browserbase/skills/skills/functions) — health 80, security warn, en
   Deploy serverless browser automation as cloud functions using Browserbase. Use when the user wants to deploy browser automation to run on a schedule or cron, create a webhook endpoint for browser tasks, run automation in the cloud instead of locally, or asks about Browserbase Functions.
   https://github.com/browserbase/skills/tree/main/skills/functions
-- fetch (browserbase/skills/skills/fetch) — health 78, security warn, en
+- fetch (browserbase/skills/skills/fetch) — health 80, security warn, en
   Use this skill when the user wants to retrieve a URL without a full browser session: fetch HTML or JSON from static pages, inspect status codes or headers, follow redirects, or get page source for simple scraping. Prefer it over a browser when JavaScript rendering and page interaction are not needed. Supports proxies and redirect control.
   https://github.com/browserbase/skills/tree/main/skills/fetch
-- event-prospecting (browserbase/skills/skills/event-prospecting) — health 78, security warn, en
+- event-prospecting (browserbase/skills/skills/event-prospecting) — health 80, security warn, en
   Event prospecting skill. Takes a conference / event speakers URL, extracts the people, filters their companies against the user's ICP, then deep-researches only the speakers at ICP-fit companies. Outputs a person-first HTML report where each card answers "why should the AE talk to this person?" with all public links and a one-click DM opener. Use when the user wants to: (1) find leads at a specific conference, (2) prep for an event, (3) research event speakers, (4) build a target list from a sponsor/exhibitor page, (5) scrape conference speakers and rank by ICP fit. Triggers: "find leads at {event}", "research speakers at", "prospect this conference", "stripe sessions leads", "ai engineer summit prospects", "event prospecting", "scrape conference speakers", "who should I meet at".
   https://github.com/browserbase/skills/tree/main/skills/event-prospecting
-- cookie-sync (browserbase/skills/skills/cookie-sync) — health 78, security warn, en
+- cookie-sync (browserbase/skills/skills/cookie-sync) — health 80, security warn, en
   Sync cookies from local Chrome to a Browserbase persistent context so the browse CLI can access authenticated sites. Use when the user wants to browse as themselves, sync cookies, or log into sites via Browserbase.
   https://github.com/browserbase/skills/tree/main/skills/cookie-sync
-- competitor-analysis (browserbase/skills/skills/competitor-analysis) — health 78, security warn, en
+- competitor-analysis (browserbase/skills/skills/competitor-analysis) — health 80, security warn, en
   Competitor research and intelligence skill. Takes a user's company (with optional seed competitor URLs), auto-discovers additional competitors via Browserbase Search API, deeply researches each using a 4-lane pattern (marketing surface, external signal, public benchmarks, strategic diff vs the user's company), and compiles the results into an HTML report with four views: overview, per-competitor deep dive, side-by-side feature/pricing matrix, and a chronological mentions feed (news, reviews, social, comparison pages, and public benchmarks). Use when the user wants to: (1) analyze competitors, (2) build a competitive matrix, (3) extract competitor pricing / features, (4) find comparison pages and online mentions of competitors, (5) surface public benchmarks. Triggers: "competitor analysis", "analyze competitors", "competitive intel", "competitor research", "competitor pricing", "feature comparison", "price comparison", "find comparisons", "who's comparing us", "competitor mentions", "competitor benchmarks".
   https://github.com/browserbase/skills/tree/main/skills/competitor-analysis
-- company-research (browserbase/skills/skills/company-research) — health 78, security warn, en
+- company-research (browserbase/skills/skills/company-research) — health 80, security warn, en
   Company discovery and deep research skill. Researches a company's product and ICP, discovers target companies to sell to using Browserbase Search API, deeply researches each using a Plan→Research→Synthesize pattern, and scores ICP fit — compiled into a scored research report and CSV. Supports depth modes (quick/deep/deeper) for balancing scale vs intelligence. Use when the user wants to: (1) find companies to sell to, (2) research potential customers, (3) discover companies matching an ICP, (4) build a target company list, (5) do market research on prospects. Triggers: "find companies to sell to", "company research", "find prospects", "ICP research", "target companies", "who should we sell to", "market research", "lead research", "prospect list".
   https://github.com/browserbase/skills/tree/main/skills/company-research
-- browser-use-to-stagehand (browserbase/skills/skills/browser-use-to-stagehand) — health 78, security warn, en
+- browser-use-to-stagehand (browserbase/skills/skills/browser-use-to-stagehand) — health 80, security warn, en
   Migrate browser-use (Python) browser-automation scripts to Stagehand v3 (TypeScript) on Browserbase. Use when the user wants to convert, port, rewrite, or migrate a browser-use Agent script to Stagehand, map browser-use features/APIs to Stagehand primitives (act/extract/observe/agent), or move agentic browser automation onto Browserbase with more determinism. Triggers on "browser-use", "browser_use", or "Agent(task=...)".
   https://github.com/browserbase/skills/tree/main/skills/browser-use-to-stagehand
-- browser-trace (browserbase/skills/skills/browser-trace) — health 78, security warn, en
+- browser-trace (browserbase/skills/skills/browser-trace) — health 80, security warn, en
   Capture a full DevTools-protocol trace of any browser automation — CDP firehose, screenshots, and DOM dumps — then bisect the stream into per-page searchable buckets. Use when the user wants to debug a failed run, audit network/console/DOM activity, attach a trace to an in-progress session, or feed structured per-page summaries back into an agent loop so its next iteration learns from the last one.
   https://github.com/browserbase/skills/tree/main/skills/browser-trace
-- browser-to-api (browserbase/skills/skills/browser-to-api) — health 78, security warn, en
+- browser-to-api (browserbase/skills/skills/browser-to-api) — health 80, security warn, en
   Turn a website's observable HTTP traffic into a best-effort OpenAPI 3.1 spec by analyzing a `browser-trace` capture. Use when the user wants to discover/extract API endpoints from a browser session, build an OpenAPI doc from network traffic, or document a third-party site's XHR/fetch surface for client integration.
   https://github.com/browserbase/skills/tree/main/skills/browser-to-api
-- browser (browserbase/skills/skills/browser) — health 78, security warn, en
+- browser (browserbase/skills/skills/browser) — health 80, security warn, en
   Automate web browser interactions using natural language via CLI commands. Use when the user asks to browse websites, navigate web pages, extract data from websites, take screenshots, fill forms, click buttons, or interact with web applications. Supports remote Browserbase sessions with Browserbase Identity, Verified browsers, automatic CAPTCHA solving, and residential proxies — ideal for protected websites and JavaScript-heavy pages.
   https://github.com/browserbase/skills/tree/main/skills/browser
-- autobrowse (browserbase/skills/skills/autobrowse) — health 78, security warn, en
+- autobrowse (browserbase/skills/skills/autobrowse) — health 80, security warn, en
   Self-improving browser automation via the auto-research loop. Iteratively runs a browsing task, reads the trace, and improves the navigation skill (strategy.md) until it reliably passes. Supports parallel runs across multiple tasks using sub-agents. Use when you want to build or improve browser automation skills for specific website tasks.
   https://github.com/browserbase/skills/tree/main/skills/autobrowse
-- agent-experience (browserbase/skills/skills/agent-experience) — health 78, security fail, en
+- agent-experience (browserbase/skills/skills/agent-experience) — health 80, security fail, en
   Audit the developer experience of a product, SDK, docs site, or SKILL.md by dropping multiple Claude subagents at it with only a tiny task prompt and real tools (WebFetch, Bash, Write). Agents must discover the docs themselves, install deps, ask for credentials if needed, and attempt real execution. The skill captures each agent's trace — tool calls, retries, wall time, errors — and scores on Setup Friction, Speed, Efficiency, Error Recovery, and Doc Quality, then emits an HTML report with an A–F grade and concrete fixes. Use when the user asks to audit agent experience, test a skill, audit docs for agents, check if a SDK is agent-friendly, validate a SKILL.md, measure agent DX, or benchmark how painful onboarding is for an AI agent. Triggers: 'audit agent experience', 'test this skill', 'audit docs for agents', 'is my SDK agent-friendly', 'run a DX audit', 'agent experience test', 'test my docs', 'how do agents do with my product'.
   https://github.com/browserbase/skills/tree/main/skills/agent-experience
-- last30days (mvanhorn/last30days-skill/skills/last30days) — health 76, security fail, en
+- add-webmcp (browserbase/skills/skills/add-webmcp) — health 80, security warn, en
+  Analyze an existing web application, identify safe user-visible capabilities across routes, forms, server actions, handlers, and schemas, then implement first-party WebMCP tools and validate discovery and invocation with Stagehand. Use when the user asks to make a codebase agent-ready, expose website features as WebMCP tools, or add WebMCP directly to an app rather than generating a standalone injection script from a URL.
+  https://github.com/browserbase/skills/tree/main/skills/add-webmcp
+- last30days (mvanhorn/last30days-skill/skills/last30days) — health 77, security fail, en
   Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.
   https://github.com/mvanhorn/last30days-skill/tree/main/skills/last30days
-- awesome-claude-skills (BehiSecc/awesome-claude-skills) — health 76, security unrated, en
-  A curated list of Claude Skills.
-  https://github.com/BehiSecc/awesome-claude-skills
 - using-agent-skills (addyosmani/agent-skills/skills/using-agent-skills) — health 75, security pass, en
   Discovers and invokes agent skills. Use when starting a session or when you need to discover which skill applies to the current task. This is the meta-skill that governs how all other skills are discovered and invoked.
   https://github.com/addyosmani/agent-skills/tree/main/skills/using-agent-skills
@@ -801,12 +712,30 @@
 - browser-testing-with-devtools (addyosmani/agent-skills/skills/browser-testing-with-devtools) — health 75, security warn, en
   Tests in real browsers via Chrome DevTools MCP. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real runtime data. Requires the chrome-devtools MCP server to be configured.
   https://github.com/addyosmani/agent-skills/tree/main/skills/browser-testing-with-devtools
+- awesome-claude-skills (BehiSecc/awesome-claude-skills) — health 75, security unrated, en
+  A curated list of Claude Skills.
+  https://github.com/BehiSecc/awesome-claude-skills
 - api-and-interface-design (addyosmani/agent-skills/skills/api-and-interface-design) — health 75, security pass, en
   Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface. Use when creating REST or GraphQL endpoints, defining type contracts between modules, or establishing boundaries between frontend and backend.
   https://github.com/addyosmani/agent-skills/tree/main/skills/api-and-interface-design
+- patent-search (handsomestWei/patent-disclosure-skill/skills/patent-search) — health 74, security pass, zh
+  中国专利公布公告著录检索：发明人、申请人、分类号、名称等高级查询字段。
+  https://github.com/handsomestWei/patent-disclosure-skill/tree/main/skills/patent-search
+- patent-reader (handsomestWei/patent-disclosure-skill/skills/patent-reader) — health 74, security pass, zh
+  中国专利通俗解读：公开号/PDF 成通俗笔记、图谱与 Obsidian 入库。
+  https://github.com/handsomestWei/patent-disclosure-skill/tree/main/skills/patent-reader
+- patent-oa (handsomestWei/patent-disclosure-skill/skills/patent-oa) — health 74, security pass, zh
+  审查答复辅助：审查意见问答与草稿；库薄时引导案例入库与实务书蒸馏。须显式触发。
+  https://github.com/handsomestWei/patent-disclosure-skill/tree/main/skills/patent-oa
+- patent-exam-policy (handsomestWei/patent-disclosure-skill/skills/patent-exam-policy) — health 74, security pass, zh
+  给交底用的政策简报：对照国知局近期口径，说明对交底写法/本稿的影响。技能进化仅为旁路，须另点名才改文件。
+  https://github.com/handsomestWei/patent-disclosure-skill/tree/main/skills/patent-exam-policy
 - patent-disclosure-skill (handsomestWei/patent-disclosure-skill) — health 74, security warn, zh
-  中国专利技能：按发明人/申请人检索公开专利清单，挖掘专利点与编写交底书（发明/实用/外观），通俗解读专利，嗅探政策动向，辅助审查答复。| China patents skill: search published portfolios by inventor/applicant, mine patent points and draft disclosures, explain patents, track policy, and assist office-action responses.
+  中国专利技能：挖掘专利点与编写交底书（发明/实用/外观），按著录字段检索公布公告，通俗解读专利，对照审查口径出政策简报，辅助审查答复。| China patents skill: mine patent points and draft disclosures, search CNIPA bibliographic records, explain patents, brief examination-policy changes for disclosures, and assist office-action responses.
   https://github.com/handsomestWei/patent-disclosure-skill
+- patent-disclosure (handsomestWei/patent-disclosure-skill/skills/patent-disclosure) — health 74, security pass, zh
+  中国专利交底书：发明/实用新型/外观设计的专利点挖掘、轻量查新与成文。
+  https://github.com/handsomestWei/patent-disclosure-skill/tree/main/skills/patent-disclosure
 - kubernetes-specialist (Jeffallan/claude-skills/skills/kubernetes-specialist) — health 67, security pass, en
   Use when deploying or managing Kubernetes workloads. Invoke to create deployment manifests, configure pod security policies, set up service accounts, define network isolation rules, debug pod crashes, analyze resource limits, inspect container logs, or right-size workloads. Use for Helm charts, RBAC policies, NetworkPolicies, storage configuration, performance optimization, GitOps pipelines, and multi-cluster management.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/kubernetes-specialist
@@ -897,6 +826,63 @@
 - angular-architect (Jeffallan/claude-skills/skills/angular-architect) — health 67, security pass, en
   Generates Angular 17+ standalone components, configures advanced routing with lazy loading and guards, implements NgRx state management, applies RxJS patterns, and optimizes bundle performance. Use when building Angular 17+ applications with standalone components or signals, setting up NgRx stores, establishing RxJS reactive patterns, performance tuning, or writing Angular tests for enterprise apps.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/angular-architect
+- xlsx (anthropics/skills/skills/xlsx) — health 64, security pass, en
+  Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.
+  https://github.com/anthropics/skills/tree/main/skills/xlsx
+- webapp-testing (anthropics/skills/skills/webapp-testing) — health 64, security pass, en
+  Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
+  https://github.com/anthropics/skills/tree/main/skills/webapp-testing
+- web-artifacts-builder (anthropics/skills/skills/web-artifacts-builder) — health 64, security warn, en
+  Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
+  https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
+- theme-factory (anthropics/skills/skills/theme-factory) — health 64, security pass, en
+  Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
+  https://github.com/anthropics/skills/tree/main/skills/theme-factory
+- slack-gif-creator (anthropics/skills/skills/slack-gif-creator) — health 64, security pass, en
+  Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack.
+  https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator
+- skill-creator (anthropics/skills/skills/skill-creator) — health 64, security pass, en
+  Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
+  https://github.com/anthropics/skills/tree/main/skills/skill-creator
+- pptx (anthropics/skills/skills/pptx) — health 64, security pass, en
+  Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.
+  https://github.com/anthropics/skills/tree/main/skills/pptx
+- pdf (anthropics/skills/skills/pdf) — health 64, security pass, en
+  Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
+  https://github.com/anthropics/skills/tree/main/skills/pdf
+- mcp-builder (anthropics/skills/skills/mcp-builder) — health 64, security pass, en
+  Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).
+  https://github.com/anthropics/skills/tree/main/skills/mcp-builder
+- internal-comms (anthropics/skills/skills/internal-comms) — health 64, security pass, en
+  A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
+  https://github.com/anthropics/skills/tree/main/skills/internal-comms
+- frontend-design (anthropics/skills/skills/frontend-design) — health 64, security pass, en
+  Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
+  https://github.com/anthropics/skills/tree/main/skills/frontend-design
+- docx (anthropics/skills/skills/docx) — health 64, security pass, en
+  Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.
+  https://github.com/anthropics/skills/tree/main/skills/docx
+- doc-coauthoring (anthropics/skills/skills/doc-coauthoring) — health 64, security pass, en
+  Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.
+  https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring
+- discernment-nudge (anthropics/skills/skills/discernment-nudge) — health 64, security pass, en
+  After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.
+  https://github.com/anthropics/skills/tree/main/skills/discernment-nudge
+- claude-api (anthropics/skills/skills/claude-api) — health 64, security pass, en [frontmatter:invalid]
+  Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it "looks like a one-liner" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).
+  https://github.com/anthropics/skills/tree/main/skills/claude-api
+- canvas-design (anthropics/skills/skills/canvas-design) — health 64, security pass, en
+  Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
+  https://github.com/anthropics/skills/tree/main/skills/canvas-design
+- brand-guidelines (anthropics/skills/skills/brand-guidelines) — health 64, security pass, en
+  Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+  https://github.com/anthropics/skills/tree/main/skills/brand-guidelines
+- algorithmic-art (anthropics/skills/skills/algorithmic-art) — health 64, security pass, en
+  Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.
+  https://github.com/anthropics/skills/tree/main/skills/algorithmic-art
+- academy-guide (anthropics/skills/skills/academy-guide) — health 64, security pass, en
+  Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: "how do I", "how can I", "getting started with", "what can Claude do", "teach me", "learn to use"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.
+  https://github.com/anthropics/skills/tree/main/skills/academy-guide
 - writing-hookify-rules (anthropics/claude-plugins-official/plugins/hookify/skills/writing-rules) — health 61, security fail, en
   This skill should be used when the user asks to "create a hookify rule", "write a hook rule", "configure hookify", "add a hookify rule", or needs guidance on hookify rule syntax and patterns.
   https://github.com/anthropics/claude-plugins-official/tree/main/plugins/hookify/skills/writing-rules
@@ -992,63 +978,6 @@
 - access (anthropics/claude-plugins-official/external_plugins/telegram/skills/access) — health 61, security pass, en
   Manage Telegram channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the Telegram channel.
   https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram/skills/access
-- xlsx (anthropics/skills/skills/xlsx) — health 59, security pass, en
-  Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.
-  https://github.com/anthropics/skills/tree/main/skills/xlsx
-- webapp-testing (anthropics/skills/skills/webapp-testing) — health 59, security pass, en
-  Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
-  https://github.com/anthropics/skills/tree/main/skills/webapp-testing
-- web-artifacts-builder (anthropics/skills/skills/web-artifacts-builder) — health 59, security warn, en
-  Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
-  https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
-- theme-factory (anthropics/skills/skills/theme-factory) — health 59, security pass, en
-  Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
-  https://github.com/anthropics/skills/tree/main/skills/theme-factory
-- slack-gif-creator (anthropics/skills/skills/slack-gif-creator) — health 59, security pass, en
-  Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack.
-  https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator
-- skill-creator (anthropics/skills/skills/skill-creator) — health 59, security pass, en
-  Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
-  https://github.com/anthropics/skills/tree/main/skills/skill-creator
-- pptx (anthropics/skills/skills/pptx) — health 59, security pass, en
-  Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.
-  https://github.com/anthropics/skills/tree/main/skills/pptx
-- pdf (anthropics/skills/skills/pdf) — health 59, security pass, en
-  Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
-  https://github.com/anthropics/skills/tree/main/skills/pdf
-- mcp-builder (anthropics/skills/skills/mcp-builder) — health 59, security pass, en
-  Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).
-  https://github.com/anthropics/skills/tree/main/skills/mcp-builder
-- internal-comms (anthropics/skills/skills/internal-comms) — health 59, security pass, en
-  A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).
-  https://github.com/anthropics/skills/tree/main/skills/internal-comms
-- frontend-design (anthropics/skills/skills/frontend-design) — health 59, security pass, en
-  Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
-  https://github.com/anthropics/skills/tree/main/skills/frontend-design
-- docx (anthropics/skills/skills/docx) — health 59, security pass, en
-  Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.
-  https://github.com/anthropics/skills/tree/main/skills/docx
-- doc-coauthoring (anthropics/skills/skills/doc-coauthoring) — health 59, security pass, en
-  Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.
-  https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring
-- discernment-nudge (anthropics/skills/skills/discernment-nudge) — health 59, security pass, en
-  After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.
-  https://github.com/anthropics/skills/tree/main/skills/discernment-nudge
-- claude-api (anthropics/skills/skills/claude-api) — health 59, security pass, en [frontmatter:invalid]
-  Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it "looks like a one-liner" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).
-  https://github.com/anthropics/skills/tree/main/skills/claude-api
-- canvas-design (anthropics/skills/skills/canvas-design) — health 59, security pass, en
-  Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
-  https://github.com/anthropics/skills/tree/main/skills/canvas-design
-- brand-guidelines (anthropics/skills/skills/brand-guidelines) — health 59, security pass, en
-  Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
-  https://github.com/anthropics/skills/tree/main/skills/brand-guidelines
-- algorithmic-art (anthropics/skills/skills/algorithmic-art) — health 59, security pass, en
-  Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.
-  https://github.com/anthropics/skills/tree/main/skills/algorithmic-art
-- academy-guide (anthropics/skills/skills/academy-guide) — health 59, security pass, en
-  Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: "how do I", "how can I", "getting started with", "what can Claude do", "teach me", "learn to use"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.
-  https://github.com/anthropics/skills/tree/main/skills/academy-guide
 - xlsx (ComposioHQ/awesome-claude-skills/document-skills/xlsx) — health 52, security pass, en
   Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modify existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas
   https://github.com/ComposioHQ/awesome-claude-skills/tree/master/document-skills/xlsx

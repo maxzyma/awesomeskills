@@ -1,0 +1,954 @@
+{
+  "generated_from": "majiayu000/claude-skill-registry",
+  "records_read": 158764,
+  "shards_read": 252,
+  "shards_total": 256,
+  "complete": false,
+  "min_stars": 300,
+  "distribution_filter": "compatible",
+  "note": "Candidates for human review, not index entries. Star counts and licenses are the aggregator's crawl-time snapshots and go stale; build_index re-measures everything live when a candidate is adopted.",
+  "rejected": {
+    "distribution=restricted": 97234,
+    "under 300 stars": 32280,
+    "distribution=unknown": 24725,
+    "already a source": 3488,
+    "no upstream repo named": 736,
+    "kept": 301
+  },
+  "candidate_count": 52,
+  "candidates": [
+    {
+      "repo": "electron/electron",
+      "author": "electron",
+      "stars_at_crawl": 119879,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "electron-chromium-upgrade-electron-electron"
+      ],
+      "categories": [
+        "data"
+      ]
+    },
+    {
+      "repo": "leonardomso/33-js-concepts",
+      "author": "leonardomso",
+      "stars_at_crawl": 66182,
+      "license_at_crawl": "MIT",
+      "skill_count": 5,
+      "skills": [
+        "resource-curator",
+        "seo-review-leonardomso-33-js-concepts",
+        "fact-check-leonardomso-33-js-concepts",
+        "write-concept",
+        "concept-workflow"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "TryGhost/Ghost",
+      "author": "TryGhost",
+      "stars_at_crawl": 51672,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "create-database-migration-tryghost-ghost"
+      ],
+      "categories": [
+        "devops"
+      ]
+    },
+    {
+      "repo": "anthropics/claude-cookbooks",
+      "author": "anthropics",
+      "stars_at_crawl": 31757,
+      "license_at_crawl": "MIT",
+      "skill_count": 2,
+      "skills": [
+        "applying-brand-guidelines-anthropics-claude-cookbooks",
+        "cookbook-audit-anthropics-claude-cookbooks"
+      ],
+      "categories": [
+        "documents",
+        "security"
+      ]
+    },
+    {
+      "repo": "affaan-m/everything-claude-code",
+      "author": "affaan-m",
+      "stars_at_crawl": 24605,
+      "license_at_crawl": "MIT",
+      "skill_count": 10,
+      "skills": [
+        "tdd-workflow-affaan-m-everything-claude-cod",
+        "backend-patterns-affaan-m-everything-claude-cod",
+        "security-review-affaan-m-everything-claude-cod",
+        "project-guidelines-example-affaan-m-everything-claude-cod",
+        "frontend-patterns-affaan-m-everything-claude-cod",
+        "strategic-compact-affaan-m-everything-claude-cod",
+        "eval-harness-affaan-m-everything-claude-cod",
+        "coding-standards-affaan-m-everything-claude-cod",
+        "clickhouse-io-affaan-m-everything-claude-cod",
+        "continuous-learning-affaan-m-everything-claude-cod"
+      ],
+      "categories": [
+        "development",
+        "productivity",
+        "testing"
+      ]
+    },
+    {
+      "repo": "mlflow/mlflow",
+      "author": "mlflow",
+      "stars_at_crawl": 23068,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 1,
+      "skills": [
+        "fetch-unresolved-comments"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "SuperClaude-Org/SuperClaude_Framework",
+      "author": "SuperClaude-Org",
+      "stars_at_crawl": 20414,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "confidence-check"
+      ],
+      "categories": [
+        "devops"
+      ]
+    },
+    {
+      "repo": "github/awesome-copilot",
+      "author": "github",
+      "stars_at_crawl": 18792,
+      "license_at_crawl": "MIT",
+      "skill_count": 2,
+      "skills": [
+        "prd-github-awesome-copilot",
+        "webapp-testing-github-awesome-copilot"
+      ],
+      "categories": [
+        "testing"
+      ]
+    },
+    {
+      "repo": "openai/openai-agents-python",
+      "author": "openai",
+      "stars_at_crawl": 18514,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "docs-sync"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "tursodatabase/turso",
+      "author": "tursodatabase",
+      "stars_at_crawl": 16753,
+      "license_at_crawl": "MIT",
+      "skill_count": 2,
+      "skills": [
+        "testing-tursodatabase-turso",
+        "code-quality-tursodatabase-turso"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "davila7/claude-code-templates",
+      "author": "davila7",
+      "stars_at_crawl": 14334,
+      "license_at_crawl": "MIT",
+      "skill_count": 10,
+      "skills": [
+        "scientific-writing",
+        "clinical-decision-support",
+        "task-execution-engine",
+        "market-research-reports",
+        "hypothesis-generation",
+        "neuropixels-analysis-davila7-claude-code-templates",
+        "latex-posters",
+        "scientific-slides",
+        "skill-creation-guide-davila7-claude-code-templates",
+        "research-lookup"
+      ],
+      "categories": [
+        "design",
+        "development",
+        "documents",
+        "testing"
+      ]
+    },
+    {
+      "repo": "prowler-cloud/prowler",
+      "author": "prowler-cloud",
+      "stars_at_crawl": 12795,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 1,
+      "skills": [
+        "skill-creator-prowler-cloud-prowler"
+      ],
+      "categories": [
+        "testing"
+      ]
+    },
+    {
+      "repo": "illacloud/illa-builder",
+      "author": "illacloud",
+      "stars_at_crawl": 12356,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 1,
+      "skills": [
+        "awesome-ai-agents-illacloud-illa-builder"
+      ],
+      "categories": [
+        "data"
+      ]
+    },
+    {
+      "repo": "iOfficeAI/AionUi",
+      "author": "iOfficeAI",
+      "stars_at_crawl": 10065,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 4,
+      "skills": [
+        "skill-creator-iofficeai-aionui",
+        "pptx-iofficeai-aionui",
+        "xlsx-iofficeai-aionui",
+        "pdf"
+      ],
+      "categories": [
+        "documents",
+        "testing"
+      ]
+    },
+    {
+      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "author": "muratcankoylan",
+      "stars_at_crawl": 7753,
+      "license_at_crawl": "MIT",
+      "skill_count": 12,
+      "skills": [
+        "hosted-agents",
+        "evaluation-muratcankoylan-agent-skills-fo",
+        "evaluation-muratcankoylan-agent-skills-fo",
+        "tool-design-muratcankoylan-agent-skills-fo",
+        "digital-brain-muratcankoylan-agent-skills-fo",
+        "tool-design-muratcankoylan-agent-skills-fo",
+        "digital-brain-muratcankoylan-agent-skills-fo",
+        "evaluation-muratcankoylan-agent-skills-fo",
+        "digital-brain-muratcankoylan-agent-skills-fo",
+        "context-compression"
+      ],
+      "categories": [
+        "agent",
+        "data",
+        "design",
+        "development",
+        "productivity"
+      ]
+    },
+    {
+      "repo": "clawdbot/clawdbot",
+      "author": "clawdbot",
+      "stars_at_crawl": 7675,
+      "license_at_crawl": "MIT",
+      "skill_count": 46,
+      "skills": [
+        "bear-notes",
+        "camsnap",
+        "github-clawdbot-clawdbot",
+        "ordercli",
+        "spotify-player",
+        "coding-agent-clawdbot-clawdbot",
+        "local-places",
+        "weather",
+        "apple-notes-clawdbot-clawdbot",
+        "goplaces"
+      ],
+      "categories": [
+        "ai-llm",
+        "ai-ml",
+        "api",
+        "communication",
+        "context-management",
+        "data",
+        "development",
+        "documents",
+        "generation",
+        "integration",
+        "platform",
+        "productivity",
+        "security"
+      ]
+    },
+    {
+      "repo": "civitai/civitai",
+      "author": "civitai",
+      "stars_at_crawl": 6994,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 2,
+      "skills": [
+        "ralph",
+        "browser-automation-civitai-civitai"
+      ],
+      "categories": [
+        "productivity",
+        "testing"
+      ]
+    },
+    {
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "author": "K-Dense-AI",
+      "stars_at_crawl": 6989,
+      "license_at_crawl": "MIT",
+      "skill_count": 5,
+      "skills": [
+        "scientific-slides-k-dense-ai-claude-scientific-s",
+        "denario",
+        "pdf",
+        "paper-2-web-k-dense-ai-claude-scientific-s",
+        "histolab"
+      ],
+      "categories": [
+        "ai-ml",
+        "analysis",
+        "devops",
+        "documents"
+      ]
+    },
+    {
+      "repo": "danielmiessler/Personal_AI_Infrastructure",
+      "author": "danielmiessler",
+      "stars_at_crawl": 5704,
+      "license_at_crawl": "MIT",
+      "skill_count": 8,
+      "skills": [
+        "privateinvestigator",
+        "pptx-danielmiessler-personal-ai-inf",
+        "create-skill",
+        "council",
+        "redteam",
+        "council",
+        "workflows",
+        "create-skill"
+      ],
+      "categories": [
+        "development",
+        "devops",
+        "documents",
+        "orchestration",
+        "testing"
+      ]
+    },
+    {
+      "repo": "flashinfer-ai/flashinfer",
+      "author": "flashinfer-ai",
+      "stars_at_crawl": 4744,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 5,
+      "skills": [
+        "benchmark-kernel",
+        "benchmark-kernel",
+        "add-cuda-kernel-flashinfer-ai-flashinfer",
+        "benchmark-kernel",
+        "debug-cuda-crash-flashinfer-ai-flashinfer"
+      ],
+      "categories": [
+        "data",
+        "development"
+      ]
+    },
+    {
+      "repo": "parcadei/Continuous-Claude-v3",
+      "author": "parcadei",
+      "stars_at_crawl": 3392,
+      "license_at_crawl": "MIT",
+      "skill_count": 10,
+      "skills": [
+        "skill-upgrader",
+        "trace-claude-code",
+        "eigenvalues-parcadei-continuous-claude-v3",
+        "slash-commands-parcadei-continuous-claude-v3",
+        "agentic-workflow",
+        "limits-colimits",
+        "fix",
+        "refactor",
+        "review-parcadei-continuous-claude-v3",
+        "explore"
+      ],
+      "categories": [
+        "ai-llm",
+        "development",
+        "devops",
+        "domains",
+        "testing",
+        "workflow"
+      ]
+    },
+    {
+      "repo": "facet-rs/facet",
+      "author": "facet-rs",
+      "stars_at_crawl": 2292,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 10,
+      "skills": [
+        "debug-with-valgrind",
+        "jit-overview",
+        "profiling",
+        "jit-overview",
+        "reproduce-reduce-regress",
+        "use-facet-crates",
+        "debug-with-valgrind",
+        "debug-with-valgrind",
+        "reproduce-reduce-regress",
+        "reproduce-reduce-regress"
+      ],
+      "categories": [
+        "data",
+        "development",
+        "testing"
+      ]
+    },
+    {
+      "repo": "Yeachan-Heo/oh-my-claudecode",
+      "author": "Yeachan-Heo",
+      "stars_at_crawl": 2257,
+      "license_at_crawl": "MIT",
+      "skill_count": 8,
+      "skills": [
+        "ecomode",
+        "code-review-yeachan-heo-oh-my-claudecode",
+        "ultrawork",
+        "skill-yeachan-heo-oh-my-claudecode",
+        "doctor-yeachan-heo-oh-my-claudecode",
+        "analyze-yeachan-heo-oh-my-claudecode",
+        "mcp-setup-yeachan-heo-oh-my-claudecode",
+        "ultrapilot"
+      ],
+      "categories": [
+        "development",
+        "devops",
+        "orchestration"
+      ]
+    },
+    {
+      "repo": "sickn33/antigravity-awesome-skills",
+      "author": "sickn33",
+      "stars_at_crawl": 2180,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "ui-ux-pro-max-sickn33-antigravity-awesome-sk"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "centminmod/my-claude-code-setup",
+      "author": "centminmod",
+      "stars_at_crawl": 1734,
+      "license_at_crawl": "MIT",
+      "skill_count": 4,
+      "skills": [
+        "consult-codex",
+        "consult-zai",
+        "claude-docs-consultant",
+        "claude-docs-consultant"
+      ],
+      "categories": [
+        "data",
+        "documents",
+        "orchestration"
+      ]
+    },
+    {
+      "repo": "stacklok/toolhive",
+      "author": "stacklok",
+      "stars_at_crawl": 1484,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 1,
+      "skills": [
+        "pr-review-reply"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "neovateai/neovate-code",
+      "author": "neovateai",
+      "stars_at_crawl": 1393,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "add-nodebridge-handler"
+      ],
+      "categories": [
+        "testing"
+      ]
+    },
+    {
+      "repo": "dvdsgl/claude-canvas",
+      "author": "dvdsgl",
+      "stars_at_crawl": 1338,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "calendar-dvdsgl-claude-canvas"
+      ],
+      "categories": [
+        "data"
+      ]
+    },
+    {
+      "repo": "pchalasani/claude-code-tools",
+      "author": "pchalasani",
+      "stars_at_crawl": 1179,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "patterns"
+      ],
+      "categories": [
+        "ai-llm"
+      ]
+    },
+    {
+      "repo": "dartsim/dart",
+      "author": "dartsim",
+      "stars_at_crawl": 1046,
+      "license_at_crawl": "BSD-2-Clause",
+      "skill_count": 4,
+      "skills": [
+        "dart-contribute",
+        "dart-test",
+        "dart-build",
+        "dart-io"
+      ],
+      "categories": [
+        "development",
+        "testing"
+      ]
+    },
+    {
+      "repo": "TencentCloudBase/CloudBase-MCP",
+      "author": "TencentCloudBase",
+      "stars_at_crawl": 938,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "commands-tencentcloudbase-cloudbase-mcp"
+      ],
+      "categories": [
+        "documents"
+      ]
+    },
+    {
+      "repo": "i-am-bee/agentstack",
+      "author": "i-am-bee",
+      "stars_at_crawl": 937,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 1,
+      "skills": [
+        "release-notes-i-am-bee-agentstack"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "luongnv89/claude-howto",
+      "author": "luongnv89",
+      "stars_at_crawl": 897,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "brand-voice-consistency-luongnv89-claude-howto"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "letta-ai/letta-code",
+      "author": "letta-ai",
+      "stars_at_crawl": 883,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 4,
+      "skills": [
+        "migrating-memory",
+        "messaging-agents",
+        "creating-skills",
+        "descriptions"
+      ],
+      "categories": [
+        "data",
+        "development",
+        "testing"
+      ]
+    },
+    {
+      "repo": "glittercowboy/taches-cc-resources",
+      "author": "glittercowboy",
+      "stars_at_crawl": 817,
+      "license_at_crawl": "MIT",
+      "skill_count": 3,
+      "skills": [
+        "create-slash-commands",
+        "debug-like-expert",
+        "create-hooks"
+      ],
+      "categories": [
+        "development",
+        "testing"
+      ]
+    },
+    {
+      "repo": "tambo-ai/tambo",
+      "author": "tambo-ai",
+      "stars_at_crawl": 817,
+      "license_at_crawl": "MIT",
+      "skill_count": 2,
+      "skills": [
+        "ai-sdk-model-manager",
+        "ai-sdk-model-manager"
+      ],
+      "categories": [
+        "data",
+        "documents"
+      ]
+    },
+    {
+      "repo": "catlog22/Claude-Code-Workflow",
+      "author": "catlog22",
+      "stars_at_crawl": 800,
+      "license_at_crawl": "MIT",
+      "skill_count": 4,
+      "skills": [
+        "project-analyze",
+        "copyright-docs",
+        "issue-manage",
+        "software-manual"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "daangn/seed-design",
+      "author": "daangn",
+      "stars_at_crawl": 789,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 10,
+      "skills": [
+        "component-guidelines-docs",
+        "component-guidelines-docs",
+        "react-headless-dev",
+        "component-guidelines-docs",
+        "docs-consistency-checker",
+        "react-docs-generator",
+        "react-docs-generator",
+        "docs-consistency-checker",
+        "react-headless-dev",
+        "docs-consistency-checker"
+      ],
+      "categories": [
+        "data",
+        "design",
+        "development",
+        "documents"
+      ]
+    },
+    {
+      "repo": "Xe/site",
+      "author": "Xe",
+      "stars_at_crawl": 708,
+      "license_at_crawl": "Zlib",
+      "skill_count": 6,
+      "skills": [
+        "safe-file-reader",
+        "blogpost-creator",
+        "blogpost-creator",
+        "safe-file-reader",
+        "blogpost-creator",
+        "safe-file-reader"
+      ],
+      "categories": [
+        "data",
+        "development"
+      ]
+    },
+    {
+      "repo": "level09/enferno",
+      "author": "level09",
+      "stars_at_crawl": 563,
+      "license_at_crawl": "MIT",
+      "skill_count": 3,
+      "skills": [
+        "enferno-dev",
+        "enferno-dev",
+        "enferno-dev"
+      ],
+      "categories": [
+        "data",
+        "development"
+      ]
+    },
+    {
+      "repo": "Automattic/wordpress-activitypub",
+      "author": "Automattic",
+      "stars_at_crawl": 556,
+      "license_at_crawl": "MIT",
+      "skill_count": 10,
+      "skills": [
+        "activitypub-integrations",
+        "activitypub-testing",
+        "federation",
+        "activitypub-pr-workflow",
+        "activitypub-testing",
+        "activitypub-php-conventions",
+        "activitypub-pr-workflow",
+        "activitypub-dev-cycle",
+        "activitypub-release",
+        "activitypub-federation"
+      ],
+      "categories": [
+        "design",
+        "development",
+        "testing"
+      ]
+    },
+    {
+      "repo": "chainloop-dev/chainloop",
+      "author": "chainloop-dev",
+      "stars_at_crawl": 517,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 7,
+      "skills": [
+        "upgrading-golang",
+        "custom-builtin-functions",
+        "custom-builtin-functions",
+        "upgrading-golang",
+        "upgrading-chart",
+        "custom-builtin-functions",
+        "upgrading-golang"
+      ],
+      "categories": [
+        "data",
+        "design",
+        "devops"
+      ]
+    },
+    {
+      "repo": "mitsuhiko/agent-stuff",
+      "author": "mitsuhiko",
+      "stars_at_crawl": 512,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 5,
+      "skills": [
+        "ghidra",
+        "web-browser",
+        "improve-skill",
+        "tmux",
+        "github"
+      ],
+      "categories": [
+        "design",
+        "development",
+        "integration"
+      ]
+    },
+    {
+      "repo": "cyberkaida/reverse-engineering-assistant",
+      "author": "cyberkaida",
+      "stars_at_crawl": 506,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 1,
+      "skills": [
+        "binary-triage"
+      ],
+      "categories": [
+        "devops"
+      ]
+    },
+    {
+      "repo": "openshift/hypershift",
+      "author": "openshift",
+      "stars_at_crawl": 485,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 8,
+      "skills": [
+        "debug-cluster",
+        "git-commit-format",
+        "git-commit-format",
+        "effective-go",
+        "debug-cluster",
+        "git-commit-format",
+        "debug-cluster",
+        "code-formatting"
+      ],
+      "categories": [
+        "data",
+        "development"
+      ]
+    },
+    {
+      "repo": "kaitranntt/ccs",
+      "author": "kaitranntt",
+      "stars_at_crawl": 453,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "ccs-delegation"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "r3bl-org/r3bl-open-core",
+      "author": "r3bl-org",
+      "stars_at_crawl": 433,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 15,
+      "skills": [
+        "check-bounds-safety",
+        "check-code-quality",
+        "check-code-quality",
+        "analyze-log-files",
+        "run-clippy",
+        "check-bounds-safety",
+        "write-documentation",
+        "check-bounds-safety",
+        "analyze-performance",
+        "organize-modules"
+      ],
+      "categories": [
+        "data",
+        "development",
+        "documents",
+        "testing"
+      ]
+    },
+    {
+      "repo": "team-attention/plugins-for-claude-natives",
+      "author": "team-attention",
+      "stars_at_crawl": 423,
+      "license_at_crawl": "MIT",
+      "skill_count": 1,
+      "skills": [
+        "session-analyzer-team-attention-plugins-for-cla"
+      ],
+      "categories": [
+        "development"
+      ]
+    },
+    {
+      "repo": "jasonkneen/kiro",
+      "author": "jasonkneen",
+      "stars_at_crawl": 417,
+      "license_at_crawl": "MIT",
+      "skill_count": 13,
+      "skills": [
+        "design-documentation",
+        "spec-driven-development",
+        "troubleshooting",
+        "design-documentation",
+        "requirements-engineering",
+        "ai-prompting",
+        "quality-assurance",
+        "design-documentation",
+        "create-steering-documents",
+        "task-breakdown"
+      ],
+      "categories": [
+        "data",
+        "design",
+        "development",
+        "product",
+        "testing"
+      ]
+    },
+    {
+      "repo": "BrownFineSecurity/iothackbot",
+      "author": "BrownFineSecurity",
+      "stars_at_crawl": 355,
+      "license_at_crawl": "MIT",
+      "skill_count": 17,
+      "skills": [
+        "onvifscan",
+        "onvifscan",
+        "jadx",
+        "apktool",
+        "iotnet",
+        "ffind",
+        "wsdiscovery",
+        "apktool",
+        "wsdiscovery",
+        "jadx"
+      ],
+      "categories": [
+        "data",
+        "development",
+        "testing"
+      ]
+    },
+    {
+      "repo": "dev-five-git/devup-ui",
+      "author": "dev-five-git",
+      "stars_at_crawl": 314,
+      "license_at_crawl": "Apache-2.0",
+      "skill_count": 3,
+      "skills": [
+        "devup-ui",
+        "devup-ui",
+        "devup-ui"
+      ],
+      "categories": [
+        "data",
+        "development"
+      ]
+    },
+    {
+      "repo": "elbwalker/walkerOS",
+      "author": "elbwalker",
+      "stars_at_crawl": 309,
+      "license_at_crawl": "MIT",
+      "skill_count": 24,
+      "skills": [
+        "writing-documentation",
+        "understanding-flow",
+        "mapping-configuration",
+        "understanding-development",
+        "create-source",
+        "understanding-destinations",
+        "create-destination",
+        "understanding-events",
+        "understanding-development",
+        "understanding-events"
+      ],
+      "categories": [
+        "data",
+        "design",
+        "development",
+        "devops",
+        "documents",
+        "productivity"
+      ]
+    }
+  ]
+}

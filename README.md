@@ -61,7 +61,7 @@ Split by who writes a file: curated input, code, or generated output.
 
 | Dir | Role |
 |-----|------|
-| `registry/`   | inputs and contracts — curated `sources.toml`, schemas, and the digest-bound caches the build reads back |
+| `registry/`   | inputs and contracts — curated `sources.toml`, schemas, the digest-bound caches the build reads back, and `source-candidates.json` (mined leads awaiting review) |
 | `processing/` | AI-ready assessment kernel — builds the skill-level index (health / zh / frontmatter) |
 | `skills/awesomeskills/` | the finder skill (thin client over the static index) |
 | `ops/`        | Cloudflare DNS automation (`cf_dns.py`) — token-based, creds never in repo |
@@ -99,6 +99,24 @@ python3 processing/merge_index.py
 
 `base-index.json` and repo grades are deterministic. Optional agent summaries live in a
 digest-bound cache and never affect ranking. See [`docs/enrichment-policy.md`](docs/enrichment-policy.md).
+
+## Aggregators are leads, not sources
+
+An aggregator repo re-hosts other people's skills, so indexing one attaches every trust
+signal to the wrong repository: health measures the aggregator's own commit rate, and the
+entry credits the aggregator rather than the author. One such entry scored health 88 while
+the author's repository had already 404'd.
+
+So aggregators are mined for the repositories behind them instead:
+
+```bash
+python3 processing/mine_sources.py --out registry/source-candidates.json
+```
+
+The output is a candidate list for human review, never index entries. Star counts and
+licenses in it are the aggregator's crawl-time snapshots and go stale; `build_index.py`
+re-measures everything live if a candidate is adopted into `sources.toml`. It is not part
+of the reproducibility check, because it depends on an external moving target.
 
 ## License
 

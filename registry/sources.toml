@@ -49,10 +49,6 @@ id   = "daymade/claude-code-skills"
 kind = "skill-collection"
 note = "Production-oriented skills marketplace"
 
-[[source]]
-id   = "majiayu000/claude-skill-registry"
-kind = "registry"
-note = "Rare explicit machine-readable SearchIndex JSON schema attempt"
 
 [[source]]
 id   = "Dimillian/Skills"
