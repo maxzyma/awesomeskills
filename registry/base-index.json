@@ -1,6 +1,6 @@
 {
   "schema_version": "0.4",
-  "generated_at": "2026-09-02T10:48:09+00:00",
+  "generated_at": "2026-10-10T17:03:17+00:00",
   "repos": {
     "BehiSecc/awesome-claude-skills": {
       "health": 75,
@@ -679,6 +679,28 @@
       "frontmatter_pass_rate": 1.0,
       "skill_count": 1,
       "overall_score": 67,
+      "overall_grade": "C",
+      "score_policy": "deterministic-v1"
+    },
+    "mathieucollaaithos/rank-anything-skill": {
+      "health": 65,
+      "security": {
+        "pass": 1
+      },
+      "license": {
+        "unknown": 1
+      },
+      "collection_coverage": {
+        "discovered_skill_count": 1,
+        "selected_skill_count": 1,
+        "omitted_skill_count": 0,
+        "selection_limit": 30,
+        "complete": true,
+        "reason": "complete"
+      },
+      "frontmatter_pass_rate": 1.0,
+      "skill_count": 1,
+      "overall_score": 58,
       "overall_grade": "C",
       "score_policy": "deterministic-v1"
     }
@@ -23414,6 +23436,74 @@
         "issues": [],
         "headings": 11,
         "code_blocks": 3
+      }
+    },
+    {
+      "id": "mathieucollaaithos/rank-anything-skill",
+      "name": "rank-anything",
+      "summary": "Consult public Rank Anything ratings for a known website or agent, or submit authorized, honest signed feedback after a real interaction. Use when reputation evidence or publishing a rating is relevant to the user's task.",
+      "source_repo": "mathieucollaaithos/rank-anything-skill",
+      "source_url": "https://github.com/mathieucollaaithos/rank-anything-skill",
+      "kind": "skill",
+      "level": "skill",
+      "path": "SKILL.md",
+      "source_ref": "0a6ba067f21b4741b6682f3821951db6e54ef438",
+      "source_ref_kind": "commit",
+      "source_branch": "main",
+      "content_sha256": "36632a88ff7fb65d0fd045d7b3e4345c69db1b3e740c545745b6115e2e296f98",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "36632a88ff7fb65d0fd045d7b3e4345c69db1b3e740c545745b6115e2e296f98",
+          "role": "skill"
+        }
+      ],
+      "files_complete": true,
+      "trust": {
+        "health": 65,
+        "health_factors": {
+          "recency_days": 0,
+          "stars": 0,
+          "forks": 0,
+          "watchers": 0,
+          "age_days": 2,
+          "archived": false,
+          "maintenance_basis": "issues-per-maintainer",
+          "open_issues": 0,
+          "maintainers": 1,
+          "issues_per_maintainer": 0.0,
+          "open_prs": 0,
+          "top_contributor_commits": 2,
+          "parts": {
+            "recency": 40,
+            "maintenance": 25,
+            "engagement": 0,
+            "maturity": 0
+          }
+        },
+        "security": "pass",
+        "security_findings": [],
+        "security_scope": "SKILL.md + executable text files",
+        "security_complete": true,
+        "executable_files_discovered": 0,
+        "executable_files_scanned": 0,
+        "license": "unknown",
+        "license_path": null,
+        "collection_coverage": {
+          "discovered_skill_count": 1,
+          "selected_skill_count": 1,
+          "omitted_skill_count": 0,
+          "selection_limit": 30,
+          "complete": true,
+          "reason": "complete"
+        },
+        "zh": false
+      },
+      "frontmatter": {
+        "valid": true,
+        "issues": [],
+        "headings": 4,
+        "code_blocks": 4
       }
     },
     {
