@@ -1,5 +1,5 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-09-02T10:48:09+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-10-10T17:03:17+00:00. Human + agent readable. Full data: /index.json
 # health/security/repo grade are deterministic; optional summaries are agent enrichment
 
 - uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 91, security pass, en
@@ -826,6 +826,9 @@
 - angular-architect (Jeffallan/claude-skills/skills/angular-architect) — health 67, security pass, en
   Generates Angular 17+ standalone components, configures advanced routing with lazy loading and guards, implements NgRx state management, applies RxJS patterns, and optimizes bundle performance. Use when building Angular 17+ applications with standalone components or signals, setting up NgRx stores, establishing RxJS reactive patterns, performance tuning, or writing Angular tests for enterprise apps.
   https://github.com/Jeffallan/claude-skills/tree/main/skills/angular-architect
+- rank-anything (mathieucollaaithos/rank-anything-skill) — health 65, security pass, en
+  Consult public Rank Anything ratings for a known website or agent, or submit authorized, honest signed feedback after a real interaction. Use when reputation evidence or publishing a rating is relevant to the user's task.
+  https://github.com/mathieucollaaithos/rank-anything-skill
 - xlsx (anthropics/skills/skills/xlsx) — health 64, security pass, en
   Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.
   https://github.com/anthropics/skills/tree/main/skills/xlsx

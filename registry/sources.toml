@@ -182,3 +182,10 @@ note = """Chinese patent drafting/disclosure skill — Chinese repo description,
 positive sample for zh detection, which first-run scored 0 because Chinese community \
 repos describe themselves in English. Single-point-of-dependency risk: 2 contributors, \
 the second with 1 commit, 30 commits total."""
+
+# Community submission #4; trust signals are pipeline-computed.
+[[source]]
+id   = "mathieucollaaithos/rank-anything-skill"
+kind = "skill"
+note = "Community submission via issue #4; trust signals are pipeline-computed"
+
