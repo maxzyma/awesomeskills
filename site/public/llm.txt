@@ -1,5 +1,5 @@
 # awesomeskills — a trust-first index of public agent/Claude skills
-# Generated 2026-09-02T10:48:09+00:00. Human + agent readable. Full data: /index.json
+# Generated 2026-11-25T06:28:13+00:00. Human + agent readable. Full data: /index.json
 # health/security/repo grade are deterministic; optional summaries are agent enrichment
 
 - uctm-init (davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/init) — health 91, security pass, en
@@ -978,6 +978,9 @@
 - access (anthropics/claude-plugins-official/external_plugins/telegram/skills/access) — health 61, security pass, en
   Manage Telegram channel access — approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, or change policy for the Telegram channel.
   https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/telegram/skills/access
+- ebay-data (ecom-crawl/soldfetch-agent-skills/skills/ebay-data) — health 53, security pass, en
+  Research public eBay sold or active listings and item details through SoldFetch. Use for resale comparables, listing observations, or eBay item research; excludes private account, order, and seller transaction data.
+  https://github.com/ecom-crawl/soldfetch-agent-skills/tree/main/skills/ebay-data
 - xlsx (ComposioHQ/awesome-claude-skills/document-skills/xlsx) — health 52, security pass, en
   Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modify existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas
   https://github.com/ComposioHQ/awesome-claude-skills/tree/master/document-skills/xlsx

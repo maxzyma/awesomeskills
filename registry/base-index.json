@@ -1,6 +1,6 @@
 {
   "schema_version": "0.4",
-  "generated_at": "2026-09-02T10:48:09+00:00",
+  "generated_at": "2026-11-25T06:28:13+00:00",
   "repos": {
     "BehiSecc/awesome-claude-skills": {
       "health": 75,
@@ -679,6 +679,28 @@
       "frontmatter_pass_rate": 1.0,
       "skill_count": 1,
       "overall_score": 67,
+      "overall_grade": "C",
+      "score_policy": "deterministic-v1"
+    },
+    "ecom-crawl/soldfetch-agent-skills": {
+      "health": 53,
+      "security": {
+        "pass": 1
+      },
+      "license": {
+        "known": 1
+      },
+      "collection_coverage": {
+        "discovered_skill_count": 1,
+        "selected_skill_count": 1,
+        "omitted_skill_count": 0,
+        "selection_limit": 30,
+        "complete": true,
+        "reason": "complete"
+      },
+      "frontmatter_pass_rate": 1.0,
+      "skill_count": 1,
+      "overall_score": 60,
       "overall_grade": "C",
       "score_policy": "deterministic-v1"
     }
@@ -28739,6 +28761,79 @@
         "issues": [],
         "headings": 13,
         "code_blocks": 2
+      }
+    },
+    {
+      "id": "ecom-crawl/soldfetch-agent-skills/skills/ebay-data",
+      "name": "ebay-data",
+      "summary": "Research public eBay sold or active listings and item details through SoldFetch. Use for resale comparables, listing observations, or eBay item research; excludes private account, order, and seller transaction data.",
+      "source_repo": "ecom-crawl/soldfetch-agent-skills",
+      "source_url": "https://github.com/ecom-crawl/soldfetch-agent-skills/tree/main/skills/ebay-data",
+      "kind": "skill",
+      "level": "skill",
+      "path": "skills/ebay-data/SKILL.md",
+      "source_ref": "81a7f7c316fa65026658a25aaf3f6a6af4af40a8",
+      "source_ref_kind": "commit",
+      "source_branch": "main",
+      "content_sha256": "268fb28c43ab454a5505a6208a48ca998993d3c610067b6cff8e9a8e5c928949",
+      "files": [
+        {
+          "path": "skills/ebay-data/SKILL.md",
+          "sha256": "268fb28c43ab454a5505a6208a48ca998993d3c610067b6cff8e9a8e5c928949",
+          "role": "skill"
+        },
+        {
+          "path": "skills/ebay-data/scripts/soldfetch_api.py",
+          "sha256": "425bc8112770b0a29d2e6d3167a97dfe7cc1f0772b784d2d2445fecb17930f55",
+          "role": "executable"
+        }
+      ],
+      "files_complete": true,
+      "trust": {
+        "health": 53,
+        "health_factors": {
+          "recency_days": 28,
+          "stars": 0,
+          "forks": 0,
+          "watchers": 0,
+          "age_days": 46,
+          "archived": false,
+          "maintenance_basis": "issues-per-maintainer",
+          "open_issues": 0,
+          "maintainers": 1,
+          "issues_per_maintainer": 0.0,
+          "open_prs": 0,
+          "top_contributor_commits": 3,
+          "parts": {
+            "recency": 26,
+            "maintenance": 25,
+            "engagement": 0,
+            "maturity": 2
+          }
+        },
+        "security": "pass",
+        "security_findings": [],
+        "security_scope": "SKILL.md + executable text files",
+        "security_complete": true,
+        "executable_files_discovered": 1,
+        "executable_files_scanned": 1,
+        "license": "known",
+        "license_path": "LICENSE",
+        "collection_coverage": {
+          "discovered_skill_count": 1,
+          "selected_skill_count": 1,
+          "omitted_skill_count": 0,
+          "selection_limit": 30,
+          "complete": true,
+          "reason": "complete"
+        },
+        "zh": false
+      },
+      "frontmatter": {
+        "valid": true,
+        "issues": [],
+        "headings": 4,
+        "code_blocks": 1
       }
     },
     {
